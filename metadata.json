@@ -1,0 +1,21 @@
+{
+    "repoUrl": "https://github.com/feit-comp30019/2025s2-project-2-ctrl-n_c_s.git",
+    "teamName": "Ctrl N_C_S",
+    "teamMembers": [
+      {
+        "name": "Xinyue (Cassie) Luo",
+        "github": "heli3939",
+        "email": "xinyueluo@student.unimelb.edu.au"
+      },
+      {
+        "name": "Kexin Liang",
+        "github": "SeL033",
+        "email": "kexiliang@student.unimelb.edu.au"
+      },
+      {
+        "name": "Difei Li",
+        "github": "Difei-Li",
+        "email": "difeil2@student.unimelb.edu.au"
+      }
+    ]
+  }
