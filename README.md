@@ -1,110 +1,100 @@
-# Game Design Document (GDD)
+# Project 2: Game Design Document
 
-Read the [project specification](https://github.com/feit-comp30019/project-2-specification) for details on what _actually_ needs to be covered here. While you should (obviously) delete everything here and replace it with an actual GDD before submitting your project, you may wish to keep a copy of it as a cheat sheet for how to use "GitHub flavoured markdown".
+---
 
-Ensure that _your game design document_ is `well written` and formatted **appropriately**.
-Below are examples of markdown features available on GitHub that might be useful, though this is not an exhaustive list, nor is it required that you use all of these features.
+### 1. Game Overview
 
-### Table of contents
+- **Core Concept**  
+  _(What is the main idea behind your game? Who/what is the player, and what is their role?)_
 
-- [Introduction](#introduction)
-- [Emojis and Icons :boom:](#emojis-and-icons)
-- [Using Images](#using-images)
-- [Code Snipets](#code-snippets)
-- [Tables and Lists](#tables-and-lists)
-- [Maths and Diagrams](#maths-and-diagrams)
-- [References](#references)
+- **Related Genre(s)**  
+  _(What genre does your game fall into? What similar games exist, and what makes yours different?)_
 
-### Introduction
+- **Target Audience**  
+  _(Who are you designing the game for? Which demographic? Will you be able to test with them later?)_
 
-_Exciting title_ is a first-person shooter (FPS) set in... we're not sure yet. It's a bit like _Doom_ meets _Animal Crossing_, but with a twist. The player must...
+- **Unique Selling Points (USPs)**  
+  _(What makes your game stand out? List key unique features.)_
 
-> "This is a quote from the game designer, explaining why this game is going to be the best thing since sliced bread." - Game Designer
+---
 
-### Emojis and Icons
+### 2. Story and Narrative
 
-Check out [this page](https://github-emoji-picker.rickstaa.dev/) for a list of emojis/icons that you can use in your markdown. For example, you can use :sparkles: to make things sparkle! Use them sparingly and selectively, as too many emojis can be distracting, and some aren't super appropriate for a GDD. :wink: :wink: :wink:
+- **Backstory**  
+  _(What is the setting, conflict, and plot progression?)_
 
-### Using Images
+- **Characters**  
+  _(Who are the main characters, their motivations, relationships, and appearances?)_
 
-Remember that your GDD should be a very visual document! It's easy to include images or gifs in your markdown, like this:
+---
 
-<p align="center">
-  <img src="Images/sample.gif" width="300">
-</p>
+### 3. Gameplay and Mechanics
 
-### Code Snippets
+- **Player Perspective**  
+  _(First-person, third-person, 2.5D, etc?)_
 
-Code is unlikely to be needed much (if at all) in your GDD, but it's still handy to know how to embed it. If you do include any `code snippets`, be sure to explain them properly.
+- **Controls**  
+  _(What buttons/keys are used? Any combos?)_
 
-```c#
-public class CameraController : MonoBehaviour
-{
-    void Start ()
-    {
-        // Do something...
-    }
-}
-```
+- **Progression**  
+  _(How does difficulty increase? How does the player win/lose?)_
 
-### Tables and Lists
+- **Gameplay Mechanics**  
+  _(What rules/actions govern the game world? What makes it fun?)_
 
-You can create tables using markdown, though it's a bit fiddly and not super customisable. Here's an example:
+---
 
-| Column 1 | Column 2 | Column 3 |
-| -------- | -------- | -------- |
-| Row 1    | Row 1    | Row 1    |
-| Row 2    | Row 2    | Row 2    |
-| Row 3    | Row 3    | Row 3    |
+### 4. Levels and World Design
 
-You can also create lists, like this:
+- **Game World**  
+  _(Is it 2D, 2.5D, 3D? How does navigation work? Maps/minimaps?)_
 
-- Item 1
-- Item 2
-- Item 3
+- **Objects**  
+  _(What interactive objects exist, and how do they interact?)_
 
-Or like this:
+- **Physics**  
+  _(What physics are present? Gravity, collisions, interactions?)_
 
-1. Item 1
-2. Item 2
-3. Item 3
+---
 
-Or even nested lists like this:
+### 5. Art and Audio
 
-1. Item 1
-   - Item 1.1
-   - Item 1.2
-2. Item 2
-   - Item 2.1
-   - Item 2.2
+- **Art Style**  
+  _(Overall aesthetic, colors, shapes, textures. Include concept art/sketches if possible.)_
 
-### Maths and Diagrams
+- **Sound and Music**  
+  _(What sound effects/music are used? How do they fit the theme?)_
 
-Like code, maths probably won't feature much in your GDD, but it's worth knowing that you can use LaTeX to write equations, and have them automatically render in your markdown:
+- **Assets**  
+  _(List artistic assets you will use or source, with references/URLs.)_
 
-$$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)$$
+---
 
-... [look here](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/writing-mathematical-expressions) if you want to learn more about this.
+### 6. User Interface (UI)
 
-It's also possible to [create diagrams](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-diagrams) via GitHub flavoured markdown using an integrated tool called Mermaid. This is a pretty powerful tool, and it's worth checking out [this](https://mermaid.js.org/intro/) guide for more information on what it can do. As a quick example, here's a flowchart:
+- Health bars, score displays, menus, etc.
+- Wireframes, sketches, and diagrams are encouraged.
+- Ensure UI fits with art style.
 
-```mermaid
-graph LR
-    A[Hard edge] -->|Link text| B(Round edge)
-    B --> C{Decision}
-    C -->|One| D[Result one]
-    C -->|Two| E[Result two]
-```
+---
 
-Pretty neat, huh? You can also create sequence diagrams, Gantt charts, class diagrams, and more. Check out the [Mermaid Live Editor](https://mermaid-js.github.io/mermaid-live-editor/) to see what's possible.
+### 7. Technology and Tools
 
-### References
+- **Unity**
+- **GitHub**
+- Optional: image/audio editing, 3D modelling tools.
+- Include version numbers and links if relevant.
 
-Need more help? Check out these resources, which everything in this document is based on:
+---
 
-- [GitHub Flavoured Markdown](https://guides.github.com/features/mastering-markdown/) (official guide)
-- [GitHub LaTeX](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/writing-mathematical-expressions)
-- [GitHub Diagrams](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-diagrams)
-- [Mermaid Docs](https://mermaid-js.github.io/mermaid/#/)
-- [Mermaid Live Editor](https://mermaid-js.github.io/mermaid-live-editor/)
-- [Emoji Picker](https://github-emoji-picker.rickstaa.dev/)
+### 8. Team Communication, Timelines, and Task Assignment
+
+- Plan out **who does what**.
+- Which tools will you use (e.g., Trello, Discord, Slack)?
+
+---
+
+### 9. Possible Challenges
+
+- List technical, creative, or scheduling challenges you foresee.
+- Suggest ways to mitigate them (e.g., prototyping, testing).
