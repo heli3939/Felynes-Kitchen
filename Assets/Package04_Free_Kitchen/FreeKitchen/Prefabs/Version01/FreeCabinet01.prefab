@@ -26,6 +26,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8716899229085848867}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -36,7 +37,6 @@ Transform:
   - {fileID: 2973303656895334517}
   - {fileID: 1680599273970266522}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4907989644340527164
 MeshFilter:
@@ -63,6 +63,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -96,9 +99,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8716899229085848867}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 1.1854801, y: 1.8267909, z: 0.64668}
   m_Center: {x: -0.00000008940697, y: 0.9133958, z: 0.0000003427267}
 --- !u!1001 &1213730406353744757
@@ -106,12 +117,9 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 8337136006880399257}
     m_Modifications:
-    - target: {fileID: 7163956355041445358, guid: c05978aee78c54b47bda1138481145be, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7163956355041445358, guid: c05978aee78c54b47bda1138481145be, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.5
@@ -157,6 +165,9 @@ PrefabInstance:
       value: FreeCabinet01_DoorRight
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c05978aee78c54b47bda1138481145be, type: 3}
 --- !u!4 &8337136008041330331 stripped
 Transform:
@@ -168,6 +179,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 8337136006880399257}
     m_Modifications:
     - target: {fileID: 6210841272465574568, guid: 1a38065cf7a124a358a86f6ac65a1a34, type: 3}
@@ -219,6 +231,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a38065cf7a124a358a86f6ac65a1a34, type: 3}
 --- !u!4 &8337136007870609346 stripped
 Transform:
@@ -230,6 +245,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 8337136006880399257}
     m_Modifications:
     - target: {fileID: 6210841272465574568, guid: 1a38065cf7a124a358a86f6ac65a1a34, type: 3}
@@ -281,6 +297,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a38065cf7a124a358a86f6ac65a1a34, type: 3}
 --- !u!4 &2973303656895334517 stripped
 Transform:
@@ -292,6 +311,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 8337136006880399257}
     m_Modifications:
     - target: {fileID: 7163956355041445358, guid: c05978aee78c54b47bda1138481145be, type: 3}
@@ -343,6 +363,9 @@ PrefabInstance:
       value: FreeCabinet01_DoorRight
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c05978aee78c54b47bda1138481145be, type: 3}
 --- !u!4 &1680599273970266522 stripped
 Transform:
