@@ -46,21 +46,20 @@ public class PickDrop_Ingredients : MonoBehaviour
         if (rb != null)
         {
             rb.isKinematic = false;
-            rb.useGravity = true;          // 确保有重力
+            rb.useGravity = true;         
             rb.linearVelocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
         }
 
-        // 计算主角前方的丢弃点
-        Vector3 forwardOffset = transform.forward * 0.25f; // 丢到前面一些
+        // Calculate the Drop point in front of the character
+        Vector3 forwardOffset = transform.forward * 0.4f; 
         Vector3 dropStart = transform.position + Vector3.up * 1.0f + forwardOffset;
 
         Vector3 finalDropPosition = dropStart;
 
-        // 从上往下射线检测，找地面
         if (Physics.Raycast(dropStart, Vector3.down, out RaycastHit hit, 5f))
         {
-            finalDropPosition = hit.point + Vector3.up * 0.1f; // 在地面上方一点
+            finalDropPosition = hit.point + Vector3.up * 0.1f; 
             Debug.Log("Raycast hit ground at: " + hit.point);
         }
         else
@@ -70,7 +69,6 @@ public class PickDrop_Ingredients : MonoBehaviour
 
         heldItem.transform.position = finalDropPosition;
 
-        // 可选：给点前向推力，让它掉得更自然
         if (rb != null)
         {
             rb.AddForce(transform.forward * 1.0f, ForceMode.Impulse);
