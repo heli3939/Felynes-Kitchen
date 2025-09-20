@@ -17,7 +17,7 @@ public class OpenDoor : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             DoorInteraction closestDoor = null;
             float minDist = Mathf.Infinity;
