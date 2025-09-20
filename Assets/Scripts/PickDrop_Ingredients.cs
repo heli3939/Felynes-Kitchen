@@ -37,6 +37,7 @@ public class PickDrop_Ingredients : MonoBehaviour
     {
         heldItem.transform.SetParent(null);
         Rigidbody rb = heldItem.GetComponent<Rigidbody>();
+
         if (rb != null)
         {
             rb.isKinematic = false;
