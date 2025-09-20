@@ -37,7 +37,15 @@ public class PickDrop_Ingredients : MonoBehaviour
     {
         heldItem.transform.SetParent(null);
         Rigidbody rb = heldItem.GetComponent<Rigidbody>();
-        if (rb != null) rb.isKinematic = false;
+        if (rb != null)
+        {
+            rb.isKinematic = false;
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+        }
+
+        Vector3 dropOffset = transform.forward * 0.35f + Vector3.up * 0.5f;
+        heldItem.transform.position = transform.position + dropOffset;
 
         Debug.Log("Dropped: " + heldItem.name);
         heldItem = null;
