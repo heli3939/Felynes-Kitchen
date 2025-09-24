@@ -13,16 +13,15 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
     public float zMax = 3f;
 
     private Rigidbody rb;
-    private Vector2 input;
+    private Vector3 input;
     private float startY;                 // lock Y position for now
 
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
         rb.isKinematic = false;
-        rb.useGravity = false;  // disable gravity while testing
-        rb.constraints = RigidbodyConstraints.FreezeRotation
-                       | RigidbodyConstraints.FreezePositionY; // keep upright & fixed height
+        rb.useGravity = false;  // enable gravity for physics
+        rb.constraints = RigidbodyConstraints.FreezeRotation; // only freeze rotation
         rb.interpolation = RigidbodyInterpolation.Interpolate;
 
         startY = transform.position.y;
@@ -30,13 +29,20 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
 
     void Update()
     {
-        // WASD input
+        // WASD and space input
         float x = (Input.GetKey(KeyCode.D) ? 1f : 0f) - (Input.GetKey(KeyCode.A) ? 1f : 0f);
         float z = (Input.GetKey(KeyCode.W) ? 1f : 0f) - (Input.GetKey(KeyCode.S) ? 1f : 0f);
-        input = new Vector2(x, z);
+
+        input = new Vector3(x, 0f, z);
 
         if (input.sqrMagnitude > 1f)
             input.Normalize();
+
+        // Jump input (simple)
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            rb.AddForce(Vector3.up * 6f, ForceMode.VelocityChange);
+        }
     }
 
     void FixedUpdate()
@@ -44,8 +50,8 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
         // Current velocity on X/Z
         Vector3 planarVel = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
 
-        // Desired velocity
-        Vector3 desired = new Vector3(input.x, 0f, input.y) * moveSpeed;
+        // Desired velocity (note: use input.z here!)
+        Vector3 desired = new Vector3(input.x, 0f, input.z) * moveSpeed;
 
         // Difference
         Vector3 delta = desired - planarVel;
@@ -65,7 +71,6 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
         // Clamp Z movement
         Vector3 pos = rb.position;
         pos.z = Mathf.Clamp(pos.z, zMin, zMax);
-        pos.y = startY; // keep fixed Y height
         rb.position = pos;
     }
 }
