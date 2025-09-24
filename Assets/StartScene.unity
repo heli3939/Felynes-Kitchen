@@ -3641,7 +3641,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1040543935934662976, guid: c726bfcdf3ad842acb677a25d9f13872, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.154
+      value: 1.163
       objectReference: {fileID: 0}
     - target: {fileID: 1040543935934662976, guid: c726bfcdf3ad842acb677a25d9f13872, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3726,6 +3726,10 @@ PrefabInstance:
     - target: {fileID: 5997616366415398071, guid: c726bfcdf3ad842acb677a25d9f13872, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.399
+      objectReference: {fileID: 0}
+    - target: {fileID: 5997616366415398071, guid: c726bfcdf3ad842acb677a25d9f13872, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.443
       objectReference: {fileID: 0}
     - target: {fileID: 5997616366415398071, guid: c726bfcdf3ad842acb677a25d9f13872, type: 3}
       propertyPath: m_LocalPosition.z
@@ -8764,54 +8768,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6580099010549954360, guid: 72427da3f2db798428c3426892365b39, type: 3}
   m_PrefabInstance: {fileID: 966777982}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &966777984
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 283153445}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.617668, y: 0.8010732, z: 0.6176679}
-  m_Center: {x: 0.0000009685755, y: -0.051602587, z: 0.0000019073486}
---- !u!54 &966777985
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 283153445}
-  serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &970187598
 GameObject:
   m_ObjectHideFlags: 0
@@ -12213,7 +12169,7 @@ GameObject:
   - component: {fileID: 1433837537}
   - component: {fileID: 1433837536}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Canvas_PauseMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20842,6 +20798,5 @@ SceneRoots:
   - {fileID: 512281559}
   - {fileID: 230411391}
   - {fileID: 1725515760}
-  - {fileID: 1326062152158993101}
   - {fileID: 1433837539}
   - {fileID: 970187601}
