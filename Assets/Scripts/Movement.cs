@@ -20,7 +20,7 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.isKinematic = false;
-        rb.useGravity = false;  // enable gravity for physics
+        rb.useGravity = true;  // enable gravity for physics
         rb.constraints = RigidbodyConstraints.FreezeRotation; // only freeze rotation
         rb.interpolation = RigidbodyInterpolation.Interpolate;
 
