@@ -4,44 +4,50 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections;
 
+public enum QTEResult
+{
+    Perfect,
+    Good,
+    Miss
+}
+
 public class QTEUIController : MonoBehaviour
 {
-    [Header("Refs")]
+    [Header("UI References")]
     public RectTransform circleGroup;
     public RectTransform indicator;
     public Image successZoneImage;   
     public Image perfectZoneImage;   
 
-    [Header("Config")]
+    [Header("QTE Settings")]
     public int totalChecks = 3;
     public float successArcDegrees = 60f;
-    public float perfectArcDegrees = 20f;
+    public float perfectArcDegrees = 20f;   
     public float rotateSpeed = 180f;
     public KeyCode confirmKey = KeyCode.Space;
-    public bool autoStartOnEnable = true;
 
-    [Header("Tuning")]
-    public float toleranceDeg = 2f;     
-
-    [Header("UI Text Display")]
-    public TMP_Text resultText;   
-    public float resultDisplayTime = 1.2f; 
-    private Coroutine resultCoroutine;
-
+    [Header("Runtime State")]
     private bool isRunning = false;
     private int currentCheck = 0;
-    private bool[] results;
+    private QTEResult[] results;
 
-    public Action<string[]> OnQTEFinished;  // "Perfect"/"Good"/"Fail" 
+    [Header("Result Display")]
+    public TMP_Text resultText;
+    public float resultDisplayTime = 1f; 
+
+    [Header("Fade Effect")]
+    public CanvasGroup canvasGroup;
+    public float fadeDuration = 1f; 
+
+    public Action<QTEResult[]> OnQTEFinished;
 
     private void OnEnable()
     {
-        if (autoStartOnEnable) StartQTE();
-    }
+        StartQTE();
 
-    private void OnDisable()
-    {
-        isRunning = false;
+        // Mute the prompt
+        if (resultText != null)
+            resultText.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -50,50 +56,37 @@ public class QTEUIController : MonoBehaviour
 
         float z = indicator.localEulerAngles.z;
         z = Mathf.Repeat(z - rotateSpeed * Time.deltaTime, 360f);
-        indicator.localEulerAngles = new Vector3(0f, 0f, z);
+        indicator.localEulerAngles = new Vector3(0, 0, z);
 
         if (Input.GetKeyDown(confirmKey))
         {
-            string result = EvaluateHit();
-            Debug.Log($"result: {result}");
+            QTEResult result = EvaluateHit();
+            results[currentCheck] = result;
             ShowResultText(result);
 
-            results[currentCheck] = result == "Perfect";
-            currentCheck++;
+            Debug.Log($" The {currentCheck + 1} result: {result}");
 
+            currentCheck++;
             if (currentCheck >= totalChecks)
             {
                 Finish();
             }
             else
             {
-                RandomizeZones();
+                RandomizeCircleGroup();
             }
         }
     }
 
     public void StartQTE()
     {
-        if (indicator == null || successZoneImage == null || perfectZoneImage == null)
-        {
-            Debug.LogError("[QTE] 缺少引用！");
-            return;
-        }
-
-        results = new bool[totalChecks];
-        currentCheck = 0;
         isRunning = true;
-        indicator.localEulerAngles = Vector3.zero;
-
-        // ✅ 启动时清空结果提示文字
-        if (resultText != null)
-        {
-            resultText.text = "";
-            resultText.alpha = 0f;
-        }
+        currentCheck = 0;
+        results = new QTEResult[totalChecks];
 
         SetupZones();
-        RandomizeZones();
+        RandomizeCircleGroup();
+        indicator.localEulerAngles = Vector3.zero;
     }
 
     public void StopQTE()
@@ -101,143 +94,103 @@ public class QTEUIController : MonoBehaviour
         isRunning = false;
     }
 
-    private void Finish()
-    {
-        isRunning = false;
-
-        // 转换结果数组
-        string[] labels = new string[results.Length];
-        for (int i = 0; i < results.Length; i++)
-        {
-            labels[i] = results[i] ? "Perfect" : "Good";
-        }
-
-        // ✅ 等待最后一个提示显示完再关闭
-        if (resultText != null && !string.IsNullOrEmpty(resultText.text))
-        {
-            StartCoroutine(DelayFinish(labels));
-        }
-        else
-        {
-            OnQTEFinished?.Invoke(labels);
-        }
-    }
-
-    private IEnumerator DelayFinish(string[] labels)
-    {
-        // 等待文字显示时间 + 一点淡出时间
-        yield return new WaitForSeconds(resultDisplayTime + 0.5f);
-        OnQTEFinished?.Invoke(labels);
-    }
-
-
     private void SetupZones()
     {
-        successZoneImage.type = Image.Type.Filled;
-        successZoneImage.fillMethod = Image.FillMethod.Radial360;
-        successZoneImage.fillAmount = successArcDegrees / 360f;
-
-        perfectZoneImage.type = Image.Type.Filled;
-        perfectZoneImage.fillMethod = Image.FillMethod.Radial360;
-
-        // ✅ 保持视觉上完整显示
-        perfectZoneImage.fillAmount = 1f;
+        if (successZoneImage != null && perfectZoneImage != null)
+        {
+            // Let the transform of perfectzone be the same as successzone
+            perfectZoneImage.rectTransform.localEulerAngles =
+                successZoneImage.rectTransform.localEulerAngles;
+        }
     }
 
 
-    private void RandomizeZones()
+    private void RandomizeCircleGroup()
     {
-        // 1️⃣ 刷新整个圆圈
         float randomAngle = UnityEngine.Random.Range(0f, 360f);
         circleGroup.localEulerAngles = new Vector3(0, 0, randomAngle);
-
-        // 2️⃣ 确保两者绘制参数一致
-        perfectZoneImage.fillOrigin = successZoneImage.fillOrigin;
-        perfectZoneImage.fillClockwise = successZoneImage.fillClockwise;
-
-        // ✅ 3️⃣ 不再对 perfectZoneImage 自己旋转，只要跟随父级
-        perfectZoneImage.rectTransform.localEulerAngles = Vector3.zero;
     }
 
-    private string EvaluateHit()
+    private QTEResult EvaluateHit()
     {
         float indicatorAngle = Mathf.Repeat(indicator.eulerAngles.z, 360f);
-        float successCenter = GetRadialCenterAngle(successZoneImage, successArcDegrees);
 
-        // ✅ 随机 perfect 偏移（判定用）
-        float maxOffset = (successArcDegrees - perfectArcDegrees) * 0.5f;
-        float perfectOffset = UnityEngine.Random.Range(-maxOffset, +maxOffset);
-        float perfectCenter = successCenter + perfectOffset;
+        // SuccessZone range and angle
+        float successCenter = Mathf.Repeat(successZoneImage.rectTransform.eulerAngles.z, 360f);
+        float successHalfRange = successArcDegrees * 0.5f;
+
+        // PerfectZone range and angle
+        float perfectCenter = Mathf.Repeat(perfectZoneImage.rectTransform.eulerAngles.z, 360f);
+        float perfectHalfRange = perfectArcDegrees * 0.5f;
 
         float diffSuccess = Mathf.Abs(Mathf.DeltaAngle(indicatorAngle, successCenter));
         float diffPerfect = Mathf.Abs(Mathf.DeltaAngle(indicatorAngle, perfectCenter));
 
-        bool inPerfect = diffPerfect <= ((perfectArcDegrees * 0.5f + toleranceDeg) * 1f);
-        bool inSuccess = diffSuccess <= (successArcDegrees * 0.5f + toleranceDeg);
-
-        if (inPerfect) return "Perfect";
-        if (inSuccess) return "Good";
-        return "Miss";
+        // Estimate if hit the target
+        if (diffPerfect <= perfectHalfRange) return QTEResult.Perfect;
+        else if (diffSuccess <= successHalfRange) return QTEResult.Good;
+        else return QTEResult.Miss;
     }
 
-    private void ShowResultText(string result)
+    private void Finish()
+    {
+        isRunning = false;
+
+        OnQTEFinished?.Invoke(results);
+
+        StartCoroutine(FadeOutQTE(1f)); 
+    }
+
+    private void ShowResultText(QTEResult result)
     {
         if (resultText == null) return;
 
-        if (resultCoroutine != null) StopCoroutine(resultCoroutine);
-        resultCoroutine = StartCoroutine(DisplayResultCoroutine(result));
+        switch (result)
+        {
+            case QTEResult.Perfect:
+                resultText.text = "PERFECT!";
+                resultText.color = Color.orange;
+                break;
+
+            case QTEResult.Good:
+                resultText.text = "GOOD";
+                resultText.color = Color.yellow;
+                break;
+
+            case QTEResult.Miss:
+                resultText.text = "MISS";
+                resultText.color = Color.grey;
+                break;
+        }
+
+        resultText.gameObject.SetActive(true);
+        CancelInvoke(nameof(HideResultText)); 
+        Invoke(nameof(HideResultText), resultDisplayTime);
     }
 
-    private IEnumerator DisplayResultCoroutine(string result)
+    private void HideResultText()
     {
-        // 设置文字与颜色
-        resultText.text = result.ToUpper();
-        if (result == "Perfect")
-            resultText.color = Color.yellow;
-        else if (result == "Good")
-            resultText.color = Color.blue;
-        else
-            resultText.color = Color.grey;
+        if (resultText != null)
+            resultText.gameObject.SetActive(false);
+    }
 
-        // 淡入并保持一段时间
-        resultText.alpha = 1f; // 立即显示
-        yield return new WaitForSeconds(resultDisplayTime);
+    private IEnumerator FadeOutQTE(float delay)
+    {
+        yield return new WaitForSeconds(delay);
 
-        // 淡出
-        float fadeTime = 0.5f;
-        float t = 0f;
-        while (t < fadeTime)
+        float elapsed = 0f;
+        float startAlpha = canvasGroup.alpha;
+
+        while (elapsed < fadeDuration)
         {
-            t += Time.deltaTime;
-            resultText.alpha = Mathf.Lerp(1f, 0f, t / fadeTime);
+            elapsed += Time.deltaTime;
+            canvasGroup.alpha = Mathf.Lerp(startAlpha, 0f, elapsed / fadeDuration);
             yield return null;
         }
 
-        resultText.text = "";
-    }
-    // 计算某个 Radial 360 Image 的“中心角”（世界角度，0~360）
-    float GetRadialCenterAngle(Image img, float arcDegrees)
-    {
-        // 基础角：物体的世界Z角度
-        float baseZ = img.rectTransform.eulerAngles.z;
+        canvasGroup.alpha = 0f;
+        gameObject.SetActive(false);
 
-        // 按 FillOrigin 决定起始角相对 baseZ 的偏移
-        // Unity: 0=Bottom, 1=Right, 2=Top, 3=Left
-        float originOffset = 0f;
-        switch (img.fillOrigin)
-        {
-            case 0: originOffset = 180f; break;  // Bottom：向下
-            case 1: originOffset = -90f; break;  // Right：向右
-            case 2: originOffset = 0f; break;    // Top：向上
-            case 3: originOffset = 90f; break;   // Left：向左
-        }
-
-        // 起始角（世界角度）
-        float start = Mathf.Repeat(baseZ + originOffset, 360f);
-
-        float dir = img.fillClockwise ? -1f : 1f;
-        float center = Mathf.Repeat(start - dir * (arcDegrees * 0.5f), 360f);
-
-        return center;
+        FindObjectOfType<QTEManager>()?.EndQTE();
     }
 }

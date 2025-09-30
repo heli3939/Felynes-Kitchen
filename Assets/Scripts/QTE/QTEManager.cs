@@ -38,25 +38,19 @@ public class QTEManager : MonoBehaviour
         if (qteCanvas != null) qteCanvas.SetActive(true);
     }
 
-    private void HandleFinished(string[] results)
+    private void HandleFinished(QTEResult[] results)
     {
-        bool allPerfect = true;
-        bool hasGood = false;
-
+        bool allSuccess = true;
         foreach (var r in results)
         {
-            if (r == "Good") hasGood = true;
-            if (r != "Perfect") allPerfect = false;
+            if (r == QTEResult.Miss)
+            {
+                allSuccess = false;
+                break;
+            }
         }
 
-        if (allPerfect)
-            Debug.Log("🌟 All Perfect！");
-        else if (hasGood)
-            Debug.Log("✅ Partial Good ");
-        else
-            Debug.Log("❌ All fail ");
-
-        EndQTE(); 
+        Debug.Log($"QTEfinish: {(allSuccess ? "perfect ✅" : "you have one good ❌")}");
     }
 
     public void EndQTE()
