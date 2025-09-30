@@ -3,11 +3,11 @@
 public class QTEManager : MonoBehaviour
 {
     [Header("Cameras")]
-    public GameObject tpCamera;  
+    public GameObject tpCamera;   
     public GameObject fpCamera;   
 
     [Header("QTE UI")]
-    public GameObject qteCanvas;        // QTE Canvas
+    public GameObject qteCanvas;
     public QTEUIController qteController;
 
     private void Awake()
@@ -38,23 +38,33 @@ public class QTEManager : MonoBehaviour
         if (qteCanvas != null) qteCanvas.SetActive(true);
     }
 
-    private void HandleFinished(bool[] results)
+    private void HandleFinished(string[] results)
     {
-        // Statistical results
-        bool allSuccess = true;
-        foreach (var r in results) if (!r) { allSuccess = false; break; }
+        bool allPerfect = true;
+        bool hasGood = false;
 
-        EndQTE();
+        foreach (var r in results)
+        {
+            if (r == "Good") hasGood = true;
+            if (r != "Perfect") allPerfect = false;
+        }
+
+        if (allPerfect)
+            Debug.Log("🌟 All Perfect！");
+        else if (hasGood)
+            Debug.Log("✅ Partial Good ");
+        else
+            Debug.Log("❌ All fail ");
+
+        EndQTE(); 
     }
 
     public void EndQTE()
     {
-        // close QTE
+
         if (qteController != null) qteController.StopQTE();
+
         if (qteCanvas != null) qteCanvas.SetActive(false);
 
-        // back to main camera
-        if (fpCamera != null) fpCamera.SetActive(false);
-        if (tpCamera != null) tpCamera.SetActive(true);
     }
 }
