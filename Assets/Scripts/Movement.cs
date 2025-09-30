@@ -4,10 +4,11 @@ using UnityEngine;
 public class PlayerMovePhysicsSafe : MonoBehaviour
 {
     [Header("Movement")]
-    public float moveSpeed = 6f;
-    public float acceleration = 25f;
-    public float deceleration = 15f;
+    public float moveSpeed = 4f;
+    public float acceleration = 20f;
+    public float deceleration = 10f;
     public float rotateSpeed = 10f;   // rotation smoothing
+    public float jumpHeight = 4f;
 
     [Header("Depth Limits (Z axis)")]
     public float zMin = -3f;
@@ -43,7 +44,7 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            rb.AddForce(Vector3.up * 6f, ForceMode.VelocityChange);
+            rb.AddForce(Vector3.up * jumpHeight, ForceMode.VelocityChange);
         }
     }
 
