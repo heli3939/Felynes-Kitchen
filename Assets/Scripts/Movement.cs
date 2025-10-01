@@ -1,14 +1,15 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMovePhysicsSafe : MonoBehaviour
 {
     [Header("Movement")]
-    public float moveSpeed = 4f;
-    public float acceleration = 20f;
+    public float moveSpeed = 1f;
+    public float acceleration = 5f;
     public float deceleration = 10f;
     public float rotateSpeed = 10f;   // rotation smoothing
-    public float jumpHeight = 4f;
+    public float jumpHeight = 3f;
 
     [Header("Depth Limits (Z axis)")]
     public float zMin = -3f;
@@ -18,7 +19,9 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
     private Vector3 input;
     private float startY;
 
-    // NEW: cache last facing so we keep the same heading when idle
+    private Boolean onGround = true;
+
+    // cache last facing so we keep the same heading when idle
     private Vector3 lastLookDir;
 
     void Awake()
@@ -26,6 +29,7 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.isKinematic = false;
         rb.useGravity = true;
+
         // allow yaw, block tipping
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
         rb.interpolation = RigidbodyInterpolation.Interpolate;
@@ -36,6 +40,7 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
 
     void Update()
     {
+        if (!onGround) Debug.Log("isGrounded: " + onGround);
         float x = (Input.GetKey(KeyCode.D) ? 1f : 0f) - (Input.GetKey(KeyCode.A) ? 1f : 0f);
         float z = (Input.GetKey(KeyCode.W) ? 1f : 0f) - (Input.GetKey(KeyCode.S) ? 1f : 0f);
 
@@ -50,8 +55,8 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
 
     void FixedUpdate()
     {
-        // --- movement (unchanged) ---
-        Vector3 planarVel = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+        // --- movement ---
+        Vector3 planarVel = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);  // use velocity
         Vector3 desired = new Vector3(input.x, 0f, input.z) * moveSpeed;
         Vector3 delta = desired - planarVel;
         float accel = (input.sqrMagnitude > 0.01f) ? acceleration : deceleration;
@@ -62,7 +67,7 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
 
         rb.AddForce(force, ForceMode.Acceleration);
 
-        // --- rotation (only when input) ---
+        // --- rotation ---
         if (input.sqrMagnitude > 0.01f)
         {
             lastLookDir = input; // remember heading
@@ -72,13 +77,29 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
         else
         {
             // No input: keep facing the last direction and stop physics spin
-            rb.angularVelocity = Vector3.zero; // kill collision-induced spin
-            // do NOT call MoveRotation so it stays as-is
+            rb.angularVelocity = Vector3.zero;
         }
 
         // --- clamp Z lane ---
         Vector3 pos = rb.position;
         pos.z = Mathf.Clamp(pos.z, zMin, zMax);
         rb.position = pos;
+
+        Vector3 vel = rb.linearVelocity;
+
+        onGround = Physics.Raycast(transform.position, Vector3.down, 0.5f);
+
+        if (!onGround)
+        {
+            // limit horizontal speed while in air
+            float maxAirSpeed = 0.5f;
+            Vector3 horizVel = new Vector3(vel.x, 0, vel.z);
+            if (horizVel.magnitude > maxAirSpeed)
+            {
+                horizVel = horizVel.normalized * maxAirSpeed;
+                vel = new Vector3(horizVel.x, vel.y, horizVel.z);
+                rb.linearVelocity = vel;
+            }
+        }
     }
 }
