@@ -18,11 +18,19 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
     [Header("Collision")]
     public Collider Capsule;
 
+    // >>> New: jump feel controls
+    [Header("Jump Feel")]
+    [Tooltip("Extra gravity while falling (1 = default gravity)")]
+    public float fallGravityMultiplier = 1.5f;
+    [Tooltip("Extra gravity for short hops when jump is released early")]
+    public float lowJumpGravityMultiplier = 2.0f;
+
     private Rigidbody rb;
     private Vector3 input;
     private float startY;
 
     private Boolean onGround = true;
+    private Boolean prevOnGround = true; // >>> for clean debug
 
     // cache last facing so we keep the same heading when idle
     private Vector3 lastLookDir;
@@ -43,14 +51,20 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
 
     void Update()
     {
-        if (!onGround) Debug.Log("isGrounded: " + onGround);
+        // >>> Print only when state changes
+        if (onGround != prevOnGround)
+        {
+            Debug.Log("isGrounded: " + onGround);
+            prevOnGround = onGround;
+        }
+
         float x = (Input.GetKey(KeyCode.D) ? 1f : 0f) - (Input.GetKey(KeyCode.A) ? 1f : 0f);
         float z = (Input.GetKey(KeyCode.W) ? 1f : 0f) - (Input.GetKey(KeyCode.S) ? 1f : 0f);
 
         input = new Vector3(x, 0f, z);
         if (input.sqrMagnitude > 1f) input.Normalize();
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && onGround)  // >>> only jump when grounded
         {
             rb.AddForce(Vector3.up * jumpHeight, ForceMode.VelocityChange);
         }
@@ -90,11 +104,12 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
 
         Vector3 vel = rb.linearVelocity;
 
+        // --- grounded check ---
         onGround = Physics.Raycast(transform.position, Vector3.down, 0.5f);
 
+        // --- Air control limit (yours) ---
         if (!onGround)
         {
-            // limit horizontal speed while in air
             float maxAirSpeed = 0.5f;
             Vector3 horizVel = new Vector3(vel.x, 0, vel.z);
             if (horizVel.magnitude > maxAirSpeed)
@@ -102,6 +117,23 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
                 horizVel = horizVel.normalized * maxAirSpeed;
                 vel = new Vector3(horizVel.x, vel.y, horizVel.z);
                 rb.linearVelocity = vel;
+            }
+        }
+
+        // >>> Faster-fall / low-jump gravity shaping
+        if (!onGround)
+        {
+            if (rb.linearVelocity.y < 0f)
+            {
+                // Falling: add extra gravity
+                Vector3 extraG = Physics.gravity * (fallGravityMultiplier - 1.5f);
+                rb.AddForce(extraG, ForceMode.Acceleration);
+            }
+            else if (rb.linearVelocity.y > 0f && !Input.GetKey(KeyCode.Space))
+            {
+                // Rising but jump released: make hop shorter
+                Vector3 extraG = Physics.gravity * (lowJumpGravityMultiplier - 1.5f);
+                rb.AddForce(extraG, ForceMode.Acceleration);
             }
         }
     }
@@ -115,6 +147,5 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
                 Debug.Log("capsule collide");
             }
         }
-        
     }
 }
