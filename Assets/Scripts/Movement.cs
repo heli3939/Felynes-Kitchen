@@ -15,6 +15,9 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
     public float zMin = -3f;
     public float zMax = 3f;
 
+    [Header("Collision")]
+    public Collider Capsule;
+
     private Rigidbody rb;
     private Vector3 input;
     private float startY;
@@ -101,5 +104,17 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
                 rb.linearVelocity = vel;
             }
         }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        foreach (var contact in collision.contacts)
+        {
+            if (contact.thisCollider == Capsule)
+            {
+                Debug.Log("capsule collide");
+            }
+        }
+        
     }
 }
