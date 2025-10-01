@@ -40,17 +40,10 @@ public class QTEManager : MonoBehaviour
 
     private void HandleFinished(QTEResult[] results)
     {
-        bool allSuccess = true;
         foreach (var r in results)
         {
-            if (r == QTEResult.Miss)
-            {
-                allSuccess = false;
-                break;
-            }
+            ScoreSystem.Instance.AddScore(r);
         }
-
-        Debug.Log($"QTEfinish: {(allSuccess ? "perfect ✅" : "you have one good ❌")}");
     }
 
     public void EndQTE()

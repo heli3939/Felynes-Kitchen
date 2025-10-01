@@ -191,6 +191,7 @@ public class QTEUIController : MonoBehaviour
         canvasGroup.alpha = 0f;
         gameObject.SetActive(false);
 
-        FindObjectOfType<QTEManager>()?.EndQTE();
+        FindFirstObjectByType<QTEManager>()?.EndQTE();
+
     }
 }
