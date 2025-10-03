@@ -8,7 +8,7 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
     public float acceleration = 5f;
     public float deceleration = 10f;
     public float rotateSpeed = 10f;
-    public float jumpHeight = 1f; // meters
+    public float jumpHeight = 1f;
 
     [Header("Depth Limits (Z axis)")]
     public float zMin = -3f;
@@ -17,20 +17,19 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
     [Header("Collision")]
     public Collider Capsule; // solid capsule on the root
 
-    [Header("Grounding / Anti-Edge-Hang")]
     public LayerMask groundMask = ~0;
-    public float supportRaySkin = 0.02f;
-    public float supportRayDepth = 0.18f;
-    [Range(1, 7)] public int supportSamplesX = 3;     // L, C, R
-    [Range(1, 5)] public int supportSamplesZ = 1;     // 1 for 2.5D
-    [Range(0f, 1f)] public float minSupportFraction = 0.6f;
-    public bool requireCenterSupport = true;
-    public float maxSupportHeightDelta = 0.08f;
-    public float maxGroundSlope = 55f;
+    float supportRaySkin = 0.02f;
+    float supportRayDepth = 0.18f;
+    int supportSamplesX = 3;
 
-    [Header("Jump Feel")]
-    public float fallGravityMultiplier = 1.5f;
-    public float lowJumpGravityMultiplier = 2.0f;
+    int supportSamplesZ = 1;
+    float minSupportFraction = 0.6f;
+    bool requireCenterSupport = true;
+    float maxSupportHeightDelta = 0.08f;
+    float maxGroundSlope = 55f;
+
+    float fallGravityMultiplier = 1.5f;
+    float lowJumpGravityMultiplier = 2.0f;
 
     Rigidbody rb;
     Vector3 input;
@@ -141,35 +140,35 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
         int mask = (groundMask == 0) ? ~0 : groundMask.value;
 
         for (int ix = 0; ix < sx; ix++)
-        for (int iz = 0; iz < sz; iz++)
-        {
-            float offX = -halfX + ix * stepX;
-            float offZ = -halfZ + iz * stepZ;
-
-            Vector3 origin = new Vector3(b.center.x + offX, y, b.center.z + offZ);
-
-            if (Physics.Raycast(origin, Vector3.down, out RaycastHit hit, supportRayDepth, mask, QueryTriggerInteraction.Ignore))
+            for (int iz = 0; iz < sz; iz++)
             {
-                float upDot = Vector3.Dot(hit.normal, Vector3.up);
-                if (upDot >= maxSlopeDot)
-                {
-                    hits++;
-                    minY = Mathf.Min(minY, hit.point.y);
-                    maxY = Mathf.Max(maxY, hit.point.y);
-                    if (ix == cx && iz == cz) centerHit = true;
+                float offX = -halfX + ix * stepX;
+                float offZ = -halfZ + iz * stepZ;
 
-                    Debug.DrawRay(origin, Vector3.down * hit.distance, Color.green);
+                Vector3 origin = new Vector3(b.center.x + offX, y, b.center.z + offZ);
+
+                if (Physics.Raycast(origin, Vector3.down, out RaycastHit hit, supportRayDepth, mask, QueryTriggerInteraction.Ignore))
+                {
+                    float upDot = Vector3.Dot(hit.normal, Vector3.up);
+                    if (upDot >= maxSlopeDot)
+                    {
+                        hits++;
+                        minY = Mathf.Min(minY, hit.point.y);
+                        maxY = Mathf.Max(maxY, hit.point.y);
+                        if (ix == cx && iz == cz) centerHit = true;
+
+                        Debug.DrawRay(origin, Vector3.down * hit.distance, Color.green);
+                    }
+                    else
+                    {
+                        Debug.DrawRay(origin, Vector3.down * supportRayDepth, Color.yellow);
+                    }
                 }
                 else
                 {
-                    Debug.DrawRay(origin, Vector3.down * supportRayDepth, Color.yellow);
+                    Debug.DrawRay(origin, Vector3.down * supportRayDepth, Color.red);
                 }
             }
-            else
-            {
-                Debug.DrawRay(origin, Vector3.down * supportRayDepth, Color.red);
-            }
-        }
 
         float frac = (total > 0) ? (hits / (float)total) : 0f;
         float heightSpread = (hits > 0) ? (maxY - minY) : float.MaxValue;
