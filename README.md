@@ -9,7 +9,7 @@
 
 - **Related Genres**
 
-  - **Genres:** Side-scrolling 2.5D Platformer / Adventure / Cooking Simulation
+  - **Genres:** 3D Platformer / Adventure / Cooking Simulation with camera sliding left and right following the PC model
   - **Inspirations:**
     - _Overcooked!_ (kitchen interaction and cooking tasks)
     - _Ori and the Blind Forest_ (platforming style)
@@ -19,8 +19,8 @@
   Casual to mid-core players, especially teens and young adults who enjoy cozy, lighthearted platformers, cooking games, and animal-themed characters. Accessible enough for casual play but with replayability for more engaged players.
 
 - **Unique Selling Points (USPs)**
-  - **Miniature Perspective:** Everyday kitchen objects become massive obstacles from Felyne’s tiny viewpoint.
-  - **Platforming + Cooking Fusion:** Jumping challenges merge with ingredient collection and interactive cooking QTEs.
+  - **Miniature Perspective:** Contrast between "enlarged" everyday kitchen objects and ingredients and shrunk Felyne’s model.
+  - **Platforming + Cooking Fusion:** Jumping challenges (with obstacles and hazard) and ingredient collection and interactive cooking QTEs.
   - **Multiple Endings:** Success or failure in baking leads to a Happy End or Bad End, increasing replay value.
 
 ---
@@ -40,7 +40,13 @@
 
   **Conflict**
 
-  To bake the perfect cake 🍰, Felyne must gather all ingredients needed scattered around the kitchen. However, his tiny size makes this tasks difficult. The challenge is both physical and strategic, Felyne must climb up and down to find the ingredients, avoid mischievous mice suddenly appear blocking his way through various obstacles (and debuff) and finally put all ingredients together with proper amount and order to succeed.
+  To bake the perfect cake 🍰, Felyne must gather all ingredients needed scattered around the kitchen. However, his tiny size makes this tasks difficult. Challenges are both physical and strategic: Felyne (PC) must
+
+  - adventure to find the ingredients (somes are hidden)
+  - avoid mischievous mice disrupt his adventure on the floor
+  - avoid "randomly" lighting up gas cylindars (with flames)
+  - adventure through various obstacles
+  - perform proper QTE to put proper amount of ingredients into mixture pot to succeed
 
   ## **Plot progression**
 
@@ -74,15 +80,15 @@
 ### 3. Gameplay and Mechanics
 
 - **Player Perspective**  
-  This is a side-scrolling 2.5D platformer game with an emphasis on exploring and collecting items. The game has a third-person perspective. Camera is automatically following the player character, keeping them centered on the screen at all times (similar to Ori). The player character is a shrunken cat walking in a normal kitchen, making everyday objects feel giant and dangerous.
+  This is a 3D platformer game, emphasising on exploring/adventure, collecting items and QTE. The game has a third-person perspective during adventure. Camera is automatically following PC model along left and right. The player character is a shrunken cat walking in a normal (cat-size) "dangerous" kitchen, making everyday objects feel giant and dangerous.
 
 - **Controls** 🎮
 
   - A/D - Move left/right (x-axis)
-  - W/S - Move towards/backwards screen (z-axis)
+  - W/S - Move into/out of wall/screen (z-axis)
   - Space - Jump (y-axis) and used in Quick Time Event when prompted.
-  - E - picking up and dropping the item, using tools
-  - Q - opening door of appliance
+  - E - picking up and dropping the item
+  - Q - opening door of appliance, entering QTE part (when holding item and close to module)
   - Esc - Direct player to Pause Menu.
 
     There is no special control or combo in this game because we want the controls be minimal to keep the player focus on exploration. Player will control the character via these buttons to explore the kitchen, finding the ingredients they need, mixing them together and finally get the cake baked.
@@ -91,28 +97,35 @@
   The game has a variety of obstacles and challenges, which increase in difficulty as the game progresses.
   Types of obstacles:
 
-  - Static Obstacles (Can easily pass through jumping): pots and pans; opened drawer; edge of the cooking table.
-  - Dynamic Obstacles (Increase difficulties): gas stove which spews fire periodically, must choose the optimally to jump over it; mice as enemies, they patrol along a fixed route, colliding with them results in failure; Steam comes out of the kettle, which will make the screen very blurred.
-  - Quick Time Event: Before sending the cake to the oven, player will first mixture each ingredient in a proper proportion. We introduce a QTE (refer to Dead by Daylight) to control the proportion of cake batter and the temperature.
+  - Static Obstacles (Can pass through jumping at appropriate point): decorations (e.g. plants, unused food ingredients ...), furniture and pots...
+  - Dynamic Obstacles (Increase difficulties): gas cylinder which spews fire periodically, must choose the optimally to jump over it; mice as enemies on the ground, they patrol along a fixed route, colliding with them results in failure;
+    (Alt: Steam comes out of the kettle, which will make the screen very blurred.)
+  - Quick Time Event: Before sending the cake to the oven, player will first mixture each ingredient in a proper proportion. We introduce a QTE (refer to Dead by Daylight) to control the proportion of cake batter and the temperature. QTE is triggered when
+  - PC is close to cake module and hold ANY ingredient -> putting ingredients into module to make mixture
+  - All QTEs for mixtures are completed -> set oven temperature for baking the cake
     ![alt text](Images/QTE_bar.png)
 
     Over time, hazards become faster and more frequent, punishing players who has no movement for a long time.
     There are several types of **Bad End**:
 
-    1. Death: The character fall on the ground.
-    2. Collide with mouse: The character shouldn’t work anymore since it becomes dirty.
-    3. Burnt cake: Due to failure of QTE, the ingredients for cake are not in a right proportion. The cake is burnt in the end.
+    1. Collide with mouse: The character shouldn’t work anymore since it becomes dirty.
+    2. Fail to make an expected cake: Due to failure of QTE, the ingredients for cake are not in a right proportion, or oven's temeperature set incorrectedly. The "dream" cake is failed to made in the end.
 
     **Happy End**:
-    The player successfully collects all ingredients, overcomes hazards, and bakes a perfect cake with correct ingredient amount and oven temperature. The reward is a delicious-looking cake and the mastery of cooking skills.
-    Considering the introduction of Quick Time Event, we develop a scoring system to record the scores that player get. The cumulative score determined by result form QTE will lead to BE or He.
+    The player successfully collects all ingredients, overcomes hazards, and bakes a perfect cake with correct ingredient choice, amount and oven temperature. The reward is a delicious-looking cake and the mastery of cooking skills.
+    Considering the introduction of Quick Time Event, we develop a scoring system (Perfect: +50; Good: +20; Miss: 0; If ingredient is not in the list: -10) to record the scores that player get. The cumulative score determined by result form QTE will lead to BE or He.
 
 - **Gameplay Mechanics**  
-  This game includes adventure, items collection, Quick Time Event leads to multiple endings. The whole adventure process is: Explore the kitchen -> Collect ingredients -> Bake the cake (QTE).
+  This game includes adventure, items collection, Quick Time Event leads to multiple endings. The whole adventure process is:
+
+  1. Explore the kitchen + Collect ingredients
+  2. Perform QTE to put holding ingredient into module for mixture
+  3. Repeat Step 1-2 until done
+  4. Bake the cake by choosing oven temperature (QTE).
 
   **Rules & Actions**:
 
-  - The player can carry and drop items, interacts with kitchen tools, and perform jumps to different levels.
+  - The player can carry and drop items and perform jumps to different levels, move left, right, into, out of the screen
   - Hazards and/or obstacles must be avoided through movement.
   - Results of QTEs determine whether the player achieves success or failure.
 
@@ -127,21 +140,21 @@
 - **Game World**  
   _(Is it 2D, 2.5D, 3D? How does navigation work? Maps/minimaps?)_
 
-  The game takes place in a single, continuous kitchen environment, presented as a side-scrolling **2.5D platformer**. The camera follows the player character, keeping them centered on the screen. Player navigates through the kitchen by jumping across platform, climbing furniture and avoiding mice and hazards. Hint will be provided to the player what to do next; when character approaches an interactive item, a prompt will indicate which key to press.
+  The game takes place in a single, continuous kitchen setting, presented as a side-scrolling **3D platformer**. The camera follows the player character left to right. Player navigates through the kitchen by jumping across platform, climbing furniture and avoiding mice and hazards. Hint will be provided to the player what to do next; when character approaches an interactive item, a prompt will indicate which key to press.
 
   The kitchen is designed as one large level with multiple sections: cooking table, fridge, oven and so on. Each section contains baking ingredients, obstacles and some platform challenges.
 
-  A mini-map is displayed in the upper-left corner of the screen, it highlights the character’s current position, marks the location of uncollected ingredients and provided a overview of the total layout.
+  (opt) A mini-map is displayed in the upper-left corner of the screen, it highlights the character’s current position, marks the location of uncollected ingredients and provided a overview of the total layout.
 
 - **Objects**  
   \_(What interactive objects exist, and how do they interact?)
 
-  | Category                | Objects (examples)                                               | Appearance / Location                                                               | Role with Player                                                                                     | Interaction with Others                                                                                                                |
-  | ----------------------- | ---------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-  | Ingredients for cake 🍰 | Flour, cream, sugar, straberry🍓, egg🥚, milk🥛                  | Found in storage spots (closet, table, fridge, drawer) through player's interaction | Player can pick/drop, collect for the recipe                                                         | Combined together to make cake mixture                                                                                                 |
-  | Utensils🍴              | Cup, mixing bowl🥣, spoon🥄, eggbeater, cake mould (pot w/o lid) | On counter                                                                          | Player uses to hold, mix, stir, pour                                                                 | Hold or process ingredients and perform a Quick Time Event (QTE) bar to put correct amount for cake mixture; cake mould goes into oven |
-  | Appliances              | Oven♨️, fridge❄️                                                 | Fixed kitchen objects                                                               | Player opens fridge to get cold items; uses oven to bake cake with QTE bar for temperature selection | Fridge stores ingredients; oven bakes mould contents                                                                                   |
-  | Scene Props             | Counter, tank, table, chair                                      | Environment setting                                                                 | Provides context; not directly interactive                                                           | Frames where interactions happen                                                                                                       |
+  | Category                | Objects (examples)                                               | Appearance / Location                                                               | Role with Player                                                                                     | Interaction with Others                                                                                                                             |
+  | ----------------------- | ---------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+  | Ingredients for cake 🍰 | Flour, cream, sugar, straberry🍓, egg🥚, milk🥛                  | Found in storage spots (closet, table, fridge, drawer) through player's interaction | Player can pick/drop, collect for the recipe                                                         | Combined together to make cake mixture                                                                                                              |
+  | Utensils🍴              | Cup, mixing bowl🥣, spoon🥄, eggbeater, cake mould (pot w/o lid) | On counter                                                                          | Only cake module is used to put mixture in, others are obstacles/decorators                          | Cake module: Hold or process ingredients and perform a Quick Time Event (QTE) bar to put correct amount for cake mixture; cake mould goes into oven |
+  | Appliances              | Oven♨️, fridge❄️                                                 | Fixed kitchen objects                                                               | Player opens fridge to get cold items; uses oven to bake cake with QTE bar for temperature selection | Fridge stores ingredients; oven bakes mixture inside cake module once finished                                                                      |
+  | Scene Props             | Counter, tank, table, chair                                      | Environment setting                                                                 | Provides context; not directly interactive                                                           | Frames where interactions happen                                                                                                                    |
 
 - **Physics**  
   _(What physics are present? Gravity, collisions, interactions?)_
@@ -153,19 +166,17 @@
   | Category             | Movable?                    |
   | -------------------- | --------------------------- |
   | Ingredients for cake | ✅ Pick/drop by player      |
-  | Utensils             | ✅ Spoon can swirl (stir)   |
   | Appliances           | ❌ Heavy objects can’t move |
   | Scene Props          | ❌ Static, only background  |
 
   **Collision Rules**:
 
-  | A / B          | Player                 | Ingredient                                                 | Utensil                               |
-  | -------------- | ---------------------- | ---------------------------------------------------------- | ------------------------------------- |
-  | **Player**     | —                      | ✅ Trigger: pick/drop to collect, QTE for determine amount | ✅ Trigger: swirl/measure ingredients |
-  | **Ingredient** | ✅ Triggered by Player | —                                                          | ✅ Contain (goes into cup/bowl/mould) |
-  | **Utensil**    | ✅ Triggered by Player | ✅ Contain (holds/mixes)                                   | —                                     |
+| A / B          | Player                 | Ingredient                                                |
+| -------------- | ---------------------- | --------------------------------------------------------- |
+| **Player**     | —                      | ✅ Trigger: pick/drop to collect, QTE to determine amount |
+| **Ingredient** | ✅ Triggered by Player | —                                                         |
 
-  Note: each cell for A/B represents collision rule between object type A and B
+Note: each cell for A/B represents collision rule between object type A and B
 
 ---
 
@@ -226,7 +237,7 @@ The game's user interface design focuses on showing the warmth of the kitchen, b
 
 **Main Menu**:
 
-Includes the game title, a Start Game button, and access to Settings. Background shows a blurred view of the kitchen, with soft lighting and floating ingredients to set the tone.
+Includes the game title and a Start Game button. Background is a 2D cg related to back story of our game.
 
 **Tutorial Display**:
 
@@ -234,7 +245,7 @@ Automatically appears at the beginning or when the player clicks on “How to Pl
 
 **In-Game HUD**:
 
-- Ingredient Tracker: Small icons of sugar, flour, eggs, etc., arranged at the top left of the screen. Filled icons indicate collected ingredients.
+- Ingredient Tracker (list): Small icons of sugar, flour, eggs, etc., arranged at the top left of the screen. Filled icons indicate collected ingredients.
 - Score: Popping out once the cake is baked, indicating the quality of the cake.
 
 **Pause Menu**:
