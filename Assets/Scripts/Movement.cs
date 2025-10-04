@@ -28,8 +28,8 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
     float maxSupportHeightDelta = 0.08f;
     float maxGroundSlope = 55f;
 
-    float fallGravityMultiplier = 1.5f;
-    float lowJumpGravityMultiplier = 2.0f;
+    float fallGravityMultiplier = 2f;
+    float lowJumpGravityMultiplier = 4.0f;
 
     Rigidbody rb;
     Vector3 input;
