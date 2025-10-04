@@ -1,7 +1,0 @@
-using UnityEngine;
-
-[CreateAssetMenu(fileName = "NewDialogue", menuName = "Dialogue/DialogueData")]
-public class DialogueData : ScriptableObject
-{
-    public DialogueLine[] lines;   // Storing multi-line conversations
-}
