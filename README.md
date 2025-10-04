@@ -78,11 +78,10 @@
 
 - **Controls** 🎮
 
-  - A/D - Move left/right (x-axis)
-  - W/S - Move towards/backwards screen (z-axis)
-  - Space - Jump (y-axis) and used in Quick Time Event when prompted.
-  - E - picking up and dropping the item, using tools
-  - Q - opening door of appliance
+  - A/D - Move left/right
+  - Space - Jump and used in Quick Time Event when prompted.
+  - E - Interact, used for picking the items, using tools, opening appliance and so on.
+  - Z – Cancel or drop held items
   - Esc - Direct player to Pause Menu.
 
     There is no special control or combo in this game because we want the controls be minimal to keep the player focus on exploration. Player will control the character via these buttons to explore the kitchen, finding the ingredients they need, mixing them together and finally get the cake baked.
@@ -211,12 +210,6 @@
     _(List artistic assets you will use or source, with references/URLs.)_
 
     - [Free Kitchen - Cabinets and Equipment](https://assetstore.unity.com/packages/3d/props/interior/free-kitchen-cabinets-and-equipment-245554)
-    - [Lowpoly Art Deco Furniture](https://assetstore.unity.com/packages/3d/environments/lowpoly-art-deco-furniture-249606)
-    - [Customizable Lights and Candles](https://assetstore.unity.com/packages/3d/characters/customizable-lights-and-candles-104628)
-    - [Simple Stylized Cardboard Boxes](https://assetstore.unity.com/packages/3d/props/simple-stylized-cardboard-boxes-308830)
-    - [Toony Kitchen & Ingredients Model FREE](https://assetstore.unity.com/packages/3d/props/toony-kitchen-ingredients-model-free-301805)
-    - [Match 3d Object Pack: Fruits & Vegetables](https://assetstore.unity.com/packages/3d/props/food/match-3d-object-pack-fruits-vegetables-284706)
-    - [Little Friends - Cartoon Animals - Lite](https://assetstore.unity.com/packages/3d/characters/animals/little-friends-cartoon-animals-lite-262505)
 
 ---
 
