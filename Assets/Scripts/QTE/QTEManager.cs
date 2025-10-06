@@ -22,21 +22,26 @@ public class QTEManager : MonoBehaviour
             qteController.OnQTEFinished -= HandleFinished;
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            StartQTE();
-        }
-    }
+    //private void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.Q))
+    //    {
+    //        StartQTE();
+    //    }
+    //}
 
     public void StartQTE()
     {
+        // switch to first person camera
         if (tpCamera != null) tpCamera.SetActive(false);
         if (fpCamera != null) fpCamera.SetActive(true);
-
+        // start QTE Canvas
         if (qteCanvas != null) qteCanvas.SetActive(true);
+
+        if (qteController != null)
+            qteController.StartQTE();
     }
+
 
     private void HandleFinished(QTEResult[] results)
     {
