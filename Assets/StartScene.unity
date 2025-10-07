@@ -2775,7 +2775,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7ed78c5f89dc7b5428478b925c5267b0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 95c80eb0263b5344baa42858a44df67c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -9452,10 +9452,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueData: {fileID: 0}
   lines: []
-  dialoguePanel: {fileID: 823657468}
-  portraitImage: {fileID: 239364347}
+  dialoguePanel: {fileID: 0}
+  portraitImage: {fileID: 0}
   nameText: {fileID: 0}
-  dialogueText: {fileID: 433447836}
+  dialogueText: {fileID: 0}
   pressHint: {fileID: 0}
   typeSpeed: 0.025
   playOnStart: 1
@@ -24566,7 +24566,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d850cbe933a59c749a88c62ac956eb9b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e060786c00f15344280472a86e44381e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

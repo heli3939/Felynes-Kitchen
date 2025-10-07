@@ -707,6 +707,26 @@ MonoBehaviour:
     m_Y: 0
     m_Width: 151
     m_Height: 1023
+  - m_X: 0
+    m_Y: 254
+    m_Width: 1023
+    m_Height: 769
+  - m_X: 0
+    m_Y: 167
+    m_Width: 309
+    m_Height: 856
+  - m_X: 86
+    m_Y: 130
+    m_Width: 223
+    m_Height: 893
+  - m_X: 188
+    m_Y: 129
+    m_Width: 121
+    m_Height: 894
+  - m_X: 387
+    m_Y: 129
+    m_Width: 636
+    m_Height: 894
   m_FontFeatureTable:
     m_MultipleSubstitutionRecords: []
     m_LigatureSubstitutionRecords: []
