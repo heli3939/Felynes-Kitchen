@@ -33,6 +33,44 @@ public class PickDrop_Ingredients : MonoBehaviour
         }
     }
 
+    bool IsItemAccessible(Vector3 itemPosition)
+    {
+        Vector3 startPosition = transform.position + Vector3.up * 0.5f;
+        Vector3 directionToItem = (itemPosition - startPosition).normalized;
+        float distance = Vector3.Distance(startPosition, itemPosition);
+        
+        RaycastHit[] hits = Physics.RaycastAll(startPosition, directionToItem, distance);
+        
+        foreach (RaycastHit hit in hits)
+        {
+            if (hit.collider.gameObject == gameObject || hit.collider.CompareTag("Item"))
+            {
+                continue;
+            }
+            
+            DoorInteraction door = hit.collider.GetComponentInParent<DoorInteraction>();
+            if (door != null && !door.IsOpen())
+            {
+                return false;
+            }
+            
+            if (!hit.collider.CompareTag("airwalls") && 
+                !hit.collider.CompareTag("Player"))
+            {
+                if (hit.collider.GetComponent<DoorInteraction>() != null)
+                {
+                    DoorInteraction directDoor = hit.collider.GetComponent<DoorInteraction>();
+                    if (!directDoor.IsOpen())
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
+        
+        return true;
+    }
+
     void CheckItemCollision()
     {
         Collider itemCollider = heldItem.GetComponent<Collider>();
@@ -171,6 +209,11 @@ public class PickDrop_Ingredients : MonoBehaviour
         {
             if (col.CompareTag("Item") && col.gameObject != heldItem && col.gameObject != lastDroppedItem)
             {
+                if (!IsItemAccessible(col.transform.position))
+                {
+                    continue;
+                }
+                
                 float distance = Vector3.Distance(transform.position, col.transform.position);
                 if (distance < closestDistance)
                 {
@@ -194,6 +237,12 @@ public class PickDrop_Ingredients : MonoBehaviour
     {
         if (other.CompareTag("Item") && nearbyItem == null)
         {
+            if (!IsItemAccessible(other.transform.position))
+            {
+                Debug.Log($" {other.name} block by door, can't pick");
+                return;
+            }
+            
             nearbyItem = other.gameObject;
             Rigidbody rb = nearbyItem.GetComponent<Rigidbody>();
             if (rb != null) rb.isKinematic = true;
