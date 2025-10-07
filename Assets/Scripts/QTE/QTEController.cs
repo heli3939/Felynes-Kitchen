@@ -41,7 +41,6 @@ public class QTEUIController : MonoBehaviour
 
     [Header("Angle Offsets (deg)")]
     public float successCenterOffsetDeg = 0f;
-
     public float perfectCenterOffsetDeg = 0f;
 
     [Header("Timer UI")]
@@ -122,10 +121,16 @@ public class QTEUIController : MonoBehaviour
 
     public void StartQTE()
     {
-
         isRunning = true;             
         currentCheck = 0;
         results = new QTEResult[totalChecks];
+
+        if (canvasGroup != null)
+        {
+            canvasGroup.alpha = 1f;
+            canvasGroup.interactable = true;
+            canvasGroup.blocksRaycasts = true;
+        }
 
         SetupZones();
         RandomizeCircleGroup();
@@ -160,7 +165,6 @@ public class QTEUIController : MonoBehaviour
                 successZoneImage.rectTransform.localEulerAngles;
         }
     }
-
 
     private void RandomizeCircleGroup()
     {
