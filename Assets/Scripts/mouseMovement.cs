@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class MouseMovement : MonoBehaviour
 {
-    [Header("movement setting")]
+    [Header("movement settings")]
     public float moveSpeed = 2f;
     public float leftBoundary = -9.27f;
     public float rightBoundary = 4.489f;
     public bool startFromLeft = true;
     
-    [Header("curve setting")]
+    [Header("variation")]
     public bool useSineCurve = true;
     public float amplitude = 1f;
     public float frequency = 1f;
@@ -81,7 +81,8 @@ public class MouseMovement : MonoBehaviour
             PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
             if (playerHealth != null)
             {
-                playerHealth.Die();
+                Vector3 hitDirection = (other.transform.position - transform.position).normalized;
+                playerHealth.Die(hitDirection);
             }
         }
     }
@@ -93,7 +94,8 @@ public class MouseMovement : MonoBehaviour
             PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
             if (playerHealth != null)
             {
-                playerHealth.Die();
+                Vector3 hitDirection = (collision.transform.position - transform.position).normalized;
+                playerHealth.Die(hitDirection);
             }
         }
     }

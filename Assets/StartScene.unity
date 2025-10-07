@@ -9419,7 +9419,7 @@ MonoBehaviour:
   typeSpeed: 0.025
   playOnStart: 1
   speakerName: 
-  portrait: {fileID: 0}
+  portrait: {fileID: 21300000, guid: 95c80eb0263b5344baa42858a44df67c, type: 3}
 --- !u!4 &810427385 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1364953034262626521, guid: ec158a30d63991f47a17ba2373327046, type: 3}
@@ -11410,7 +11410,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9168417707401102816, guid: 67f9cee008f3fe142b49d2ebb57886c0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.01
+      value: -0.08
       objectReference: {fileID: 0}
     - target: {fileID: 9168417707401102816, guid: 67f9cee008f3fe142b49d2ebb57886c0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -12865,7 +12865,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.2, y: 0.2, z: 0.3}
+  m_Size: {x: 0.15, y: 0.2, z: 0.3}
   m_Center: {x: 0, y: 0.3, z: 0.05}
 --- !u!4 &1132168104 stripped
 Transform:
@@ -19261,6 +19261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eb06196f9915824cbf74ef87e124a8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fallDuration: 0.55
 --- !u!1 &1624765750 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6001412878548310232, guid: 3656d685bb2c1b74d8775327a58c6837, type: 3}
@@ -25301,10 +25302,10 @@ MonoBehaviour:
   leftBoundary: -9.27
   rightBoundary: 4.489
   startFromLeft: 0
-  useSineCurve: 1
+  useSineCurve: 0
   amplitude: 0.2
-  frequency: 2
-  phaseOffset: 0
+  frequency: 3
+  phaseOffset: -2
 --- !u!65 &2096160289
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -25324,7 +25325,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.2, y: 0.2, z: 0.3}
+  m_Size: {x: 0.15, y: 0.2, z: 0.3}
   m_Center: {x: 0, y: 0.3, z: 0.05}
 --- !u!1001 &2102441165
 PrefabInstance:
@@ -26443,6 +26444,10 @@ PrefabInstance:
       propertyPath: tutorialButton
       value: 
       objectReference: {fileID: 269360380678009590}
+    - target: {fileID: 2799864476297798945, guid: 62dbc1dd1cfbeb84ab6fda387ae45371, type: 3}
+      propertyPath: dialogueManager
+      value: 
+      objectReference: {fileID: 799239073}
     - target: {fileID: 3222268430146240012, guid: 62dbc1dd1cfbeb84ab6fda387ae45371, type: 3}
       propertyPath: m_Name
       value: Pause
@@ -27178,7 +27183,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9168417707401102816, guid: 67f9cee008f3fe142b49d2ebb57886c0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.09
+      value: -0.29
       objectReference: {fileID: 0}
     - target: {fileID: 9168417707401102816, guid: 67f9cee008f3fe142b49d2ebb57886c0, type: 3}
       propertyPath: m_LocalRotation.w
