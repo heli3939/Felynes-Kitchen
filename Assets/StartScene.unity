@@ -3198,6 +3198,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1433837538}
     - target: {fileID: 6304029720958925692, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 1622806632}
+    - target: {fileID: 6304029720958925692, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
+      propertyPath: playerMovementScript
+      value: 
+      objectReference: {fileID: 1622806632}
+    - target: {fileID: 6304029720958925692, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
       propertyPath: allUICanvases.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -3213,6 +3221,18 @@ PrefabInstance:
       propertyPath: 'allUICanvases.Array.data[2]'
       value: 
       objectReference: {fileID: 2066962282}
+    - target: {fileID: 6304029720958925692, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
+      propertyPath: playerControlScripts.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6304029720958925692, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
+      propertyPath: 'playerControlScripts.Array.data[0]'
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6304029720958925692, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
+      propertyPath: 'playerControlScripts.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1622806632}
     - target: {fileID: 8470660113400237448, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
       propertyPath: m_SortingOrder
       value: 5
@@ -4050,7 +4070,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &327799168
 MonoBehaviour:
   m_ObjectHideFlags: 0

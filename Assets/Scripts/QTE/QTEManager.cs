@@ -11,6 +11,9 @@ public class QTEManager : MonoBehaviour
     public GameObject qteCanvas;
     public QTEUIController qteController;
 
+    [Header("Player Control")]
+    public MonoBehaviour[] playerControlScripts;
+
     private GraphicRaycaster qteRaycaster;
 
     private void Awake()
@@ -29,9 +32,19 @@ public class QTEManager : MonoBehaviour
         if (qteController != null)
             qteController.OnQTEFinished -= HandleFinished;
     }
-    
+
+    private void SetPlayerControls(bool enabled)
+    {
+        foreach (var script in playerControlScripts)
+        {
+            if (script != null)
+                script.enabled = enabled;
+        }
+    }
+
     public void StartQTE()
     {
+        SetPlayerControls(false);
 
         if (tpCamera != null) tpCamera.SetActive(false);
         if (fpCamera != null) fpCamera.SetActive(true);
@@ -39,13 +52,12 @@ public class QTEManager : MonoBehaviour
         if (qteCanvas != null) qteCanvas.SetActive(true);
 
         if (qteRaycaster != null)
-        {
             qteRaycaster.enabled = true;
-        }
 
-        if (qteController != null) qteController.StartQTE();
+        if (qteController != null)
+            qteController.StartQTE();
     }
-    
+
     private void HandleFinished(QTEResult[] results)
     {
         foreach (var r in results)
@@ -56,17 +68,29 @@ public class QTEManager : MonoBehaviour
 
     public void EndQTE()
     {
-
-        if (qteController != null) qteController.StopQTE();
+        if (qteController != null)
+            qteController.StopQTE();
 
         if (qteRaycaster != null)
-        {
             qteRaycaster.enabled = false;
+
+        if (qteCanvas != null)
+            qteCanvas.SetActive(false);
+
+        if (fpCamera != null)
+            fpCamera.SetActive(false);
+
+        if (tpCamera != null)
+        {
+            tpCamera.SetActive(true);
+
+            var cam = tpCamera.GetComponent<Camera>();
+            if (cam != null && !cam.enabled)
+                cam.enabled = true;
         }
+        SetPlayerControls(true);
 
-        if (qteCanvas != null) qteCanvas.SetActive(false);
-
-        if (fpCamera != null) fpCamera.SetActive(false);
-        if (tpCamera != null) tpCamera.SetActive(true);
+        Debug.Log("[QTEManager] QTE ended, switched back to TP Camera");
     }
+
 }
