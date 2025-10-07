@@ -2,18 +2,24 @@
 
 public class PickDrop_Ingredients : MonoBehaviour
 {
-    public Transform holdPoint; // Where to hold item
-    private GameObject heldItem; // Reference to currently held item
-    private GameObject nearbyItem; // Item we are close enough to pick
-    private GameObject lastDroppedItem; // Track just-dropped item
+    public Transform holdPoint;
+    private GameObject heldItem;
+    private GameObject nearbyItem;
+    private GameObject lastDroppedItem;
+    
 
     void Start()
     {
-        UpdateNearbyItem(); // Initialize detection
+        UpdateNearbyItem();
     }
 
     void Update()
     {
+        if (heldItem != null)
+        {
+            CheckItemCollision();
+        }
+
         if (Input.GetKeyDown(KeyCode.E))
         {
             if (heldItem == null && nearbyItem != null)
@@ -25,6 +31,79 @@ public class PickDrop_Ingredients : MonoBehaviour
                 DropItem();
             }
         }
+    }
+
+    void CheckItemCollision()
+    {
+        Collider itemCollider = heldItem.GetComponent<Collider>();
+        if (itemCollider == null) return;
+
+        Bounds bounds = itemCollider.bounds;
+        Vector3 itemCenter = bounds.center;
+        Vector3 itemSize = bounds.size;
+
+        Vector3[] directions = new Vector3[]
+        {
+        Vector3.up,
+        Vector3.down,
+        transform.forward,
+        -transform.forward,
+        transform.right,
+        -transform.right
+        };
+
+        float rayDistance = Mathf.Max(itemSize.x, itemSize.y, itemSize.z) * 0.6f;
+
+        foreach (Vector3 dir in directions)
+        {
+            if (Physics.Raycast(itemCenter, dir, out RaycastHit hit, rayDistance))
+            {
+                if (hit.collider.gameObject != heldItem &&
+                    hit.collider.gameObject != gameObject &&
+                    !hit.collider.CompareTag("Item") &&
+                    !hit.collider.CompareTag("airwalls") &&
+                    !hit.collider.CompareTag("Player"))
+                {
+                    Debug.Log($"detect: {hit.collider.gameObject.name}, drop backwards");
+                    DropItemBackward();
+                    return;
+                }
+            }
+        }
+    }
+
+    void DropItemBackward()
+    {
+        heldItem.transform.SetParent(null);
+        Rigidbody rb = heldItem.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.isKinematic = false;
+            rb.useGravity = true;
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+        }
+
+        Vector3 backwardOffset = -transform.forward * 0.5f;
+        Vector3 dropStart = transform.position + Vector3.up * 0.8f + backwardOffset;
+        Vector3 finalDropPosition = dropStart;
+
+        if (Physics.Raycast(dropStart, Vector3.down, out RaycastHit hit, 5f))
+        {
+            finalDropPosition = hit.point + Vector3.up * 0.1f;
+        }
+
+        heldItem.transform.position = finalDropPosition;
+
+        if (rb != null)
+        {
+            rb.AddForce(-transform.forward * 0.5f, ForceMode.Impulse);
+        }
+
+        lastDroppedItem = heldItem;
+        heldItem = null;
+
+        StartCoroutine(DelayedUpdateNearbyItem(0.2f));
     }
 
     void PickItem()
@@ -51,20 +130,15 @@ public class PickDrop_Ingredients : MonoBehaviour
             rb.angularVelocity = Vector3.zero;
         }
 
-        // Calculate the Drop point in front of the character
-        Vector3 forwardOffset = transform.forward * 0.4f; 
+        Vector3 forwardOffset = transform.forward * 0.4f;
         Vector3 dropStart = transform.position + Vector3.up * 1.0f + forwardOffset;
-
+        
         Vector3 finalDropPosition = dropStart;
 
         if (Physics.Raycast(dropStart, Vector3.down, out RaycastHit hit, 5f))
         {
             finalDropPosition = hit.point + Vector3.up * 0.1f; 
-            Debug.Log("Raycast hit ground at: " + hit.point);
-        }
-        else
-        {
-            Debug.Log("Raycast did not hit ground, using default drop position");
+
         }
 
         heldItem.transform.position = finalDropPosition;
@@ -81,7 +155,6 @@ public class PickDrop_Ingredients : MonoBehaviour
         StartCoroutine(DelayedUpdateNearbyItem(0.2f));
     }
 
-
     private System.Collections.IEnumerator DelayedUpdateNearbyItem(float delay)
     {
         yield return new WaitForSeconds(delay);
@@ -91,7 +164,7 @@ public class PickDrop_Ingredients : MonoBehaviour
     void UpdateNearbyItem()
     {
         nearbyItem = null;
-        Collider[] colliders = Physics.OverlapSphere(transform.position, 0.4f); // Reduced to 0.4 units
+        Collider[] colliders = Physics.OverlapSphere(transform.position, 0.4f);
         float closestDistance = float.MaxValue;
 
         foreach (Collider col in colliders)
@@ -114,7 +187,7 @@ public class PickDrop_Ingredients : MonoBehaviour
             Debug.Log("New nearby item found: " + nearbyItem.name);
         }
 
-        lastDroppedItem = null; // Reset
+        lastDroppedItem = null;
     }
 
     void OnTriggerEnter(Collider other)
