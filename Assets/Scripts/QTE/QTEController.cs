@@ -37,23 +37,64 @@ public class QTEUIController : MonoBehaviour
 
     [Header("Fade Effect")]
     public CanvasGroup canvasGroup;
-    public float fadeDuration = 1f; 
+    public float fadeDuration = 1f;
+
+    [Header("Angle Offsets (deg)")]
+    public float successCenterOffsetDeg = 0f;
+    public float perfectCenterOffsetDeg = 0f;
+
+    [Header("Timer UI")]
+    public TMP_Text timerText;             
+    public Color normalColor = Color.white; 
+    public Color warningColor = Color.red;  
+    public float warningThreshold = 3f;
+
+    [Header("Timer Settings")]
+    public float totalTime = 10f;
+    private float remainingTime;       
+    private bool timeRunning = false;  
 
     public Action<QTEResult[]> OnQTEFinished;
 
-    private void OnEnable()
-    {
-        StartQTE();
-
-        // Mute the prompt
-        if (resultText != null)
-            resultText.gameObject.SetActive(false);
-    }
+    private void OnEnable() { }
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.LeftBracket))   // '[' anticlockwise -1°
+        {
+            successCenterOffsetDeg -= 1f;
+            perfectCenterOffsetDeg -= 1f;
+            Debug.Log($"Offset = {successCenterOffsetDeg:F1}°");
+        }
+        if (Input.GetKeyDown(KeyCode.RightBracket))  // ']' clockwise +1°
+        {
+            successCenterOffsetDeg += 1f;
+            perfectCenterOffsetDeg += 1f;
+            Debug.Log($"Offset = {successCenterOffsetDeg:F1}°");
+        }
+
         if (!isRunning) return;
 
+        if (timeRunning)
+        {
+            remainingTime -= Time.deltaTime;
+
+            if (timerText != null)
+            {
+                timerText.text = $"Time: {remainingTime:F1}s";
+
+                timerText.color = (remainingTime <= warningThreshold)
+                    ? warningColor
+                    : normalColor;
+            }
+
+            if (remainingTime <= 0f)
+            {
+                timeRunning = false;
+                HandleTimeOut();
+                return;
+            }
+        }
         float z = indicator.localEulerAngles.z;
         z = Mathf.Repeat(z - rotateSpeed * Time.deltaTime, 360f);
         indicator.localEulerAngles = new Vector3(0, 0, z);
@@ -62,9 +103,9 @@ public class QTEUIController : MonoBehaviour
         {
             QTEResult result = EvaluateHit();
             results[currentCheck] = result;
-            ShowResultText(result);
 
-            Debug.Log($" The {currentCheck + 1} result: {result}");
+            ShowResultText(result);
+            Debug.Log($"The {currentCheck + 1} time's result: {result}");
 
             currentCheck++;
             if (currentCheck >= totalChecks)
@@ -80,13 +121,34 @@ public class QTEUIController : MonoBehaviour
 
     public void StartQTE()
     {
-        isRunning = true;
+        isRunning = true;             
         currentCheck = 0;
         results = new QTEResult[totalChecks];
+
+        if (canvasGroup != null)
+        {
+            canvasGroup.alpha = 1f;
+            canvasGroup.interactable = true;
+            canvasGroup.blocksRaycasts = true;
+        }
 
         SetupZones();
         RandomizeCircleGroup();
         indicator.localEulerAngles = Vector3.zero;
+
+        // Start counting
+        remainingTime = totalTime;
+        timeRunning = true;
+
+        if (timerText != null)
+        {
+            timerText.gameObject.SetActive(true);
+            timerText.text = $"Time: {totalTime:F1}s";
+            timerText.color = normalColor;
+        }
+
+        if (resultText != null)
+            resultText.gameObject.SetActive(false);
     }
 
     public void StopQTE()
@@ -104,7 +166,6 @@ public class QTEUIController : MonoBehaviour
         }
     }
 
-
     private void RandomizeCircleGroup()
     {
         float randomAngle = UnityEngine.Random.Range(0f, 360f);
@@ -115,25 +176,35 @@ public class QTEUIController : MonoBehaviour
     {
         float indicatorAngle = Mathf.Repeat(indicator.eulerAngles.z, 360f);
 
-        // SuccessZone range and angle
-        float successCenter = Mathf.Repeat(successZoneImage.rectTransform.eulerAngles.z, 360f);
-        float successHalfRange = successArcDegrees * 0.5f;
+        float successCenterRaw = successZoneImage.rectTransform.eulerAngles.z;
+        float successCenter = Mathf.Repeat(successCenterRaw + successCenterOffsetDeg, 360f);
+        float successHalf = successArcDegrees * 0.5f;
 
-        // PerfectZone range and angle
-        float perfectCenter = Mathf.Repeat(perfectZoneImage.rectTransform.eulerAngles.z, 360f);
-        float perfectHalfRange = perfectArcDegrees * 0.5f;
+        float perfectCenterRaw = perfectZoneImage.rectTransform.eulerAngles.z;
+        float perfectCenter = Mathf.Repeat(perfectCenterRaw + perfectCenterOffsetDeg, 360f);
+        float perfectHalf = perfectArcDegrees * 0.5f;
 
-        float diffSuccess = Mathf.Abs(Mathf.DeltaAngle(indicatorAngle, successCenter));
-        float diffPerfect = Mathf.Abs(Mathf.DeltaAngle(indicatorAngle, perfectCenter));
+        bool InAngleRange(float angle, float center, float halfRange)
+        {
+            float diff = Mathf.DeltaAngle(angle, center);
+            return Mathf.Abs(diff) <= halfRange;
+        }
 
-        // Estimate if hit the target
-        if (diffPerfect <= perfectHalfRange) return QTEResult.Perfect;
-        else if (diffSuccess <= successHalfRange) return QTEResult.Good;
-        else return QTEResult.Miss;
+        if (InAngleRange(indicatorAngle, perfectCenter, perfectHalf))
+            return QTEResult.Perfect;
+
+        if (InAngleRange(indicatorAngle, successCenter, successHalf))
+            return QTEResult.Good;
+
+        return QTEResult.Miss;
     }
+
 
     private void Finish()
     {
+        if (timerText != null)
+            timerText.gameObject.SetActive(false);
+
         isRunning = false;
 
         OnQTEFinished?.Invoke(results);
@@ -192,6 +263,17 @@ public class QTEUIController : MonoBehaviour
         gameObject.SetActive(false);
 
         FindFirstObjectByType<QTEManager>()?.EndQTE();
+    }
 
+    private void HandleTimeOut()
+    {
+        for (int i = currentCheck; i < totalChecks; i++)
+        {
+            results[i] = QTEResult.Miss;
+        }
+
+        ShowResultText(QTEResult.Miss);
+
+        Finish();
     }
 }
