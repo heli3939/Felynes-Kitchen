@@ -15,7 +15,10 @@ public class QTEManager : MonoBehaviour
     private bool qteRunning = false;
 
     [Header("Player Control Scripts")]
-    public MonoBehaviour[] playerControlScripts; 
+    public MonoBehaviour[] playerControlScripts;
+
+    [Header("Pickup Check")]
+    public Transform holdPoint;
 
     private void Awake()
     {
@@ -35,13 +38,19 @@ public class QTEManager : MonoBehaviour
 
     public void StartQTE()
     {
+        if (holdPoint == null || holdPoint.childCount == 0)
+        {
+            Debug.LogWarning("[QTEManager] QTE cannot start — player is not holding any item.");
+            return;
+        }
+
         if (qteRunning)
         {
             Debug.LogWarning("[QTEManager] QTE already running, ignoring duplicate Q press.");
             return;
         }
-        qteRunning = true;
 
+        qteRunning = true;
         SetPlayerControls(false);
 
         if (tpCamera != null) tpCamera.SetActive(false);

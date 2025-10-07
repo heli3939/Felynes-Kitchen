@@ -2,24 +2,22 @@
 
 public class PickDrop_Ingredients : MonoBehaviour
 {
-    public Transform holdPoint;
-    private GameObject heldItem;
-    private GameObject nearbyItem;
-    private GameObject lastDroppedItem;
-    
+    public Transform holdPoint; // Where to hold item
+    private GameObject heldItem; // Reference to currently held item
+    private GameObject nearbyItem; // Item we are close enough to pick
+    private GameObject lastDroppedItem; // Track just-dropped item
+    public GameObject GetHeldItem()
+    {
+        return heldItem;
+    }
 
     void Start()
     {
-        UpdateNearbyItem();
+        UpdateNearbyItem(); // Initialize detection
     }
 
     void Update()
     {
-        if (heldItem != null)
-        {
-            CheckItemCollision();
-        }
-
         if (Input.GetKeyDown(KeyCode.E))
         {
             if (heldItem == null && nearbyItem != null)
@@ -38,23 +36,23 @@ public class PickDrop_Ingredients : MonoBehaviour
         Vector3 startPosition = transform.position + Vector3.up * 0.5f;
         Vector3 directionToItem = (itemPosition - startPosition).normalized;
         float distance = Vector3.Distance(startPosition, itemPosition);
-        
+
         RaycastHit[] hits = Physics.RaycastAll(startPosition, directionToItem, distance);
-        
+
         foreach (RaycastHit hit in hits)
         {
             if (hit.collider.gameObject == gameObject || hit.collider.CompareTag("Item"))
             {
                 continue;
             }
-            
+
             DoorInteraction door = hit.collider.GetComponentInParent<DoorInteraction>();
             if (door != null && !door.IsOpen())
             {
                 return false;
             }
-            
-            if (!hit.collider.CompareTag("airwalls") && 
+
+            if (!hit.collider.CompareTag("airwalls") &&
                 !hit.collider.CompareTag("Player"))
             {
                 if (hit.collider.GetComponent<DoorInteraction>() != null)
@@ -67,53 +65,42 @@ public class PickDrop_Ingredients : MonoBehaviour
                 }
             }
         }
-        
+
         return true;
     }
 
-    void CheckItemCollision()
+    void PickItem()
     {
-        Collider itemCollider = heldItem.GetComponent<Collider>();
-        if (itemCollider == null) return;
+        heldItem = nearbyItem;
 
-        Bounds bounds = itemCollider.bounds;
-        Vector3 itemCenter = bounds.center;
-        Vector3 itemSize = bounds.size;
+        Rigidbody rb = heldItem.GetComponent<Rigidbody>();
+        Collider col = heldItem.GetComponent<Collider>();
 
-        Vector3[] directions = new Vector3[]
+        // mute the physics and collider
+        if (rb != null)
         {
-        Vector3.up,
-        Vector3.down,
-        transform.forward,
-        -transform.forward,
-        transform.right,
-        -transform.right
-        };
-
-        float rayDistance = Mathf.Max(itemSize.x, itemSize.y, itemSize.z) * 0.6f;
-
-        foreach (Vector3 dir in directions)
-        {
-            if (Physics.Raycast(itemCenter, dir, out RaycastHit hit, rayDistance))
-            {
-                if (hit.collider.gameObject != heldItem &&
-                    hit.collider.gameObject != gameObject &&
-                    !hit.collider.CompareTag("Item") &&
-                    !hit.collider.CompareTag("airwalls") &&
-                    !hit.collider.CompareTag("Player"))
-                {
-                    Debug.Log($"detect: {hit.collider.gameObject.name}, drop backwards");
-                    DropItemBackward();
-                    return;
-                }
-            }
+            rb.isKinematic = true;
+            rb.useGravity = false;
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
         }
+
+        if (col != null)
+            col.enabled = false;
+
+        heldItem.transform.SetParent(holdPoint);
+        heldItem.transform.localPosition = Vector3.zero;
+        heldItem.transform.localRotation = Quaternion.identity;
+
+        Debug.Log("Picked up: " + heldItem.name);
     }
 
-    void DropItemBackward()
+    void DropItem()
     {
         heldItem.transform.SetParent(null);
         Rigidbody rb = heldItem.GetComponent<Rigidbody>();
+        Collider col = heldItem.GetComponent<Collider>();
+
         if (rb != null)
         {
             rb.isKinematic = false;
@@ -122,87 +109,47 @@ public class PickDrop_Ingredients : MonoBehaviour
             rb.angularVelocity = Vector3.zero;
         }
 
-        Vector3 backwardOffset = -transform.forward * 0.5f;
-        Vector3 dropStart = transform.position + Vector3.up * 0.8f + backwardOffset;
-        Vector3 finalDropPosition = dropStart;
-
-        if (Physics.Raycast(dropStart, Vector3.down, out RaycastHit hit, 5f))
-        {
-            finalDropPosition = hit.point + Vector3.up * 0.1f;
-        }
-
-        heldItem.transform.position = finalDropPosition;
-
-        if (rb != null)
-        {
-            rb.AddForce(-transform.forward * 0.5f, ForceMode.Impulse);
-        }
-
-        lastDroppedItem = heldItem;
-        heldItem = null;
-
-        StartCoroutine(DelayedUpdateNearbyItem(0.2f));
-    }
-
-    void PickItem()
-    {
-        heldItem = nearbyItem;
-        Rigidbody rb = heldItem.GetComponent<Rigidbody>();
-        if (rb != null) rb.isKinematic = true;
-
-        heldItem.transform.SetParent(holdPoint);
-        heldItem.transform.localPosition = Vector3.zero;
-        heldItem.transform.localRotation = Quaternion.identity;
-        Debug.Log("Picked up: " + heldItem.name);
-    }
-
-    void DropItem()
-    {
-        heldItem.transform.SetParent(null);
-        Rigidbody rb = heldItem.GetComponent<Rigidbody>();
-        if (rb != null)
-        {
-            rb.isKinematic = false;
-            rb.useGravity = true;         
-            rb.linearVelocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
-        }
+        if (col != null)
+            col.enabled = true;
 
         Vector3 forwardOffset = transform.forward * 0.4f;
         Vector3 dropStart = transform.position + Vector3.up * 1.0f + forwardOffset;
-        
         Vector3 finalDropPosition = dropStart;
-
         if (Physics.Raycast(dropStart, Vector3.down, out RaycastHit hit, 5f))
-        {
-            finalDropPosition = hit.point + Vector3.up * 0.1f; 
-
-        }
+            finalDropPosition = hit.point + Vector3.up * 0.1f;
 
         heldItem.transform.position = finalDropPosition;
 
         if (rb != null)
-        {
             rb.AddForce(transform.forward * 1.0f, ForceMode.Impulse);
-        }
 
-        Debug.Log("Dropped: " + heldItem.name + " at position: " + heldItem.transform.position);
+        Debug.Log("Dropped: " + heldItem.name);
+
         lastDroppedItem = heldItem;
         heldItem = null;
 
-        StartCoroutine(DelayedUpdateNearbyItem(0.2f));
+        nearbyItem = null;
+
+        StartCoroutine(DelayedUpdateNearbyItem(0.3f));
     }
 
     private System.Collections.IEnumerator DelayedUpdateNearbyItem(float delay)
     {
         yield return new WaitForSeconds(delay);
-        UpdateNearbyItem();
+        UpdateNearbyItem();   // transfer the update function
+    }
+
+
+    private System.Collections.IEnumerator ClearLastDroppedAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        lastDroppedItem = null;
     }
 
     void UpdateNearbyItem()
     {
         nearbyItem = null;
-        Collider[] colliders = Physics.OverlapSphere(transform.position, 0.4f);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, 0.3f);
         float closestDistance = float.MaxValue;
 
         foreach (Collider col in colliders)
@@ -213,7 +160,6 @@ public class PickDrop_Ingredients : MonoBehaviour
                 {
                     continue;
                 }
-                
                 float distance = Vector3.Distance(transform.position, col.transform.position);
                 if (distance < closestDistance)
                 {
@@ -229,8 +175,6 @@ public class PickDrop_Ingredients : MonoBehaviour
             if (rb != null) rb.isKinematic = true;
             Debug.Log("New nearby item found: " + nearbyItem.name);
         }
-
-        lastDroppedItem = null;
     }
 
     void OnTriggerEnter(Collider other)
@@ -242,7 +186,6 @@ public class PickDrop_Ingredients : MonoBehaviour
                 Debug.Log($" {other.name} block by door, can't pick");
                 return;
             }
-            
             nearbyItem = other.gameObject;
             Rigidbody rb = nearbyItem.GetComponent<Rigidbody>();
             if (rb != null) rb.isKinematic = true;
@@ -257,6 +200,18 @@ public class PickDrop_Ingredients : MonoBehaviour
             nearbyItem = null;
             Debug.Log("Item left range");
             UpdateNearbyItem();
+        }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, 0.4f);
+
+        if (nearbyItem != null)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawLine(transform.position, nearbyItem.transform.position);
         }
     }
 }
