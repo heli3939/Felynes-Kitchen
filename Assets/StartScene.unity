@@ -2633,6 +2633,9 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8711289776401269294, guid: 9fcdd91d4fee8f5498d6471dcc03f9f3, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 1622806637}
+    - targetCorrespondingSourceObject: {fileID: 8711289776401269294, guid: 9fcdd91d4fee8f5498d6471dcc03f9f3, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 1622806632}
     - targetCorrespondingSourceObject: {fileID: 8711289776401269294, guid: 9fcdd91d4fee8f5498d6471dcc03f9f3, type: 3}
       insertIndex: -1
@@ -2643,9 +2646,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8711289776401269294, guid: 9fcdd91d4fee8f5498d6471dcc03f9f3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1622806636}
-    - targetCorrespondingSourceObject: {fileID: 8711289776401269294, guid: 9fcdd91d4fee8f5498d6471dcc03f9f3, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1622806637}
     - targetCorrespondingSourceObject: {fileID: 8711289776401269294, guid: 9fcdd91d4fee8f5498d6471dcc03f9f3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1622806639}
@@ -3247,12 +3247,12 @@ PrefabInstance:
       objectReference: {fileID: 2066962282}
     - target: {fileID: 6304029720958925692, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
       propertyPath: playerControlScripts.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6304029720958925692, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
       propertyPath: 'playerControlScripts.Array.data[0]'
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1622806637}
     - target: {fileID: 6304029720958925692, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
       propertyPath: 'playerControlScripts.Array.data[1]'
       value: 
