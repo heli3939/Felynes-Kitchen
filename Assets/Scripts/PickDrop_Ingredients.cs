@@ -109,26 +109,12 @@ public class PickDrop_Ingredients : MonoBehaviour
     void PickItem()
     {
         heldItem = nearbyItem;
-
         Rigidbody rb = heldItem.GetComponent<Rigidbody>();
-        Collider col = heldItem.GetComponent<Collider>();
-
-        // mute the physics and collider
-        if (rb != null)
-        {
-            rb.isKinematic = true;
-            rb.useGravity = false;
-            rb.linearVelocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
-        }
-
-        if (col != null)
-            col.enabled = false;
+        if (rb != null) rb.isKinematic = true;
 
         heldItem.transform.SetParent(holdPoint);
         heldItem.transform.localPosition = Vector3.zero;
         heldItem.transform.localRotation = Quaternion.identity;
-
         Debug.Log("Picked up: " + heldItem.name);
     }
 
@@ -136,61 +122,49 @@ public class PickDrop_Ingredients : MonoBehaviour
     {
         heldItem.transform.SetParent(null);
         Rigidbody rb = heldItem.GetComponent<Rigidbody>();
-        Collider col = heldItem.GetComponent<Collider>();
-
         if (rb != null)
         {
             rb.isKinematic = false;
-            rb.useGravity = true;
+            rb.useGravity = true;         
             rb.linearVelocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
         }
 
-        if (col != null)
-            col.enabled = true;
-
         Vector3 forwardOffset = transform.forward * 0.4f;
         Vector3 dropStart = transform.position + Vector3.up * 1.0f + forwardOffset;
+        
         Vector3 finalDropPosition = dropStart;
+
         if (Physics.Raycast(dropStart, Vector3.down, out RaycastHit hit, 5f))
         {
             finalDropPosition = hit.point + Vector3.up * 0.1f; 
 
         }
-        finalDropPosition = hit.point + Vector3.up * 0.1f;
 
         heldItem.transform.position = finalDropPosition;
 
         if (rb != null)
+        {
             rb.AddForce(transform.forward * 1.0f, ForceMode.Impulse);
+        }
 
-        Debug.Log("Dropped: " + heldItem.name);
-
+        Debug.Log("Dropped: " + heldItem.name + " at position: " + heldItem.transform.position);
         lastDroppedItem = heldItem;
         heldItem = null;
 
-        nearbyItem = null;
-
-        StartCoroutine(DelayedUpdateNearbyItem(0.3f));
+        StartCoroutine(DelayedUpdateNearbyItem(0.2f));
     }
 
     private System.Collections.IEnumerator DelayedUpdateNearbyItem(float delay)
     {
         yield return new WaitForSeconds(delay);
-        UpdateNearbyItem();   // transfer the update function
-    }
-
-
-    private System.Collections.IEnumerator ClearLastDroppedAfterDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        lastDroppedItem = null;
+        UpdateNearbyItem();
     }
 
     void UpdateNearbyItem()
     {
         nearbyItem = null;
-        Collider[] colliders = Physics.OverlapSphere(transform.position, 0.3f);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, 0.4f);
         float closestDistance = float.MaxValue;
 
         foreach (Collider col in colliders)
@@ -208,8 +182,12 @@ public class PickDrop_Ingredients : MonoBehaviour
 
         if (nearbyItem != null)
         {
-            Debug.Log("Nearest item: " + nearbyItem.name);
+            Rigidbody rb = nearbyItem.GetComponent<Rigidbody>();
+            if (rb != null) rb.isKinematic = true;
+            Debug.Log("New nearby item found: " + nearbyItem.name);
         }
+
+        lastDroppedItem = null;
     }
 
     void OnTriggerEnter(Collider other)
@@ -230,18 +208,6 @@ public class PickDrop_Ingredients : MonoBehaviour
             nearbyItem = null;
             Debug.Log("Item left range");
             UpdateNearbyItem();
-        }
-    }
-
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, 0.4f);
-
-        if (nearbyItem != null)
-        {
-            Gizmos.color = Color.green;
-            Gizmos.DrawLine(transform.position, nearbyItem.transform.position);
         }
     }
 }
