@@ -21,7 +21,6 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
     float supportRaySkin = 0.02f;
     float supportRayDepth = 0.18f;
     int supportSamplesX = 3;
-
     int supportSamplesZ = 1;
     float minSupportFraction = 0.6f;
     bool requireCenterSupport = true;
@@ -30,6 +29,9 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
 
     float fallGravityMultiplier = 2f;
     float lowJumpGravityMultiplier = 4.0f;
+
+    float prev_y;
+    float curr_y;
 
     Rigidbody rb;
     Vector3 input;
@@ -52,26 +54,36 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
 
     void Update()
     {
-        // WASD input
+        // Input
         float x = (Input.GetKey(KeyCode.D) ? 1f : 0f) - (Input.GetKey(KeyCode.A) ? 1f : 0f);
         float z = (Input.GetKey(KeyCode.W) ? 1f : 0f) - (Input.GetKey(KeyCode.S) ? 1f : 0f);
         input = new Vector3(x, 0f, z);
         if (input.sqrMagnitude > 1f) input.Normalize();
 
-        // Jump (Space) — sets upward velocity for desired height
-        if (Input.GetKeyDown(KeyCode.Space))
+        // Update grounded state before we handle jumping (so Space uses fresh result)
+        RefreshGrounded();
+
+        // Jump (Space) — sets upward velocity for desired height; only when grounded
+        curr_y = rb.position.y;
+        Debug.Log(curr_y + " vs " + prev_y);
+
+        if (Input.GetKeyDown(KeyCode.Space) && onGround)
         {
             float g = Mathf.Abs(Physics.gravity.y);
             Vector3 v = rb.linearVelocity;
             v.y = Mathf.Sqrt(2f * g * jumpHeight);
             rb.linearVelocity = v;
+
+            onGround = false; // prevent one extra jump frame on steep steps
         }
+
+        prev_y = curr_y;
     }
 
     void FixedUpdate()
     {
-        // Grounded (strict, anti-edge-hang)
-        onGround = IsWellSupported();
+        // Also refresh grounded in physics step (for gravity tweaks)
+        RefreshGrounded();
 
         // Movement (planar accel/decel)
         Vector3 planarVel = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
@@ -111,70 +123,88 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
         }
     }
 
-    // Strict support: grid of downward rays across capsule bottom
-    bool IsWellSupported()
+    // ---- Grounding helper (anti-edge-hang, slope & height tolerance) ----
+    // ---- Grounding helper (robust on steps / higher platforms) ----
+    void RefreshGrounded()
     {
-        if (!Capsule) return false;
+        if (!Capsule)
+        {
+            onGround = false;
+            return;
+        }
 
-        Bounds b = Capsule.bounds; // world-space
-        float y = b.min.y + supportRaySkin;
+        Bounds b = Capsule.bounds;
 
-        float halfX = Mathf.Max(b.extents.x - 0.005f, 0.001f);
-        float halfZ = Mathf.Max(b.extents.z - 0.005f, 0.001f);
+        // Start rays a little ABOVE the center so we're never inside the floor collider.
+        Vector3 rayPlaneCenter = b.center + Vector3.up * 0.05f;
 
-        int sx = Mathf.Max(supportSamplesX, 1);
-        int sz = Mathf.Max(supportSamplesZ, 1);
-        int total = sx * sz;
+        // Make rays long enough to reach from that start down past the feet.
+        float rayLen = b.extents.y + supportRayDepth + 0.1f;
 
         int hits = 0;
-        bool centerHit = false;
-        float minY = float.PositiveInfinity, maxY = float.NegativeInfinity;
+        int total = (2 * supportSamplesX + 1) * (2 * supportSamplesZ + 1);
+        float minHitY = float.MaxValue;
+        float maxHitY = float.MinValue;
+        bool centerSupported = false;
 
-        int cx = sx / 2;
-        int cz = sz / 2;
-
-        float stepX = (sx == 1) ? 0f : (2f * halfX) / (sx - 1);
-        float stepZ = (sz == 1) ? 0f : (2f * halfZ) / (sz - 1);
-
-        float maxSlopeDot = Mathf.Cos(maxGroundSlope * Mathf.Deg2Rad);
-        int mask = (groundMask == 0) ? ~0 : groundMask.value;
-
-        for (int ix = 0; ix < sx; ix++)
-            for (int iz = 0; iz < sz; iz++)
+        for (int ix = -supportSamplesX; ix <= supportSamplesX; ix++)
+        {
+            for (int iz = -supportSamplesZ; iz <= supportSamplesZ; iz++)
             {
-                float offX = -halfX + ix * stepX;
-                float offZ = -halfZ + iz * stepZ;
+                float tx = (supportSamplesX == 0) ? 0f : (float)ix / (float)supportSamplesX;
+                float tz = (supportSamplesZ == 0) ? 0f : (float)iz / (float)supportSamplesZ;
 
-                Vector3 origin = new Vector3(b.center.x + offX, y, b.center.z + offZ);
+                // spread across capsule footprint
+                Vector3 offset = new Vector3(tx * b.extents.x * 0.95f, 0f, tz * b.extents.z * 0.95f);
+                Vector3 origin = rayPlaneCenter + offset;
 
-                if (Physics.Raycast(origin, Vector3.down, out RaycastHit hit, supportRayDepth, mask, QueryTriggerInteraction.Ignore))
+                if (Physics.Raycast(origin, Vector3.down, out RaycastHit hit, rayLen, groundMask, QueryTriggerInteraction.Ignore))
                 {
-                    float upDot = Vector3.Dot(hit.normal, Vector3.up);
-                    if (upDot >= maxSlopeDot)
+                    float slope = Vector3.Angle(hit.normal, Vector3.up);
+                    if (slope <= maxGroundSlope)
                     {
                         hits++;
-                        minY = Mathf.Min(minY, hit.point.y);
-                        maxY = Mathf.Max(maxY, hit.point.y);
-                        if (ix == cx && iz == cz) centerHit = true;
+                        minHitY = Mathf.Min(minHitY, hit.point.y);
+                        maxHitY = Mathf.Max(maxHitY, hit.point.y);
+                        if (ix == 0 && iz == 0) centerSupported = true;
 
                         Debug.DrawRay(origin, Vector3.down * hit.distance, Color.green);
                     }
                     else
                     {
-                        Debug.DrawRay(origin, Vector3.down * supportRayDepth, Color.yellow);
+                        Debug.DrawRay(origin, Vector3.down * rayLen, Color.yellow);
                     }
                 }
                 else
                 {
-                    Debug.DrawRay(origin, Vector3.down * supportRayDepth, Color.red);
+                    Debug.DrawRay(origin, Vector3.down * rayLen, Color.red);
                 }
             }
+        }
 
-        float frac = (total > 0) ? (hits / (float)total) : 0f;
-        float heightSpread = (hits > 0) ? (maxY - minY) : float.MaxValue;
+        float supportFrac = (total > 0) ? (float)hits / (float)total : 0f;
+        bool heightOk = (maxHitY - minHitY) <= maxSupportHeightDelta;
 
-        return frac >= minSupportFraction
-            && (!requireCenterSupport || centerHit)
-            && heightSpread <= maxSupportHeightDelta;
+        bool gridGrounded = (supportFrac >= minSupportFraction) && heightOk && (!requireCenterSupport || centerSupported);
+
+        // --- Backup: short feet SphereCast to catch step-ups / edges ---
+        Vector3 feetStart = b.center + Vector3.up * 0.1f; // definitely above feet
+        float feetRadius = Mathf.Max(0.05f, Mathf.Min(b.extents.x, b.extents.z) * 0.45f);
+        float feetProbe = 0.25f;
+
+        bool feetGrounded = false;
+        if (Physics.SphereCast(feetStart, feetRadius, Vector3.down, out RaycastHit footHit, feetProbe, groundMask, QueryTriggerInteraction.Ignore))
+        {
+            float slope = Vector3.Angle(footHit.normal, Vector3.up);
+            if (slope <= maxGroundSlope) feetGrounded = true;
+            Debug.DrawRay(feetStart, Vector3.down * footHit.distance, Color.cyan);
+        }
+        else
+        {
+            Debug.DrawRay(feetStart, Vector3.down * feetProbe, Color.magenta);
+        }
+
+        onGround = gridGrounded || feetGrounded;
     }
+
 }
