@@ -1,17 +1,25 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class QTEManager : MonoBehaviour
 {
     [Header("Cameras")]
-    public GameObject tpCamera;   
-    public GameObject fpCamera;   
+    public GameObject tpCamera;
+    public GameObject fpCamera;
 
     [Header("QTE UI")]
     public GameObject qteCanvas;
     public QTEUIController qteController;
 
+    private GraphicRaycaster qteRaycaster;
+
     private void Awake()
     {
+        if (qteCanvas != null)
+        {
+            qteRaycaster = qteCanvas.GetComponent<GraphicRaycaster>();
+        }
+
         if (qteController != null)
             qteController.OnQTEFinished += HandleFinished;
     }
@@ -21,28 +29,23 @@ public class QTEManager : MonoBehaviour
         if (qteController != null)
             qteController.OnQTEFinished -= HandleFinished;
     }
-
-    //private void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.Q))
-    //    {
-    //        StartQTE();
-    //    }
-    //}
-
+    
     public void StartQTE()
     {
-        // switch to first person camera
+
         if (tpCamera != null) tpCamera.SetActive(false);
         if (fpCamera != null) fpCamera.SetActive(true);
-        // start QTE Canvas
+
         if (qteCanvas != null) qteCanvas.SetActive(true);
 
-        if (qteController != null)
-            qteController.StartQTE();
+        if (qteRaycaster != null)
+        {
+            qteRaycaster.enabled = true;
+        }
+
+        if (qteController != null) qteController.StartQTE();
     }
-
-
+    
     private void HandleFinished(QTEResult[] results)
     {
         foreach (var r in results)
@@ -56,7 +59,14 @@ public class QTEManager : MonoBehaviour
 
         if (qteController != null) qteController.StopQTE();
 
+        if (qteRaycaster != null)
+        {
+            qteRaycaster.enabled = false;
+        }
+
         if (qteCanvas != null) qteCanvas.SetActive(false);
 
+        if (fpCamera != null) fpCamera.SetActive(false);
+        if (tpCamera != null) tpCamera.SetActive(true);
     }
 }

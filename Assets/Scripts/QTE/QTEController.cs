@@ -51,7 +51,7 @@ public class QTEUIController : MonoBehaviour
     public float warningThreshold = 3f;
 
     [Header("Timer Settings")]
-    public float totalTime = 10f;      // QTE total time
+    public float totalTime = 10f;
     private float remainingTime;       
     private bool timeRunning = false;  
 

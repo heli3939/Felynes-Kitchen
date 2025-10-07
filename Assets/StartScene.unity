@@ -3161,14 +3161,62 @@ PrefabInstance:
       propertyPath: m_Name
       value: QTE
       objectReference: {fileID: 0}
+    - target: {fileID: 2635833673130657699, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3.073
+      objectReference: {fileID: 0}
+    - target: {fileID: 2635833673130657699, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.278
+      objectReference: {fileID: 0}
+    - target: {fileID: 2635833673130657699, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3.058
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271552987921643922, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271552987921643922, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
+      propertyPath: m_IgnoreReversedGraphics
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6304029720958925692, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
       propertyPath: tpCamera
       value: 
       objectReference: {fileID: 558363675}
     - target: {fileID: 6304029720958925692, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
+      propertyPath: dialogCanvas
+      value: 
+      objectReference: {fileID: 327799170}
+    - target: {fileID: 6304029720958925692, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
       propertyPath: qteController
       value: 
       objectReference: {fileID: 1214151733}
+    - target: {fileID: 6304029720958925692, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
+      propertyPath: pauseMenuCanvas
+      value: 
+      objectReference: {fileID: 1433837538}
+    - target: {fileID: 6304029720958925692, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
+      propertyPath: allUICanvases.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6304029720958925692, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
+      propertyPath: 'allUICanvases.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1433837538}
+    - target: {fileID: 6304029720958925692, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
+      propertyPath: 'allUICanvases.Array.data[1]'
+      value: 
+      objectReference: {fileID: 327799170}
+    - target: {fileID: 6304029720958925692, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
+      propertyPath: 'allUICanvases.Array.data[2]'
+      value: 
+      objectReference: {fileID: 2066962282}
+    - target: {fileID: 8470660113400237448, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
+      propertyPath: m_SortingOrder
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 6263255185543345818, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
@@ -4002,7 +4050,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &327799168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9384,10 +9432,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueData: {fileID: 0}
   lines: []
-  dialoguePanel: {fileID: 0}
-  portraitImage: {fileID: 0}
+  dialoguePanel: {fileID: 823657468}
+  portraitImage: {fileID: 239364347}
   nameText: {fileID: 0}
-  dialogueText: {fileID: 0}
+  dialogueText: {fileID: 433447836}
   pressHint: {fileID: 0}
   typeSpeed: 0.025
   playOnStart: 1
@@ -14978,56 +15026,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3992441233885976969, guid: ac3960763d9ed134b93e9bf2315734f3, type: 3}
   m_PrefabInstance: {fileID: 1001509816}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1358535778
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1358535780}
-  - component: {fileID: 1358535779}
-  m_Layer: 0
-  m_Name: PauseMenuManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1358535779
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1358535778}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f846cd9944788147b9297194aaa4350, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pausePanel: {fileID: 0}
-  pauseButton: {fileID: 0}
-  resumeButton: {fileID: 0}
-  restartButton: {fileID: 0}
-  tutorialButton: {fileID: 0}
-  exitButton: {fileID: 0}
---- !u!4 &1358535780
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1358535778}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.42941, y: 1.93395, z: -1.41}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1361359560 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4881249924912890334, guid: 5d82f1bc119211a4394feff00a78d5df, type: 3}
@@ -15902,7 +15900,7 @@ Canvas:
   m_GameObject: {fileID: 1433837535}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 558363677}
   m_PlaneDistance: 3
   m_PixelPerfect: 1
@@ -24864,6 +24862,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4957510550617909972, guid: 1b4c57d892a190d488bc5467a43318ef, type: 3}
   m_PrefabInstance: {fileID: 252881102}
   m_PrefabAsset: {fileID: 0}
+--- !u!223 &2066962282 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 8470660113400237448, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
+  m_PrefabInstance: {fileID: 261826460}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2068684414
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26179,6 +26182,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 269360380678009589}
     - target: {fileID: 2799864476297798945, guid: 62dbc1dd1cfbeb84ab6fda387ae45371, type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 558363677}
+    - target: {fileID: 2799864476297798945, guid: 62dbc1dd1cfbeb84ab6fda387ae45371, type: 3}
       propertyPath: pausePanel
       value: 
       objectReference: {fileID: 269360380678009594}
@@ -27055,4 +27062,3 @@ SceneRoots:
   - {fileID: 497881913}
   - {fileID: 1433837539}
   - {fileID: 261826460}
-  - {fileID: 1358535780}

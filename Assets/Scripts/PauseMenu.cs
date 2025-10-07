@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -17,39 +18,54 @@ public class PauseMenu : MonoBehaviour
     void Start()
     {
         if (pauseButton != null)
+        {
+            pauseButton.onClick.RemoveAllListeners();
             pauseButton.onClick.AddListener(() =>
             {
-                Debug.Log("PauseButton clicked");
+
                 OpenPause();
             });
+        }
 
         if (resumeButton != null)
+        {
+            resumeButton.onClick.RemoveAllListeners();
             resumeButton.onClick.AddListener(() =>
             {
-                Debug.Log("ResumeButton clicked");
+                
                 ResumeGame();
             });
+        }
 
         if (restartButton != null)
+        {
+            restartButton.onClick.RemoveAllListeners();
             restartButton.onClick.AddListener(() =>
             {
-                Debug.Log("RestartButton clicked");
+
                 RestartGame();
             });
+        }
 
         if (tutorialButton != null)
+        {
+            tutorialButton.onClick.RemoveAllListeners();
             tutorialButton.onClick.AddListener(() =>
             {
-                Debug.Log("TutorialButton clicked");
+
                 OpenTutorial();
             });
+        }
 
         if (exitButton != null)
+        {
+            exitButton.onClick.RemoveAllListeners();
             exitButton.onClick.AddListener(() =>
             {
-                Debug.Log("ExitButton clicked");
+
                 QuitGame();
             });
+        }
 
         if (pausePanel != null)
         {
@@ -91,7 +107,7 @@ public class PauseMenu : MonoBehaviour
     public void OpenTutorial()
     {
         Time.timeScale = 1f;
-        Debug.Log("Open tutorial");
+
     }
 
     public void QuitGame()
