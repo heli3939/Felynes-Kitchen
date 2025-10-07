@@ -6,6 +6,7 @@ public class PickDrop_Ingredients : MonoBehaviour
     private GameObject heldItem; // Reference to currently held item
     private GameObject nearbyItem; // Item we are close enough to pick
     private GameObject lastDroppedItem; // Track just-dropped item
+    
     public GameObject GetHeldItem()
     {
         return heldItem;
@@ -18,6 +19,11 @@ public class PickDrop_Ingredients : MonoBehaviour
 
     void Update()
     {
+        if (heldItem != null)
+        {
+            CheckItemCollision();
+        }
+        
         if (Input.GetKeyDown(KeyCode.E))
         {
             if (heldItem == null && nearbyItem != null)
@@ -76,7 +82,6 @@ public class PickDrop_Ingredients : MonoBehaviour
         Rigidbody rb = heldItem.GetComponent<Rigidbody>();
         Collider col = heldItem.GetComponent<Collider>();
 
-        // mute the physics and collider
         if (rb != null)
         {
             rb.isKinematic = true;
@@ -86,17 +91,32 @@ public class PickDrop_Ingredients : MonoBehaviour
         }
 
         if (col != null)
-            col.enabled = false;
+        {
+            col.isTrigger = true;
+        }
 
         heldItem.transform.SetParent(holdPoint);
         heldItem.transform.localPosition = Vector3.zero;
         heldItem.transform.localRotation = Quaternion.identity;
+
+        ItemCollisionDetector detector = heldItem.GetComponent<ItemCollisionDetector>();
+        if (detector == null)
+        {
+            detector = heldItem.AddComponent<ItemCollisionDetector>();
+        }
+        detector.pickDropScript = this;
 
         Debug.Log("Picked up: " + heldItem.name);
     }
 
     void DropItem()
     {
+        ItemCollisionDetector detector = heldItem.GetComponent<ItemCollisionDetector>();
+        if (detector != null)
+        {
+            Destroy(detector);
+        }
+
         heldItem.transform.SetParent(null);
         Rigidbody rb = heldItem.GetComponent<Rigidbody>();
         Collider col = heldItem.GetComponent<Collider>();
@@ -110,11 +130,14 @@ public class PickDrop_Ingredients : MonoBehaviour
         }
 
         if (col != null)
-            col.enabled = true;
+        {
+            col.isTrigger = false;
+        }
 
         Vector3 forwardOffset = transform.forward * 0.4f;
         Vector3 dropStart = transform.position + Vector3.up * 1.0f + forwardOffset;
         Vector3 finalDropPosition = dropStart;
+
         if (Physics.Raycast(dropStart, Vector3.down, out RaycastHit hit, 5f))
             finalDropPosition = hit.point + Vector3.up * 0.1f;
 
@@ -136,9 +159,8 @@ public class PickDrop_Ingredients : MonoBehaviour
     private System.Collections.IEnumerator DelayedUpdateNearbyItem(float delay)
     {
         yield return new WaitForSeconds(delay);
-        UpdateNearbyItem();   // transfer the update function
+        UpdateNearbyItem();
     }
-
 
     private System.Collections.IEnumerator ClearLastDroppedAfterDelay(float delay)
     {
@@ -212,6 +234,128 @@ public class PickDrop_Ingredients : MonoBehaviour
         {
             Gizmos.color = Color.green;
             Gizmos.DrawLine(transform.position, nearbyItem.transform.position);
+        }
+    }
+
+    void CheckItemCollision()
+    {
+        if (heldItem == null) return;
+
+        Collider itemCollider = heldItem.GetComponent<Collider>();
+        if (itemCollider == null) return;
+
+        Bounds bounds = itemCollider.bounds;
+        Vector3 center = bounds.center;
+        Vector3 halfExtents = bounds.extents * 0.8f;
+
+        Collider[] hitColliders = Physics.OverlapBox(center, halfExtents, heldItem.transform.rotation);
+
+        foreach (Collider col in hitColliders)
+        {
+            if (col.gameObject == heldItem ||
+                col.gameObject == gameObject ||
+                col.CompareTag("Item") ||
+                col.CompareTag("airwalls") ||
+                col.CompareTag("Player"))
+            {
+                continue;
+            }
+
+            Debug.Log($"Item collided with: {col.gameObject.name}, dropping backward");
+            DropItemBackward();
+            return;
+        }
+    }
+
+    public void DropItemBackward()
+    {
+        if (heldItem == null) return;
+
+        ItemCollisionDetector detector = heldItem.GetComponent<ItemCollisionDetector>();
+        if (detector != null)
+        {
+            Destroy(detector);
+        }
+
+        heldItem.transform.SetParent(null);
+        Rigidbody rb = heldItem.GetComponent<Rigidbody>();
+        Collider col = heldItem.GetComponent<Collider>();
+
+        if (rb != null)
+        {
+            rb.isKinematic = false;
+            rb.useGravity = true;
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+        }
+
+        if (col != null)
+        {
+            col.isTrigger = false;
+        }
+
+        Vector3 backwardOffset = -transform.forward * 0.5f;
+        Vector3 dropStart = transform.position + Vector3.up * 0.8f + backwardOffset;
+        Vector3 finalDropPosition = dropStart;
+
+        if (Physics.Raycast(dropStart, Vector3.down, out RaycastHit hit, 5f))
+        {
+            finalDropPosition = hit.point + Vector3.up * 0.1f;
+        }
+
+        heldItem.transform.position = finalDropPosition;
+
+        if (rb != null)
+        {
+            rb.AddForce(-transform.forward * 0.5f, ForceMode.Impulse);
+        }
+
+        Debug.Log("Dropped backward: " + heldItem.name);
+
+        lastDroppedItem = heldItem;
+        heldItem = null;
+
+        StartCoroutine(DelayedUpdateNearbyItem(0.2f));
+    }
+}
+
+public class ItemCollisionDetector : MonoBehaviour
+{
+    public PickDrop_Ingredients pickDropScript;
+    private float collisionCooldown = .8f;
+    private float lastPickupTime;
+
+    void Start()
+    {
+        lastPickupTime = Time.time;
+    }
+
+    void OnTriggerStay(Collider other)
+    {
+        if (Time.time - lastPickupTime < collisionCooldown)
+        {
+            return;
+        }
+
+        if (!other.CompareTag("Player") && 
+            !other.CompareTag("Item") && 
+            !other.CompareTag("airwalls") &&
+            pickDropScript != null)
+        {
+            Vector3 itemTop = transform.position + Vector3.up * GetComponent<Collider>().bounds.extents.y;
+            Vector3 closestPoint = other.ClosestPoint(itemTop);
+            
+            if (closestPoint.y > transform.position.y)
+            {
+                Vector3 directionToCollision = (closestPoint - transform.position).normalized;
+                float upwardDot = Vector3.Dot(directionToCollision, Vector3.up);
+                
+                if (upwardDot > 0.9f)
+                {
+                    Debug.Log($"Item hit from above by: {other.gameObject.name}");
+                    pickDropScript.DropItemBackward();
+                }
+            }
         }
     }
 }
