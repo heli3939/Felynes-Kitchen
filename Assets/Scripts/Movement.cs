@@ -15,10 +15,9 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
     public float zMax = 3f;
 
     [Header("Collision")]
-    public Collider Capsule; // solid capsule on the root
+    public Collider Capsule;
 
     public LayerMask groundMask = ~0;
-    float supportRaySkin = 0.02f;
     float supportRayDepth = 0.18f;
     int supportSamplesX = 3;
     int supportSamplesZ = 1;
@@ -29,9 +28,6 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
 
     float fallGravityMultiplier = 2f;
     float lowJumpGravityMultiplier = 4.0f;
-
-    float prev_y;
-    float curr_y;
 
     Rigidbody rb;
     Vector3 input;
@@ -60,13 +56,10 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
         input = new Vector3(x, 0f, z);
         if (input.sqrMagnitude > 1f) input.Normalize();
 
-        // Update grounded state before we handle jumping (so Space uses fresh result)
+        // Update grounded state before handle jump
         RefreshGrounded();
 
-        // Jump (Space) — sets upward velocity for desired height; only when grounded
-        curr_y = rb.position.y;
-        Debug.Log(curr_y + " vs " + prev_y);
-
+        // Jump (Space)
         if (Input.GetKeyDown(KeyCode.Space) && onGround)
         {
             float g = Mathf.Abs(Physics.gravity.y);
@@ -74,15 +67,12 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
             v.y = Mathf.Sqrt(2f * g * jumpHeight);
             rb.linearVelocity = v;
 
-            onGround = false; // prevent one extra jump frame on steep steps
+            onGround = false;
         }
-
-        prev_y = curr_y;
     }
 
     void FixedUpdate()
     {
-        // Also refresh grounded in physics step (for gravity tweaks)
         RefreshGrounded();
 
         // Movement (planar accel/decel)
@@ -123,8 +113,7 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
         }
     }
 
-    // ---- Grounding helper (anti-edge-hang, slope & height tolerance) ----
-    // ---- Grounding helper (robust on steps / higher platforms) ----
+    // Grounding helper
     void RefreshGrounded()
     {
         if (!Capsule)
@@ -135,10 +124,8 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
 
         Bounds b = Capsule.bounds;
 
-        // Start rays a little ABOVE the center so we're never inside the floor collider.
         Vector3 rayPlaneCenter = b.center + Vector3.up * 0.05f;
 
-        // Make rays long enough to reach from that start down past the feet.
         float rayLen = b.extents.y + supportRayDepth + 0.1f;
 
         int hits = 0;
@@ -167,17 +154,7 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
                         minHitY = Mathf.Min(minHitY, hit.point.y);
                         maxHitY = Mathf.Max(maxHitY, hit.point.y);
                         if (ix == 0 && iz == 0) centerSupported = true;
-
-                        Debug.DrawRay(origin, Vector3.down * hit.distance, Color.green);
                     }
-                    else
-                    {
-                        Debug.DrawRay(origin, Vector3.down * rayLen, Color.yellow);
-                    }
-                }
-                else
-                {
-                    Debug.DrawRay(origin, Vector3.down * rayLen, Color.red);
                 }
             }
         }
@@ -187,8 +164,7 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
 
         bool gridGrounded = (supportFrac >= minSupportFraction) && heightOk && (!requireCenterSupport || centerSupported);
 
-        // --- Backup: short feet SphereCast to catch step-ups / edges ---
-        Vector3 feetStart = b.center + Vector3.up * 0.1f; // definitely above feet
+        Vector3 feetStart = b.center + Vector3.up * 0.1f;
         float feetRadius = Mathf.Max(0.05f, Mathf.Min(b.extents.x, b.extents.z) * 0.45f);
         float feetProbe = 0.25f;
 
@@ -197,13 +173,7 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
         {
             float slope = Vector3.Angle(footHit.normal, Vector3.up);
             if (slope <= maxGroundSlope) feetGrounded = true;
-            Debug.DrawRay(feetStart, Vector3.down * footHit.distance, Color.cyan);
         }
-        else
-        {
-            Debug.DrawRay(feetStart, Vector3.down * feetProbe, Color.magenta);
-        }
-
         onGround = gridGrounded || feetGrounded;
     }
 
