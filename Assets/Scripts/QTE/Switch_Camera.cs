@@ -10,6 +10,9 @@ public class CameraSwitcher : MonoBehaviour
     [Header("Pickup Check")]
     public Transform holdPoint;
 
+    [Header("UI Hint")]
+    public HintUI hintUI;
+
     private bool isPlayerNearby = false;
     private bool isInFirstPerson = false;
     private Vector3 lastThirdPersonPosition; 
@@ -71,6 +74,8 @@ public class CameraSwitcher : MonoBehaviour
         if (holdPoint == null || holdPoint.childCount == 0)
         {
             Debug.LogWarning("[CameraSwitcher] Cannot switch to FP camera — player is not holding any item.");
+            if (hintUI != null)
+                hintUI.ShowHint("You must hold an ingredient to interact.");
             return;
         }
 
