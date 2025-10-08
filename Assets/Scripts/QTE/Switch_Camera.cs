@@ -75,7 +75,7 @@ public class CameraSwitcher : MonoBehaviour
         {
             Debug.LogWarning("[CameraSwitcher] Cannot switch to FP camera — player is not holding any item.");
             if (hintUI != null)
-                hintUI.ShowHint("You must hold an ingredient to interact.");
+                hintUI.ShowHint("You need to pick up an ingredient first!");
             return;
         }
 

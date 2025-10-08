@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -59,6 +59,7 @@ public class DialogueManage: MonoBehaviour
         index = 0;
         dialoguePanel.SetActive(true);
         InputBlocker.Lock(true);
+
         ShowLine();
     }
 
@@ -78,6 +79,7 @@ public class DialogueManage: MonoBehaviour
         if (typingCoroutine != null) StopCoroutine(typingCoroutine);
         typingCoroutine = StartCoroutine(TypeLine(line.text));
     }
+
     private IEnumerator TypeLine(string line)
     {
         isTyping = true;
