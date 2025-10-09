@@ -450,6 +450,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 027d96d1edef1453395ccf4495414087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  damageDelay: 0.3
+  rampTime: 0.25
+  scaleTransform: 1
+  minScale: 0.15
+  fullScale: {x: 0.2, y: 0.3, z: 0.2}
   playerTag: Player
   movementScriptTypeName: PlayerMovePhysicsSafe
   extraVisualRoots: []
@@ -472,10 +477,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 4.928397
+  m_Radius: 4.255515
   m_Height: 6.570708
   m_Direction: 1
-  m_Center: {x: 1.7661599, y: 0.12200523, z: 2.0423744}
+  m_Center: {x: 0, y: -3.7297952e-15, z: -0.67288154}
 --- !u!1 &35311392 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2380274916805294372, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
@@ -1579,8 +1584,20 @@ PrefabInstance:
       value: 0.76
       objectReference: {fileID: 0}
     - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
+      propertyPath: prewarm
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: playOnAwake
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
+      propertyPath: startDelay.maxCurve.m_Curve.Array.data[0].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
+      propertyPath: startDelay.maxCurve.m_Curve.Array.data[1].value
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: looping
@@ -1628,7 +1645,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 198000013621194436, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: prewarm
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 198000013621194436, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: playOnAwake
@@ -1976,8 +1993,20 @@ PrefabInstance:
       value: 0.76
       objectReference: {fileID: 0}
     - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
+      propertyPath: prewarm
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: playOnAwake
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
+      propertyPath: startDelay.maxCurve.m_Curve.Array.data[0].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
+      propertyPath: startDelay.maxCurve.m_Curve.Array.data[1].value
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: looping
@@ -2025,7 +2054,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 198000013621194436, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: prewarm
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 198000013621194436, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: playOnAwake
@@ -5501,6 +5530,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 027d96d1edef1453395ccf4495414087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  damageDelay: 0.3
+  rampTime: 0.25
+  scaleTransform: 1
+  minScale: 0.15
+  fullScale: {x: 0.2, y: 0.3, z: 0.2}
   playerTag: Player
   movementScriptTypeName: PlayerMovePhysicsSafe
   extraVisualRoots: []
@@ -5523,10 +5557,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 4.928397
+  m_Radius: 3.7615714
   m_Height: 6.570708
   m_Direction: 1
-  m_Center: {x: 1.7661599, y: 0.12200523, z: 2.0423744}
+  m_Center: {x: 0, y: -4.7163625e-15, z: -1.1668258}
 --- !u!1001 &377364082
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5681,8 +5715,20 @@ PrefabInstance:
       value: 0.76
       objectReference: {fileID: 0}
     - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
+      propertyPath: prewarm
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: playOnAwake
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
+      propertyPath: startDelay.maxCurve.m_Curve.Array.data[0].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
+      propertyPath: startDelay.maxCurve.m_Curve.Array.data[1].value
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: looping
@@ -5730,7 +5776,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 198000013621194436, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: prewarm
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 198000013621194436, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: playOnAwake
@@ -6148,6 +6194,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 027d96d1edef1453395ccf4495414087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  damageDelay: 0.3
+  rampTime: 0.25
+  scaleTransform: 1
+  minScale: 0.15
+  fullScale: {x: 0.2, y: 0.3, z: 0.2}
   playerTag: Player
   movementScriptTypeName: PlayerMovePhysicsSafe
   extraVisualRoots: []
@@ -6170,10 +6221,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 4.928397
+  m_Radius: 4.1428432
   m_Height: 6.570708
   m_Direction: 1
-  m_Center: {x: 1.7661599, y: 0.12200523, z: 2.0423744}
+  m_Center: {x: 0, y: -5.4571377e-15, z: -0.7855539}
 --- !u!4 &401641057 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3682756098588941781, guid: 32e1a57e943a83440883338283fc43ba, type: 3}
@@ -7044,8 +7095,20 @@ PrefabInstance:
       value: 0.76
       objectReference: {fileID: 0}
     - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
+      propertyPath: prewarm
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: playOnAwake
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
+      propertyPath: startDelay.maxCurve.m_Curve.Array.data[0].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
+      propertyPath: startDelay.maxCurve.m_Curve.Array.data[1].value
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: looping
@@ -7093,7 +7156,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 198000013621194436, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: prewarm
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 198000013621194436, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: playOnAwake
@@ -7634,6 +7697,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 027d96d1edef1453395ccf4495414087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  damageDelay: 0.3
+  rampTime: 0.25
+  scaleTransform: 1
+  minScale: 0.15
+  fullScale: {x: 0.2, y: 0.3, z: 0.2}
   playerTag: Player
   movementScriptTypeName: PlayerMovePhysicsSafe
   extraVisualRoots: []
@@ -7656,10 +7724,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 4.928397
+  m_Radius: 3.914729
   m_Height: 6.570708
   m_Direction: 1
-  m_Center: {x: 1.7661599, y: 0.12200523, z: 2.0423744}
+  m_Center: {x: 0, y: -8.954274e-15, z: -1.0136676}
 --- !u!4 &517786744 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6304050378626707907, guid: 019494231d2c9f34eaaf7ff85ea20c8a, type: 3}
@@ -9235,8 +9303,20 @@ PrefabInstance:
       value: 0.76
       objectReference: {fileID: 0}
     - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
+      propertyPath: prewarm
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: playOnAwake
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
+      propertyPath: startDelay.maxCurve.m_Curve.Array.data[0].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
+      propertyPath: startDelay.maxCurve.m_Curve.Array.data[1].value
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: looping
@@ -9284,7 +9364,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 198000013621194436, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: prewarm
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 198000013621194436, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: playOnAwake
@@ -12162,6 +12242,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 027d96d1edef1453395ccf4495414087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  damageDelay: 0.3
+  rampTime: 0.25
+  scaleTransform: 1
+  minScale: 0.15
+  fullScale: {x: 0.2, y: 0.3, z: 0.2}
   playerTag: Player
   movementScriptTypeName: PlayerMovePhysicsSafe
   extraVisualRoots: []
@@ -12184,10 +12269,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 4.928397
+  m_Radius: 3.1248121
   m_Height: 6.570708
   m_Direction: 1
-  m_Center: {x: 1.7661599, y: 0.12200523, z: 2.0423744}
+  m_Center: {x: 0, y: -1.4478309e-14, z: -1.8035852}
 --- !u!1001 &909449872
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13711,8 +13796,20 @@ PrefabInstance:
       value: 0.76
       objectReference: {fileID: 0}
     - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
+      propertyPath: prewarm
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: playOnAwake
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
+      propertyPath: startDelay.maxCurve.m_Curve.Array.data[0].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
+      propertyPath: startDelay.maxCurve.m_Curve.Array.data[1].value
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: looping
@@ -13760,7 +13857,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 198000013621194436, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: prewarm
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 198000013621194436, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: playOnAwake
@@ -13830,10 +13927,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 4.928397
+  m_Radius: 2.8347268
   m_Height: 6.570708
   m_Direction: 1
-  m_Center: {x: 1.7661599, y: 0.12200523, z: 2.0423744}
+  m_Center: {x: -0.2409947, y: -1.0908738e-15, z: -0.28595218}
 --- !u!114 &1074408256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13846,6 +13943,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 027d96d1edef1453395ccf4495414087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  damageDelay: 0.3
+  rampTime: 0.25
+  scaleTransform: 1
+  minScale: 0.15
+  fullScale: {x: 0.2, y: 0.3, z: 0.2}
   playerTag: Player
   movementScriptTypeName: PlayerMovePhysicsSafe
   extraVisualRoots: []
@@ -16692,6 +16794,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 027d96d1edef1453395ccf4495414087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  damageDelay: 0.3
+  rampTime: 0.25
+  scaleTransform: 1
+  minScale: 0.15
+  fullScale: {x: 0.2, y: 0.3, z: 0.2}
   playerTag: Player
   movementScriptTypeName: PlayerMovePhysicsSafe
   extraVisualRoots: []
@@ -16714,10 +16821,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 4.928397
+  m_Radius: 3.627066
   m_Height: 6.570708
   m_Direction: 1
-  m_Center: {x: 1.7661599, y: 0.12200523, z: 2.0423744}
+  m_Center: {x: 0, y: -6.7784083e-15, z: -1.3013304}
 --- !u!1 &1339277621 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7439559513023314303, guid: 33fd211ddac51448d901fd95f0fa1b10, type: 3}
@@ -17280,6 +17387,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 027d96d1edef1453395ccf4495414087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  damageDelay: 0.3
+  rampTime: 0.25
+  scaleTransform: 1
+  minScale: 0.15
+  fullScale: {x: 0.2, y: 0.3, z: 0.2}
   playerTag: Player
   movementScriptTypeName: PlayerMovePhysicsSafe
   extraVisualRoots: []
@@ -17302,10 +17414,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 4.928397
+  m_Radius: 4.223054
   m_Height: 6.570708
   m_Direction: 1
-  m_Center: {x: 1.7661599, y: 0.12200523, z: 2.0423744}
+  m_Center: {x: 0, y: -4.227444e-15, z: -0.70534253}
 --- !u!1 &1392253461 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ed5d97ebb448eea45979d508fd643558, type: 3}
@@ -20296,6 +20408,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 027d96d1edef1453395ccf4495414087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  damageDelay: 0.3
+  rampTime: 0.25
+  scaleTransform: 1
+  minScale: 0.15
+  fullScale: {x: 0.2, y: 0.3, z: 0.2}
   playerTag: Player
   movementScriptTypeName: PlayerMovePhysicsSafe
   extraVisualRoots: []
@@ -20318,10 +20435,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 4.928397
+  m_Radius: 3.1511357
   m_Height: 6.570708
   m_Direction: 1
-  m_Center: {x: 1.7661599, y: 0.12200523, z: 2.0423744}
+  m_Center: {x: 0, y: -1.4074752e-14, z: -1.7772616}
 --- !u!4 &1557858343 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5626154519295103400, guid: 1316452647a73184cba85ad0f097c3fa, type: 3}
@@ -20434,8 +20551,20 @@ PrefabInstance:
       value: 0.76
       objectReference: {fileID: 0}
     - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
+      propertyPath: prewarm
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: playOnAwake
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
+      propertyPath: startDelay.maxCurve.m_Curve.Array.data[0].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
+      propertyPath: startDelay.maxCurve.m_Curve.Array.data[1].value
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: looping
@@ -20483,7 +20612,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 198000013621194436, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: prewarm
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 198000013621194436, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: playOnAwake
@@ -20810,6 +20939,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 027d96d1edef1453395ccf4495414087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  damageDelay: 0.3
+  rampTime: 0.25
+  scaleTransform: 1
+  minScale: 0.15
+  fullScale: {x: 0.2, y: 0.3, z: 0.2}
   playerTag: Player
   movementScriptTypeName: PlayerMovePhysicsSafe
   extraVisualRoots: []
@@ -20832,10 +20966,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 4.928397
+  m_Radius: 3.910469
   m_Height: 6.570708
   m_Direction: 1
-  m_Center: {x: 1.7661599, y: 0.12200523, z: 2.0423744}
+  m_Center: {x: 0, y: -9.019601e-15, z: -1.0179288}
 --- !u!4 &1600148313 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1567182029461747248, guid: 869b55c0dc2962d41a835b0eeb3c4b36, type: 3}
@@ -21115,8 +21249,20 @@ PrefabInstance:
       value: 0.76
       objectReference: {fileID: 0}
     - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
+      propertyPath: prewarm
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: playOnAwake
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
+      propertyPath: startDelay.maxCurve.m_Curve.Array.data[0].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
+      propertyPath: startDelay.maxCurve.m_Curve.Array.data[1].value
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: looping
@@ -21164,7 +21310,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 198000013621194436, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: prewarm
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 198000013621194436, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: playOnAwake
@@ -21290,8 +21436,20 @@ PrefabInstance:
       value: 0.76
       objectReference: {fileID: 0}
     - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
+      propertyPath: prewarm
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: playOnAwake
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
+      propertyPath: startDelay.maxCurve.m_Curve.Array.data[0].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
+      propertyPath: startDelay.maxCurve.m_Curve.Array.data[1].value
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: looping
@@ -21339,7 +21497,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 198000013621194436, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: prewarm
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 198000013621194436, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: playOnAwake
@@ -21773,6 +21931,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 027d96d1edef1453395ccf4495414087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  damageDelay: 0.3
+  rampTime: 0.25
+  scaleTransform: 1
+  minScale: 0.15
+  fullScale: {x: 0.2, y: 0.3, z: 0.2}
   playerTag: Player
   movementScriptTypeName: PlayerMovePhysicsSafe
   extraVisualRoots: []
@@ -21795,10 +21958,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 4.928397
+  m_Radius: 3.691759
   m_Height: 6.570708
   m_Direction: 1
-  m_Center: {x: 1.7661599, y: 0.12200523, z: 2.0423744}
+  m_Center: {x: 0, y: 8.725461e-16, z: 0.11061404}
 --- !u!1001 &1639121016
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22109,6 +22272,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 027d96d1edef1453395ccf4495414087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  damageDelay: 0.3
+  rampTime: 0.25
+  scaleTransform: 1
+  minScale: 0.15
+  fullScale: {x: 0.2, y: 0.3, z: 0.2}
   playerTag: Player
   movementScriptTypeName: PlayerMovePhysicsSafe
   extraVisualRoots: []
@@ -22131,10 +22299,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 4.928397
+  m_Radius: 3.6377993
   m_Height: 6.570708
   m_Direction: 1
-  m_Center: {x: 1.7661599, y: 0.12200523, z: 2.0423744}
+  m_Center: {x: 0, y: -6.613877e-15, z: -1.2905983}
 --- !u!4 &1657008502 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 45822bfa19170d64ca25c89d6321b28a, type: 3}
@@ -22282,8 +22450,20 @@ PrefabInstance:
       value: 0.76
       objectReference: {fileID: 0}
     - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
+      propertyPath: prewarm
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: playOnAwake
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
+      propertyPath: startDelay.maxCurve.m_Curve.Array.data[0].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
+      propertyPath: startDelay.maxCurve.m_Curve.Array.data[1].value
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: looping
@@ -22331,7 +22511,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 198000013621194436, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: prewarm
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 198000013621194436, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: playOnAwake
@@ -23691,8 +23871,20 @@ PrefabInstance:
       value: 0.76
       objectReference: {fileID: 0}
     - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
+      propertyPath: prewarm
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: playOnAwake
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
+      propertyPath: startDelay.maxCurve.m_Curve.Array.data[0].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
+      propertyPath: startDelay.maxCurve.m_Curve.Array.data[1].value
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: looping
@@ -23740,7 +23932,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 198000013621194436, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: prewarm
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 198000013621194436, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: playOnAwake
@@ -24145,6 +24337,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 027d96d1edef1453395ccf4495414087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  damageDelay: 0.3
+  rampTime: 0.25
+  scaleTransform: 1
+  minScale: 0.15
+  fullScale: {x: 0.2, y: 0.3, z: 0.2}
   playerTag: Player
   movementScriptTypeName: PlayerMovePhysicsSafe
   extraVisualRoots: []
@@ -24167,10 +24364,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 4.928397
+  m_Radius: 3.9207697
   m_Height: 6.570708
   m_Direction: 1
-  m_Center: {x: 1.7661599, y: 0.12200523, z: 2.0423744}
+  m_Center: {x: 0, y: -8.8616816e-15, z: -1.007628}
 --- !u!1001 &1778058264
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24871,8 +25068,20 @@ PrefabInstance:
       value: 0.76
       objectReference: {fileID: 0}
     - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
+      propertyPath: prewarm
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: playOnAwake
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
+      propertyPath: startDelay.maxCurve.m_Curve.Array.data[0].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
+      propertyPath: startDelay.maxCurve.m_Curve.Array.data[1].value
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: looping
@@ -24920,7 +25129,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 198000013621194436, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: prewarm
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 198000013621194436, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: playOnAwake
@@ -25679,6 +25888,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 027d96d1edef1453395ccf4495414087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  damageDelay: 0.3
+  rampTime: 0.25
+  scaleTransform: 1
+  minScale: 0.15
+  fullScale: {x: 0.2, y: 0.3, z: 0.2}
   playerTag: Player
   movementScriptTypeName: PlayerMovePhysicsSafe
   extraVisualRoots: []
@@ -25701,10 +25915,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 4.928397
+  m_Radius: 3.090069
   m_Height: 6.570708
   m_Direction: 1
-  m_Center: {x: 1.7661599, y: 0.12200523, z: 2.0423744}
+  m_Center: {x: 0, y: -3.860514e-15, z: -0.46661228}
 --- !u!1 &1873646265 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5975297603518973105, guid: ec158a30d63991f47a17ba2373327046, type: 3}
@@ -26195,8 +26409,20 @@ PrefabInstance:
       value: 0.76
       objectReference: {fileID: 0}
     - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
+      propertyPath: prewarm
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: playOnAwake
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
+      propertyPath: startDelay.maxCurve.m_Curve.Array.data[0].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
+      propertyPath: startDelay.maxCurve.m_Curve.Array.data[1].value
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: looping
@@ -26244,7 +26470,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 198000013621194436, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: prewarm
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 198000013621194436, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: playOnAwake
@@ -27085,8 +27311,20 @@ PrefabInstance:
       value: 0.76
       objectReference: {fileID: 0}
     - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
+      propertyPath: prewarm
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: playOnAwake
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
+      propertyPath: startDelay.maxCurve.m_Curve.Array.data[0].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
+      propertyPath: startDelay.maxCurve.m_Curve.Array.data[1].value
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: looping
@@ -27134,7 +27372,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 198000013621194436, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: prewarm
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 198000013621194436, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: playOnAwake
@@ -28812,6 +29050,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 027d96d1edef1453395ccf4495414087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  damageDelay: 0.3
+  rampTime: 0.25
+  scaleTransform: 1
+  minScale: 0.15
+  fullScale: {x: 0.2, y: 0.3, z: 0.2}
   playerTag: Player
   movementScriptTypeName: PlayerMovePhysicsSafe
   extraVisualRoots: []
@@ -28834,10 +29077,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 4.928397
+  m_Radius: 3.937386
   m_Height: 6.570708
   m_Direction: 1
-  m_Center: {x: 1.7661599, y: 0.12200523, z: 2.0423744}
+  m_Center: {x: -0.2921012, y: 0.12200523, z: 2.0423744}
 --- !u!4 &2105992549 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2ecea0e23a6d8d245bbee0e40c16ebf9, type: 3}
@@ -29113,8 +29356,20 @@ PrefabInstance:
       value: 0.76
       objectReference: {fileID: 0}
     - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
+      propertyPath: prewarm
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: playOnAwake
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
+      propertyPath: startDelay.maxCurve.m_Curve.Array.data[0].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012351162682, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
+      propertyPath: startDelay.maxCurve.m_Curve.Array.data[1].value
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: looping
@@ -29162,7 +29417,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 198000013621194436, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: prewarm
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 198000013621194436, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: playOnAwake
@@ -29608,6 +29863,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 027d96d1edef1453395ccf4495414087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  damageDelay: 0.3
+  rampTime: 0.25
+  scaleTransform: 1
+  minScale: 0.15
+  fullScale: {x: 0.2, y: 0.3, z: 0.2}
   playerTag: Player
   movementScriptTypeName: PlayerMovePhysicsSafe
   extraVisualRoots: []
@@ -29630,10 +29890,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 4.928397
+  m_Radius: 3.747273
   m_Height: 6.570708
   m_Direction: 1
-  m_Center: {x: 1.7661599, y: 0.12200523, z: 2.0423744}
+  m_Center: {x: 0, y: -4.935568e-15, z: -1.1811243}
 --- !u!4 &2138463020 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3266736721555157783, guid: 77772ce1c34e0504f8c113cd475a388a, type: 3}
