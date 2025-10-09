@@ -4,12 +4,19 @@ public class CameraSwitcher : MonoBehaviour
 {
     public Camera thirdPersonCam; 
     public Camera firstPersonCam; 
-    public KeyCode interactKey = KeyCode.E; 
-    public MonoBehaviour playerMovementScript; 
+    public KeyCode interactKey = KeyCode.Q; 
+    public MonoBehaviour playerMovementScript;
+
+    [Header("Pickup Check")]
+    public Transform holdPoint;
+
+    [Header("UI Hint")]
+    public HintUI hintUI;
+
     private bool isPlayerNearby = false;
     private bool isInFirstPerson = false;
     private Vector3 lastThirdPersonPosition; 
-    private Quaternion lastThirdPersonRotation; 
+    private Quaternion lastThirdPersonRotation;
 
     void Start()
     {
@@ -64,6 +71,14 @@ public class CameraSwitcher : MonoBehaviour
 
     private void SwitchToFirstPerson()
     {
+        if (holdPoint == null || holdPoint.childCount == 0)
+        {
+            Debug.LogWarning("[CameraSwitcher] Cannot switch to FP camera — player is not holding any item.");
+            if (hintUI != null)
+                hintUI.ShowHint("You must hold an ingredient to interact.");
+            return;
+        }
+
         if (thirdPersonCam != null)
         {
             lastThirdPersonPosition = thirdPersonCam.transform.position;
