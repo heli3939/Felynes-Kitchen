@@ -129,7 +129,8 @@ public class CameraSwitcher : MonoBehaviour
         var qteManager = FindFirstObjectByType<QTEManager>();
         if (qteManager != null)
         {
-            qteManager.SendMessage("SetPlayerControls", true);
+            qteManager.SetPlayerControls(true);  
+            Debug.Log("[CameraSwitcher] ✅ Player control restored after camera switch");
         }
     }
 

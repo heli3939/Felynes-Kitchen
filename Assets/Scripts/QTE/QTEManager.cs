@@ -132,8 +132,6 @@ public class QTEManager : MonoBehaviour
             Debug.Log($"[QTEManager] Destroying ingredient: {child.name}");
             Destroy(child.gameObject);
         }
-
-        Debug.Log("[QTEManager] QTE ended, waiting 3s before switching back to TP Camera ✅");
     }
 
 
@@ -169,7 +167,7 @@ public class QTEManager : MonoBehaviour
         }
     }
 
-    private void SetPlayerControls(bool enabled)
+    public void SetPlayerControls(bool enabled)
     {
         foreach (var script in playerControlScripts)
         {
