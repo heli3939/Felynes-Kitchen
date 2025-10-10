@@ -20,6 +20,11 @@ public class QTEManager : MonoBehaviour
     [Header("Pickup Check")]
     public Transform holdPoint;
 
+    [Header("Liquid Control")]
+    public Animator potLiquidAnimator;  
+    private int currentFillLevel = 0;   
+    private int maxFillLevel = 5;
+
     private void Awake()
     {
         if (qteCanvas != null)
@@ -111,34 +116,26 @@ public class QTEManager : MonoBehaviour
             qteCanvas.SetActive(false);
         }
 
-        // Close firstperson camera
-        if (fpCamera != null)
-            fpCamera.SetActive(false);
-
-        if (tpCamera != null)
+        var camSwitcher = FindFirstObjectByType<CameraSwitcher>();
+        if (camSwitcher != null)
         {
-            tpCamera.SetActive(true);
-            var cam = tpCamera.GetComponent<Camera>();
-            if (cam != null)
-            {
-                cam.enabled = true;
-                cam.tag = "MainCamera"; 
-            }
+            camSwitcher.StartCoroutine(camSwitcher.SwitchBackToThirdPersonDelayed(3f));
+        }
+        else
+        {
+            Debug.LogWarning("[QTEManager] CameraSwitcher not found!");
         }
 
-        // Delete the ingredients after QTE
         if (holdPoint != null && holdPoint.childCount > 0)
         {
             Transform child = holdPoint.GetChild(0);
             Debug.Log($"[QTEManager] Destroying ingredient: {child.name}");
-            Destroy(child.gameObject); 
+            Destroy(child.gameObject);
         }
 
-        // restore the player's movement
-        SetPlayerControls(true);
-
-        Debug.Log("[QTEManager] QTE ended, switched back to TP Camera ✅");
+        Debug.Log("[QTEManager] QTE ended, waiting 3s before switching back to TP Camera ✅");
     }
+
 
     private void HandleFinished(QTEResult[] results)
     {
@@ -148,6 +145,28 @@ public class QTEManager : MonoBehaviour
         }
 
         Debug.Log($"[QTEManager] QTE finished! Total Score: {ScoreSystem.Instance.score}");
+
+        IncreaseLiquidLevel();
+    }
+
+    private void IncreaseLiquidLevel()
+    {
+        if (potLiquidAnimator == null)
+        {
+            Debug.LogWarning("[QTEManager] No liquid animator assigned!");
+            return;
+        }
+
+        if (currentFillLevel < maxFillLevel)
+        {
+            currentFillLevel++;
+            potLiquidAnimator.SetInteger("FillLevel", currentFillLevel);
+            Debug.Log($"[QTEManager] Liquid increased to stage {currentFillLevel}");
+        }
+        else
+        {
+            Debug.Log("[QTEManager] Pot is already full.");
+        }
     }
 
     private void SetPlayerControls(bool enabled)

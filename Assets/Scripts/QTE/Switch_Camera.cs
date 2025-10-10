@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class CameraSwitcher : MonoBehaviour
 {
@@ -47,7 +48,7 @@ public class CameraSwitcher : MonoBehaviour
             if (!isInFirstPerson)
                 SwitchToFirstPerson();
             else
-                SwitchBackToThirdPerson();
+                StartCoroutine(SwitchBackToThirdPersonDelayed(2f));
         }
     }
 
@@ -124,5 +125,18 @@ public class CameraSwitcher : MonoBehaviour
             playerMovementScript.enabled = true; 
         }
         isInFirstPerson = false;
+
+        var qteManager = FindFirstObjectByType<QTEManager>();
+        if (qteManager != null)
+        {
+            qteManager.SendMessage("SetPlayerControls", true);
+        }
     }
+
+    public IEnumerator SwitchBackToThirdPersonDelayed(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        SwitchBackToThirdPerson();
+    }
+
 }
