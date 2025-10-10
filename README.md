@@ -16,7 +16,34 @@
     - _Untitled Goose Game_ (simple, brightly colored art direction)
 
 - **Target Audience**  
-  Casual to mid-core players, especially teens and young adults who enjoy cozy, lighthearted platformers, cooking games, and animal-themed characters. Accessible enough for casual play but with replayability for more engaged players.
+  Casual to mid-core players, especially teens and young adults who enjoy cozy, lighthearted platformers, coo
+    void ShowLine()
+    {
+        if (typingCoroutine != null)
+            StopCoroutine(typingCoroutine);;
+
+        DialogueLine line = lines[index];
+        currentSpeaker = line.speakerName;
+        currentLine = line.text;
+
+        nameText.text = currentSpeaker;
+
+        Felyne.color = new Color(1f, 1f, 1f, 0f);
+        Spirit.color = new Color(1f, 1f, 1f, 0f);
+        if (currentSpeaker == "Player")
+        {
+            Felyne.sprite = line.portrait;
+            Felyne.gameObject.SetActive(true);   
+        }
+        else
+        {
+            Spirit.sprite = line.portrait;
+            Spirit.gameObject.SetActive(true); 
+        }
+
+        typingCoroutine = StartCoroutine(TypeLine(currentLine));
+    }
+king games, and animal-themed characters. Accessible enough for casual play but with replayability for more engaged players.
 
 - **Unique Selling Points (USPs)**
   - **Miniature Perspective:** Contrast between "enlarged" everyday kitchen objects and ingredients and shrunk Felyne’s model.

@@ -126,6 +126,14 @@ public class QTEManager : MonoBehaviour
             }
         }
 
+        // Delete the ingredients after QTE
+        if (holdPoint != null && holdPoint.childCount > 0)
+        {
+            Transform child = holdPoint.GetChild(0);
+            Debug.Log($"[QTEManager] Destroying ingredient: {child.name}");
+            Destroy(child.gameObject); 
+        }
+
         // restore the player's movement
         SetPlayerControls(true);
 
