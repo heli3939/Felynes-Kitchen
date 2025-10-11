@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class QTEManager : MonoBehaviour
 {
@@ -19,6 +20,13 @@ public class QTEManager : MonoBehaviour
 
     [Header("Pickup Check")]
     public Transform holdPoint;
+
+    [Header("Liquid Control")]
+    public Animator potLiquidAnimator;  
+    private int currentFillLevel = 0;   
+    private int maxFillLevel = 5;
+
+    public int CurrentFillLevel => currentFillLevel;
 
     private void Awake()
     {
@@ -111,38 +119,71 @@ public class QTEManager : MonoBehaviour
             qteCanvas.SetActive(false);
         }
 
-        // Close firstperson camera
-        if (fpCamera != null)
-            fpCamera.SetActive(false);
-
-        if (tpCamera != null)
+        var camSwitcher = FindFirstObjectByType<CameraSwitcher>();
+        if (camSwitcher != null)
         {
-            tpCamera.SetActive(true);
-            var cam = tpCamera.GetComponent<Camera>();
-            if (cam != null)
-            {
-                cam.enabled = true;
-                cam.tag = "MainCamera"; 
-            }
+            camSwitcher.StartCoroutine(camSwitcher.SwitchBackToThirdPersonDelayed(3f));
         }
 
-        // restore the player's movement
+        if (holdPoint != null && holdPoint.childCount > 0)
+        {
+            Transform child = holdPoint.GetChild(0);
+            Debug.Log($"[QTEManager] Destroying ingredient: {child.name}");
+            Destroy(child.gameObject);
+        }
+
         SetPlayerControls(true);
 
-        Debug.Log("[QTEManager] QTE ended, switched back to TP Camera ✅");
+        qteHandled = false;
     }
+
+    private bool qteHandled = false; 
 
     private void HandleFinished(QTEResult[] results)
     {
+        if (qteHandled) return; 
+
         foreach (var r in results)
         {
             ScoreSystem.Instance.AddScore(r);
         }
 
-        Debug.Log($"[QTEManager] QTE finished! Total Score: {ScoreSystem.Instance.score}");
+        if (holdPoint != null && holdPoint.childCount > 0)
+        {
+            Destroy(holdPoint.GetChild(0).gameObject);
+        }
+
+        StartCoroutine(DelayedIncreaseLiquidLevel(0.5f));
+
+        qteHandled = true; 
     }
 
-    private void SetPlayerControls(bool enabled)
+    private void IncreaseLiquidLevel()
+    {
+        if (potLiquidAnimator == null) return;
+
+        potLiquidAnimator.speed = 0.2f;
+
+        if (currentFillLevel < maxFillLevel)
+        {
+            currentFillLevel++;
+            potLiquidAnimator.SetInteger("FillLevel", currentFillLevel);
+            Debug.Log($"[QTEManager] Liquid increased to stage {currentFillLevel}");
+        }
+        else
+        {
+            Debug.Log("[QTEManager] Pot is already full. QTE completed but liquid did not increase.");
+        }
+
+    }
+
+    private IEnumerator DelayedIncreaseLiquidLevel(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        IncreaseLiquidLevel();
+    }
+
+    public void SetPlayerControls(bool enabled)
     {
         foreach (var script in playerControlScripts)
         {

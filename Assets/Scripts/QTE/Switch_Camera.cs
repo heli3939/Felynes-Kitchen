@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class CameraSwitcher : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class CameraSwitcher : MonoBehaviour
     [Header("Pickup Check")]
     public Transform holdPoint;
 
-    [Header("UI Hint")]
+    [Header("UI Hint for empty")]
     public HintUI hintUI;
 
     private bool isPlayerNearby = false;
@@ -47,7 +48,7 @@ public class CameraSwitcher : MonoBehaviour
             if (!isInFirstPerson)
                 SwitchToFirstPerson();
             else
-                SwitchBackToThirdPerson();
+                StartCoroutine(SwitchBackToThirdPersonDelayed(1f));
         }
     }
 
@@ -75,7 +76,7 @@ public class CameraSwitcher : MonoBehaviour
         {
             Debug.LogWarning("[CameraSwitcher] Cannot switch to FP camera — player is not holding any item.");
             if (hintUI != null)
-                hintUI.ShowHint("You must hold an ingredient to interact.");
+                hintUI.ShowHint("You need to pick up an ingredient first!");
             return;
         }
 
@@ -84,7 +85,7 @@ public class CameraSwitcher : MonoBehaviour
             lastThirdPersonPosition = thirdPersonCam.transform.position;
             lastThirdPersonRotation = thirdPersonCam.transform.rotation;
             thirdPersonCam.enabled = false;
-            thirdPersonCam.gameObject.SetActive(false); // prohibited
+            thirdPersonCam.gameObject.SetActive(false);
             var follow = thirdPersonCam.GetComponent<CameraFollow>();
             if (follow != null) follow.enabled = false;
         }
@@ -95,10 +96,11 @@ public class CameraSwitcher : MonoBehaviour
         }
         if (playerMovementScript != null)
         {
-            playerMovementScript.enabled = false; // prohibite moving
+            playerMovementScript.enabled = false; 
         }
         isInFirstPerson = true;
     }
+
 
     private void SwitchBackToThirdPerson()
     {
@@ -124,5 +126,19 @@ public class CameraSwitcher : MonoBehaviour
             playerMovementScript.enabled = true; 
         }
         isInFirstPerson = false;
+
+        var qteManager = FindFirstObjectByType<QTEManager>();
+        if (qteManager != null)
+        {
+            qteManager.SetPlayerControls(true);  
+            Debug.Log("[CameraSwitcher] ✅ Player control restored after camera switch");
+        }
     }
+
+    public IEnumerator SwitchBackToThirdPersonDelayed(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        SwitchBackToThirdPerson();
+    }
+
 }

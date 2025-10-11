@@ -1,38 +1,49 @@
 ﻿using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 using System.Collections;
 
 public class TestDialogue : MonoBehaviour
 {
+    [Header("UI References")]
     public GameObject dialoguePanel;
+    public TMP_Text nameText;
     public TMP_Text dialogueText;
+    public Image Felyne;
+    public Image Spirit;
 
-    private string[] lines = {
-        "Hi! Welcome",
-        "I hope you can enjoy your time here",
-        "Good luck! Let's start!"
-    };
+    [Header("Typing & Audio")]
+    public float typeSpeed = 0.05f;
+    public AudioSource audioSource;
+    public AudioClip typeSound;
+    public int charsPerSound = 2;
+
+    [Header("Dialogue Lines")]
+    public DialogueLine[] lines;
 
     private int index = 0;
     private bool isTyping = false;
-    private string currentLine = "";
     private Coroutine typingCoroutine;
+    private string currentLine = "";
+    private string currentSpeaker = "";
 
-    public float typeSpeed = 0.1f;
+    public bool IsFinished { get; private set; } = false;
 
-    public AudioSource audioSource;
-    public AudioClip typeSound;
-    public int charsPerSound = 2; // play sound every 2 characters
-
-    void Start()
+    public void StartDialogue(DialogueLine[] newLines)
     {
+        lines = newLines;
+        index = 0;
+        IsFinished = false;
+
         dialoguePanel.SetActive(true);
         ShowLine();
     }
 
     void Update()
     {
-        if (dialoguePanel.activeSelf && (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)))
+        if (!dialoguePanel.activeSelf) return;
+
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
         {
             if (isTyping)
             {
@@ -49,7 +60,7 @@ public class TestDialogue : MonoBehaviour
                 }
                 else
                 {
-                    dialoguePanel.SetActive(false);
+                    EndDialogue();
                 }
             }
         }
@@ -57,13 +68,31 @@ public class TestDialogue : MonoBehaviour
 
     void ShowLine()
     {
-        currentLine = lines[index];
         if (typingCoroutine != null)
+            StopCoroutine(typingCoroutine);;
+
+        DialogueLine line = lines[index];
+        currentSpeaker = line.speakerName;
+        currentLine = line.text;
+
+        nameText.text = currentSpeaker;
+
+        Felyne.color = new Color(1f, 1f, 1f, 0f);
+        Spirit.color = new Color(1f, 1f, 1f, 0f);
+        if (currentSpeaker == "Player")
         {
-            StopCoroutine(typingCoroutine);
+            Felyne.sprite = line.portrait;
+            Felyne.color = Color.white;   
         }
+        else
+        {
+            Spirit.sprite = line.portrait;
+            Spirit.color = Color.white; 
+        }
+
         typingCoroutine = StartCoroutine(TypeLine(currentLine));
     }
+
 
     IEnumerator TypeLine(string line)
     {
@@ -71,21 +100,26 @@ public class TestDialogue : MonoBehaviour
         dialogueText.text = "";
         int charCount = 0;
 
-        foreach (char c in line.ToCharArray())
+        foreach (char c in line)
         {
             dialogueText.text += c;
             charCount++;
 
-            if (audioSource != null && typeSound != null && charCount % charsPerSound == 0)
-            {
-                audioSource.pitch = Random.Range(0.9f, 1.1f);
+            if (audioSource && typeSound && charCount % charsPerSound == 0)
                 audioSource.PlayOneShot(typeSound);
-            }
 
-            yield return new WaitForSeconds(typeSpeed);
+            yield return new WaitForSecondsRealtime(typeSpeed);
         }
 
         isTyping = false;
     }
+
+    void EndDialogue()
+    {
+        dialoguePanel.SetActive(false);
+        IsFinished = true;
+    }
 }
+
+
 
