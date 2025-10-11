@@ -11,7 +11,7 @@ public class CameraSwitcher : MonoBehaviour
     [Header("Pickup Check")]
     public Transform holdPoint;
 
-    [Header("UI Hint")]
+    [Header("UI Hint for empty")]
     public HintUI hintUI;
 
     private bool isPlayerNearby = false;
@@ -48,7 +48,7 @@ public class CameraSwitcher : MonoBehaviour
             if (!isInFirstPerson)
                 SwitchToFirstPerson();
             else
-                StartCoroutine(SwitchBackToThirdPersonDelayed(2f));
+                StartCoroutine(SwitchBackToThirdPersonDelayed(1f));
         }
     }
 
@@ -85,7 +85,7 @@ public class CameraSwitcher : MonoBehaviour
             lastThirdPersonPosition = thirdPersonCam.transform.position;
             lastThirdPersonRotation = thirdPersonCam.transform.rotation;
             thirdPersonCam.enabled = false;
-            thirdPersonCam.gameObject.SetActive(false); // prohibited
+            thirdPersonCam.gameObject.SetActive(false);
             var follow = thirdPersonCam.GetComponent<CameraFollow>();
             if (follow != null) follow.enabled = false;
         }
@@ -96,10 +96,11 @@ public class CameraSwitcher : MonoBehaviour
         }
         if (playerMovementScript != null)
         {
-            playerMovementScript.enabled = false; // prohibite moving
+            playerMovementScript.enabled = false; 
         }
         isInFirstPerson = true;
     }
+
 
     private void SwitchBackToThirdPerson()
     {

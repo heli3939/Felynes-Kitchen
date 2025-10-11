@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class QTEManager : MonoBehaviour
 {
@@ -24,6 +25,8 @@ public class QTEManager : MonoBehaviour
     public Animator potLiquidAnimator;  
     private int currentFillLevel = 0;   
     private int maxFillLevel = 5;
+
+    public int CurrentFillLevel => currentFillLevel;
 
     private void Awake()
     {
@@ -121,10 +124,6 @@ public class QTEManager : MonoBehaviour
         {
             camSwitcher.StartCoroutine(camSwitcher.SwitchBackToThirdPersonDelayed(3f));
         }
-        else
-        {
-            Debug.LogWarning("[QTEManager] CameraSwitcher not found!");
-        }
 
         if (holdPoint != null && holdPoint.childCount > 0)
         {
@@ -132,28 +131,38 @@ public class QTEManager : MonoBehaviour
             Debug.Log($"[QTEManager] Destroying ingredient: {child.name}");
             Destroy(child.gameObject);
         }
+
+        SetPlayerControls(true);
+
+        qteHandled = false;
     }
 
+    private bool qteHandled = false; 
 
     private void HandleFinished(QTEResult[] results)
     {
+        if (qteHandled) return; 
+
         foreach (var r in results)
         {
             ScoreSystem.Instance.AddScore(r);
         }
 
-        Debug.Log($"[QTEManager] QTE finished! Total Score: {ScoreSystem.Instance.score}");
+        if (holdPoint != null && holdPoint.childCount > 0)
+        {
+            Destroy(holdPoint.GetChild(0).gameObject);
+        }
 
-        IncreaseLiquidLevel();
+        StartCoroutine(DelayedIncreaseLiquidLevel(0.5f));
+
+        qteHandled = true; 
     }
 
     private void IncreaseLiquidLevel()
     {
-        if (potLiquidAnimator == null)
-        {
-            Debug.LogWarning("[QTEManager] No liquid animator assigned!");
-            return;
-        }
+        if (potLiquidAnimator == null) return;
+
+        potLiquidAnimator.speed = 0.2f;
 
         if (currentFillLevel < maxFillLevel)
         {
@@ -163,8 +172,15 @@ public class QTEManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("[QTEManager] Pot is already full.");
+            Debug.Log("[QTEManager] Pot is already full. QTE completed but liquid did not increase.");
         }
+
+    }
+
+    private IEnumerator DelayedIncreaseLiquidLevel(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        IncreaseLiquidLevel();
     }
 
     public void SetPlayerControls(bool enabled)
