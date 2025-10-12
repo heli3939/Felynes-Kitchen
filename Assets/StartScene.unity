@@ -24011,7 +24011,7 @@ MonoBehaviour:
   acceleration: 25
   deceleration: 15
   rotateSpeed: 10
-  jumpHeight: 1
+  jumpHeight: 0.6
   zMin: -3
   zMax: 3
   Capsule: {fileID: 1938730080}
@@ -32371,7 +32371,6 @@ SceneRoots:
   - {fileID: 261826460}
   - {fileID: 1527007076}
   - {fileID: 403368001}
-  - {fileID: 1661132802}
   - {fileID: 934698080}
   - {fileID: 1104951254}
   - {fileID: 185278233}
