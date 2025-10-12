@@ -46,7 +46,7 @@ public class QTEManager : MonoBehaviour
 
     public void StartQTE()
     {
-        if (holdPoint == null || holdPoint.childCount == 0)
+        if (holdPoint == null || holdPoint.childCount == 0 || (holdPoint.childCount > 0 && holdPoint.GetChild(0).tag == "CookingPot"))
         {
             Debug.LogWarning("[QTEManager] QTE cannot start — player is not holding any item.");
             return;

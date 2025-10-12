@@ -14,6 +14,9 @@ public class CameraSwitcher : MonoBehaviour
     [Header("UI Hint for empty")]
     public HintUI hintUI;
 
+    [Header("Cooking Pot Check")]
+    public GameObject cookingPot;
+
     private bool isPlayerNearby = false;
     private bool isInFirstPerson = false;
     private Vector3 lastThirdPersonPosition; 
@@ -48,7 +51,7 @@ public class CameraSwitcher : MonoBehaviour
             if (!isInFirstPerson)
                 SwitchToFirstPerson();
             else
-                StartCoroutine(SwitchBackToThirdPersonDelayed(1f));
+                SwitchBackToThirdPerson();
         }
     }
 
@@ -74,9 +77,28 @@ public class CameraSwitcher : MonoBehaviour
     {
         if (holdPoint == null || holdPoint.childCount == 0)
         {
-            Debug.LogWarning("[CameraSwitcher] Cannot switch to FP camera — player is not holding any item.");
+            if (cookingPot != null)
+            {
+                Vector3 targetPosition = new Vector3(4.22f, .116f, 1.173f);
+                float distance = Vector3.Distance(cookingPot.transform.position, targetPosition);
+
+                if (distance <= 0.2f)
+                {
+                    Debug.Log("[CameraSwitcher] Pot is already in position — skip hint.");
+                    return;
+                }
+            }
+
+            Debug.LogWarning("[CameraSwitcher] Cannot switch — not holding item.");
             if (hintUI != null)
                 hintUI.ShowHint("You need to pick up an ingredient first!");
+            return;
+        }
+
+        Transform heldItem = holdPoint.GetChild(0);
+        if (heldItem.CompareTag("CookingPot"))
+        {
+            Debug.LogWarning("[CameraSwitcher] Cannot switch to ingredient camera while holding pot!");
             return;
         }
 
@@ -101,13 +123,12 @@ public class CameraSwitcher : MonoBehaviour
         isInFirstPerson = true;
     }
 
-
     private void SwitchBackToThirdPerson()
     {
         if (firstPersonCam != null)
         {
             firstPersonCam.enabled = false;
-            firstPersonCam.gameObject.SetActive(false); // prohibited
+            firstPersonCam.gameObject.SetActive(false);
         }
         if (thirdPersonCam != null)
         {
@@ -140,5 +161,4 @@ public class CameraSwitcher : MonoBehaviour
         yield return new WaitForSeconds(delay);
         SwitchBackToThirdPerson();
     }
-
 }

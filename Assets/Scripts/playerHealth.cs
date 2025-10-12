@@ -97,7 +97,7 @@ public class PlayerHealth : MonoBehaviour
             // combine constraints instead of overwriting
             rb.constraints = RigidbodyConstraints.None;
             rb.constraints |= RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ
-                           | RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ;
+                            | RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ;
         }
 
         // disable CharacterController if present
