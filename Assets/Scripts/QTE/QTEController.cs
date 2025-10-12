@@ -52,7 +52,10 @@ public class QTEUIController : MonoBehaviour
     [Header("Timer Settings")]
     public float totalTime = 10f;
     private float remainingTime;       
-    private bool timeRunning = false;  
+    private bool timeRunning = false;
+
+    [Header("Manager Type")]
+    public bool isOvenQTE = false;
 
     public Action<QTEResult[]> OnQTEFinished;
 
@@ -60,13 +63,13 @@ public class QTEUIController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftBracket))   // '[' anticlockwise -1°
+        if (Input.GetKeyDown(KeyCode.LeftBracket))
         {
             successCenterOffsetDeg -= 1f;
             perfectCenterOffsetDeg -= 1f;
             Debug.Log($"Offset = {successCenterOffsetDeg:F1}°");
         }
-        if (Input.GetKeyDown(KeyCode.RightBracket))  // ']' clockwise +1°
+        if (Input.GetKeyDown(KeyCode.RightBracket))
         {
             successCenterOffsetDeg += 1f;
             perfectCenterOffsetDeg += 1f;
@@ -136,7 +139,6 @@ public class QTEUIController : MonoBehaviour
         RandomizeCircleGroup();
         indicator.localEulerAngles = Vector3.zero;
 
-        // Start counting
         remainingTime = totalTime;
         timeRunning = true;
 
@@ -160,7 +162,6 @@ public class QTEUIController : MonoBehaviour
     {
         if (successZoneImage != null && perfectZoneImage != null)
         {
-            // Let the transform of perfectzone be the same as successzone
             perfectZoneImage.rectTransform.localEulerAngles =
                 successZoneImage.rectTransform.localEulerAngles;
         }
@@ -198,7 +199,6 @@ public class QTEUIController : MonoBehaviour
 
         return QTEResult.Miss;
     }
-
 
     private void Finish()
     {
@@ -262,7 +262,14 @@ public class QTEUIController : MonoBehaviour
         canvasGroup.alpha = 0f;
         gameObject.SetActive(false);
 
-        FindFirstObjectByType<QTEManager>()?.EndQTE();
+        if (isOvenQTE)
+        {
+            FindFirstObjectByType<OvenQTEManager>()?.EndOvenQTE();
+        }
+        else
+        {
+            FindFirstObjectByType<QTEManager>()?.EndQTE();
+        }
     }
 
     private void HandleTimeOut()
