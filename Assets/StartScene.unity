@@ -2879,7 +2879,7 @@ RectTransform:
   m_GameObject: {fileID: 203966849}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1748061228}
@@ -12489,27 +12489,27 @@ MonoBehaviour:
     portrait: {fileID: 21300000, guid: ffed1be638f55574d93de7f7441684b0, type: 3}
     text: wait..wasn't I just asleep?
   - speakerName: Spirit
-    portrait: {fileID: 21300000, guid: 133e861f0f7a9f3449646426abf20ed2, type: 3}
+    portrait: {fileID: 21300000, guid: 5003da403571946f4897c4a28a5cf323, type: 3}
     text: Felyne..Welcome.
   - speakerName: Felyne
     portrait: {fileID: 21300000, guid: ffed1be638f55574d93de7f7441684b0, type: 3}
     text: Ah, wh..who are you?
   - speakerName: Spirit
-    portrait: {fileID: 21300000, guid: 133e861f0f7a9f3449646426abf20ed2, type: 3}
+    portrait: {fileID: 21300000, guid: 5003da403571946f4897c4a28a5cf323, type: 3}
     text: You don't have to know who I am.. But I know you are struggling with making
       cakes.. And I can help you.
   - speakerName: Felyne
     portrait: {fileID: 21300000, guid: ffed1be638f55574d93de7f7441684b0, type: 3}
     text: How can you help me, I've tried thousands of times, and couldn't make it.
   - speakerName: Spirit
-    portrait: {fileID: 21300000, guid: 133e861f0f7a9f3449646426abf20ed2, type: 3}
+    portrait: {fileID: 21300000, guid: 5003da403571946f4897c4a28a5cf323, type: 3}
     text: Don't worry.. Why don't you just become an ingredient and possibly you'll
       get some idea.. (whisper)
   - speakerName: Felyne
     portrait: {fileID: 21300000, guid: ffed1be638f55574d93de7f7441684b0, type: 3}
     text: 'A WHAT!!? INGREDIENTS? NOOO, I just want make good cake! '
   - speakerName: Spirit
-    portrait: {fileID: 21300000, guid: 133e861f0f7a9f3449646426abf20ed2, type: 3}
+    portrait: {fileID: 21300000, guid: 5003da403571946f4897c4a28a5cf323, type: 3}
     text: (chuckle) Then... Here's your chance Felyne, ready to make a cake? Success...
       Or become MY ingredient.. GOOD LUCK..
 --- !u!82 &887911146
@@ -30185,7 +30185,7 @@ RectTransform:
   m_GameObject: {fileID: 2042647962}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 291}
-  m_LocalScale: {x: 21, y: 16, z: 10}
+  m_LocalScale: {x: 20, y: 10, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 433447838}
@@ -30217,7 +30217,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e060786c00f15344280472a86e44381e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 28db5e3b441e94ab9bbb70f9a9cda108, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
