@@ -32,7 +32,7 @@ public class PauseMenu : MonoBehaviour
             resumeButton.onClick.RemoveAllListeners();
             resumeButton.onClick.AddListener(() =>
             {
-                
+
                 ResumeGame();
             });
         }

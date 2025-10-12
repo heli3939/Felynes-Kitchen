@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Image/strawberrySpirit.png.meta
-guid: 133e861f0f7a9f3449646426abf20ed2
-========
-guid: db109b9bfb3e146909e68a58d960f70c
->>>>>>>> pause-menu-UI:Assets/Image/Panel.png.meta
+guid: 17d680a0c309444b08bf212f49694704
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
