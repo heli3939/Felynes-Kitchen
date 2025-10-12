@@ -19,8 +19,6 @@ placeholder for it [here](README.md).
 
 ## Evaluation Plan
 
-## 🎮 Evaluation Plan
-
 ### 1. Purpose
 
 **Primary Goal**
@@ -62,10 +60,6 @@ Without systematic evaluation, we risk submitting a game that works for develope
 | Open Feedback | What was your favorite part of the game? | Capture qualitative feedback on highlights and strengths. | Short answer |
 | Open Feedback | What part would you improve or change? | Gather suggestions for future iteration. | Short answer |
 
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
 ---
 
 ### 3. Participants
@@ -101,7 +95,7 @@ Without systematic evaluation, we risk submitting a game that works for develope
 
 ---
 
-### 6. Timeline (Ca)
+### 6. Timeline
 
 | Due Date     | Task                                                                                                            |
 | ------------ | --------------------------------------------------------------------------------------------------------------- |
