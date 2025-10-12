@@ -306,7 +306,7 @@ Optional: image/audio editing, 3D modelling tools Include version numbers and li
   Try to finish everything 3 days before milestone due dates. 1-2 meeting every week to discuss and catchup.
 
   **Task Assignment**: (Detail for Milestone 4)
-  ![Timetable-MS4](Images/Timetable-MS4.png)
+  ![alt text](image.png)
 
 ---
 
