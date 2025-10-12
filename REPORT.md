@@ -44,6 +44,7 @@ Without systematic evaluation, we risk submitting a game that works for develope
 | **Cooperative Evaluation**      | Observational | Evaluator and participant work together as partners. Evaluator actively asks questions during gameplay, and participant can ask clarification. Creates a dialogue to uncover issues in real-time. We should also note hesitation, confusion, and unexpected behavior. | Reveals not just what goes wrong, but WHY—by asking "What are you trying to do?" we understand player intent vs. system feedback. | “Why do you choose to go this way on the ground instead of that way jumping onto the furniture?” |
 | **Post-Session Questionnaire** | Querying | Participants complete a short form immediately after gameplay to reflect on their experience. | Allows quantifiable analysis of enjoyment, clarity, difficulty, and appeal factors across multiple users. | Example: “Rate your overall enjoyment of the game on a scale from 1–5.” |
 
+<<<<<<< Updated upstream
 | **Questionnaire - Detailed Questions** |   |   |   |
 |------------------------------|--------------|--------------|-------------------|
 | **Category** | **Question** | **Purpose** | **Response Type** |
@@ -60,6 +61,8 @@ Without systematic evaluation, we risk submitting a game that works for develope
 | Open Feedback | What was your favorite part of the game? | Capture qualitative feedback on highlights and strengths. | Short answer |
 | Open Feedback | What part would you improve or change? | Gather suggestions for future iteration. | Short answer |
 
+=======
+>>>>>>> Stashed changes
 ---
 
 ### 3. Participants
