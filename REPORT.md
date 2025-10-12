@@ -21,18 +21,29 @@ placeholder for it [here](README.md).
 
 ## 🎮 Evaluation Plan
 
-### 1. Purpose (Se)
+### 1. Purpose
 
-The goal of this evaluation is to assess both **usability** and **player experience** of our game.  
-We aim to identify design issues that hinder gameplay, measure user engagement, and collect actionable feedback to refine the final version before submission.
+**Primary Goal**
 
+This evaluation aims to systematically assess both *usability* and *player* experience through a mixed-methods approach, combining **observational** and **querying** techniques to triangulate data and ensure comprehensive coverage of potential issues.
+
+***Specific Objectives***
+#### 1. Identify Usability Barriers
+#### 2. Measure Player Engagement and Flow
+#### 3. Validate Design Decisions
+#### 4. Collect Actionable Feedback for Refinement
+
+****Why This Matters****:
+Without systematic evaluation, we risk submitting a game that works for developers but confuses players. This evaluation directly demonstrates our ability to iterate based on real user feedback.
+
+---
 ---
 
 ### 2. Evaluation Techniques
 
 | Technique                           | Type          | Description                                                                                                                                                                            | Why We Chose It                                                                                   | Example Tasks                                                              |
 | ----------------------------------- | ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| **Cooperative Evaluation** (Se)     | Observational | (Capturing observations by audio + computer log) Participants are asked to verbalise their thoughts while playing. We observe and note hesitation, confusion, and unexpected behavior. | Provides real-time insight into players’ reasoning and helps uncover interface or control issues. | “Complete Level 1 while explaining what you’re thinking and trying to do.” |
+| **Cooperative Evaluation**      | Observational | Evaluator and participant work together as partners. Evaluator actively asks questions during gameplay, and participant can ask clarification. Creates a dialogue to uncover issues in real-time. We should also note hesitation, confusion, and unexpected behavior. | Reveals not just what goes wrong, but WHY—by asking "What are you trying to do?" we understand player intent vs. system feedback. | “Why do you choose to go this way on the ground instead of that way jumping onto the furniture?” |
 | **Post-Session Questionnaire** (Ne) | Querying      | Participants complete a short form after gameplay (based on SUS or custom Likert-scale questions).                                                                                     | Allows quantifiable analysis of enjoyment, clarity, and difficulty across multiple users.         | “Rate how intuitive the controls felt on a scale from 1–5.”                |
 
 > ✅ Minimum 10 total participants (≥5 per technique) as per COMP30019 requirements:contentReference[oaicite:0]{index=0}:contentReference[oaicite:1]{index=1}.
@@ -50,13 +61,14 @@ We aim to identify design issues that hinder gameplay, measure user engagement, 
 
 ---
 
-### 4. Data Collection (Se)
+### 4. Data Collection
 
-| Data Type        | Method                                                                | Tools                                              |
-| ---------------- | --------------------------------------------------------------------- | -------------------------------------------------- |
-| **Behavioral**   | Observation logs, think-aloud recordings, screen captures             | Unity editor notes, OBS Studio, paper notes        |
-| **Quantitative** | Time to complete the game, number of deaths to reach HE, success rate | Built-in Unity logging, Mannual Count              |
-| **Subjective**   | Ratings and written feedback from questionnaires                      | Google Forms (Likert 1–5), optional short comments |
+| Data Type            | Collection Method                    | Tools/Equipment                          | Purpose                                                      |
+| -------------------- | ------------------------------------ | ---------------------------------------- | ------------------------------------------------------------ |
+| **Behavioral**       | Audio-recorded dialogue              | Smartphone recorder          | Capture evaluator-participant conversation to reveal player intent and confusion points |
+| **Behavioral**       | Evaluator observation notes          | Pen/ online document                    | Document real-time interactions, hesitations, errors         |
+| **Quantitative**     | Unity automated logging              | Built-in Debug.Log system                | Track completion time, time of deaths to achieve HE, navigation patterns  |
+| **Subjective**       | Post-session questionnaire           | Google Forms (Likert scales + open-text) | Measure perceived difficulty, enjoyment, intuitiveness and improvement ideas      |
 
 ---
 
