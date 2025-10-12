@@ -44,9 +44,24 @@ Without systematic evaluation, we risk submitting a game that works for develope
 | Technique                           | Type          | Description                                                                                                                                                                            | Why We Chose It                                                                                   | Example Tasks                                                              |
 | ----------------------------------- | ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
 | **Cooperative Evaluation**      | Observational | Evaluator and participant work together as partners. Evaluator actively asks questions during gameplay, and participant can ask clarification. Creates a dialogue to uncover issues in real-time. We should also note hesitation, confusion, and unexpected behavior. | Reveals not just what goes wrong, but WHY—by asking "What are you trying to do?" we understand player intent vs. system feedback. | “Why do you choose to go this way on the ground instead of that way jumping onto the furniture?” |
-| **Post-Session Questionnaire** (Ne) | Querying      | Participants complete a short form after gameplay (based on SUS or custom Likert-scale questions).                                                                                     | Allows quantifiable analysis of enjoyment, clarity, and difficulty across multiple users.         | “Rate how intuitive the controls felt on a scale from 1–5.”                |
+| **Post-Session Questionnaire** | Querying | Participants complete a short form immediately after gameplay to reflect on their experience. | Allows quantifiable analysis of enjoyment, clarity, difficulty, and appeal factors across multiple users. | Example: “Rate your overall enjoyment of the game on a scale from 1–5.” |
 
-> ✅ Minimum 10 total participants (≥5 per technique) as per COMP30019 requirements:contentReference[oaicite:0]{index=0}:contentReference[oaicite:1]{index=1}.
+| **Questionnaire - Detailed Questions** |   |   |   |
+|------------------------------|--------------|--------------|-------------------|
+| **Category** | **Question** | **Purpose** | **Response Type** |
+| Enjoyment | Rate your overall enjoyment of the game (1 – Not fun, 5 – Very fun). | Measure overall satisfaction and engagement. | Likert scale (1–5) |
+| Usability & Clarity | How intuitive were the controls? (1 – Confusing, 5 – Very intuitive) | Evaluate ease of use and control design. | Likert scale (1–5) |
+| Usability & Clarity | Did you always understand your current objective? | Assess clarity of gameplay goals and instructions. | Multiple choice (Yes / No / Somewhat) |
+| Usability & Clarity | How responsive did the character feel when you pressed keys or interacted? (1–5) | Identify issues with input responsiveness and feedback. | Likert scale (1–5) |
+| Appeal Factors | Which aspects most attracted you to the game? (Select up to 2): <br>• Art style <br>• Strong interactivity and environment reactions <br>• “Run from danger” mechanics <br>• Story| Discover what draws players in and informs future design priorities. | Multiple choice |
+| Difficulty & Balance | How challenging did you find the game? (1 – Too easy, 5 – Too hard) | Evaluate balance and pacing of difficulty. | Likert scale (1–5) |
+| Error & Bug Experience | Did you encounter any errors or unexpected behaviour during gameplay? | Detect and categorise potential bugs or technical issues affecting user experience. | Multiple choice (Yes / No) |
+| Error & Bug Experience | If yes, please briefly describe what happened and when. | Gather detailed feedback for debugging and improvement. | Short answer |
+| Open Feedback | What was your favorite part of the game? | Capture qualitative feedback on highlights and strengths. | Short answer |
+| Open Feedback | What part would you improve or change? | Gather suggestions for future iteration. | Short answer |
+| Open Feedback | What was your favorite part of the game? | Capture qualitative feedback on highlights and strengths. | Short answer |
+| Open Feedback | What part would you improve or change? | Gather suggestions for future iteration. | Short answer |
+
 
 ---
 
@@ -72,15 +87,14 @@ Without systematic evaluation, we risk submitting a game that works for develope
 
 ---
 
-### 5. Data Analysis (Ne)
+### 5. Data Analysis
 
-| Source                 | Analysis Method                                                             | Metrics / Indicators                                               |
-| ---------------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------------ |
-| **Observational Data** | Thematic analysis of notes & recordings to identify common confusion points | Frequency of errors, hesitation points, navigation mistakes        |
-| **Questionnaire Data** | Calculate averages and standard deviations for Likert-scale responses       | Mean enjoyment score, intuitiveness rating, task difficulty rating |
-| **Gameplay Logs**      | Quantitative comparison between players                                     | Avg. completion time, success rate, error frequency                |
-
-> Results will guide design fixes (e.g., unclear instructions, difficulty balancing, control sensitivity).
+| Source                  | Analysis Method                                                              | Metrics / Indicators                                                                                 |
+| ----------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| **Observational Data**  | Thematic analysis of notes and screen recordings to identify confusion points, hesitation patterns, and behavioural trends. | Counts of errors, hesitation points, navigation mistakes              |
+| **Questionnaire Data**  | Statistical analysis of post-session responses (e.g., calculating means, standard deviations, and distribution patterns). | Mean enjoyment score, intuitiveness rating, perceived difficulty, reported bug frequency     |
+| **Gameplay Logs**       | Quantitative comparison across participants and correlation analysis between performance metrics and questionnaire responses. | Total time to complete the game, number of deaths, QTE success rate, error frequency, completion rate |
+> Results from these analyses will guide targeted design improvements — for example, refining unclear tutorials, rebalancing difficulty, or improving QTE loops.
 
 ---
 
@@ -106,14 +120,14 @@ Without systematic evaluation, we risk submitting a game that works for develope
 | D           | Report Writer          | Summarise results and update REPORT.md         |
 
 ---
+### 8. Success Criteria
 
-### 8. Success Criteria (Ne)
-
-- ≥80% of players complete tutorial or Level 1 without guidance
-- Average intuitiveness rating ≥4/5
-- Observed confusion incidents reduced by 50% after redesign
-- Qualitative feedback indicates improved flow and enjoyment
-
+| **Criterion** | **Target** |
+|--------------|------------|
+| **Completion Rate** | ≥ 80% of players complete the game with the help of the tutorial. |
+| **Confusion Reduction** | Observed confusion incidents reduced by ≥ 80% after redesign iterations. |
+| **Performance Indicators** | ≥ 70% average QTE success（perfect/good) rate among players. |
+| **Engagement** | ≥ 80% of participants report positive enjoyment (rating ≥ 4 / 5). |
 ---
 
 ### 9. Ethical Considerations
