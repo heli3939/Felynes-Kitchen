@@ -62,17 +62,20 @@ Without systematic evaluation, we risk submitting a game that works for develope
 | Open Feedback | What was your favorite part of the game? | Capture qualitative feedback on highlights and strengths. | Short answer |
 | Open Feedback | What part would you improve or change? | Gather suggestions for future iteration. | Short answer |
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 ---
 
-### 3. Participants (Ca)
+### 3. Participants
 
-| Aspect              | Details                                                                                                                                      |
-| ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Target audience** | Casual gamers aged 18–25, university students familiar with PC platformers.                                                                  |
-| **Recruitment**     | Through university Discord servers, classmates, and club members (UMGMC).                                                                    |
-| **Count**           | At least 5 participants per technique (10+ total).                                                                                           |
-| **Criteria**        | Must be comfortable using keyboard controls; not involved in this project; preferably has played at least one 2D/3D indie platformer before. |
+| Aspect              | Details                                                                                                                                                                                                                                                                              |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Target audience** | Casual gamers (**young adults** and teenagers), familar and/or have interests in **cooking**, **adventure** and **platformer** games (e.g. Overcooked!, Ori and the Blind Forest, Untitled Goose Game) in .                                                                          |
+| **Recruitment**     | COMP30019 classmates and friends                                                                                                                                                                                                                                                     |
+| **Count**           | 5 (Observational) + 5 (Querying) = 10 (total)                                                                                                                                                                                                                                        |
+| **Criteria**        | Participants must: <br>• Be comfortable using keyboard controls <br>• Not be involved in the development of this project <br>• Have played at least one 2D or 3D platformer before <br>• (Querying only) Have access to a device capable of running the game on WebGL (PC or laptop) |
 
 ---
 
@@ -100,24 +103,23 @@ Without systematic evaluation, we risk submitting a game that works for develope
 
 ### 6. Timeline (Ca)
 
-| Week    | Task                                                            | Output                         |
-| ------- | --------------------------------------------------------------- | ------------------------------ |
-| Week 9  | Prepare evaluation materials (build, consent form, Google Form) | Finalised playtest kit         |
-| Week 10 | Conduct **Think-Aloud** sessions                                | Observation notes, recordings  |
-| Week 10 | Distribute **Post-Session Questionnaire**                       | 5+ completed forms             |
-| Week 11 | Analyse and summarise data                                      | Charts, summary table          |
-| Week 12 | Apply improvements & report in final submission                 | Updated build & report section |
+| Due Date     | Task                                                                                                            |
+| ------------ | --------------------------------------------------------------------------------------------------------------- |
+| Oct 16 (Thu) | Prepare evaluation materials (session design for Observational and Questionnaire for Querying)                  |
+| Oct 17 (Fri) | Finish scheduling for observational game-test sessions; send game link and questionnaire for querying game-test |
+| Oct 23 (Thu) | **Data Collection** Finish conducting all observational sessions and get back feedback from all questionnaries  |
+| Oct 28 (Tue) | **Data Analysis** Finish data analyse and summarise collected data (observations, logs, and responses)          |
+| Oct 31 (Fri) | Finish report writing                                                                                           |
 
 ---
 
-### 7. Responsibilities (Ca)
+### 7. Responsibilities
 
-| Team Member | Role                   | Tasks                                          |
-| ----------- | ---------------------- | ---------------------------------------------- |
-| A           | Evaluation Coordinator | Schedule sessions, manage participant sign-ups |
-| B           | Observer               | Record notes, control think-aloud sessions     |
-| C           | Analyst                | Process questionnaire data and compute metrics |
-| D           | Report Writer          | Summarise results and update REPORT.md         |
+| Team Member             | Responsibilities (Aligned with Timeline)                                                                                                                                                                                                                                                                                                                       |
+| ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Kexin Liang**         | **Preparation (Oct 16–17):** Lead design of evaluation materials (Think-Aloud protocol and questionnaire). <br> **Data Collection (Oct 17–23):** Host and observe live game-testing sessions, take observation notes and manage screen recordings. <br> **Reporting (Oct 28–31):** Summarise observational findings and provide insights for the final report. |
+| **Difei Li**            | **Preparation (Oct 16–17):** Handle participant recruitment and scheduling for both evaluation methods. <br> **Data Collection (Oct 17–23):** Distribute and track questionnaire responses; ensure all forms are returned. <br> **Reporting (Oct 28–31):** Clean and compile all raw data for analysis.                                                        |
+| **Xinyue (Cassie) Luo** | **Data Analysis (Oct 23–28):** Lead analysis of both qualitative (Think-Aloud) and quantitative (questionnaire) data; create charts and tables. <br> **Reporting (Oct 28–31):** Draft the Evaluation section in REPORT.md, integrate findings into the final submission, and ensure consistency across all results.                                            |
 
 ---
 ### 8. Success Criteria
