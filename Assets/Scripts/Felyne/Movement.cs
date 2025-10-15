@@ -34,6 +34,8 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
     bool onGround = true;
     Vector3 lastLookDir;
 
+    private Animator animator;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -46,6 +48,8 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
         if (Capsule) Capsule.isTrigger = false;
 
         lastLookDir = transform.forward;
+
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -59,6 +63,11 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
         // Update grounded state before handle jump
         RefreshGrounded();
 
+        if (animator != null)
+        {
+            animator.SetBool("isRun", input.sqrMagnitude > 0.01f);
+        }
+
         // Jump (Space)
         if (Input.GetKeyDown(KeyCode.Space) && onGround)
         {
@@ -68,6 +77,16 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
             rb.linearVelocity = v;
 
             onGround = false;
+
+            if (animator != null)
+            {
+                animator.SetBool("isJump", true);
+            }
+        }
+
+        if (onGround && animator != null)
+        {
+            animator.SetBool("isJump", false);
         }
     }
 
