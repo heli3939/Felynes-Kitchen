@@ -3681,7 +3681,7 @@ PrefabInstance:
       objectReference: {fileID: 9000000, guid: d7061d2ec501adb4da1e842bf1f2be57, type: 3}
     - target: {fileID: 2688450643167691502, guid: 9fcdd91d4fee8f5498d6471dcc03f9f3, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2688450643167691502, guid: 9fcdd91d4fee8f5498d6471dcc03f9f3, type: 3}
       propertyPath: m_Controller
@@ -3693,7 +3693,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2688450643167691502, guid: 9fcdd91d4fee8f5498d6471dcc03f9f3, type: 3}
       propertyPath: m_ApplyRootMotion
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2900803723174317289, guid: 9fcdd91d4fee8f5498d6471dcc03f9f3, type: 3}
       propertyPath: m_TagString
@@ -14358,7 +14358,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3016549186141593498, guid: 67f9cee008f3fe142b49d2ebb57886c0, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3016549186141593498, guid: 67f9cee008f3fe142b49d2ebb57886c0, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 317aa4241b2d2ae46a94ad458313b319, type: 2}
+    - target: {fileID: 3016549186141593498, guid: 67f9cee008f3fe142b49d2ebb57886c0, type: 3}
+      propertyPath: m_AnimatePhysics
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8392198388660772698, guid: 67f9cee008f3fe142b49d2ebb57886c0, type: 3}
       propertyPath: m_Name
@@ -34412,7 +34420,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3016549186141593498, guid: 67f9cee008f3fe142b49d2ebb57886c0, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3016549186141593498, guid: 67f9cee008f3fe142b49d2ebb57886c0, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 317aa4241b2d2ae46a94ad458313b319, type: 2}
+    - target: {fileID: 3016549186141593498, guid: 67f9cee008f3fe142b49d2ebb57886c0, type: 3}
+      propertyPath: m_AnimatePhysics
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8392198388660772698, guid: 67f9cee008f3fe142b49d2ebb57886c0, type: 3}
       propertyPath: m_Name
