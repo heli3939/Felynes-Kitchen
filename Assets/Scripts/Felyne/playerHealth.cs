@@ -1,47 +1,60 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 public class PlayerHealth : MonoBehaviour
 {
+    [Header("Health Settings")]
+    public int maxHealth = 100;
+    private int currentHealth;
+
     private bool isDead = false;
     private bool isFalling = false;
 
-    [Header("fall settings")]
+    [Header("Fall Settings")]
     public float fallDuration = 1f;
 
-    // Cache the player's main collider (capsule/character/etc.)
     [SerializeField] private Collider myCollider;
+    [SerializeField] private GameOverManager gameOverManager; 
 
     void Awake()
     {
+        currentHealth = maxHealth;
+
         if (myCollider == null)
             myCollider = GetComponent<Collider>() ?? GetComponentInChildren<Collider>();
     }
 
-    // --- Trigger handling moved here ---
     private void OnTriggerEnter(Collider other) => TryBurn(other);
     private void OnTriggerStay(Collider other) => TryBurn(other);
 
     private void TryBurn(Collider other)
     {
-        // Flame collider is on the flame object; detect its RandomFlame component
         RandomFlame flame = other.GetComponent<RandomFlame>() ?? other.GetComponentInParent<RandomFlame>();
         if (flame == null || myCollider == null) return;
 
         if (!isDead && !isFalling && flame.IsDamagingNow(myCollider))
         {
-            Vector3 hitDir = flame.DamageDirection(transform.position);
-            Die(hitDir);
+            TakeDamage(100, flame.DamageDirection(transform.position)); 
         }
     }
-    // -----------------------------------
+
+    public void TakeDamage(int amount, Vector3? hitDirection = null)
+    {
+        if (isDead) return;
+
+        currentHealth -= amount;
+        if (currentHealth <= 0)
+        {
+            currentHealth = 0;
+            Die(hitDirection ?? -transform.forward);
+        }
+    }
 
     public void Die(Vector3 hitDirection)
     {
         if (isDead || isFalling) return;
 
         isFalling = true;
-
         StopAllMice();
         DisablePlayerControls();
 
@@ -68,13 +81,16 @@ public class PlayerHealth : MonoBehaviour
 
         transform.rotation = targetRotation;
 
-        Debug.Log("GameOver");
-
         isDead = true;
-        GameOverManager gameOverManager = FindFirstObjectByType<GameOverManager>();
+        Debug.Log("Player died");
+
         if (gameOverManager != null)
         {
             gameOverManager.ShowGameOver();
+        }
+        else
+        {
+            Debug.LogWarning("⚠️ GameOverManager not assigned!");
         }
     }
 
@@ -87,20 +103,17 @@ public class PlayerHealth : MonoBehaviour
             if (script != this) script.enabled = false;
         }
 
-        // stop physics & lock axes
         Rigidbody rb = GetComponent<Rigidbody>();
         if (rb != null)
         {
-            rb.linearVelocity = Vector3.zero;           // (fix: was linearVelocity)
+            rb.linearVelocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
 
-            // combine constraints instead of overwriting
             rb.constraints = RigidbodyConstraints.None;
             rb.constraints |= RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ
                             | RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ;
         }
 
-        // disable CharacterController if present
         CharacterController cc = GetComponent<CharacterController>();
         if (cc != null) cc.enabled = false;
     }

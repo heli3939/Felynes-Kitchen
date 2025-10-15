@@ -1,34 +1,31 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class GameOverManager : MonoBehaviour
 {
-    [Header("UI references")]
+    [Header("UI References")]
     public GameObject gameOverPanel;
-    public Button restartButton;
-    public Button quitButton;
-    
+    public Image backgroundFade;
+    public TextMeshProUGUI youDiedText;
+
+    [Header("Animation Settings")]
+    public float fadeDuration = 1.5f;       
+    public float textAppearDelay = 0.5f;   
+    public float blackScreenDelay = 2.5f;   
+    public float restartDelay = 1.5f;       
+
     [Header("Other References")]
-    public PauseMenu pauseMenu;
+    public AudioSource deathSFX;
 
     void Start()
     {
-        if (gameOverPanel != null)
-        {
-            gameOverPanel.SetActive(false);
-        }
-
-        if (restartButton != null)
-        {
-            restartButton.onClick.RemoveAllListeners();
-            restartButton.onClick.AddListener(RestartGame);
-        }
-
-        if (quitButton != null)
-        {
-            quitButton.onClick.RemoveAllListeners();
-            quitButton.onClick.AddListener(QuitGame);
-        }
+        if (gameOverPanel != null) gameOverPanel.SetActive(false);
+        if (youDiedText != null) youDiedText.alpha = 0f;
+        if (backgroundFade != null)
+            backgroundFade.color = new Color(backgroundFade.color.r, backgroundFade.color.g, backgroundFade.color.b, 0f);
     }
 
     public void ShowGameOver()
@@ -37,32 +34,63 @@ public class GameOverManager : MonoBehaviour
         {
             gameOverPanel.SetActive(true);
             Time.timeScale = 0f;
-
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = false;
         }
+
+        if (deathSFX != null) deathSFX.Play();
+
+        StartCoroutine(PlayDeathSequence());
     }
 
-    public void RestartGame()
+    private IEnumerator PlayDeathSequence()
     {
-        
-        if (gameOverPanel != null)
-            gameOverPanel.SetActive(false);
-        
-        if (pauseMenu != null)
+        float t = 0f;
+        Color startColor = backgroundFade.color;
+        Color endColor = new Color(startColor.r, startColor.g, startColor.b, 0.7f);
+
+        while (t < fadeDuration)
         {
-            pauseMenu.RestartGame();
+            t += Time.unscaledDeltaTime;
+            backgroundFade.color = Color.Lerp(startColor, endColor, t / fadeDuration);
+            yield return null;
         }
-    }
 
-    public void QuitGame()
-    {
+        yield return new WaitForSecondsRealtime(textAppearDelay);
+        if (youDiedText != null)
+        {
+            youDiedText.alpha = 0f;
+            Vector3 startScale = Vector3.one * 1.3f;
+            Vector3 endScale = Vector3.one;
+            youDiedText.transform.localScale = startScale;
+
+            float duration = 1.2f;
+            t = 0f;
+            while (t < duration)
+            {
+                t += Time.unscaledDeltaTime;
+                youDiedText.alpha = Mathf.Lerp(0f, 1f, t / duration);
+                youDiedText.transform.localScale = Vector3.Lerp(startScale, endScale, t / duration);
+                yield return null;
+            }
+        }
+
+        yield return new WaitForSecondsRealtime(blackScreenDelay);
+
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
+        float blackT = 0f;
+        while (blackT < 1f)
+        {
+            blackT += Time.unscaledDeltaTime / 1.0f; 
+            backgroundFade.color = new Color(0, 0, 0, Mathf.Lerp(0.85f, 1f, blackT));
+            youDiedText.alpha = Mathf.Lerp(1f, 0f, blackT); 
+            yield return null;
+        }
+
+        yield return new WaitForSecondsRealtime(restartDelay);
         Time.timeScale = 1f;
 
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
-        Application.Quit();
-#endif
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
