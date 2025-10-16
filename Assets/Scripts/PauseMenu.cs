@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -27,7 +27,6 @@ public class PauseMenu : MonoBehaviour
             pauseButton.onClick.RemoveAllListeners();
             pauseButton.onClick.AddListener(() =>
             {
-                PlayClickSound();
                 OpenPause();
             });
             AddHoverSound(pauseButton);
