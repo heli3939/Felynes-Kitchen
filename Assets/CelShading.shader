@@ -99,48 +99,48 @@ Shader "Project/CelShading"
         }
 
         // ---------- OUTLINE ----------
-        Pass
-        {
-            Name "OUTLINE"
-            Tags { "LightMode"="Always" }
-            Cull Front
-            ZWrite On
-            ZTest LEqual
+        // Pass
+        // {
+        //     Name "OUTLINE"
+        //     Tags { "LightMode"="Always" }
+        //     Cull Front
+        //     ZWrite On
+        //     ZTest LEqual
 
-            CGPROGRAM
-            #pragma vertex   vertOutline
-            #pragma fragment fragOutline
-            #include "UnityCG.cginc"
+        //     CGPROGRAM
+        //     #pragma vertex   vertOutline
+        //     #pragma fragment fragOutline
+        //     #include "UnityCG.cginc"
 
-            float  _OutlineWidth;
-            float4 _OutlineColor;
+        //     float  _OutlineWidth;
+        //     float4 _OutlineColor;
 
-            struct AppData
-            {
-                float4 vertex : POSITION;
-                float3 normal : NORMAL;
-            };
+        //     struct AppData
+        //     {
+        //         float4 vertex : POSITION;
+        //         float3 normal : NORMAL;
+        //     };
 
-            struct V2F
-            {
-                float4 pos : SV_POSITION;
-            };
+        //     struct V2F
+        //     {
+        //         float4 pos : SV_POSITION;
+        //     };
 
-            V2F vertOutline(AppData IN)
-            {
-                V2F OUT;
-                float3 n = normalize(IN.normal);
-                float4 expanded = IN.vertex + float4(n * _OutlineWidth, 0);
-                OUT.pos = UnityObjectToClipPos(expanded);
-                return OUT;
-            }
+        //     V2F vertOutline(AppData IN)
+        //     {
+        //         V2F OUT;
+        //         float3 n = normalize(IN.normal);
+        //         float4 expanded = IN.vertex + float4(n * _OutlineWidth, 0);
+        //         OUT.pos = UnityObjectToClipPos(expanded);
+        //         return OUT;
+        //     }
 
-            fixed4 fragOutline(V2F IN) : SV_Target
-            {
-                if (_OutlineWidth <= 0.0001) discard;
-                return _OutlineColor;
-            }
-            ENDCG
-        }
+        //     fixed4 fragOutline(V2F IN) : SV_Target
+        //     {
+        //         if (_OutlineWidth <= 0.0001) discard;
+        //         return _OutlineColor;
+        //     }
+        //     ENDCG
+        // }
     }
 }
