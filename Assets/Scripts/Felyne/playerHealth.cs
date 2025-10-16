@@ -96,6 +96,14 @@ public class PlayerHealth : MonoBehaviour
 
     public void DisablePlayerControls()
     {
+        AudioSource[] playerAudios = GetComponentsInChildren<AudioSource>();
+        foreach (AudioSource audio in playerAudios)
+        {
+            if (audio.isPlaying)
+            {
+                audio.Stop();
+            }
+        }
         // disable all other behaviours on the player
         MonoBehaviour[] scripts = GetComponents<MonoBehaviour>();
         foreach (MonoBehaviour script in scripts)
@@ -123,9 +131,19 @@ public class PlayerHealth : MonoBehaviour
         MouseMovement[] allMice = FindObjectsByType<MouseMovement>(FindObjectsSortMode.None);
         foreach (MouseMovement mouse in allMice)
         {
+
             mouse.StopMoving();
+
+            if (mouse.audioSource != null && mouse.audioSource.isPlaying)
+            {
+                mouse.audioSource.Stop();
+            }
+
+            if (mouse.squeakSource != null && mouse.squeakSource.isPlaying)
+            {
+                mouse.squeakSource.Stop();
+            }
         }
     }
-
     public bool IsDead() => isDead;
 }

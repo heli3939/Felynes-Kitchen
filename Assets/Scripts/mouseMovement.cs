@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MouseMovement : MonoBehaviour
 {
@@ -13,6 +13,25 @@ public class MouseMovement : MonoBehaviour
     public float amplitude = 1f;
     public float frequency = 1f;
     public float phaseOffset = 0f;
+
+    [Header("Footstep Sound Settings")]
+    public AudioSource audioSource;       
+    public Transform player;              
+    public float maxHearingDistance = 15f; 
+    public float minVolume = 0.05f;
+
+    [Header("Squeak Sound Settings")]
+    public AudioSource squeakSource;           
+    public AudioClip[] squeakClips;            
+    public float minSqueakInterval = 1f;      
+    public float maxSqueakInterval = 3f;       
+    public float squeakDistanceThreshold = 5f;
+
+    [Tooltip("Maximum mouse sound volume")]
+    [Range(0f, 1f)]
+    public float maxSqueakVolume = 0.4f;
+
+    private float squeakTimer;
 
     private float direction;
     private float initialY;
@@ -37,6 +56,20 @@ public class MouseMovement : MonoBehaviour
         }
         
         transform.position = new Vector3(currentX, initialY, initialZ);
+
+        if (player == null)
+        {
+            GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+            if (playerObj != null) player = playerObj.transform;
+        }
+
+        if (audioSource != null && !audioSource.isPlaying)
+        {
+            audioSource.loop = true;
+            audioSource.Play();
+        }
+
+        ResetSqueakTimer();
     }
 
     void Update()
@@ -72,8 +105,41 @@ public class MouseMovement : MonoBehaviour
             transform.rotation = Quaternion.Euler(0, 90, 0);
         else
             transform.rotation = Quaternion.Euler(0, -90, 0);
+
+        if (player != null && audioSource != null)
+        {
+            float distance = Vector3.Distance(transform.position, player.position);
+            float t = Mathf.Clamp01(1f - distance / maxHearingDistance);
+            audioSource.volume = Mathf.Lerp(minVolume, 1f, t); 
+        }
+
+        HandleSqueak();
     }
 
+    private void HandleSqueak()
+    {
+        if (player == null || squeakSource == null || squeakClips.Length == 0) return;
+
+        squeakTimer -= Time.deltaTime;
+
+        float distance = Vector3.Distance(transform.position, player.position);
+
+        if (squeakTimer <= 0f && distance <= squeakDistanceThreshold)
+        {
+            float distanceFactor = Mathf.Clamp01(1f - (distance / squeakDistanceThreshold));
+            squeakSource.volume = distanceFactor * maxSqueakVolume;
+
+            AudioClip clip = squeakClips[Random.Range(0, squeakClips.Length)];
+            squeakSource.PlayOneShot(clip);
+
+            ResetSqueakTimer();
+        }
+    }
+
+    private void ResetSqueakTimer()
+    {
+        squeakTimer = Random.Range(minSqueakInterval, maxSqueakInterval);
+    }
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))

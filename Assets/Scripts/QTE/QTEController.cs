@@ -57,6 +57,12 @@ public class QTEUIController : MonoBehaviour
     [Header("Manager Type")]
     public bool isOvenQTE = false;
 
+    [Header("Sound Effects")]
+    public AudioClip perfectSound;
+    public AudioClip goodSound;
+    public AudioClip missSound;
+    public AudioSource audioSource;
+
     public Action<QTEResult[]> OnQTEFinished;
 
     private void OnEnable() { }
@@ -151,6 +157,10 @@ public class QTEUIController : MonoBehaviour
 
         if (resultText != null)
             resultText.gameObject.SetActive(false);
+
+        if (audioSource == null)
+            audioSource = GetComponent<AudioSource>();
+
     }
 
     public void StopQTE()
@@ -221,16 +231,19 @@ public class QTEUIController : MonoBehaviour
             case QTEResult.Perfect:
                 resultText.text = "PERFECT!";
                 resultText.color = Color.orange;
+                PlaySound(perfectSound);
                 break;
 
             case QTEResult.Good:
                 resultText.text = "GOOD";
                 resultText.color = Color.yellow;
+                PlaySound(goodSound);
                 break;
 
             case QTEResult.Miss:
                 resultText.text = "MISS";
                 resultText.color = Color.grey;
+                PlaySound(missSound);
                 break;
         }
 
@@ -269,6 +282,19 @@ public class QTEUIController : MonoBehaviour
         else
         {
             FindFirstObjectByType<QTEManager>()?.EndQTE();
+        }
+    }
+
+    private void PlaySound(AudioClip clip)
+    {
+        if (audioSource != null && clip != null)
+        {
+            Debug.Log($"🔊 播放音效: {clip.name}");
+            audioSource.PlayOneShot(clip);
+        }
+        else
+        {
+            Debug.LogWarning("⚠️ AudioSource 或 Clip 为空！");
         }
     }
 

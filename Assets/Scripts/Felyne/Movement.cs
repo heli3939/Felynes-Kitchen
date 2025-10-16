@@ -17,6 +17,12 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
     [Header("Collision")]
     public Collider Capsule;
 
+    [Header("Footstep Sound")]
+    public AudioSource footstepSource;
+    public AudioClip[] footstepClips;
+    public float stepInterval = 0.5f; 
+    private float stepTimer = 0f;
+
     public LayerMask groundMask = ~0;
     float supportRayDepth = 0.18f;
     int supportSamplesX = 3;
@@ -88,6 +94,29 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
         {
             animator.SetBool("isJump", false);
         }
+
+        // Logic of footstep sound
+        if (onGround && input.sqrMagnitude > 0.01f && animator.GetBool("isRun"))
+        {
+            stepTimer -= Time.deltaTime;
+            if (stepTimer <= 0f)
+            {
+                PlayFootstep();
+                stepTimer = stepInterval;
+            }
+        }
+        else
+        {
+            stepTimer = 0f;
+        }
+    }
+
+    void PlayFootstep()
+    {
+        if (footstepClips.Length == 0 || footstepSource == null) return;
+
+        int index = Random.Range(0, footstepClips.Length);
+        footstepSource.PlayOneShot(footstepClips[index]);
     }
 
     void FixedUpdate()
