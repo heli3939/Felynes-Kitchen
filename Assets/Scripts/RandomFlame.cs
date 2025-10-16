@@ -34,6 +34,13 @@ public class RandomFlame : MonoBehaviour
     [Header("Extras to hide when OFF (optional)")]
     public GameObject[] extraVisualRoots;
 
+    [Header("Sound Effects")]
+    public AudioClip flameSound;
+    public AudioSource audioSource;
+    public float maxVolume = 1f;    
+    public float fadeSpeed = 2f;    
+    public float playerDetectRadius = 5f; 
+
     // --- Height / radius gate (stops base touches counting) ---
     [Header("Damage Height Gate")]
     [Tooltip("Local Y height above which damage is allowed (e.g., flame tip).")]
@@ -159,6 +166,8 @@ public class RandomFlame : MonoBehaviour
         }
 
         timer -= Time.deltaTime;
+
+        HandleFlameSound();
         if (isOn)
         {
             if (timer <= 0f) SetFlame(false);
@@ -282,4 +291,50 @@ public class RandomFlame : MonoBehaviour
 
         return true;
     }
+
+    private void HandleFlameSound()
+    {
+        if (audioSource == null || flameSound == null) return;
+
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player == null) return;
+
+        float distance = Vector3.Distance(transform.position, player.transform.position);
+        bool playerNearby = distance <= playerDetectRadius;
+
+
+        if (isOn && playerNearby)
+        {
+            if (!audioSource.isPlaying)
+            {
+                audioSource.clip = flameSound;
+                audioSource.loop = true;
+                audioSource.Play();
+            }
+
+            int activeFlames = CountActiveFlames();
+            float targetVolume = Mathf.Clamp01(activeFlames / 16f) * maxVolume; // With mixmun 16 fires
+            audioSource.volume = Mathf.MoveTowards(audioSource.volume, targetVolume, fadeSpeed * Time.deltaTime);
+        }
+        else
+        {
+            audioSource.volume = Mathf.MoveTowards(audioSource.volume, 0f, fadeSpeed * Time.deltaTime);
+            if (audioSource.volume <= 0.01f && audioSource.isPlaying)
+            {
+                audioSource.Stop();
+            }
+        }
+    }
+
+    private int CountActiveFlames()
+    {
+        RandomFlame[] flames = FindObjectsOfType<RandomFlame>();
+        int count = 0;
+        foreach (var flame in flames)
+        {
+            if (flame.isOn) count++;
+        }
+        return count;
+    }
+
 }
