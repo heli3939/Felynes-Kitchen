@@ -4,12 +4,12 @@ Shader "Project/CelShading"
     {
         _Color        ("Albedo Color", Color) = (1,1,1,1)
         _MainTex      ("Albedo (RGB)", 2D)    = "white" {}
-        _Steps        ("Diffuse Steps (>=2, -1=ramp)", Range(-1,8)) = 3
+        _Steps        ("Diffuse Steps (>=2, -1=ramp)", Range(-1,8)) = 2
         _SpecSteps    ("Spec Steps (>=1)", Range(1,6)) = 1
         _SpecStrength ("Spec Strength", Range(0,2)) = 0.7
         _RampTex      ("(Optional) Diffuse Ramp", 2D) = "gray" {}
         _OutlineColor ("Outline Color", Color) = (0,0,0,1)
-        _OutlineWidth ("Outline Width (0=off)", Range(0,0.05)) = 0.039
+        _OutlineWidth ("Outline Width (0=off)", Range(0,0.05)) = 0
     }
 
     SubShader
