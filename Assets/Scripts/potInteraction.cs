@@ -15,6 +15,7 @@ public class PotPickDrop : MonoBehaviour
     public DoorInteraction ovenDoor;
     public float ovenInteractDistance = 2f;
     public Vector3 ovenTargetPosition = new Vector3(4.22f, .116f, 1.173f);
+    public float insideOvenThreshold = 0.3f;
 
     [Header("UI Hint")]
     public HintUI hintUI;
@@ -42,6 +43,16 @@ public class PotPickDrop : MonoBehaviour
         {
             if (!isHeld && nearbyPlayer != null)
             {
+                if (IsPotLockedInOven())
+                {
+                    Debug.Log("❌ Cannot pick up pot - oven door is closed!");
+                    if (hintUI != null)
+                    {
+                        hintUI.ShowHint("Open the oven door first!");
+                    }
+                    return;
+                }
+                
                 Pickup();
             }
             else if (isHeld)
@@ -65,13 +76,39 @@ public class PotPickDrop : MonoBehaviour
         }
     }
 
+    private bool IsPotLockedInOven()
+    {
+        if (ovenDoor == null) return false;
+        
+        float distanceToOvenTarget = Vector3.Distance(transform.position, ovenTargetPosition);
+        bool isInsideOven = distanceToOvenTarget <= insideOvenThreshold;
+        
+        bool isDoorClosed = !ovenDoor.IsOpen();
+        
+        if (isInsideOven && isDoorClosed)
+        {
+            Debug.Log($"[Pot] Locked in oven - Distance: {distanceToOvenTarget:F2}, Door closed: {isDoorClosed}");
+            return true;
+        }
+        
+        return false;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player") && !isHeld)
         {
             nearbyPlayer = other.gameObject;
             if (rb != null) rb.isKinematic = true;
-            Debug.Log("Player near pot, press R to pick up");
+            
+            if (IsPotLockedInOven())
+            {
+                Debug.Log("Player near pot, but it's locked in oven");
+            }
+            else
+            {
+                Debug.Log("Player near pot, press R to pick up");
+            }
         }
     }
 
@@ -125,6 +162,9 @@ public class PotPickDrop : MonoBehaviour
 
         transform.SetParent(null);
 
+        transform.position = originalPosition;
+        transform.rotation = originalRotation;
+
         if (rb != null)
         {
             rb.isKinematic = false;
@@ -136,23 +176,7 @@ public class PotPickDrop : MonoBehaviour
         if (col != null)
             col.isTrigger = false;
 
-        Vector3 forwardOffset = holdPoint.forward * 0.4f;
-        Vector3 dropStart = holdPoint.position + Vector3.up * 0.5f + forwardOffset;
-        Vector3 finalDropPosition = dropStart;
-
-        if (Physics.Raycast(dropStart, Vector3.down, out RaycastHit hit, 5f))
-        {
-            finalDropPosition = hit.point + Vector3.up * 0.1f;
-        }
-
-        transform.position = finalDropPosition;
-
-        if (rb != null)
-        {
-            rb.AddForce(holdPoint.forward * 1.0f, ForceMode.Impulse);
-        }
-
-        Debug.Log("Dropped pot");
+        Debug.Log("Pot returned to original position");
     }
 
     private void PlaceInOven()
@@ -236,6 +260,9 @@ public class PotPickDrop : MonoBehaviour
     {
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(transform.position, pickupRange);
+        
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(ovenTargetPosition, insideOvenThreshold);
     }
 }
 

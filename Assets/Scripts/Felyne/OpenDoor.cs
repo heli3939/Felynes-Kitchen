@@ -9,6 +9,12 @@ public class OpenDoor : MonoBehaviour
     private DoorInteraction[] allDoors;
     private Collider catCollider;
 
+    [Header("UI Hint")]
+    public HintUI hintUI;
+
+    [Header("Oven QTE Manager")]
+    public OvenQTEManager ovenQTEManager;
+
     void Start()
     {
         catCollider = GetComponent<Collider>();
@@ -38,6 +44,16 @@ public class OpenDoor : MonoBehaviour
             {
                 if (minDist <= maxOpenDistance)
                 {
+                    if (closestDoor.IsOvenDoor() && closestDoor.IsBaking())
+                    {
+                        Debug.Log("❌ Oven is baking! Cannot open the door.");
+                        if (hintUI != null)
+                        {
+                            hintUI.ShowHint("Oven is baking! Please wait...");
+                        }
+                        return;
+                    }
+                    
                     closestDoor.ToggleDoor();
                     Debug.Log("Opened door: " + closestDoor.name + "," + minDist);
                 }
@@ -57,8 +73,39 @@ public class OpenDoor : MonoBehaviour
 
             if (dist > autoCloseDistance)
             {
-                door.CloseDoor();
-                Debug.Log("Auto closed door: " + door.name + "," + dist);
+                Debug.Log($"[OpenDoor] Auto closing door: {door.name}");
+                
+                if (door.IsOvenDoor())
+                {
+                    Debug.Log("[OpenDoor] This is an oven door!");
+                    
+                    if (ovenQTEManager != null)
+                    {
+                        bool hasCompleted = ovenQTEManager.HasCompletedOvenQTE();
+                        Debug.Log($"[OpenDoor] OvenQTE completed: {hasCompleted}");
+                        
+                        if (hasCompleted)
+                        {
+                            Debug.Log("[OpenDoor] ✅ Starting baking...");
+                            door.CloseDoor();
+                            door.StartBaking();
+                        }
+                        else
+                        {
+                            Debug.Log("[OpenDoor] ❌ OvenQTE not completed yet");
+                            door.CloseDoor();
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("[OpenDoor] ❌ OvenQTEManager reference is missing! Drag it in Inspector.");
+                        door.CloseDoor();
+                    }
+                }
+                else
+                {
+                    door.CloseDoor();
+                }
             }
         }
     }
