@@ -14,6 +14,12 @@ public class MouseMovement : MonoBehaviour
     public float frequency = 1f;
     public float phaseOffset = 0f;
 
+    [Header("Audio Settings")]
+    public AudioSource audioSource;       
+    public Transform player;              
+    public float maxHearingDistance = 15f; 
+    public float minVolume = 0.05f;
+
     private float direction;
     private float initialY;
     private float initialZ;
@@ -37,6 +43,18 @@ public class MouseMovement : MonoBehaviour
         }
         
         transform.position = new Vector3(currentX, initialY, initialZ);
+
+        if (player == null)
+        {
+            GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+            if (playerObj != null) player = playerObj.transform;
+        }
+
+        if (audioSource != null && !audioSource.isPlaying)
+        {
+            audioSource.loop = true;
+            audioSource.Play();
+        }
     }
 
     void Update()
@@ -72,6 +90,12 @@ public class MouseMovement : MonoBehaviour
             transform.rotation = Quaternion.Euler(0, 90, 0);
         else
             transform.rotation = Quaternion.Euler(0, -90, 0);
+        if (player != null && audioSource != null)
+        {
+            float distance = Vector3.Distance(transform.position, player.position);
+            float t = Mathf.Clamp01(1f - distance / maxHearingDistance);
+            audioSource.volume = Mathf.Lerp(minVolume, 1f, t); 
+        }
     }
 
     void OnTriggerEnter(Collider other)
