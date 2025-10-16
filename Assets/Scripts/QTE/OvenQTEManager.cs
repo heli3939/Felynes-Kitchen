@@ -18,6 +18,9 @@ public class OvenQTEManager : MonoBehaviour
     [Header("Oven Check")]
     public Transform holdPoint;
     public DoorInteraction ovenDoor;
+    public GameObject cookingPot;
+    public Vector3 ovenTargetPosition = new Vector3(4.22f, 0.116f, 1.173f);
+    public float positionTolerance = 0.2f;
 
     [Header("Camera Switcher")]
     public OvenCameraSwitcher ovenCameraSwitcher;
@@ -41,34 +44,53 @@ public class OvenQTEManager : MonoBehaviour
     }
 
     public void StartOvenQTE()
+{
+    if (hasCompletedOvenQTE)
     {
-        if (hasCompletedOvenQTE)
+        Debug.LogWarning("[OvenQTE] Oven QTE already completed! Cannot start again.");
+        if (hintUI != null)
+            hintUI.ShowHint("Cake baked already.");
+        return;
+    }
+
+    if (ovenDoor != null && !ovenDoor.IsOpen())
+    {
+        Debug.LogWarning("[OvenQTE] Oven door is closed!");
+        if (hintUI != null)
+            hintUI.ShowHint("Open the oven door first!");
+        return;
+    }
+
+    if (cookingPot != null)
+    {
+        float distance = Vector3.Distance(cookingPot.transform.position, ovenTargetPosition);
+        if (distance > positionTolerance)
         {
-            Debug.LogWarning("[OvenQTE] Oven QTE already completed! Cannot start again.");
+            Debug.LogWarning($"[OvenQTE] Pot is not in the oven! Distance: {distance:F2}");
             if (hintUI != null)
-                hintUI.ShowHint("Cake baked already.");
+                hintUI.ShowHint("Put the pot in the oven first!");
             return;
         }
+    }
+    else
+    {
+        Debug.LogWarning("[OvenQTE] Cooking pot reference is missing!");
+        if (hintUI != null)
+            hintUI.ShowHint("Pot not found!");
+        return;
+    }
 
-        if (ovenDoor != null && !ovenDoor.IsOpen())
+    if (holdPoint != null && holdPoint.childCount > 0)
+    {
+        Transform heldItem = holdPoint.GetChild(0);
+        if (heldItem.CompareTag("CookingPot"))
         {
-            Debug.LogWarning("[OvenQTE] Oven door is closed!");
+            Debug.LogWarning("[OvenQTE] Cannot start QTE while holding the pot! Put it in the oven first.");
             if (hintUI != null)
-                hintUI.ShowHint("Open the oven door first!");
+                hintUI.ShowHint("Put the pot in the oven first!");
             return;
         }
-
-        if (holdPoint != null && holdPoint.childCount > 0)
-        {
-            Transform heldItem = holdPoint.GetChild(0);
-            if (heldItem.CompareTag("CookingPot"))
-            {
-                Debug.LogWarning("[OvenQTE] Cannot start QTE while holding the pot! Put it in the oven first.");
-                if (hintUI != null)
-                    hintUI.ShowHint("Put the pot in the oven first!");
-                return;
-            }
-        }
+    }
 
         if (qteRunning)
         {
