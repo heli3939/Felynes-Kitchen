@@ -328,7 +328,7 @@ public class RandomFlame : MonoBehaviour
 
     private int CountActiveFlames()
     {
-        RandomFlame[] flames = FindObjectsOfType<RandomFlame>();
+        RandomFlame[] flames = FindObjectsByType<RandomFlame>(FindObjectsSortMode.None);
         int count = 0;
         foreach (var flame in flames)
         {
