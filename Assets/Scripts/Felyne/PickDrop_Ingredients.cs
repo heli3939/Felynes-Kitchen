@@ -2,19 +2,24 @@
 
 public class PickDrop_Ingredients : MonoBehaviour
 {
-    public Transform holdPoint; // Where to hold item
-    private GameObject heldItem; // Reference to currently held item
-    private GameObject nearbyItem; // Item we are close enough to pick
-    private GameObject lastDroppedItem; // Track just-dropped item
+    public Transform holdPoint;
+    private GameObject heldItem;
+    private GameObject nearbyItem;
+    private GameObject lastDroppedItem;
     
     public GameObject GetHeldItem()
     {
         return heldItem;
     }
 
+    public GameObject GetNearbyItem()
+    {
+        return nearbyItem;
+    }
+
     void Start()
     {
-        UpdateNearbyItem(); // Initialize detection
+        UpdateNearbyItem();
     }
 
     void Update()
@@ -23,6 +28,8 @@ public class PickDrop_Ingredients : MonoBehaviour
         {
             CheckItemCollision();
         }
+        
+        UpdateNearbyItem();
         
         if (Input.GetKeyDown(KeyCode.E))
         {
@@ -47,7 +54,7 @@ public class PickDrop_Ingredients : MonoBehaviour
 
         foreach (RaycastHit hit in hits)
         {
-            if (hit.collider.gameObject == gameObject || hit.collider.CompareTag("Item"))
+            if (hit.collider.gameObject == gameObject || hit.collider.CompareTag("Item") || hit.collider.CompareTag("incorrect"))
             {
                 continue;
             }
@@ -58,8 +65,7 @@ public class PickDrop_Ingredients : MonoBehaviour
                 return false;
             }
 
-            if (!hit.collider.CompareTag("airwalls") &&
-                !hit.collider.CompareTag("Player"))
+            if (!hit.collider.CompareTag("airwalls") && !hit.collider.CompareTag("Player"))
             {
                 if (hit.collider.GetComponent<DoorInteraction>() != null)
                 {
@@ -150,7 +156,6 @@ public class PickDrop_Ingredients : MonoBehaviour
 
         lastDroppedItem = heldItem;
         heldItem = null;
-
         nearbyItem = null;
 
         StartCoroutine(DelayedUpdateNearbyItem(0.3f));
@@ -162,12 +167,6 @@ public class PickDrop_Ingredients : MonoBehaviour
         UpdateNearbyItem();
     }
 
-    private System.Collections.IEnumerator ClearLastDroppedAfterDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        lastDroppedItem = null;
-    }
-
     void UpdateNearbyItem()
     {
         nearbyItem = null;
@@ -176,7 +175,7 @@ public class PickDrop_Ingredients : MonoBehaviour
 
         foreach (Collider col in colliders)
         {
-            if (col.CompareTag("Item") && col.gameObject != heldItem && col.gameObject != lastDroppedItem)
+            if ((col.CompareTag("Item") || col.CompareTag("incorrect")) && col.gameObject != heldItem && col.gameObject != lastDroppedItem)
             {
                 if (!IsItemAccessible(col.transform.position))
                 {
@@ -195,32 +194,29 @@ public class PickDrop_Ingredients : MonoBehaviour
         {
             Rigidbody rb = nearbyItem.GetComponent<Rigidbody>();
             if (rb != null) rb.isKinematic = true;
-            Debug.Log("New nearby item found: " + nearbyItem.name);
         }
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Item") && nearbyItem == null)
+        if ((other.CompareTag("Item") || other.CompareTag("incorrect")) && other.gameObject != heldItem && other.gameObject != lastDroppedItem)
         {
-            if (!IsItemAccessible(other.transform.position))
-            {
-                Debug.Log($" {other.name} block by door, can't pick");
-                return;
-            }
-            nearbyItem = other.gameObject;
-            Rigidbody rb = nearbyItem.GetComponent<Rigidbody>();
-            if (rb != null) rb.isKinematic = true;
-            Debug.Log("Item nearby: " + other.name);
+            UpdateNearbyItem();
+        }
+    }
+
+    void OnTriggerStay(Collider other)
+    {
+        if ((other.CompareTag("Item") || other.CompareTag("incorrect")) && other.gameObject != heldItem && other.gameObject != lastDroppedItem)
+        {
+            UpdateNearbyItem();
         }
     }
 
     void OnTriggerExit(Collider other)
     {
-        if (other.gameObject == nearbyItem)
+        if ((other.CompareTag("Item") || other.CompareTag("incorrect")))
         {
-            nearbyItem = null;
-            Debug.Log("Item left range");
             UpdateNearbyItem();
         }
     }
@@ -255,6 +251,7 @@ public class PickDrop_Ingredients : MonoBehaviour
             if (col.gameObject == heldItem ||
                 col.gameObject == gameObject ||
                 col.CompareTag("Item") ||
+                col.CompareTag("incorrect") ||
                 col.CompareTag("airwalls") ||
                 col.CompareTag("Player"))
             {
@@ -322,7 +319,7 @@ public class PickDrop_Ingredients : MonoBehaviour
 public class ItemCollisionDetector : MonoBehaviour
 {
     public PickDrop_Ingredients pickDropScript;
-    private float collisionCooldown = .8f;
+    private float collisionCooldown = 0.8f;
     private float lastPickupTime;
 
     void Start()
@@ -338,7 +335,8 @@ public class ItemCollisionDetector : MonoBehaviour
         }
 
         if (!other.CompareTag("Player") && 
-            !other.CompareTag("Item") && 
+            !other.CompareTag("Item") &&
+            !other.CompareTag("incorrect") &&
             !other.CompareTag("airwalls") &&
             pickDropScript != null)
         {
