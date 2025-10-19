@@ -5,7 +5,6 @@ public class PickDrop_Ingredients : MonoBehaviour
     public Transform holdPoint;
     private GameObject heldItem;
     private GameObject nearbyItem;
-    private GameObject lastDroppedItem;
     
     public GameObject GetHeldItem()
     {
@@ -154,17 +153,8 @@ public class PickDrop_Ingredients : MonoBehaviour
 
         Debug.Log("Dropped: " + heldItem.name);
 
-        lastDroppedItem = heldItem;
         heldItem = null;
         nearbyItem = null;
-
-        StartCoroutine(DelayedUpdateNearbyItem(0.3f));
-    }
-
-    private System.Collections.IEnumerator DelayedUpdateNearbyItem(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        UpdateNearbyItem();
     }
 
     void UpdateNearbyItem()
@@ -175,7 +165,7 @@ public class PickDrop_Ingredients : MonoBehaviour
 
         foreach (Collider col in colliders)
         {
-            if ((col.CompareTag("Item") || col.CompareTag("incorrect")) && col.gameObject != heldItem && col.gameObject != lastDroppedItem)
+            if ((col.CompareTag("Item") || col.CompareTag("incorrect")) && col.gameObject != heldItem)
             {
                 if (!IsItemAccessible(col.transform.position))
                 {
@@ -199,7 +189,7 @@ public class PickDrop_Ingredients : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if ((other.CompareTag("Item") || other.CompareTag("incorrect")) && other.gameObject != heldItem && other.gameObject != lastDroppedItem)
+        if ((other.CompareTag("Item") || other.CompareTag("incorrect")) && other.gameObject != heldItem)
         {
             UpdateNearbyItem();
         }
@@ -207,7 +197,7 @@ public class PickDrop_Ingredients : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-        if ((other.CompareTag("Item") || other.CompareTag("incorrect")) && other.gameObject != heldItem && other.gameObject != lastDroppedItem)
+        if ((other.CompareTag("Item") || other.CompareTag("incorrect")) && other.gameObject != heldItem)
         {
             UpdateNearbyItem();
         }
@@ -309,10 +299,7 @@ public class PickDrop_Ingredients : MonoBehaviour
 
         Debug.Log("Dropped backward: " + heldItem.name);
 
-        lastDroppedItem = heldItem;
         heldItem = null;
-
-        StartCoroutine(DelayedUpdateNearbyItem(0.2f));
     }
 }
 
