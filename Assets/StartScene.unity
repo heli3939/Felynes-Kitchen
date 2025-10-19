@@ -587,6 +587,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -608,6 +610,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -673,6 +676,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -695,6 +700,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -1403,7 +1409,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 0.8
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: InitialModule.startSize.minScalar
@@ -1612,6 +1618,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1633,6 +1641,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -2009,6 +2018,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2030,6 +2041,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -2162,8 +2174,12 @@ PrefabInstance:
       value: 0.9245283
       objectReference: {fileID: 0}
     - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
+      propertyPath: InitialModule.rotation3D
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 0.8
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: InitialModule.startSize.minScalar
@@ -2798,7 +2814,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 0.8
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: InitialModule.startSize.minScalar
@@ -2879,30 +2895,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90cd61d2535641adb13d8c8ee1cf065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RandomFlame
-  popChance: 0.25
   checkInterval: 3
+  popChance: 0.25
   activeDuration: 3
-  damageDelay: 0.5
-  rampTime: 0.8
+  warnLead: 0.3
+  warnLight: {fileID: 0}
+  warnLightIntensity: 8
+  warnLightRange: 5
+  warnLightColor: {r: 1, g: 0.8, b: 0.5, a: 1}
+  warnEase: 0.2
+  autoCreateWarnLight: 1
+  flameParticles: {fileID: 0}
   scaleTransform: 1
-  minScale: 0.25
-  fullScale: {x: 0.2, y: 0.3, z: 0.2}
-  expK: 4
-  visualRampTime: 0.45
-  minStartSizeMul: 0.05
-  minStartAlphaMul: 0
-  visualExpK: 5
-  brightnessRampTime: 0.6
-  minAlphaMul: 0
-  minEmissionMul: 0.1
-  extraVisualRoots: []
-  flameSound: {fileID: 8300000, guid: 2f7654f13cc838f4c915360e541f091a, type: 3}
-  audioSource: {fileID: 200190850}
-  maxVolume: 2
-  fadeSpeed: 2
-  playerDetectRadius: 5
-  damageMinLocalY: 0.6
-  damageHorizontalRadius: 0
+  rampTime: 0.8
+  activeScale: {x: 1.1, y: 1.1, z: 1.1}
 --- !u!136 &200190847
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4127,6 +4133,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -4148,6 +4156,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -5459,6 +5468,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -5480,6 +5491,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -6163,6 +6175,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -6184,6 +6198,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -7183,7 +7198,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 0.8
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: InitialModule.startSize.minScalar
@@ -7267,30 +7282,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90cd61d2535641adb13d8c8ee1cf065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RandomFlame
-  popChance: 0.25
   checkInterval: 3
+  popChance: 0.25
   activeDuration: 3
-  damageDelay: 0.5
-  rampTime: 0.8
+  warnLead: 0.3
+  warnLight: {fileID: 0}
+  warnLightIntensity: 8
+  warnLightRange: 5
+  warnLightColor: {r: 1, g: 0.8, b: 0.5, a: 1}
+  warnEase: 0.2
+  autoCreateWarnLight: 1
+  flameParticles: {fileID: 0}
   scaleTransform: 1
-  minScale: 0.25
-  fullScale: {x: 0.2, y: 0.3, z: 0.2}
-  expK: 4
-  visualRampTime: 0.45
-  minStartSizeMul: 0.05
-  minStartAlphaMul: 0
-  visualExpK: 5
-  brightnessRampTime: 0.6
-  minAlphaMul: 0
-  minEmissionMul: 0.1
-  extraVisualRoots: []
-  flameSound: {fileID: 8300000, guid: 2f7654f13cc838f4c915360e541f091a, type: 3}
-  audioSource: {fileID: 1029642014}
-  maxVolume: 1
-  fadeSpeed: 2
-  playerDetectRadius: 5
-  damageMinLocalY: 0.6
-  damageHorizontalRadius: 0
+  rampTime: 0.8
+  activeScale: {x: 1.1, y: 1.1, z: 1.1}
 --- !u!136 &403329752
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -7343,30 +7348,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90cd61d2535641adb13d8c8ee1cf065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RandomFlame
-  popChance: 0.25
   checkInterval: 3
+  popChance: 0.25
   activeDuration: 3
-  damageDelay: 0.5
-  rampTime: 0.8
+  warnLead: 0.3
+  warnLight: {fileID: 0}
+  warnLightIntensity: 8
+  warnLightRange: 5
+  warnLightColor: {r: 1, g: 0.8, b: 0.5, a: 1}
+  warnEase: 0.2
+  autoCreateWarnLight: 1
+  flameParticles: {fileID: 0}
   scaleTransform: 1
-  minScale: 0.25
-  fullScale: {x: 0.2, y: 0.3, z: 0.2}
-  expK: 4
-  visualRampTime: 0.45
-  minStartSizeMul: 0.05
-  minStartAlphaMul: 0
-  visualExpK: 5
-  brightnessRampTime: 0.6
-  minAlphaMul: 0
-  minEmissionMul: 0.1
-  extraVisualRoots: []
-  flameSound: {fileID: 0}
-  audioSource: {fileID: 0}
-  maxVolume: 2
-  fadeSpeed: 2
-  playerDetectRadius: 5
-  damageMinLocalY: 0.6
-  damageHorizontalRadius: 0
+  rampTime: 0.8
+  activeScale: {x: 1.1, y: 1.1, z: 1.1}
 --- !u!223 &403368000
 Canvas:
   m_ObjectHideFlags: 0
@@ -7581,6 +7576,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -7602,6 +7599,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -7720,7 +7718,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 0.8
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: InitialModule.startSize.minScalar
@@ -7801,30 +7799,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90cd61d2535641adb13d8c8ee1cf065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RandomFlame
-  popChance: 0.25
   checkInterval: 3
+  popChance: 0.25
   activeDuration: 3
-  damageDelay: 0.5
-  rampTime: 0.8
+  warnLead: 0.3
+  warnLight: {fileID: 0}
+  warnLightIntensity: 8
+  warnLightRange: 5
+  warnLightColor: {r: 1, g: 0.8, b: 0.5, a: 1}
+  warnEase: 0.2
+  autoCreateWarnLight: 1
+  flameParticles: {fileID: 0}
   scaleTransform: 1
-  minScale: 0.25
-  fullScale: {x: 0.2, y: 0.3, z: 0.2}
-  expK: 4
-  visualRampTime: 0.45
-  minStartSizeMul: 0.05
-  minStartAlphaMul: 0
-  visualExpK: 5
-  brightnessRampTime: 0.6
-  minAlphaMul: 0
-  minEmissionMul: 0.1
-  extraVisualRoots: []
-  flameSound: {fileID: 8300000, guid: 2f7654f13cc838f4c915360e541f091a, type: 3}
-  audioSource: {fileID: 413269083}
-  maxVolume: 2
-  fadeSpeed: 2
-  playerDetectRadius: 5
-  damageMinLocalY: 0.6
-  damageHorizontalRadius: 0
+  rampTime: 0.8
+  activeScale: {x: 1.1, y: 1.1, z: 1.1}
 --- !u!136 &413269080
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -8297,6 +8285,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -8318,6 +8308,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -8787,6 +8778,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -8808,6 +8801,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -9132,30 +9126,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90cd61d2535641adb13d8c8ee1cf065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RandomFlame
-  popChance: 0.25
   checkInterval: 3
+  popChance: 0.25
   activeDuration: 3
-  damageDelay: 0.5
-  rampTime: 0.8
+  warnLead: 0.3
+  warnLight: {fileID: 0}
+  warnLightIntensity: 8
+  warnLightRange: 5
+  warnLightColor: {r: 1, g: 0.8, b: 0.5, a: 1}
+  warnEase: 0.2
+  autoCreateWarnLight: 1
+  flameParticles: {fileID: 0}
   scaleTransform: 1
-  minScale: 0.25
-  fullScale: {x: 0.2, y: 0.3, z: 0.2}
-  expK: 4
-  visualRampTime: 0.45
-  minStartSizeMul: 0.05
-  minStartAlphaMul: 0
-  visualExpK: 5
-  brightnessRampTime: 0.6
-  minAlphaMul: 0
-  minEmissionMul: 0.1
-  extraVisualRoots: []
-  flameSound: {fileID: 8300000, guid: 2f7654f13cc838f4c915360e541f091a, type: 3}
-  audioSource: {fileID: 489839321}
-  maxVolume: 2
-  fadeSpeed: 2
-  playerDetectRadius: 5
-  damageMinLocalY: 0.6
-  damageHorizontalRadius: 0
+  rampTime: 0.8
+  activeScale: {x: 1.1, y: 1.1, z: 1.1}
 --- !u!136 &489839318
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -9821,6 +9805,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -9842,6 +9828,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -10153,6 +10140,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -10174,6 +10163,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -11436,30 +11426,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90cd61d2535641adb13d8c8ee1cf065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RandomFlame
-  popChance: 0.25
   checkInterval: 3
+  popChance: 0.25
   activeDuration: 3
-  damageDelay: 0.5
-  rampTime: 0.8
+  warnLead: 0.3
+  warnLight: {fileID: 0}
+  warnLightIntensity: 8
+  warnLightRange: 5
+  warnLightColor: {r: 1, g: 0.8, b: 0.5, a: 1}
+  warnEase: 0.2
+  autoCreateWarnLight: 1
+  flameParticles: {fileID: 0}
   scaleTransform: 1
-  minScale: 0.25
-  fullScale: {x: 0.2, y: 0.3, z: 0.2}
-  expK: 4
-  visualRampTime: 0.45
-  minStartSizeMul: 0.05
-  minStartAlphaMul: 0
-  visualExpK: 5
-  brightnessRampTime: 0.6
-  minAlphaMul: 0
-  minEmissionMul: 0.1
-  extraVisualRoots: []
-  flameSound: {fileID: 8300000, guid: 2f7654f13cc838f4c915360e541f091a, type: 3}
-  audioSource: {fileID: 682113310}
-  maxVolume: 2
-  fadeSpeed: 2
-  playerDetectRadius: 5
-  damageMinLocalY: 0.6
-  damageHorizontalRadius: 0
+  rampTime: 0.8
+  activeScale: {x: 1.1, y: 1.1, z: 1.1}
 --- !u!136 &682113307
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -11988,6 +11968,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -12009,6 +11991,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -12895,6 +12878,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -12916,6 +12901,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -13137,6 +13123,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -13158,6 +13146,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -13383,6 +13372,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -13405,6 +13396,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -14062,6 +14054,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -14083,6 +14077,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -16219,7 +16214,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 0.8
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: InitialModule.startSize.minScalar
@@ -16300,30 +16295,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90cd61d2535641adb13d8c8ee1cf065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RandomFlame
-  popChance: 0.25
   checkInterval: 3
+  popChance: 0.25
   activeDuration: 3
-  damageDelay: 0.5
-  rampTime: 0.8
+  warnLead: 0.3
+  warnLight: {fileID: 0}
+  warnLightIntensity: 8
+  warnLightRange: 5
+  warnLightColor: {r: 1, g: 0.8, b: 0.5, a: 1}
+  warnEase: 0.2
+  autoCreateWarnLight: 1
+  flameParticles: {fileID: 0}
   scaleTransform: 1
-  minScale: 0.25
-  fullScale: {x: 0.2, y: 0.3, z: 0.2}
-  expK: 4
-  visualRampTime: 0.45
-  minStartSizeMul: 0.05
-  minStartAlphaMul: 0
-  visualExpK: 5
-  brightnessRampTime: 0.6
-  minAlphaMul: 0
-  minEmissionMul: 0.1
-  extraVisualRoots: []
-  flameSound: {fileID: 8300000, guid: 2f7654f13cc838f4c915360e541f091a, type: 3}
-  audioSource: {fileID: 1029642014}
-  maxVolume: 2
-  fadeSpeed: 2
-  playerDetectRadius: 5
-  damageMinLocalY: 0.6
-  damageHorizontalRadius: 0
+  rampTime: 0.8
+  activeScale: {x: 1.1, y: 1.1, z: 1.1}
 --- !u!136 &995609916
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -16886,30 +16871,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90cd61d2535641adb13d8c8ee1cf065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RandomFlame
-  popChance: 0.25
   checkInterval: 3
+  popChance: 0.25
   activeDuration: 3
-  damageDelay: 0.5
-  rampTime: 0.8
+  warnLead: 0.3
+  warnLight: {fileID: 0}
+  warnLightIntensity: 8
+  warnLightRange: 5
+  warnLightColor: {r: 1, g: 0.8, b: 0.5, a: 1}
+  warnEase: 0.2
+  autoCreateWarnLight: 1
+  flameParticles: {fileID: 0}
   scaleTransform: 1
-  minScale: 0.25
-  fullScale: {x: 0.2, y: 0.3, z: 0.2}
-  expK: 4
-  visualRampTime: 0.45
-  minStartSizeMul: 0.05
-  minStartAlphaMul: 0
-  visualExpK: 5
-  brightnessRampTime: 0.6
-  minAlphaMul: 0
-  minEmissionMul: 0.1
-  extraVisualRoots: []
-  flameSound: {fileID: 8300000, guid: 2f7654f13cc838f4c915360e541f091a, type: 3}
-  audioSource: {fileID: 1020858892}
-  maxVolume: 2
-  fadeSpeed: 2
-  playerDetectRadius: 5
-  damageMinLocalY: 0.6
-  damageHorizontalRadius: 0
+  rampTime: 0.8
+  activeScale: {x: 1.1, y: 1.1, z: 1.1}
 --- !u!136 &1020858889
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -17272,7 +17247,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 0.8
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: InitialModule.startSize.minScalar
@@ -17353,30 +17328,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90cd61d2535641adb13d8c8ee1cf065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RandomFlame
-  popChance: 0.25
   checkInterval: 3
+  popChance: 0.25
   activeDuration: 3
-  damageDelay: 0.5
-  rampTime: 0.8
+  warnLead: 0.3
+  warnLight: {fileID: 0}
+  warnLightIntensity: 8
+  warnLightRange: 5
+  warnLightColor: {r: 1, g: 0.8, b: 0.5, a: 1}
+  warnEase: 0.2
+  autoCreateWarnLight: 1
+  flameParticles: {fileID: 0}
   scaleTransform: 1
-  minScale: 0.25
-  fullScale: {x: 0.2, y: 0.3, z: 0.2}
-  expK: 4
-  visualRampTime: 0.45
-  minStartSizeMul: 0.05
-  minStartAlphaMul: 0
-  visualExpK: 5
-  brightnessRampTime: 0.6
-  minAlphaMul: 0
-  minEmissionMul: 0.1
-  extraVisualRoots: []
-  flameSound: {fileID: 8300000, guid: 2f7654f13cc838f4c915360e541f091a, type: 3}
-  audioSource: {fileID: 1029642014}
-  maxVolume: 2
-  fadeSpeed: 2
-  playerDetectRadius: 5
-  damageMinLocalY: 0.6
-  damageHorizontalRadius: 0
+  rampTime: 0.8
+  activeScale: {x: 1.1, y: 1.1, z: 1.1}
 --- !u!136 &1029642011
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -18543,6 +18508,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -18564,6 +18531,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -18668,6 +18636,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -18689,6 +18659,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -18807,7 +18778,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 0.8
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: InitialModule.startSize.minScalar
@@ -19554,6 +19525,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -19575,6 +19548,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -20950,6 +20924,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -20971,6 +20947,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -21407,30 +21384,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90cd61d2535641adb13d8c8ee1cf065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RandomFlame
-  popChance: 0.25
   checkInterval: 3
+  popChance: 0.25
   activeDuration: 3
-  damageDelay: 0.5
-  rampTime: 0.8
+  warnLead: 0.3
+  warnLight: {fileID: 0}
+  warnLightIntensity: 8
+  warnLightRange: 5
+  warnLightColor: {r: 1, g: 0.8, b: 0.5, a: 1}
+  warnEase: 0.2
+  autoCreateWarnLight: 1
+  flameParticles: {fileID: 0}
   scaleTransform: 1
-  minScale: 0.25
-  fullScale: {x: 0.2, y: 0.3, z: 0.2}
-  expK: 4
-  visualRampTime: 0.45
-  minStartSizeMul: 0.05
-  minStartAlphaMul: 0
-  visualExpK: 5
-  brightnessRampTime: 0.6
-  minAlphaMul: 0
-  minEmissionMul: 0.1
-  extraVisualRoots: []
-  flameSound: {fileID: 8300000, guid: 2f7654f13cc838f4c915360e541f091a, type: 3}
-  audioSource: {fileID: 1330256240}
-  maxVolume: 2
-  fadeSpeed: 2
-  playerDetectRadius: 5
-  damageMinLocalY: 0.6
-  damageHorizontalRadius: 0
+  rampTime: 0.8
+  activeScale: {x: 1.1, y: 1.1, z: 1.1}
 --- !u!136 &1330256237
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -21774,7 +21741,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 0.8
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: InitialModule.startSize.minScalar
@@ -21855,30 +21822,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90cd61d2535641adb13d8c8ee1cf065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RandomFlame
-  popChance: 0.25
   checkInterval: 3
+  popChance: 0.25
   activeDuration: 3
-  damageDelay: 0.5
-  rampTime: 0.8
+  warnLead: 0.3
+  warnLight: {fileID: 0}
+  warnLightIntensity: 8
+  warnLightRange: 5
+  warnLightColor: {r: 1, g: 0.8, b: 0.5, a: 1}
+  warnEase: 0.2
+  autoCreateWarnLight: 1
+  flameParticles: {fileID: 0}
   scaleTransform: 1
-  minScale: 0.25
-  fullScale: {x: 0.2, y: 0.3, z: 0.2}
-  expK: 4
-  visualRampTime: 0.45
-  minStartSizeMul: 0.05
-  minStartAlphaMul: 0
-  visualExpK: 5
-  brightnessRampTime: 0.6
-  minAlphaMul: 0
-  minEmissionMul: 0.1
-  extraVisualRoots: []
-  flameSound: {fileID: 8300000, guid: 2f7654f13cc838f4c915360e541f091a, type: 3}
-  audioSource: {fileID: 413269083}
-  maxVolume: 2
-  fadeSpeed: 2
-  playerDetectRadius: 5
-  damageMinLocalY: 0.6
-  damageHorizontalRadius: 0
+  rampTime: 0.8
+  activeScale: {x: 1.1, y: 1.1, z: 1.1}
 --- !u!136 &1353537620
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -22198,6 +22155,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -22219,6 +22178,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -22693,7 +22653,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 0.8
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: InitialModule.startSize.minScalar
@@ -22774,30 +22734,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90cd61d2535641adb13d8c8ee1cf065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RandomFlame
-  popChance: 0.25
   checkInterval: 3
+  popChance: 0.25
   activeDuration: 3
-  damageDelay: 0.5
-  rampTime: 0.8
+  warnLead: 0.3
+  warnLight: {fileID: 0}
+  warnLightIntensity: 8
+  warnLightRange: 5
+  warnLightColor: {r: 1, g: 0.8, b: 0.5, a: 1}
+  warnEase: 0.2
+  autoCreateWarnLight: 1
+  flameParticles: {fileID: 0}
   scaleTransform: 1
-  minScale: 0.25
-  fullScale: {x: 0.2, y: 0.3, z: 0.2}
-  expK: 4
-  visualRampTime: 0.45
-  minStartSizeMul: 0.05
-  minStartAlphaMul: 0
-  visualExpK: 5
-  brightnessRampTime: 0.6
-  minAlphaMul: 0
-  minEmissionMul: 0.1
-  extraVisualRoots: []
-  flameSound: {fileID: 8300000, guid: 2f7654f13cc838f4c915360e541f091a, type: 3}
-  audioSource: {fileID: 200190850}
-  maxVolume: 2
-  fadeSpeed: 2
-  playerDetectRadius: 5
-  damageMinLocalY: 0.6
-  damageHorizontalRadius: 0
+  rampTime: 0.8
+  activeScale: {x: 1.1, y: 1.1, z: 1.1}
 --- !u!136 &1383565374
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -23103,6 +23053,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -23124,6 +23076,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -23488,6 +23441,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -23509,6 +23464,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -23698,6 +23654,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -23719,6 +23677,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -25003,6 +24962,8 @@ SkinnedMeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -25024,6 +24985,7 @@ SkinnedMeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -25532,7 +25494,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 0.8
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: InitialModule.startSize.minScalar
@@ -25613,30 +25575,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90cd61d2535641adb13d8c8ee1cf065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RandomFlame
-  popChance: 0.25
   checkInterval: 3
+  popChance: 0.25
   activeDuration: 3
-  damageDelay: 0.5
-  rampTime: 0.8
+  warnLead: 0.3
+  warnLight: {fileID: 0}
+  warnLightIntensity: 8
+  warnLightRange: 5
+  warnLightColor: {r: 1, g: 0.8, b: 0.5, a: 1}
+  warnEase: 0.2
+  autoCreateWarnLight: 1
+  flameParticles: {fileID: 0}
   scaleTransform: 1
-  minScale: 0.25
-  fullScale: {x: 0.2, y: 0.3, z: 0.2}
-  expK: 4
-  visualRampTime: 0.45
-  minStartSizeMul: 0.05
-  minStartAlphaMul: 0
-  visualExpK: 5
-  brightnessRampTime: 0.6
-  minAlphaMul: 0
-  minEmissionMul: 0.1
-  extraVisualRoots: []
-  flameSound: {fileID: 8300000, guid: 2f7654f13cc838f4c915360e541f091a, type: 3}
-  audioSource: {fileID: 1594618491}
-  maxVolume: 2
-  fadeSpeed: 2
-  playerDetectRadius: 5
-  damageMinLocalY: 0.6
-  damageHorizontalRadius: 0
+  rampTime: 0.8
+  activeScale: {x: 1.1, y: 1.1, z: 1.1}
 --- !u!136 &1473032698
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -26736,8 +26688,16 @@ PrefabInstance:
       value: 0.9245283
       objectReference: {fileID: 0}
     - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
+      propertyPath: InitialModule.size3D
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
+      propertyPath: InitialModule.rotation3D
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 0.8
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: InitialModule.startSize.minScalar
@@ -27542,7 +27502,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 0.8
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: InitialModule.startSize.minScalar
@@ -28133,7 +28093,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 0.8
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: InitialModule.startSize.minScalar
@@ -28214,30 +28174,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90cd61d2535641adb13d8c8ee1cf065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RandomFlame
-  popChance: 0.25
   checkInterval: 3
+  popChance: 0.25
   activeDuration: 3
-  damageDelay: 0.5
-  rampTime: 0.8
+  warnLead: 0.3
+  warnLight: {fileID: 0}
+  warnLightIntensity: 8
+  warnLightRange: 5
+  warnLightColor: {r: 1, g: 0.8, b: 0.5, a: 1}
+  warnEase: 0.2
+  autoCreateWarnLight: 1
+  flameParticles: {fileID: 0}
   scaleTransform: 1
-  minScale: 0.25
-  fullScale: {x: 0.2, y: 0.3, z: 0.2}
-  expK: 4
-  visualRampTime: 0.45
-  minStartSizeMul: 0.05
-  minStartAlphaMul: 0
-  visualExpK: 5
-  brightnessRampTime: 0.6
-  minAlphaMul: 0
-  minEmissionMul: 0.1
-  extraVisualRoots: []
-  flameSound: {fileID: 8300000, guid: 2f7654f13cc838f4c915360e541f091a, type: 3}
-  audioSource: {fileID: 1594618491}
-  maxVolume: 2
-  fadeSpeed: 2
-  playerDetectRadius: 5
-  damageMinLocalY: 0.6
-  damageHorizontalRadius: 0
+  rampTime: 0.8
+  activeScale: {x: 1.1, y: 1.1, z: 1.1}
 --- !u!136 &1594618488
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -29057,6 +29007,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -29078,6 +29030,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -29838,6 +29791,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -29859,6 +29814,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -30765,6 +30721,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -30786,6 +30744,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -31328,7 +31287,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 0.8
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: InitialModule.startSize.minScalar
@@ -31409,30 +31368,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90cd61d2535641adb13d8c8ee1cf065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RandomFlame
-  popChance: 0.25
   checkInterval: 3
+  popChance: 0.25
   activeDuration: 3
-  damageDelay: 0.5
-  rampTime: 0.8
+  warnLead: 0.3
+  warnLight: {fileID: 0}
+  warnLightIntensity: 8
+  warnLightRange: 5
+  warnLightColor: {r: 1, g: 0.8, b: 0.5, a: 1}
+  warnEase: 0.2
+  autoCreateWarnLight: 1
+  flameParticles: {fileID: 0}
   scaleTransform: 1
-  minScale: 0.25
-  fullScale: {x: 0.2, y: 0.3, z: 0.2}
-  expK: 4
-  visualRampTime: 0.45
-  minStartSizeMul: 0.05
-  minStartAlphaMul: 0
-  visualExpK: 5
-  brightnessRampTime: 0.6
-  minAlphaMul: 0
-  minEmissionMul: 0.1
-  extraVisualRoots: []
-  flameSound: {fileID: 8300000, guid: 2f7654f13cc838f4c915360e541f091a, type: 3}
-  audioSource: {fileID: 413269083}
-  maxVolume: 2
-  fadeSpeed: 2
-  playerDetectRadius: 5
-  damageMinLocalY: 0.6
-  damageHorizontalRadius: 0
+  rampTime: 0.8
+  activeScale: {x: 1.1, y: 1.1, z: 1.1}
 --- !u!136 &1761844392
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -31634,6 +31583,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -31655,6 +31606,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -32717,6 +32669,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -32738,6 +32692,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -33092,7 +33047,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 0.8
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
       propertyPath: InitialModule.startSize.minScalar
@@ -33173,30 +33128,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90cd61d2535641adb13d8c8ee1cf065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RandomFlame
-  popChance: 0.25
   checkInterval: 3
+  popChance: 0.25
   activeDuration: 3
-  damageDelay: 0.5
-  rampTime: 0.8
+  warnLead: 0.3
+  warnLight: {fileID: 0}
+  warnLightIntensity: 8
+  warnLightRange: 5
+  warnLightColor: {r: 1, g: 0.8, b: 0.5, a: 1}
+  warnEase: 0.2
+  autoCreateWarnLight: 1
+  flameParticles: {fileID: 0}
   scaleTransform: 1
-  minScale: 0.25
-  fullScale: {x: 0.2, y: 0.3, z: 0.2}
-  expK: 4
-  visualRampTime: 0.45
-  minStartSizeMul: 0.05
-  minStartAlphaMul: 0
-  visualExpK: 5
-  brightnessRampTime: 0.6
-  minAlphaMul: 0
-  minEmissionMul: 0.1
-  extraVisualRoots: []
-  flameSound: {fileID: 8300000, guid: 2f7654f13cc838f4c915360e541f091a, type: 3}
-  audioSource: {fileID: 1594618491}
-  maxVolume: 2
-  fadeSpeed: 2
-  playerDetectRadius: 5
-  damageMinLocalY: 0.6
-  damageHorizontalRadius: 0
+  rampTime: 0.8
+  activeScale: {x: 1.1, y: 1.1, z: 1.1}
 --- !u!136 &1838746577
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -34437,6 +34382,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -34458,6 +34405,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -34667,6 +34615,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -34688,6 +34638,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -34981,30 +34932,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90cd61d2535641adb13d8c8ee1cf065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RandomFlame
-  popChance: 0.25
   checkInterval: 3
+  popChance: 0.25
   activeDuration: 3
-  damageDelay: 0.5
-  rampTime: 0.8
+  warnLead: 0.3
+  warnLight: {fileID: 0}
+  warnLightIntensity: 8
+  warnLightRange: 5
+  warnLightColor: {r: 1, g: 0.8, b: 0.5, a: 1}
+  warnEase: 0.2
+  autoCreateWarnLight: 1
+  flameParticles: {fileID: 0}
   scaleTransform: 1
-  minScale: 0.25
-  fullScale: {x: 0.2, y: 0.3, z: 0.2}
-  expK: 4
-  visualRampTime: 0.45
-  minStartSizeMul: 0.05
-  minStartAlphaMul: 0
-  visualExpK: 5
-  brightnessRampTime: 0.6
-  minAlphaMul: 0
-  minEmissionMul: 0.1
-  extraVisualRoots: []
-  flameSound: {fileID: 8300000, guid: 2f7654f13cc838f4c915360e541f091a, type: 3}
-  audioSource: {fileID: 1962333373}
-  maxVolume: 2
-  fadeSpeed: 2
-  playerDetectRadius: 5
-  damageMinLocalY: 0.6
-  damageHorizontalRadius: 0
+  rampTime: 0.8
+  activeScale: {x: 1.1, y: 1.1, z: 1.1}
 --- !u!136 &1962333370
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -36196,6 +36137,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -36217,6 +36160,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -36597,6 +36541,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -36618,6 +36564,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -37020,6 +36967,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -37041,6 +36990,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -37140,6 +37090,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -37161,6 +37113,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -37233,6 +37186,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -37254,6 +37209,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -38202,6 +38158,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -38223,6 +38181,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
