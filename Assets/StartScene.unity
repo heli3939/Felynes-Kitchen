@@ -2902,7 +2902,6 @@ MonoBehaviour:
   rampTime: 0.8
   scaleTransform: 1
   minScale: 0.25
-  fullScale: {x: 0.2, y: 0.3, z: 0.2}
   expK: 4
   visualRampTime: 0.45
   minStartSizeMul: 0.05
@@ -7299,7 +7298,6 @@ MonoBehaviour:
   rampTime: 0.8
   scaleTransform: 1
   minScale: 0.25
-  fullScale: {x: 0.2, y: 0.3, z: 0.2}
   expK: 4
   visualRampTime: 0.45
   minStartSizeMul: 0.05
@@ -7375,7 +7373,6 @@ MonoBehaviour:
   rampTime: 0.8
   scaleTransform: 1
   minScale: 0.25
-  fullScale: {x: 0.2, y: 0.3, z: 0.2}
   expK: 4
   visualRampTime: 0.45
   minStartSizeMul: 0.05
@@ -7836,7 +7833,6 @@ MonoBehaviour:
   rampTime: 0.8
   scaleTransform: 1
   minScale: 0.25
-  fullScale: {x: 0.2, y: 0.3, z: 0.2}
   expK: 4
   visualRampTime: 0.45
   minStartSizeMul: 0.05
@@ -9173,7 +9169,6 @@ MonoBehaviour:
   rampTime: 0.8
   scaleTransform: 1
   minScale: 0.25
-  fullScale: {x: 0.2, y: 0.3, z: 0.2}
   expK: 4
   visualRampTime: 0.45
   minStartSizeMul: 0.05
@@ -11483,7 +11478,6 @@ MonoBehaviour:
   rampTime: 0.8
   scaleTransform: 1
   minScale: 0.25
-  fullScale: {x: 0.2, y: 0.3, z: 0.2}
   expK: 4
   visualRampTime: 0.45
   minStartSizeMul: 0.05
@@ -16362,7 +16356,6 @@ MonoBehaviour:
   rampTime: 0.8
   scaleTransform: 1
   minScale: 0.25
-  fullScale: {x: 0.2, y: 0.3, z: 0.2}
   expK: 4
   visualRampTime: 0.45
   minStartSizeMul: 0.05
@@ -16948,7 +16941,6 @@ MonoBehaviour:
   rampTime: 0.8
   scaleTransform: 1
   minScale: 0.25
-  fullScale: {x: 0.2, y: 0.3, z: 0.2}
   expK: 4
   visualRampTime: 0.45
   minStartSizeMul: 0.05
@@ -17415,7 +17407,6 @@ MonoBehaviour:
   rampTime: 0.8
   scaleTransform: 1
   minScale: 0.25
-  fullScale: {x: 0.2, y: 0.3, z: 0.2}
   expK: 4
   visualRampTime: 0.45
   minStartSizeMul: 0.05
@@ -21481,7 +21472,6 @@ MonoBehaviour:
   rampTime: 0.8
   scaleTransform: 1
   minScale: 0.25
-  fullScale: {x: 0.2, y: 0.3, z: 0.2}
   expK: 4
   visualRampTime: 0.45
   minStartSizeMul: 0.05
@@ -21929,7 +21919,6 @@ MonoBehaviour:
   rampTime: 0.8
   scaleTransform: 1
   minScale: 0.25
-  fullScale: {x: 0.2, y: 0.3, z: 0.2}
   expK: 4
   visualRampTime: 0.45
   minStartSizeMul: 0.05
@@ -22851,7 +22840,6 @@ MonoBehaviour:
   rampTime: 0.8
   scaleTransform: 1
   minScale: 0.25
-  fullScale: {x: 0.2, y: 0.3, z: 0.2}
   expK: 4
   visualRampTime: 0.45
   minStartSizeMul: 0.05
@@ -25702,7 +25690,6 @@ MonoBehaviour:
   rampTime: 0.8
   scaleTransform: 1
   minScale: 0.25
-  fullScale: {x: 0.2, y: 0.3, z: 0.2}
   expK: 4
   visualRampTime: 0.45
   minStartSizeMul: 0.05
@@ -28311,7 +28298,6 @@ MonoBehaviour:
   rampTime: 0.8
   scaleTransform: 1
   minScale: 0.25
-  fullScale: {x: 0.2, y: 0.3, z: 0.2}
   expK: 4
   visualRampTime: 0.45
   minStartSizeMul: 0.05
@@ -31515,7 +31501,6 @@ MonoBehaviour:
   rampTime: 0.8
   scaleTransform: 1
   minScale: 0.25
-  fullScale: {x: 0.2, y: 0.3, z: 0.2}
   expK: 4
   visualRampTime: 0.45
   minStartSizeMul: 0.05
@@ -33285,7 +33270,6 @@ MonoBehaviour:
   rampTime: 0.8
   scaleTransform: 1
   minScale: 0.25
-  fullScale: {x: 0.2, y: 0.3, z: 0.2}
   expK: 4
   visualRampTime: 0.45
   minStartSizeMul: 0.05
@@ -35099,7 +35083,6 @@ MonoBehaviour:
   rampTime: 0.8
   scaleTransform: 1
   minScale: 0.25
-  fullScale: {x: 0.2, y: 0.3, z: 0.2}
   expK: 4
   visualRampTime: 0.45
   minStartSizeMul: 0.05
