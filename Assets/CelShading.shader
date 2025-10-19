@@ -20,7 +20,7 @@ Shader "Project/CelShading"
         ZWrite On
         ZTest LEqual
 
-        // ---------- CEL SHADING ----------
+        // ---------- CEL SHADING (FORWARD BASE) ----------
         Pass
         {
             Name "FORWARD_BASE"
@@ -50,11 +50,12 @@ Shader "Project/CelShading"
 
             struct V2F
             {
-                float4 pos : SV_POSITION;
-                float2 uv  : TEXCOORD0;
-                float3 nWS : TEXCOORD1;
-                float3 vWS : TEXCOORD2;
-                SHADOW_COORDS(3)
+                float4 pos   : SV_POSITION;
+                float2 uv    : TEXCOORD0;
+                float3 nWS   : TEXCOORD1;
+                float3 vWS   : TEXCOORD2;
+                float3 wPos  : TEXCOORD3;   // ADDED: world position for light dir helper
+                SHADOW_COORDS(4)
             };
 
             inline fixed Quantize(float x, float bands, sampler2D rampTex)
@@ -68,11 +69,11 @@ Shader "Project/CelShading"
             V2F vert(AppData IN)
             {
                 V2F OUT;
-                OUT.pos = UnityObjectToClipPos(IN.vertex);
-                OUT.uv  = TRANSFORM_TEX(IN.uv, _MainTex);
-                OUT.nWS = normalize(UnityObjectToWorldNormal(IN.normal));
-                float3 worldPos = mul(unity_ObjectToWorld, IN.vertex).xyz;
-                OUT.vWS = _WorldSpaceCameraPos - worldPos;
+                OUT.pos  = UnityObjectToClipPos(IN.vertex);
+                OUT.uv   = TRANSFORM_TEX(IN.uv, _MainTex);
+                OUT.nWS  = normalize(UnityObjectToWorldNormal(IN.normal));
+                OUT.wPos = mul(unity_ObjectToWorld, IN.vertex).xyz; // ADDED
+                OUT.vWS  = _WorldSpaceCameraPos - OUT.wPos;
                 TRANSFER_SHADOW(OUT);
                 return OUT;
             }
@@ -82,15 +83,17 @@ Shader "Project/CelShading"
                 fixed4 albedo = tex2D(_MainTex, IN.uv) * _Color;
                 float3 N = normalize(IN.nWS);
                 float3 V = normalize(IN.vWS);
-                float3 L = normalize(_WorldSpaceLightPos0.xyz);
 
-                fixed shadow = SHADOW_ATTENUATION(IN);
+                // FIX: backend-safe light dir
+                float3 L = normalize(UnityWorldSpaceLightDir(IN.wPos));
+
+                fixed shadow   = SHADOW_ATTENUATION(IN);
                 fixed diffBand = Quantize(dot(N, L), _Steps, _RampTex) * shadow;
 
-                float3 H = normalize(L + V);
+                float3 H       = normalize(L + V);
                 fixed specBand = Quantize(pow(saturate(dot(N, H)), 32.0), _SpecSteps, _RampTex);
 
-                fixed3 lit = _LightColor0.rgb * (albedo.rgb * diffBand + specBand * _SpecStrength);
+                fixed3 lit     = _LightColor0.rgb * (albedo.rgb * diffBand + specBand * _SpecStrength);
                 fixed3 ambient = UNITY_LIGHTMODEL_AMBIENT.rgb * albedo.rgb;
 
                 return fixed4(ambient + lit, albedo.a);
@@ -98,49 +101,79 @@ Shader "Project/CelShading"
             ENDCG
         }
 
-        // ---------- OUTLINE ----------
-        // Pass
-        // {
-        //     Name "OUTLINE"
-        //     Tags { "LightMode"="Always" }
-        //     Cull Front
-        //     ZWrite On
-        //     ZTest LEqual
+        // ---------- ADDITIONAL LIGHTS (FORWARD ADD) ----------
+        Pass
+        {
+            Tags { "LightMode"="ForwardAdd" }
+            Blend One One
+            ZWrite Off
+            Cull Back
 
-        //     CGPROGRAM
-        //     #pragma vertex   vertOutline
-        //     #pragma fragment fragOutline
-        //     #include "UnityCG.cginc"
+            CGPROGRAM
+            #pragma target 3.0
+            #pragma vertex vert
+            #pragma fragment frag
+            #pragma multi_compile_fwdadd
 
-        //     float  _OutlineWidth;
-        //     float4 _OutlineColor;
+            #include "UnityCG.cginc"
+            #include "AutoLight.cginc"
+            #include "Lighting.cginc"
 
-        //     struct AppData
-        //     {
-        //         float4 vertex : POSITION;
-        //         float3 normal : NORMAL;
-        //     };
+            fixed4 _Color;
+            sampler2D _MainTex;
+            float4 _MainTex_ST;
+            float  _Steps;
 
-        //     struct V2F
-        //     {
-        //         float4 pos : SV_POSITION;
-        //     };
+            struct appdata {
+                float4 vertex : POSITION;
+                float3 normal : NORMAL;
+                float2 uv     : TEXCOORD0;
+            };
 
-        //     V2F vertOutline(AppData IN)
-        //     {
-        //         V2F OUT;
-        //         float3 n = normalize(IN.normal);
-        //         float4 expanded = IN.vertex + float4(n * _OutlineWidth, 0);
-        //         OUT.pos = UnityObjectToClipPos(expanded);
-        //         return OUT;
-        //     }
+            struct v2f {
+                float4 pos       : SV_POSITION;
+                float3 worldPos  : TEXCOORD0;
+                float3 worldNorm : TEXCOORD1;
+                float2 uv        : TEXCOORD2;
+                SHADOW_COORDS(3)
+            };
 
-        //     fixed4 fragOutline(V2F IN) : SV_Target
-        //     {
-        //         if (_OutlineWidth <= 0.0001) discard;
-        //         return _OutlineColor;
-        //     }
-        //     ENDCG
-        // }
+            v2f vert (appdata v)
+            {
+                v2f o;
+                o.pos       = UnityObjectToClipPos(v.vertex);
+                o.worldPos  = mul(unity_ObjectToWorld, v.vertex).xyz;
+                o.worldNorm = UnityObjectToWorldNormal(v.normal);
+                o.uv        = TRANSFORM_TEX(v.uv, _MainTex);
+                TRANSFER_SHADOW(o);
+                return o;
+            }
+
+            half ToonStep(half ndl, half steps)
+            {
+                steps = max(2.0h, steps);
+                return (floor(ndl * steps + 1e-4h) / (steps - 1.0h)) > 0.5h ? 1.0h : 0.0h;
+            }
+
+            fixed4 frag (v2f i) : SV_Target
+            {
+                UNITY_LIGHT_ATTENUATION(atten, i, i.worldPos);
+
+                // FIX: backend-safe light dir for additional lights
+                float3 L = normalize(UnityWorldSpaceLightDir(i.worldPos));
+
+                float3 N   = normalize(i.worldNorm);
+                half   ndl = saturate(dot(N, L));
+                half   band= (_Steps >= 2.0h) ? ToonStep(ndl, (half)_Steps) : (ndl > 0.5h ? 1.0h : 0.0h);
+
+                fixed3 albedo = tex2D(_MainTex, i.uv).rgb * _Color.rgb;
+                fixed3 lit    = albedo * _LightColor0.rgb * band * atten; // additive
+
+                return fixed4(lit, 0);
+            }
+            ENDCG
+        }
+
+        // (Optional OUTLINE pass left commented in your original)
     }
 }
