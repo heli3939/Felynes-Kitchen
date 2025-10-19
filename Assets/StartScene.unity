@@ -2895,20 +2895,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90cd61d2535641adb13d8c8ee1cf065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RandomFlame
-  checkInterval: 3
   popChance: 0.25
+  checkInterval: 3
   activeDuration: 3
-  warnLead: 0.3
-  warnLight: {fileID: 0}
-  warnLightIntensity: 8
-  warnLightRange: 5
-  warnLightColor: {r: 1, g: 0.8, b: 0.5, a: 1}
-  warnEase: 0.2
-  autoCreateWarnLight: 1
-  flameParticles: {fileID: 0}
-  scaleTransform: 1
+  damageDelay: 0.5
   rampTime: 0.8
-  activeScale: {x: 1.1, y: 1.1, z: 1.1}
+  scaleTransform: 1
+  minScale: 0.25
+  fullScale: {x: 0.2, y: 0.3, z: 0.2}
+  expK: 4
+  visualRampTime: 0.45
+  minStartSizeMul: 0.05
+  minStartAlphaMul: 0
+  visualExpK: 5
+  brightnessRampTime: 0.6
+  minAlphaMul: 0
+  minEmissionMul: 0.1
+  maxScaleMul: 0.6
+  maxSizeMul: 0.6
+  maxEmissionMul: 0.4
+  maxTintAlphaMul: 0.7
+  maxRateMul: 0.5
+  extraVisualRoots: []
+  damageMinLocalY: 0.6
+  damageHorizontalRadius: 0
 --- !u!136 &200190847
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -7282,20 +7292,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90cd61d2535641adb13d8c8ee1cf065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RandomFlame
-  checkInterval: 3
   popChance: 0.25
+  checkInterval: 3
   activeDuration: 3
-  warnLead: 0.3
-  warnLight: {fileID: 0}
-  warnLightIntensity: 8
-  warnLightRange: 5
-  warnLightColor: {r: 1, g: 0.8, b: 0.5, a: 1}
-  warnEase: 0.2
-  autoCreateWarnLight: 1
-  flameParticles: {fileID: 0}
-  scaleTransform: 1
+  damageDelay: 0.5
   rampTime: 0.8
-  activeScale: {x: 1.1, y: 1.1, z: 1.1}
+  scaleTransform: 1
+  minScale: 0.25
+  fullScale: {x: 0.2, y: 0.3, z: 0.2}
+  expK: 4
+  visualRampTime: 0.45
+  minStartSizeMul: 0.05
+  minStartAlphaMul: 0
+  visualExpK: 5
+  brightnessRampTime: 0.6
+  minAlphaMul: 0
+  minEmissionMul: 0.1
+  maxScaleMul: 0.6
+  maxSizeMul: 0.6
+  maxEmissionMul: 0.4
+  maxTintAlphaMul: 0.7
+  maxRateMul: 0.5
+  extraVisualRoots: []
+  damageMinLocalY: 0.6
+  damageHorizontalRadius: 0
 --- !u!136 &403329752
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -7348,20 +7368,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90cd61d2535641adb13d8c8ee1cf065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RandomFlame
-  checkInterval: 3
   popChance: 0.25
+  checkInterval: 3
   activeDuration: 3
-  warnLead: 0.3
-  warnLight: {fileID: 0}
-  warnLightIntensity: 8
-  warnLightRange: 5
-  warnLightColor: {r: 1, g: 0.8, b: 0.5, a: 1}
-  warnEase: 0.2
-  autoCreateWarnLight: 1
-  flameParticles: {fileID: 0}
-  scaleTransform: 1
+  damageDelay: 0.5
   rampTime: 0.8
-  activeScale: {x: 1.1, y: 1.1, z: 1.1}
+  scaleTransform: 1
+  minScale: 0.25
+  fullScale: {x: 0.2, y: 0.3, z: 0.2}
+  expK: 4
+  visualRampTime: 0.45
+  minStartSizeMul: 0.05
+  minStartAlphaMul: 0
+  visualExpK: 5
+  brightnessRampTime: 0.6
+  minAlphaMul: 0
+  minEmissionMul: 0.1
+  maxScaleMul: 0.6
+  maxSizeMul: 0.6
+  maxEmissionMul: 0.4
+  maxTintAlphaMul: 0.7
+  maxRateMul: 0.5
+  extraVisualRoots: []
+  damageMinLocalY: 0.6
+  damageHorizontalRadius: 0
 --- !u!223 &403368000
 Canvas:
   m_ObjectHideFlags: 0
@@ -7799,20 +7829,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90cd61d2535641adb13d8c8ee1cf065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RandomFlame
-  checkInterval: 3
   popChance: 0.25
+  checkInterval: 3
   activeDuration: 3
-  warnLead: 0.3
-  warnLight: {fileID: 0}
-  warnLightIntensity: 8
-  warnLightRange: 5
-  warnLightColor: {r: 1, g: 0.8, b: 0.5, a: 1}
-  warnEase: 0.2
-  autoCreateWarnLight: 1
-  flameParticles: {fileID: 0}
-  scaleTransform: 1
+  damageDelay: 0.5
   rampTime: 0.8
-  activeScale: {x: 1.1, y: 1.1, z: 1.1}
+  scaleTransform: 1
+  minScale: 0.25
+  fullScale: {x: 0.2, y: 0.3, z: 0.2}
+  expK: 4
+  visualRampTime: 0.45
+  minStartSizeMul: 0.05
+  minStartAlphaMul: 0
+  visualExpK: 5
+  brightnessRampTime: 0.6
+  minAlphaMul: 0
+  minEmissionMul: 0.1
+  maxScaleMul: 0.6
+  maxSizeMul: 0.6
+  maxEmissionMul: 0.4
+  maxTintAlphaMul: 0.7
+  maxRateMul: 0.5
+  extraVisualRoots: []
+  damageMinLocalY: 0.6
+  damageHorizontalRadius: 0
 --- !u!136 &413269080
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -9126,20 +9166,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90cd61d2535641adb13d8c8ee1cf065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RandomFlame
-  checkInterval: 3
   popChance: 0.25
+  checkInterval: 3
   activeDuration: 3
-  warnLead: 0.3
-  warnLight: {fileID: 0}
-  warnLightIntensity: 8
-  warnLightRange: 5
-  warnLightColor: {r: 1, g: 0.8, b: 0.5, a: 1}
-  warnEase: 0.2
-  autoCreateWarnLight: 1
-  flameParticles: {fileID: 0}
-  scaleTransform: 1
+  damageDelay: 0.5
   rampTime: 0.8
-  activeScale: {x: 1.1, y: 1.1, z: 1.1}
+  scaleTransform: 1
+  minScale: 0.25
+  fullScale: {x: 0.2, y: 0.3, z: 0.2}
+  expK: 4
+  visualRampTime: 0.45
+  minStartSizeMul: 0.05
+  minStartAlphaMul: 0
+  visualExpK: 5
+  brightnessRampTime: 0.6
+  minAlphaMul: 0
+  minEmissionMul: 0.1
+  maxScaleMul: 0.6
+  maxSizeMul: 0.6
+  maxEmissionMul: 0.4
+  maxTintAlphaMul: 0.7
+  maxRateMul: 0.5
+  extraVisualRoots: []
+  damageMinLocalY: 0.6
+  damageHorizontalRadius: 0
 --- !u!136 &489839318
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -11426,20 +11476,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90cd61d2535641adb13d8c8ee1cf065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RandomFlame
-  checkInterval: 3
   popChance: 0.25
+  checkInterval: 3
   activeDuration: 3
-  warnLead: 0.3
-  warnLight: {fileID: 0}
-  warnLightIntensity: 8
-  warnLightRange: 5
-  warnLightColor: {r: 1, g: 0.8, b: 0.5, a: 1}
-  warnEase: 0.2
-  autoCreateWarnLight: 1
-  flameParticles: {fileID: 0}
-  scaleTransform: 1
+  damageDelay: 0.5
   rampTime: 0.8
-  activeScale: {x: 1.1, y: 1.1, z: 1.1}
+  scaleTransform: 1
+  minScale: 0.25
+  fullScale: {x: 0.2, y: 0.3, z: 0.2}
+  expK: 4
+  visualRampTime: 0.45
+  minStartSizeMul: 0.05
+  minStartAlphaMul: 0
+  visualExpK: 5
+  brightnessRampTime: 0.6
+  minAlphaMul: 0
+  minEmissionMul: 0.1
+  maxScaleMul: 0.6
+  maxSizeMul: 0.6
+  maxEmissionMul: 0.4
+  maxTintAlphaMul: 0.7
+  maxRateMul: 0.5
+  extraVisualRoots: []
+  damageMinLocalY: 0.6
+  damageHorizontalRadius: 0
 --- !u!136 &682113307
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -16295,20 +16355,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90cd61d2535641adb13d8c8ee1cf065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RandomFlame
-  checkInterval: 3
   popChance: 0.25
+  checkInterval: 3
   activeDuration: 3
-  warnLead: 0.3
-  warnLight: {fileID: 0}
-  warnLightIntensity: 8
-  warnLightRange: 5
-  warnLightColor: {r: 1, g: 0.8, b: 0.5, a: 1}
-  warnEase: 0.2
-  autoCreateWarnLight: 1
-  flameParticles: {fileID: 0}
-  scaleTransform: 1
+  damageDelay: 0.5
   rampTime: 0.8
-  activeScale: {x: 1.1, y: 1.1, z: 1.1}
+  scaleTransform: 1
+  minScale: 0.25
+  fullScale: {x: 0.2, y: 0.3, z: 0.2}
+  expK: 4
+  visualRampTime: 0.45
+  minStartSizeMul: 0.05
+  minStartAlphaMul: 0
+  visualExpK: 5
+  brightnessRampTime: 0.6
+  minAlphaMul: 0
+  minEmissionMul: 0.1
+  maxScaleMul: 0.6
+  maxSizeMul: 0.6
+  maxEmissionMul: 0.4
+  maxTintAlphaMul: 0.7
+  maxRateMul: 0.5
+  extraVisualRoots: []
+  damageMinLocalY: 0.6
+  damageHorizontalRadius: 0
 --- !u!136 &995609916
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -16871,20 +16941,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90cd61d2535641adb13d8c8ee1cf065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RandomFlame
-  checkInterval: 3
   popChance: 0.25
+  checkInterval: 3
   activeDuration: 3
-  warnLead: 0.3
-  warnLight: {fileID: 0}
-  warnLightIntensity: 8
-  warnLightRange: 5
-  warnLightColor: {r: 1, g: 0.8, b: 0.5, a: 1}
-  warnEase: 0.2
-  autoCreateWarnLight: 1
-  flameParticles: {fileID: 0}
-  scaleTransform: 1
+  damageDelay: 0.5
   rampTime: 0.8
-  activeScale: {x: 1.1, y: 1.1, z: 1.1}
+  scaleTransform: 1
+  minScale: 0.25
+  fullScale: {x: 0.2, y: 0.3, z: 0.2}
+  expK: 4
+  visualRampTime: 0.45
+  minStartSizeMul: 0.05
+  minStartAlphaMul: 0
+  visualExpK: 5
+  brightnessRampTime: 0.6
+  minAlphaMul: 0
+  minEmissionMul: 0.1
+  maxScaleMul: 0.6
+  maxSizeMul: 0.6
+  maxEmissionMul: 0.4
+  maxTintAlphaMul: 0.7
+  maxRateMul: 0.5
+  extraVisualRoots: []
+  damageMinLocalY: 0.6
+  damageHorizontalRadius: 0
 --- !u!136 &1020858889
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -17328,20 +17408,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90cd61d2535641adb13d8c8ee1cf065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RandomFlame
-  checkInterval: 3
   popChance: 0.25
+  checkInterval: 3
   activeDuration: 3
-  warnLead: 0.3
-  warnLight: {fileID: 0}
-  warnLightIntensity: 8
-  warnLightRange: 5
-  warnLightColor: {r: 1, g: 0.8, b: 0.5, a: 1}
-  warnEase: 0.2
-  autoCreateWarnLight: 1
-  flameParticles: {fileID: 0}
-  scaleTransform: 1
+  damageDelay: 0.5
   rampTime: 0.8
-  activeScale: {x: 1.1, y: 1.1, z: 1.1}
+  scaleTransform: 1
+  minScale: 0.25
+  fullScale: {x: 0.2, y: 0.3, z: 0.2}
+  expK: 4
+  visualRampTime: 0.45
+  minStartSizeMul: 0.05
+  minStartAlphaMul: 0
+  visualExpK: 5
+  brightnessRampTime: 0.6
+  minAlphaMul: 0
+  minEmissionMul: 0.1
+  maxScaleMul: 0.6
+  maxSizeMul: 0.6
+  maxEmissionMul: 0.4
+  maxTintAlphaMul: 0.7
+  maxRateMul: 0.5
+  extraVisualRoots: []
+  damageMinLocalY: 0.6
+  damageHorizontalRadius: 0
 --- !u!136 &1029642011
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -21384,20 +21474,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90cd61d2535641adb13d8c8ee1cf065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RandomFlame
-  checkInterval: 3
   popChance: 0.25
+  checkInterval: 3
   activeDuration: 3
-  warnLead: 0.3
-  warnLight: {fileID: 0}
-  warnLightIntensity: 8
-  warnLightRange: 5
-  warnLightColor: {r: 1, g: 0.8, b: 0.5, a: 1}
-  warnEase: 0.2
-  autoCreateWarnLight: 1
-  flameParticles: {fileID: 0}
-  scaleTransform: 1
+  damageDelay: 0.5
   rampTime: 0.8
-  activeScale: {x: 1.1, y: 1.1, z: 1.1}
+  scaleTransform: 1
+  minScale: 0.25
+  fullScale: {x: 0.2, y: 0.3, z: 0.2}
+  expK: 4
+  visualRampTime: 0.45
+  minStartSizeMul: 0.05
+  minStartAlphaMul: 0
+  visualExpK: 5
+  brightnessRampTime: 0.6
+  minAlphaMul: 0
+  minEmissionMul: 0.1
+  maxScaleMul: 0.6
+  maxSizeMul: 0.6
+  maxEmissionMul: 0.4
+  maxTintAlphaMul: 0.7
+  maxRateMul: 0.5
+  extraVisualRoots: []
+  damageMinLocalY: 0.6
+  damageHorizontalRadius: 0
 --- !u!136 &1330256237
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -21822,20 +21922,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90cd61d2535641adb13d8c8ee1cf065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RandomFlame
-  checkInterval: 3
   popChance: 0.25
+  checkInterval: 3
   activeDuration: 3
-  warnLead: 0.3
-  warnLight: {fileID: 0}
-  warnLightIntensity: 8
-  warnLightRange: 5
-  warnLightColor: {r: 1, g: 0.8, b: 0.5, a: 1}
-  warnEase: 0.2
-  autoCreateWarnLight: 1
-  flameParticles: {fileID: 0}
-  scaleTransform: 1
+  damageDelay: 0.5
   rampTime: 0.8
-  activeScale: {x: 1.1, y: 1.1, z: 1.1}
+  scaleTransform: 1
+  minScale: 0.25
+  fullScale: {x: 0.2, y: 0.3, z: 0.2}
+  expK: 4
+  visualRampTime: 0.45
+  minStartSizeMul: 0.05
+  minStartAlphaMul: 0
+  visualExpK: 5
+  brightnessRampTime: 0.6
+  minAlphaMul: 0
+  minEmissionMul: 0.1
+  maxScaleMul: 0.6
+  maxSizeMul: 0.6
+  maxEmissionMul: 0.4
+  maxTintAlphaMul: 0.7
+  maxRateMul: 0.5
+  extraVisualRoots: []
+  damageMinLocalY: 0.6
+  damageHorizontalRadius: 0
 --- !u!136 &1353537620
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -22734,20 +22844,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90cd61d2535641adb13d8c8ee1cf065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RandomFlame
-  checkInterval: 3
   popChance: 0.25
+  checkInterval: 3
   activeDuration: 3
-  warnLead: 0.3
-  warnLight: {fileID: 0}
-  warnLightIntensity: 8
-  warnLightRange: 5
-  warnLightColor: {r: 1, g: 0.8, b: 0.5, a: 1}
-  warnEase: 0.2
-  autoCreateWarnLight: 1
-  flameParticles: {fileID: 0}
-  scaleTransform: 1
+  damageDelay: 0.5
   rampTime: 0.8
-  activeScale: {x: 1.1, y: 1.1, z: 1.1}
+  scaleTransform: 1
+  minScale: 0.25
+  fullScale: {x: 0.2, y: 0.3, z: 0.2}
+  expK: 4
+  visualRampTime: 0.45
+  minStartSizeMul: 0.05
+  minStartAlphaMul: 0
+  visualExpK: 5
+  brightnessRampTime: 0.6
+  minAlphaMul: 0
+  minEmissionMul: 0.1
+  maxScaleMul: 0.6
+  maxSizeMul: 0.6
+  maxEmissionMul: 0.4
+  maxTintAlphaMul: 0.7
+  maxRateMul: 0.5
+  extraVisualRoots: []
+  damageMinLocalY: 0.6
+  damageHorizontalRadius: 0
 --- !u!136 &1383565374
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -25575,20 +25695,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90cd61d2535641adb13d8c8ee1cf065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RandomFlame
-  checkInterval: 3
   popChance: 0.25
+  checkInterval: 3
   activeDuration: 3
-  warnLead: 0.3
-  warnLight: {fileID: 0}
-  warnLightIntensity: 8
-  warnLightRange: 5
-  warnLightColor: {r: 1, g: 0.8, b: 0.5, a: 1}
-  warnEase: 0.2
-  autoCreateWarnLight: 1
-  flameParticles: {fileID: 0}
-  scaleTransform: 1
+  damageDelay: 0.5
   rampTime: 0.8
-  activeScale: {x: 1.1, y: 1.1, z: 1.1}
+  scaleTransform: 1
+  minScale: 0.25
+  fullScale: {x: 0.2, y: 0.3, z: 0.2}
+  expK: 4
+  visualRampTime: 0.45
+  minStartSizeMul: 0.05
+  minStartAlphaMul: 0
+  visualExpK: 5
+  brightnessRampTime: 0.6
+  minAlphaMul: 0
+  minEmissionMul: 0.1
+  maxScaleMul: 0.6
+  maxSizeMul: 0.6
+  maxEmissionMul: 0.4
+  maxTintAlphaMul: 0.7
+  maxRateMul: 0.5
+  extraVisualRoots: []
+  damageMinLocalY: 0.6
+  damageHorizontalRadius: 0
 --- !u!136 &1473032698
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -28174,20 +28304,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90cd61d2535641adb13d8c8ee1cf065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RandomFlame
-  checkInterval: 3
   popChance: 0.25
+  checkInterval: 3
   activeDuration: 3
-  warnLead: 0.3
-  warnLight: {fileID: 0}
-  warnLightIntensity: 8
-  warnLightRange: 5
-  warnLightColor: {r: 1, g: 0.8, b: 0.5, a: 1}
-  warnEase: 0.2
-  autoCreateWarnLight: 1
-  flameParticles: {fileID: 0}
-  scaleTransform: 1
+  damageDelay: 0.5
   rampTime: 0.8
-  activeScale: {x: 1.1, y: 1.1, z: 1.1}
+  scaleTransform: 1
+  minScale: 0.25
+  fullScale: {x: 0.2, y: 0.3, z: 0.2}
+  expK: 4
+  visualRampTime: 0.45
+  minStartSizeMul: 0.05
+  minStartAlphaMul: 0
+  visualExpK: 5
+  brightnessRampTime: 0.6
+  minAlphaMul: 0
+  minEmissionMul: 0.1
+  maxScaleMul: 0.6
+  maxSizeMul: 0.6
+  maxEmissionMul: 0.4
+  maxTintAlphaMul: 0.7
+  maxRateMul: 0.5
+  extraVisualRoots: []
+  damageMinLocalY: 0.6
+  damageHorizontalRadius: 0
 --- !u!136 &1594618488
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -31368,20 +31508,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90cd61d2535641adb13d8c8ee1cf065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RandomFlame
-  checkInterval: 3
   popChance: 0.25
+  checkInterval: 3
   activeDuration: 3
-  warnLead: 0.3
-  warnLight: {fileID: 0}
-  warnLightIntensity: 8
-  warnLightRange: 5
-  warnLightColor: {r: 1, g: 0.8, b: 0.5, a: 1}
-  warnEase: 0.2
-  autoCreateWarnLight: 1
-  flameParticles: {fileID: 0}
-  scaleTransform: 1
+  damageDelay: 0.5
   rampTime: 0.8
-  activeScale: {x: 1.1, y: 1.1, z: 1.1}
+  scaleTransform: 1
+  minScale: 0.25
+  fullScale: {x: 0.2, y: 0.3, z: 0.2}
+  expK: 4
+  visualRampTime: 0.45
+  minStartSizeMul: 0.05
+  minStartAlphaMul: 0
+  visualExpK: 5
+  brightnessRampTime: 0.6
+  minAlphaMul: 0
+  minEmissionMul: 0.1
+  maxScaleMul: 0.6
+  maxSizeMul: 0.6
+  maxEmissionMul: 0.4
+  maxTintAlphaMul: 0.7
+  maxRateMul: 0.5
+  extraVisualRoots: []
+  damageMinLocalY: 0.6
+  damageHorizontalRadius: 0
 --- !u!136 &1761844392
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -33128,20 +33278,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90cd61d2535641adb13d8c8ee1cf065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RandomFlame
-  checkInterval: 3
   popChance: 0.25
+  checkInterval: 3
   activeDuration: 3
-  warnLead: 0.3
-  warnLight: {fileID: 0}
-  warnLightIntensity: 8
-  warnLightRange: 5
-  warnLightColor: {r: 1, g: 0.8, b: 0.5, a: 1}
-  warnEase: 0.2
-  autoCreateWarnLight: 1
-  flameParticles: {fileID: 0}
-  scaleTransform: 1
+  damageDelay: 0.5
   rampTime: 0.8
-  activeScale: {x: 1.1, y: 1.1, z: 1.1}
+  scaleTransform: 1
+  minScale: 0.25
+  fullScale: {x: 0.2, y: 0.3, z: 0.2}
+  expK: 4
+  visualRampTime: 0.45
+  minStartSizeMul: 0.05
+  minStartAlphaMul: 0
+  visualExpK: 5
+  brightnessRampTime: 0.6
+  minAlphaMul: 0
+  minEmissionMul: 0.1
+  maxScaleMul: 0.6
+  maxSizeMul: 0.6
+  maxEmissionMul: 0.4
+  maxTintAlphaMul: 0.7
+  maxRateMul: 0.5
+  extraVisualRoots: []
+  damageMinLocalY: 0.6
+  damageHorizontalRadius: 0
 --- !u!136 &1838746577
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -34932,20 +35092,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90cd61d2535641adb13d8c8ee1cf065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RandomFlame
-  checkInterval: 3
   popChance: 0.25
+  checkInterval: 3
   activeDuration: 3
-  warnLead: 0.3
-  warnLight: {fileID: 0}
-  warnLightIntensity: 8
-  warnLightRange: 5
-  warnLightColor: {r: 1, g: 0.8, b: 0.5, a: 1}
-  warnEase: 0.2
-  autoCreateWarnLight: 1
-  flameParticles: {fileID: 0}
-  scaleTransform: 1
+  damageDelay: 0.5
   rampTime: 0.8
-  activeScale: {x: 1.1, y: 1.1, z: 1.1}
+  scaleTransform: 1
+  minScale: 0.25
+  fullScale: {x: 0.2, y: 0.3, z: 0.2}
+  expK: 4
+  visualRampTime: 0.45
+  minStartSizeMul: 0.05
+  minStartAlphaMul: 0
+  visualExpK: 5
+  brightnessRampTime: 0.6
+  minAlphaMul: 0
+  minEmissionMul: 0.1
+  maxScaleMul: 0.6
+  maxSizeMul: 0.6
+  maxEmissionMul: 0.4
+  maxTintAlphaMul: 0.7
+  maxRateMul: 0.5
+  extraVisualRoots: []
+  damageMinLocalY: 0.6
+  damageHorizontalRadius: 0
 --- !u!136 &1962333370
 CapsuleCollider:
   m_ObjectHideFlags: 0
