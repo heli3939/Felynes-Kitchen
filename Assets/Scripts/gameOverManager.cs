@@ -30,6 +30,9 @@ public class GameOverManager : MonoBehaviour
 
     public void ShowGameOver()
     {
+        if (BGMManager.Instance != null)
+            BGMManager.Instance.MuteBGM();
+
         if (gameOverPanel != null)
         {
             gameOverPanel.SetActive(true);

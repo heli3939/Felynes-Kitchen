@@ -16,6 +16,9 @@ public class DialogueManager : MonoBehaviour
 
     private IEnumerator StartOpeningDialogue()
     {
+        if (BGMManager.Instance != null)
+            BGMManager.Instance.MuteBGM();
+
         Time.timeScale = 0f;
         InputBlocker.Lock(true);
 
@@ -25,6 +28,9 @@ public class DialogueManager : MonoBehaviour
 
         InputBlocker.Lock(false);
         Time.timeScale = 1f;
+
+        if (BGMManager.Instance != null)
+            BGMManager.Instance.UnmuteBGM();
     }
 }
 
