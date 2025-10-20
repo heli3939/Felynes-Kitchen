@@ -3,8 +3,11 @@ using System.Collections;
 
 public class DialogueManager : MonoBehaviour
 {
-    public TestDialogue testDialogue; 
+    public TestDialogue testDialogue;
     public bool playOnStart = true;
+
+    public PauseMenu pauseMenu;
+    public Checklist checklist;
 
     void Start()
     {
@@ -25,6 +28,8 @@ public class DialogueManager : MonoBehaviour
 
         InputBlocker.Lock(false);
         Time.timeScale = 1f;
+
+        pauseMenu.OnGameStarted();
     }
 }
 

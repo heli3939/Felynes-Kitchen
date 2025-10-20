@@ -12,6 +12,7 @@ public class PauseMenu : MonoBehaviour
     public Button restartButton;
     public Button tutorialButton;
     public Button exitButton;
+    public Button checklistButton; // ADD THIS
 
     [Header("Audio")]
     public AudioSource uiAudioSource;
@@ -19,60 +20,42 @@ public class PauseMenu : MonoBehaviour
     public AudioClip clickClip;
 
     private bool isPaused = false;
+    private bool gameStarted = false; // ADD THIS
 
     void Start()
     {
         if (pauseButton != null)
         {
             pauseButton.onClick.RemoveAllListeners();
-            pauseButton.onClick.AddListener(() =>
-            {
-                OpenPause();
-            });
+            pauseButton.onClick.AddListener(() => { OpenPause(); });
             AddHoverSound(pauseButton);
         }
 
         if (resumeButton != null)
         {
             resumeButton.onClick.RemoveAllListeners();
-            resumeButton.onClick.AddListener(() =>
-            {
-                PlayClickSound();
-                ResumeGame();
-            });
+            resumeButton.onClick.AddListener(() => { PlayClickSound(); ResumeGame(); });
             AddHoverSound(resumeButton);
         }
 
         if (restartButton != null)
         {
             restartButton.onClick.RemoveAllListeners();
-            restartButton.onClick.AddListener(() =>
-            {
-                PlayClickSound();
-                RestartGame();
-            });
+            restartButton.onClick.AddListener(() => { PlayClickSound(); RestartGame(); });
             AddHoverSound(restartButton);
         }
 
         if (tutorialButton != null)
         {
             tutorialButton.onClick.RemoveAllListeners();
-            tutorialButton.onClick.AddListener(() =>
-            {
-                PlayClickSound();
-                OpenTutorial();
-            });
+            tutorialButton.onClick.AddListener(() => { PlayClickSound(); OpenTutorial(); });
             AddHoverSound(tutorialButton);
         }
 
         if (exitButton != null)
         {
             exitButton.onClick.RemoveAllListeners();
-            exitButton.onClick.AddListener(() =>
-            {
-                PlayClickSound();
-                QuitGame();
-            });
+            exitButton.onClick.AddListener(() => { PlayClickSound(); QuitGame(); });
             AddHoverSound(exitButton);
         }
 
@@ -80,30 +63,31 @@ public class PauseMenu : MonoBehaviour
         {
             pausePanel.SetActive(false);
         }
+
+        UpdateButtonStates(); // ADD THIS
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (!isPaused)
-                OpenPause();
+            if (!isPaused && gameStarted) OpenPause(); // MODIFIED
         }
     }
 
     public void OpenPause()
     {
         isPaused = true;
-        if (pausePanel != null)
-            pausePanel.SetActive(true);
+        if (pausePanel != null) pausePanel.SetActive(true);
+        if (checklistButton != null) checklistButton.interactable = false; // ADD THIS
         Time.timeScale = 0f;
     }
 
     public void ResumeGame()
     {
         isPaused = false;
-        if (pausePanel != null)
-            pausePanel.SetActive(false);
+        if (pausePanel != null) pausePanel.SetActive(false);
+        UpdateButtonStates(); // ADD THIS
         Time.timeScale = 1f;
     }
 
@@ -121,11 +105,37 @@ public class PauseMenu : MonoBehaviour
     public void QuitGame()
     {
         Time.timeScale = 1f;
-#if UNITY_EDITOR
+        #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
-#else
+        #else
         Application.Quit();
-#endif
+        #endif
+    }
+
+    // ADD THIS METHOD
+    public void OnChecklistOpened()
+    {
+        if (pauseButton != null) pauseButton.interactable = false;
+    }
+
+    // ADD THIS METHOD
+    public void OnChecklistClosed()
+    {
+        UpdateButtonStates();
+    }
+
+    // ADD THIS METHOD
+    public void OnGameStarted()
+    {
+        gameStarted = true;
+        UpdateButtonStates();
+    }
+
+    // ADD THIS METHOD
+    private void UpdateButtonStates()
+    {
+        if (pauseButton != null) pauseButton.interactable = gameStarted && !isPaused;
+        if (checklistButton != null) checklistButton.interactable = gameStarted && !isPaused;
     }
 
     private void AddHoverSound(Button button)
@@ -133,10 +143,7 @@ public class PauseMenu : MonoBehaviour
         EventTrigger trigger = button.gameObject.GetComponent<EventTrigger>();
         if (trigger == null) trigger = button.gameObject.AddComponent<EventTrigger>();
 
-        EventTrigger.Entry entry = new EventTrigger.Entry
-        {
-            eventID = EventTriggerType.PointerEnter
-        };
+        EventTrigger.Entry entry = new EventTrigger.Entry { eventID = EventTriggerType.PointerEnter };
         entry.callback.AddListener((eventData) => { PlayHoverSound(); });
         trigger.triggers.Add(entry);
     }

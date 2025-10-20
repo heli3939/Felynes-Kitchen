@@ -7,7 +7,7 @@ using UnityEngine.UI;
 using TMPro;
 #endif
 
-public class GooseTodoList : MonoBehaviour
+public class Checklist : MonoBehaviour
 {
     [Header("Panel")]
     public RectTransform panel;             // the paper/clipboard container
