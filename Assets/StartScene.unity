@@ -13365,6 +13365,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   testDialogue: {fileID: 887911145}
   playOnStart: 1
+  pauseMenu: {fileID: 0}
+  checklist: {fileID: 0}
 --- !u!4 &806560618 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1943943548725329874, guid: 77772ce1c34e0504f8c113cd475a388a, type: 3}
@@ -17805,7 +17807,7 @@ MonoBehaviour:
   shownPos: {x: 40, y: 0}
   slideTime: 0
   overshoot: 0.15
-  toggleButton: {fileID: 0}
+  toggleButton: {fileID: 1544074481}
   autoShowOnComplete: 1
   autoHideAfterComplete: 1
   autoHideDelay: 2
@@ -18014,6 +18016,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   testDialogue: {fileID: 887911145}
   playOnStart: 1
+  pauseMenu: {fileID: 1748061229}
+  checklist: {fileID: 1056504312}
 --- !u!1001 &1089774193
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31447,6 +31451,7 @@ MonoBehaviour:
   restartButton: {fileID: 1663567950}
   tutorialButton: {fileID: 1941163938}
   exitButton: {fileID: 1369546293}
+  checklistButton: {fileID: 1544074481}
   uiAudioSource: {fileID: 758051775}
   hoverClip: {fileID: 8300000, guid: 092c2ab0acd7b6c48991a70faed9f9f9, type: 3}
   clickClip: {fileID: 8300000, guid: 4de9160341b8376419f965a437138e22, type: 3}
