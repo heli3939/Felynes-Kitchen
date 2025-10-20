@@ -14,12 +14,16 @@ public class PauseMenu : MonoBehaviour
     public Button exitButton;
     public Button checklistButton; // ADD THIS
 
+    public Checklist checklist;
+
+    public bool IsPaused => isPaused;
+
     [Header("Audio")]
     public AudioSource uiAudioSource;
     public AudioClip hoverClip;
     public AudioClip clickClip;
 
-    private bool isPaused = false;
+    public bool isPaused = false;
     private bool gameStarted = false; // ADD THIS
 
     void Start()
@@ -105,11 +109,11 @@ public class PauseMenu : MonoBehaviour
     public void QuitGame()
     {
         Time.timeScale = 1f;
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
-        #else
+#else
         Application.Quit();
-        #endif
+#endif
     }
 
     // ADD THIS METHOD
@@ -128,6 +132,12 @@ public class PauseMenu : MonoBehaviour
     public void OnGameStarted()
     {
         gameStarted = true;
+
+        if (pauseButton) pauseButton.gameObject.SetActive(true);
+        if (checklistButton) checklistButton.gameObject.SetActive(true);
+
+        if (checklist != null) checklist.OnGameStarted();
+
         UpdateButtonStates();
     }
 
