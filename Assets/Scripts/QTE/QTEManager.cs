@@ -43,6 +43,7 @@ public class QTEManager : MonoBehaviour
             qteController.OnQTEFinished -= HandleFinished;
     }
 
+    private string currentItemTag = "";
 
     public void StartQTE()
     {
@@ -51,6 +52,9 @@ public class QTEManager : MonoBehaviour
             Debug.LogWarning("[QTEManager] QTE cannot start — player is not holding any item.");
             return;
         }
+
+        currentItemTag = holdPoint.GetChild(0).tag;
+        Debug.Log("[QTEManager] Current QTE item tag: " + currentItemTag);
 
         if (qteRunning)
         {
@@ -117,6 +121,7 @@ public class QTEManager : MonoBehaviour
             }
 
             qteCanvas.SetActive(false);
+            currentItemTag = "";
         }
 
         var camSwitcher = FindFirstObjectByType<CameraSwitcher>();
@@ -137,25 +142,62 @@ public class QTEManager : MonoBehaviour
         qteHandled = false;
     }
 
-    private bool qteHandled = false; 
+    private bool qteHandled = false;
+
+    private bool HasIncorrectInChildren(Transform parent)
+    {
+        foreach (Transform child in parent)
+        {
+            if (child.CompareTag("incorrect"))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
     private void HandleFinished(QTEResult[] results)
     {
-        if (qteHandled) return; 
+        if (qteHandled) return;
 
-        foreach (var r in results)
-        {
-            ScoreSystem.Instance.AddScore(r);
-        }
+        bool incorrectFound = false;
 
         if (holdPoint != null && holdPoint.childCount > 0)
         {
-            Destroy(holdPoint.GetChild(0).gameObject);
+            incorrectFound = HasIncorrectInChildren(holdPoint);
+            Debug.Log($"[DEBUG] incorrectFound: {incorrectFound}");
+        }
+        else
+        {
+            Debug.Log("[DEBUG] No child under holdPoint!");
+        }
+
+        if (incorrectFound)
+        {
+            ScoreSystem.Instance.TriggerPermanentZero();
+            Debug.Log("[QTEManager] ❌ Incorrect ingredient found — Score reset & permanently locked!");
+        }
+        else
+        {
+            foreach (var r in results)
+            {
+                ScoreSystem.Instance.AddScore(r);
+            }
+        }
+
+        Debug.Log("[QTEManager] ✅ QTE ended. Final score: " + ScoreSystem.Instance.score);
+
+        if (holdPoint != null && holdPoint.childCount > 0)
+        {
+            for (int i = holdPoint.childCount - 1; i >= 0; i--)
+            {
+                Destroy(holdPoint.GetChild(i).gameObject);
+            }
         }
 
         StartCoroutine(DelayedIncreaseLiquidLevel(0.5f));
 
-        qteHandled = true; 
+        qteHandled = true;
     }
 
     private void IncreaseLiquidLevel()
@@ -170,11 +212,6 @@ public class QTEManager : MonoBehaviour
             potLiquidAnimator.SetInteger("FillLevel", currentFillLevel);
             Debug.Log($"[QTEManager] Liquid increased to stage {currentFillLevel}");
         }
-        else
-        {
-            Debug.Log("[QTEManager] Pot is already full. QTE completed but liquid did not increase.");
-        }
-
     }
 
     private IEnumerator DelayedIncreaseLiquidLevel(float delay)

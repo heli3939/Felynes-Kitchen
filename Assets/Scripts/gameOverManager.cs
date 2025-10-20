@@ -92,6 +92,10 @@ public class GameOverManager : MonoBehaviour
         }
 
         yield return new WaitForSecondsRealtime(restartDelay);
+        if (ScoreSystem.Instance != null)
+        {
+            ScoreSystem.Instance.ResetGameScore();
+        }
         Time.timeScale = 1f;
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);

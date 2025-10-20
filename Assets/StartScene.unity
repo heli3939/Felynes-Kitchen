@@ -13056,7 +13056,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &784347021
 Transform:
   m_ObjectHideFlags: 0
@@ -27346,6 +27346,7 @@ PrefabInstance:
     - {fileID: 6304029720958925692, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
     m_RemovedGameObjects:
     - {fileID: 6263255185543345818, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
+    - {fileID: 8946452349162891187, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5871305093419379416, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
@@ -28987,7 +28988,7 @@ MonoBehaviour:
   acceleration: 25
   deceleration: 15
   rotateSpeed: 10
-  jumpHeight: 0.6
+  jumpHeight: 1
   zMin: -3
   zMax: 3
   Capsule: {fileID: 1938730080}
@@ -32244,7 +32245,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4826344389191740857, guid: fd97ab50fe8954dbdad1b63fe7179412, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.385
+      value: -0.544
       objectReference: {fileID: 0}
     - target: {fileID: 4826344389191740857, guid: fd97ab50fe8954dbdad1b63fe7179412, type: 3}
       propertyPath: m_LocalRotation.w

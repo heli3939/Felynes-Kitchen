@@ -13,6 +13,8 @@ public class ScoreSystem : MonoBehaviour
 
     public static ScoreSystem Instance { get; private set; }
 
+    private static bool permanentlyZero = false;
+
     private void Awake()
     {
         if (Instance == null)
@@ -23,11 +25,19 @@ public class ScoreSystem : MonoBehaviour
         else
         {
             Destroy(gameObject);
+            return;
         }
     }
 
     public void AddScore(QTEResult result)
     {
+        if (permanentlyZero)
+        {
+            score = 0;
+            Debug.Log("[ScoreSystem] Score locked at 0 due to incorrect ingredient.");
+            return;
+        }
+
         switch (result)
         {
             case QTEResult.Perfect:
@@ -37,11 +47,24 @@ public class ScoreSystem : MonoBehaviour
                 score += goodScore;
                 break;
             case QTEResult.Miss:
-                // No score for Miss
                 break;
         }
 
-        Debug.Log($"Current score: {score}");
+        Debug.Log($"[ScoreSystem] Current score: {score}");
+    }
+
+    public void TriggerPermanentZero()
+    {
+        permanentlyZero = true;
+        score = 0;
+        Debug.Log("[ScoreSystem] Incorrect ingredient detected! Score is now permanently locked at 0.");
+    }
+
+    public void ResetGameScore()
+    {
+        score = 0;
+        permanentlyZero = false;
+        Debug.Log("[ScoreSystem] Game score and permanent lock reset.");
     }
 
     public string GetEndingType()

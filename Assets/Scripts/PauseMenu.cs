@@ -110,6 +110,10 @@ public class PauseMenu : MonoBehaviour
     public void RestartGame()
     {
         Time.timeScale = 1f;
+        if (ScoreSystem.Instance != null)
+        {
+            ScoreSystem.Instance.ResetGameScore();
+        }
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 

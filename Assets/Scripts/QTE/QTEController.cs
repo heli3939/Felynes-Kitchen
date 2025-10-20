@@ -289,12 +289,12 @@ public class QTEUIController : MonoBehaviour
     {
         if (audioSource != null && clip != null)
         {
-            Debug.Log($"🔊 播放音效: {clip.name}");
+            Debug.Log($"🔊 audio: {clip.name}");
             audioSource.PlayOneShot(clip);
         }
         else
         {
-            Debug.LogWarning("⚠️ AudioSource 或 Clip 为空！");
+            Debug.LogWarning("⚠️ AudioSource is empty！");
         }
     }
 
