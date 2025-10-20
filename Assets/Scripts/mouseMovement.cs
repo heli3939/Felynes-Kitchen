@@ -170,4 +170,27 @@ public class MouseMovement : MonoBehaviour
     {
         isActive = false;
     }
+
+    public void MuteMouseAudio()
+    {
+        if (audioSource != null)
+            audioSource.mute = true;
+
+        if (squeakSource != null)
+            squeakSource.mute = true;
+
+        Debug.Log("[Mouse] Audio muted.");
+    }
+
+    public void UnmuteMouseAudio()
+    {
+        if (audioSource != null)
+            audioSource.mute = false;
+
+        if (squeakSource != null)
+            squeakSource.mute = false;
+
+        Debug.Log("[Mouse] Audio unmuted.");
+    }
+
 }

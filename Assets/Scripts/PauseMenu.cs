@@ -97,6 +97,11 @@ public class PauseMenu : MonoBehaviour
         if (pausePanel != null)
             pausePanel.SetActive(true);
         Time.timeScale = 0f;
+
+        foreach (MouseMovement mouse in FindObjectsOfType<MouseMovement>())
+        {
+            mouse.MuteMouseAudio();
+        }
     }
 
     public void ResumeGame()
@@ -105,6 +110,11 @@ public class PauseMenu : MonoBehaviour
         if (pausePanel != null)
             pausePanel.SetActive(false);
         Time.timeScale = 1f;
+
+        foreach (MouseMovement mouse in FindObjectsOfType<MouseMovement>())
+        {
+            mouse.UnmuteMouseAudio();
+        }
     }
 
     public void RestartGame()

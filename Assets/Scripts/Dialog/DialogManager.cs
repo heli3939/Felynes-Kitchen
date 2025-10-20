@@ -19,6 +19,11 @@ public class DialogueManager : MonoBehaviour
         if (BGMManager.Instance != null)
             BGMManager.Instance.MuteBGM();
 
+        foreach (MouseMovement mouse in FindObjectsOfType<MouseMovement>())
+        {
+            mouse.MuteMouseAudio();
+        }
+
         Time.timeScale = 0f;
         InputBlocker.Lock(true);
 
@@ -31,6 +36,11 @@ public class DialogueManager : MonoBehaviour
 
         if (BGMManager.Instance != null)
             BGMManager.Instance.UnmuteBGM();
+
+        foreach (MouseMovement mouse in FindObjectsOfType<MouseMovement>())
+        {
+            mouse.UnmuteMouseAudio();
+        }
     }
 }
 
