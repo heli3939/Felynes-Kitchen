@@ -12,7 +12,7 @@ public class GooseTodoList : MonoBehaviour
     [Header("Panel")]
     public RectTransform panel;             // the paper/clipboard container
     public Vector2 hiddenPos = new Vector2(-600f, 0f);
-    public Vector2 shownPos  = new Vector2(40f, 0f);
+    public Vector2 shownPos = new Vector2(40f, 0f);
     public float slideTime = 0.35f;
     [Range(0f, 1f)] public float overshoot = 0.15f;
 
@@ -36,11 +36,11 @@ public class GooseTodoList : MonoBehaviour
     public class TaskEntry
     {
         public string Id;                // e.g., "Sugar", "Egg", "Flour"
-        #if TMP_PRESENT
+#if TMP_PRESENT
         public TextMeshProUGUI label;    // use a scribbly TMP font for vibe
-        #else
+#else
         public Text label;               // fallback
-        #endif
+#endif
         public Image checkbox;           // empty box graphic
         public Image tick;               // checkmark image (set active on complete)
         public GameObject strike;        // thin line over text (off by default)
@@ -62,7 +62,7 @@ public class GooseTodoList : MonoBehaviour
                 _byId.Add(e.Id.Trim(), e);
 
             // ensure initial visuals
-            SetEntryState(e, completed:false, instant:true);
+            SetEntryState(e, completed: false, instant: true);
         }
 
         if (toggleButton) toggleButton.onClick.AddListener(Toggle);
@@ -79,6 +79,7 @@ public class GooseTodoList : MonoBehaviour
 
     public void Show(bool playSound = true)
     {
+        Time.timeScale = 0f;
         if (_isShown) return;
         _isShown = true;
         if (_slideCo != null) StopCoroutine(_slideCo);
@@ -92,6 +93,7 @@ public class GooseTodoList : MonoBehaviour
         if (_slideCo != null) StopCoroutine(_slideCo);
         _slideCo = StartCoroutine(Slide(panel, panel.anchoredPosition, hiddenPos, false));
         if (_autoHideCo != null) { StopCoroutine(_autoHideCo); _autoHideCo = null; }
+        Time.timeScale = 1f;
     }
 
     IEnumerator Slide(RectTransform rt, Vector2 from, Vector2 to, bool playSound)
@@ -151,13 +153,13 @@ public class GooseTodoList : MonoBehaviour
         }
         if (e.done) return;
 
-        SetEntryState(e, completed:true, instant:false);
+        SetEntryState(e, completed: true, instant: false);
 
         if (sfx && scribbleTick) sfx.PlayOneShot(scribbleTick);
 
         if (showPanel && autoShowOnComplete)
         {
-            Show(playSound:true);
+            Show(playSound: true);
             if (autoHideAfterComplete)
             {
                 if (_autoHideCo != null) StopCoroutine(_autoHideCo);
@@ -171,4 +173,5 @@ public class GooseTodoList : MonoBehaviour
         yield return new WaitForSecondsRealtime(autoHideDelay);
         Hide();
     }
+
 }

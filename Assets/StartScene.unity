@@ -17740,14 +17740,14 @@ RectTransform:
   m_GameObject: {fileID: 1056504308}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 4, z: 3}
+  m_LocalScale: {x: 2.5425, y: 3.39, z: 2.5425}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 185278233}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -7, y: -35}
+  m_AnchoredPosition: {x: -7, y: -8}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1056504310
@@ -17803,7 +17803,7 @@ MonoBehaviour:
   panel: {fileID: 1056504309}
   hiddenPos: {x: -600, y: 0}
   shownPos: {x: 40, y: 0}
-  slideTime: 0.35
+  slideTime: 0
   overshoot: 0.15
   toggleButton: {fileID: 0}
   autoShowOnComplete: 1
