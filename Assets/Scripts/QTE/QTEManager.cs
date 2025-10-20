@@ -56,10 +56,9 @@ public class QTEManager : MonoBehaviour
         currentItemTag = holdPoint.GetChild(0).tag;
         Debug.Log("[QTEManager] Current QTE item tag: " + currentItemTag);
 
-        if (qteRunning)
+        if (HasIncorrectInChildren(holdPoint))
         {
-            Debug.LogWarning("[QTEManager] QTE already running, ignoring duplicate Q press.");
-            return;
+            ScoreSystem.Instance.TriggerPermanentZero();
         }
 
         qteRunning = true;
