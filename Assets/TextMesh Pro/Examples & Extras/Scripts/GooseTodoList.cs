@@ -5,57 +5,62 @@ public class Checklist : MonoBehaviour
 {
     [Header("Target to show/hide")]
     public GameObject checklist;
-
-    [Tooltip("Initial state only; applied once.")]
+    [Tooltip("Applied once at init only.")]
     public bool startVisible = false;
 
-    [Header("Gating")]
+    [Header("Game flow")]
+    [Tooltip("Require gameStarted before first open.")]
     public bool gameStarted = false;
-    public bool blockWhenPaused = true;
-    public MonoBehaviour pauseManager;  // must expose public bool IsPaused { get; }
+    [Tooltip("When checklist is visible, pause the game (Time.timeScale=0).")]
+    public bool pauseGameWhileOpen = true;
+
+    [Header("Pause integration (optional)")]
+    public MonoBehaviour pauseManager;      // if you have your own PauseManager with bool IsPaused {get;}
     public string pausePropertyName = "IsPaused";
 
     [Header("UI behaviour")]
-    [Tooltip("Bring the checklist above siblings when showing.")]
+    [Tooltip("Bring checklist above siblings when showing.")]
     public bool bringToFrontOnShow = true;
-
-    [Tooltip("Disable the Pause button while the checklist is visible.")]
-    public Selectable pauseButton;            // e.g., your PauseButton (Button/Selectable)
-    [Tooltip("Alternatively (or in addition), hide/show this whole Pause button gameObject.")]
-
+    [Tooltip("Disable (grey) the pause button while checklist is open (do NOT hide).")]
+    public Selectable pauseButton;          // drag your PauseButton here (Button/Selectable)
 
     bool _initialized;
 
     void Awake() => InitOnce();
-    void OnEnable() => InitOnce(); // safe: guarded
+    void OnEnable() => InitOnce(); // safe; guarded
 
     void InitOnce()
     {
         if (_initialized) return;
         _initialized = true;
-        if (checklist != null) checklist.SetActive(startVisible);
-        ApplyPauseButtonLock(startVisible); // lock/unlock pause based on initial state
+
+        if (checklist != null)
+            checklist.SetActive(startVisible);
+
+        // reflect initial state on pause button + timescale
+        ApplyPauseEffects(startVisible);
     }
 
+    // If this is a world-space sprite with a Collider
     void OnMouseDown()
     {
-        if (!CanInteract()) return;
-        Toggle(); // same button toggles open/close
+        // IMPORTANT: allow toggling even while paused so you can close it to resume
+        if (!gameStarted) return;
+        Toggle();
     }
 
-    // -------- Public API (can also wire from a UI Button OnClick) --------
+    // Wire this to a UI Button OnClick if it's a UI button
     public void Toggle()
     {
-        if (!CanInteract() || checklist == null) return;
+        if (!gameStarted || checklist == null) return;
 
-        bool next = !checklist.activeSelf; // TRUE = open, FALSE = close
+        bool next = !checklist.activeSelf;   // open if closed, close if open
         ApplyVisibility(next);
-        // Debug.Log($"[Checklist] Toggle -> activeSelf={next}");
     }
 
     public void Show()
     {
-        if (!CanInteract() || checklist == null) return;
+        if (!gameStarted || checklist == null) return;
         ApplyVisibility(true);
     }
 
@@ -67,37 +72,49 @@ public class Checklist : MonoBehaviour
 
     public void SetGameStarted(bool started) => gameStarted = started;
 
-    // ---------------- Core ----------------
+    // ---------------- core ----------------
     void ApplyVisibility(bool visible)
     {
-        // ensure parents are active so activeInHierarchy is true when showing
         if (visible) ActivateParents(checklist);
 
         checklist.SetActive(visible);
 
         if (visible && bringToFrontOnShow)
-            checklist.transform.SetAsLastSibling(); // draw on top
+            checklist.transform.SetAsLastSibling();
 
-        // lock/unlock Pause while checklist is visible
-        ApplyPauseButtonLock(visible);
+        ApplyPauseEffects(visible);
     }
 
-    void ApplyPauseButtonLock(bool checklistVisible)
+    void ApplyPauseEffects(bool checklistVisible)
     {
-        // 1) Disable the Pause button’s interactable, so it won’t click
+        // Grey out (but keep visible) the Pause button
         if (pauseButton != null)
             pauseButton.interactable = !checklistVisible;
+
+        // Pause / Resume game
+        if (pauseGameWhileOpen)
+        {
+            if (checklistVisible)
+                PauseGame();
+            else
+                ResumeGame();
+        }
     }
 
-    // ---------------- Helpers ----------------
-    bool CanInteract()
+    void PauseGame()
     {
-        if (!gameStarted) return false;
-        if (blockWhenPaused && IsPaused()) return false;
-        return true;
+        // If you have your own pause system, you can call it here.
+        // Otherwise default to Time.timeScale = 0.
+        Time.timeScale = 0f;
     }
 
-    bool IsPaused()
+    void ResumeGame()
+    {
+        Time.timeScale = 1f;
+    }
+
+    // ---------------- helpers ----------------
+    bool IsPausedExternal()
     {
         if (pauseManager != null)
         {
