@@ -3708,7 +3708,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6364419489520334885, guid: b701910af56d089428c372aa6ba53383, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.6293
+      value: 4.6891003
       objectReference: {fileID: 0}
     - target: {fileID: 6364419489520334885, guid: b701910af56d089428c372aa6ba53383, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3716,7 +3716,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6364419489520334885, guid: b701910af56d089428c372aa6ba53383, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.2978
+      value: -0.11019999
       objectReference: {fileID: 0}
     - target: {fileID: 6364419489520334885, guid: b701910af56d089428c372aa6ba53383, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4212,15 +4212,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8335994999243249812, guid: 9fcdd91d4fee8f5498d6471dcc03f9f3, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.6181734
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 8335994999243249812, guid: 9fcdd91d4fee8f5498d6471dcc03f9f3, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.6
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 8335994999243249812, guid: 9fcdd91d4fee8f5498d6471dcc03f9f3, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.6
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 8335994999243249812, guid: 9fcdd91d4fee8f5498d6471dcc03f9f3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4456,13 +4456,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5149008c40e61c4fa4d7719e58cb7d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  qteManager: {fileID: 383835378}
-  holdPoint: {fileID: 1828410654}
-  bakingManager: {fileID: 1583532909}
-  hintUI: {fileID: 67242997}
-  expectedCakePosition: {x: -2.632, y: 0.6321066, z: 3.007}
-  positionTolerance: 0.3
-  isInRange: 0
 --- !u!54 &232712782
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4972,6 +4965,7 @@ PrefabInstance:
       propertyPath: cakeFinal
       value: 
       objectReference: {fileID: 692094160}
+    - target: {fileID: 6304029720958925692, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
       propertyPath: checklist
       value: 
       objectReference: {fileID: 1056504312}
@@ -5401,7 +5395,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8571292442129120769, guid: a32fa21adb0244ecaac632b6d2a867b2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.08800006
+      value: -0.22500002
       objectReference: {fileID: 0}
     - target: {fileID: 8571292442129120769, guid: a32fa21adb0244ecaac632b6d2a867b2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5644,7 +5638,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6364419489520334885, guid: b701910af56d089428c372aa6ba53383, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.6962
+      value: 4.756
       objectReference: {fileID: 0}
     - target: {fileID: 6364419489520334885, guid: b701910af56d089428c372aa6ba53383, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5652,7 +5646,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6364419489520334885, guid: b701910af56d089428c372aa6ba53383, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.33100003
+      value: -0.077
       objectReference: {fileID: 0}
     - target: {fileID: 6364419489520334885, guid: b701910af56d089428c372aa6ba53383, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5752,13 +5746,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5149008c40e61c4fa4d7719e58cb7d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  qteManager: {fileID: 383835378}
-  holdPoint: {fileID: 1828410654}
-  bakingManager: {fileID: 1583532909}
-  hintUI: {fileID: 67242997}
-  expectedCakePosition: {x: -2.632, y: 0.6321066, z: 3.007}
-  positionTolerance: 0.3
-  isInRange: 0
 --- !u!1 &284909499 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5310111241506223875, guid: fd97ab50fe8954dbdad1b63fe7179412, type: 3}
@@ -11972,13 +11959,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5149008c40e61c4fa4d7719e58cb7d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  qteManager: {fileID: 383835378}
-  holdPoint: {fileID: 1828410654}
-  bakingManager: {fileID: 1583532909}
-  hintUI: {fileID: 67242997}
-  expectedCakePosition: {x: -2.632, y: 0.6321066, z: 3.007}
-  positionTolerance: 0.3
-  isInRange: 0
 --- !u!1 &670331328 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3063635880056210924, guid: 97d9c7b86ea074f5a96f757062a2db98, type: 3}
@@ -13659,7 +13639,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &784347021
 Transform:
   m_ObjectHideFlags: 0
@@ -14975,13 +14955,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5149008c40e61c4fa4d7719e58cb7d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  qteManager: {fileID: 383835378}
-  holdPoint: {fileID: 1828410654}
-  bakingManager: {fileID: 1583532909}
-  hintUI: {fileID: 67242997}
-  expectedCakePosition: {x: -2.632, y: 0.6321066, z: 3.007}
-  positionTolerance: 0.3
-  isInRange: 0
 --- !u!1001 &874857240
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15588,13 +15561,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5149008c40e61c4fa4d7719e58cb7d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  qteManager: {fileID: 383835378}
-  holdPoint: {fileID: 1828410654}
-  bakingManager: {fileID: 1583532909}
-  hintUI: {fileID: 67242997}
-  expectedCakePosition: {x: -2.632, y: 0.6321066, z: 3.007}
-  positionTolerance: 0.3
-  isInRange: 0
 --- !u!1 &901835674 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2470006483537069392, guid: 77772ce1c34e0504f8c113cd475a388a, type: 3}
@@ -19751,7 +19717,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1126405025
 Transform:
   m_ObjectHideFlags: 0
@@ -20770,7 +20736,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3069763049958790414, guid: fb10ecd4ab18e854e9b2b81f4e7299ff, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.041
+      value: 2.0098994
       objectReference: {fileID: 0}
     - target: {fileID: 3069763049958790414, guid: fb10ecd4ab18e854e9b2b81f4e7299ff, type: 3}
       propertyPath: m_LocalPosition.y
@@ -20778,7 +20744,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3069763049958790414, guid: fb10ecd4ab18e854e9b2b81f4e7299ff, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.13800001
+      value: 0.26999998
       objectReference: {fileID: 0}
     - target: {fileID: 3069763049958790414, guid: fb10ecd4ab18e854e9b2b81f4e7299ff, type: 3}
       propertyPath: m_LocalRotation.w
@@ -21479,13 +21445,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5149008c40e61c4fa4d7719e58cb7d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  qteManager: {fileID: 383835378}
-  holdPoint: {fileID: 1828410654}
-  bakingManager: {fileID: 1583532909}
-  hintUI: {fileID: 67242997}
-  expectedCakePosition: {x: -2.632, y: 0.6321066, z: 3.007}
-  positionTolerance: 0.3
-  isInRange: 0
 --- !u!1001 &1255446074
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21809,13 +21768,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5149008c40e61c4fa4d7719e58cb7d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  qteManager: {fileID: 383835378}
-  holdPoint: {fileID: 1828410654}
-  bakingManager: {fileID: 1583532909}
-  hintUI: {fileID: 67242997}
-  expectedCakePosition: {x: -2.632, y: 0.6321066, z: 3.007}
-  positionTolerance: 0.3
-  isInRange: 0
 --- !u!1 &1264934391 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2380274916805294372, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
@@ -27023,13 +26975,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5149008c40e61c4fa4d7719e58cb7d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  qteManager: {fileID: 383835378}
-  holdPoint: {fileID: 1828410654}
-  bakingManager: {fileID: 1583532909}
-  hintUI: {fileID: 67242997}
-  expectedCakePosition: {x: 0, y: 0, z: 0}
-  positionTolerance: 0.3
-  isInRange: 0
 --- !u!1001 &1476205412
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28788,13 +28733,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5149008c40e61c4fa4d7719e58cb7d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  qteManager: {fileID: 383835378}
-  holdPoint: {fileID: 1828410654}
-  bakingManager: {fileID: 1583532909}
-  hintUI: {fileID: 67242997}
-  expectedCakePosition: {x: -2.632, y: 0.6321066, z: 3.007}
-  positionTolerance: 0.3
-  isInRange: 0
 --- !u!1001 &1550628107
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29297,21 +29235,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 786c8300a6f486a439c29c47d91541c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 0
-  potObject: {fileID: 1028387991}
-  liquidObject: {fileID: 1566457992}
-  cakeObject: {fileID: 1529439389}
-  cakeCreamObject: {fileID: 1149423553}
-  cakeFinalObject: {fileID: 692094160}
-  liquidMaterial: {fileID: 2100000, guid: de8391673fb1d2d459beda360007cfb9, type: 2}
-  bakedCakeColor:
-    r: 0.5882353
-    g: 0.3647059
-    b: 0.20784315
-    a: 1
-  potPickDrop: {fileID: 1028387996}
-  isPotLocked: 0
-  hintUI: {fileID: 67242997}
 --- !u!4 &1583532910
 Transform:
   m_ObjectHideFlags: 0
@@ -30339,7 +30262,7 @@ MonoBehaviour:
   acceleration: 25
   deceleration: 15
   rotateSpeed: 10
-  jumpHeight: 1
+  jumpHeight: 0.6
   zMin: -3
   zMax: 3
   Capsule: {fileID: 1938730080}
@@ -30431,15 +30354,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98c606e89c54bee4197bca79aa4fdb73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holdPoint: {fileID: 1828410654}
-  playerNearby: 0
-  pickupRange: 2
-  ovenTargetPosition: {x: 4.22, y: 0.116, z: 1.173}
-  positionTolerance: 0.3
-  cakeDropPosition: {x: -2.632, y: 0.6321066, z: 3.007}
-  hintUI: {fileID: 67242997}
-  bakingManager: {fileID: 1583532909}
-  isHoldingCake: 0
 --- !u!1 &1624765750 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6001412878548310232, guid: 3656d685bb2c1b74d8775327a58c6837, type: 3}
@@ -33341,13 +33255,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5149008c40e61c4fa4d7719e58cb7d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  qteManager: {fileID: 383835378}
-  holdPoint: {fileID: 1828410654}
-  bakingManager: {fileID: 1583532909}
-  hintUI: {fileID: 67242997}
-  expectedCakePosition: {x: -2.632, y: 0.6321066, z: 3.007}
-  positionTolerance: 0.3
-  isInRange: 0
 --- !u!1 &1771304444
 GameObject:
   m_ObjectHideFlags: 0
@@ -33884,13 +33791,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5149008c40e61c4fa4d7719e58cb7d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  qteManager: {fileID: 383835378}
-  holdPoint: {fileID: 1828410654}
-  bakingManager: {fileID: 1583532909}
-  hintUI: {fileID: 67242997}
-  expectedCakePosition: {x: -2.632, y: 0.6321066, z: 3.007}
-  positionTolerance: 0.3
-  isInRange: 0
 --- !u!4 &1799826392 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3992441233885976969, guid: ac3960763d9ed134b93e9bf2315734f3, type: 3}
@@ -35743,13 +35643,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5149008c40e61c4fa4d7719e58cb7d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  qteManager: {fileID: 383835378}
-  holdPoint: {fileID: 1828410654}
-  bakingManager: {fileID: 1583532909}
-  hintUI: {fileID: 67242997}
-  expectedCakePosition: {x: -2.632, y: 0.6321066, z: 3.007}
-  positionTolerance: 0.3
-  isInRange: 0
 --- !u!1001 &1920657696
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35932,7 +35825,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6919391678083634850, guid: 2642d3ad6a3f09f4c933797698b6dd5b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.213
+      value: -0.9
       objectReference: {fileID: 0}
     - target: {fileID: 6919391678083634850, guid: 2642d3ad6a3f09f4c933797698b6dd5b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -39534,13 +39427,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5149008c40e61c4fa4d7719e58cb7d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  qteManager: {fileID: 383835378}
-  holdPoint: {fileID: 1828410654}
-  bakingManager: {fileID: 1583532909}
-  hintUI: {fileID: 67242997}
-  expectedCakePosition: {x: -2.632, y: 0.6321066, z: 3.007}
-  positionTolerance: 0.3
-  isInRange: 0
 --- !u!1 &2112773590 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2023332108257950763, guid: 0c073c823aec9444baa8489a44179a20, type: 3}
@@ -39840,13 +39726,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5149008c40e61c4fa4d7719e58cb7d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  qteManager: {fileID: 383835378}
-  holdPoint: {fileID: 1828410654}
-  bakingManager: {fileID: 1583532909}
-  hintUI: {fileID: 67242997}
-  expectedCakePosition: {x: -2.632, y: 0.6321066, z: 3.007}
-  positionTolerance: 0.3
-  isInRange: 0
 --- !u!1001 &2136361063
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -40399,7 +40278,4 @@ SceneRoots:
   - {fileID: 287579485}
   - {fileID: 450626692}
   - {fileID: 1583532910}
-  - {fileID: 1812303785}
-  - {fileID: 692094159}
-  - {fileID: 1529439388}
   - {fileID: 1940776592}
