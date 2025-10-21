@@ -7,6 +7,9 @@ public class QTEInteract : MonoBehaviour
     [Header("Pickup Check")]
     public Transform holdPoint;
     
+    [Header("Oven QTE Check")]
+    public OvenQTEManager ovenQTEManager;
+    
     private bool isInRange = false;
 
     private void Update()
@@ -21,6 +24,11 @@ public class QTEInteract : MonoBehaviour
                     Debug.Log("❌ Cannot start ingredient QTE while holding the pot!");
                     return;
                 }
+                else if (heldItem.CompareTag("Cake"))
+                {
+                    Debug.Log("❌ Cannot start ingredient QTE while holding the cake!");
+                    return;
+                }
             }
             
             Debug.Log("✅ Start ingredient QTE！");
@@ -28,25 +36,51 @@ public class QTEInteract : MonoBehaviour
         }
         else if (!isInRange && Input.GetKeyDown(KeyCode.Q))
         {
-            Debug.Log("Far away from pot, cannot start QTE！");
+            Debug.Log("Too far away, cannot start QTE！");
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("CookingPot")) 
+        bool ovenCompleted = (ovenQTEManager != null && ovenQTEManager.HasCompletedOvenQTE());
+        
+        if (ovenCompleted)
         {
-            isInRange = true;
-            Debug.Log("in the range");
+            if (other.CompareTag("Cake"))
+            {
+                isInRange = true;
+                Debug.Log("✅ In range (Cake detected - decoration mode)");
+            }
+        }
+        else
+        {
+            if (other.CompareTag("CookingPot"))
+            {
+                isInRange = true;
+                Debug.Log("✅ In range (CookingPot detected - ingredient mode)");
+            }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("CookingPot"))
+        bool ovenCompleted = (ovenQTEManager != null && ovenQTEManager.HasCompletedOvenQTE());
+        
+        if (ovenCompleted)
         {
-            isInRange = false;
-            Debug.Log("move away from the range");
+            if (other.CompareTag("Cake"))
+            {
+                isInRange = false;
+                Debug.Log("❌ Left range (Cake)");
+            }
+        }
+        else
+        {
+            if (other.CompareTag("CookingPot"))
+            {
+                isInRange = false;
+                Debug.Log("❌ Left range (CookingPot)");
+            }
         }
     }
 }

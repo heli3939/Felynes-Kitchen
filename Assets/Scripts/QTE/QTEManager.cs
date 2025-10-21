@@ -23,8 +23,20 @@ public class QTEManager : MonoBehaviour
 
     [Header("Liquid Control")]
     public Animator potLiquidAnimator;  
-    private int currentFillLevel = 0;   
+    private int currentFillLevel = 0;
     private int maxFillLevel = 5;
+
+    [Header("Oven QTE Check")]
+    public OvenQTEManager ovenQTEManager;
+
+    [Header("UI Hint")]
+    public HintUI hintUI;
+    
+    [Header("Cake Decoration")]
+    public GameObject cakeCream;
+    public GameObject cakeFinal;
+    private bool hasCream = false;
+    private bool hasFinal = false;
 
     public int CurrentFillLevel => currentFillLevel;
 
@@ -47,14 +59,82 @@ public class QTEManager : MonoBehaviour
 
     public void StartQTE()
     {
-        if (holdPoint == null || holdPoint.childCount == 0 || (holdPoint.childCount > 0 && holdPoint.GetChild(0).tag == "CookingPot"))
+        if (holdPoint == null || holdPoint.childCount == 0 ||
+            (holdPoint.childCount > 0 && (holdPoint.GetChild(0).tag == "CookingPot" || holdPoint.GetChild(0).tag == "Cake")))
         {
-            Debug.LogWarning("[QTEManager] QTE cannot start — player is not holding any item.");
+            Debug.LogWarning("[QTEManager] QTE cannot start — player is not holding any item or holding pot/cake.");
             return;
         }
 
         currentItemTag = holdPoint.GetChild(0).tag;
         Debug.Log("[QTEManager] Current QTE item tag: " + currentItemTag);
+
+        bool ovenCompleted = (ovenQTEManager != null && ovenQTEManager.HasCompletedOvenQTE());
+
+        if (!ovenCompleted)
+        {
+            if (currentItemTag == "Cream")
+            {
+                Debug.LogWarning("[QTEManager] Cream cannot be used before baking!");
+
+                if (hintUI != null)
+                {
+                    hintUI.ShowHint("Cream is for decoration after baking!");
+                }
+
+                return;
+            }
+
+            if (currentItemTag == "Strawberry")
+            {
+                Debug.LogWarning("[QTEManager] ⚠️ Using Strawberry before baking! Score will be permanently locked!");
+                ScoreSystem.Instance.TriggerPermanentZero();
+            }
+        }
+        else
+        {
+            if (currentItemTag != "Cream" && currentItemTag != "Strawberry")
+            {
+                Debug.LogWarning("[QTEManager] This item is not for decoration!");
+
+                if (hintUI != null)
+                {
+                    hintUI.ShowHint("This is not for decoration!");
+                }
+
+                if (holdPoint.childCount > 0)
+                {
+                    Destroy(holdPoint.GetChild(0).gameObject);
+                    Debug.Log("[QTEManager] Wrong decoration item destroyed!");
+                }
+
+                return;
+            }
+
+            if (currentItemTag == "Strawberry" && !hasCream)
+            {
+                Debug.LogWarning("[QTEManager] Must add cream before strawberry!");
+
+                if (hintUI != null)
+                {
+                    hintUI.ShowHint("Put cream first!");
+                }
+
+                return;
+            }
+
+            if (currentItemTag == "Strawberry" && hasFinal)
+            {
+                Debug.LogWarning("[QTEManager] Cake decoration already complete!");
+
+                if (hintUI != null)
+                {
+                    hintUI.ShowHint("Cake is already finished!");
+                }
+
+                return;
+            }
+        }
 
         if (HasIncorrectInChildren(holdPoint))
         {
@@ -94,7 +174,7 @@ public class QTEManager : MonoBehaviour
 
         if (qteController != null)
         {
-            qteController.StartQTE(); 
+            qteController.StartQTE();
         }
 
         Debug.Log("[QTEManager] QTE started, switched to FP Camera ✅");
@@ -194,9 +274,72 @@ public class QTEManager : MonoBehaviour
             }
         }
 
-        StartCoroutine(DelayedIncreaseLiquidLevel(0.5f));
+        bool ovenCompleted = (ovenQTEManager != null && ovenQTEManager.HasCompletedOvenQTE());
+        Debug.Log($"[QTEManager] Oven completed? {ovenCompleted}");
+
+        if (ovenCompleted)
+        {
+            Debug.Log($"[QTEManager] Processing decoration - currentItemTag: {currentItemTag}");
+            if (currentItemTag == "Cream" && !hasCream)
+            {
+                hasCream = true;
+                UpdateCakeVisual("cream");
+                Debug.Log("[QTEManager] ✅ Cream added to cake!");
+            }
+            else if (currentItemTag == "Strawberry" && hasCream && !hasFinal)
+            {
+                hasFinal = true;
+                UpdateCakeVisual("final");
+                Debug.Log("[QTEManager] ✅ Strawberry added! Cake is complete!");
+            }
+        }
+        else
+        {
+            Debug.Log("[QTEManager] This is a regular ingredient, increasing liquid level...");
+            StartCoroutine(DelayedIncreaseLiquidLevel(0.5f));
+        }
 
         qteHandled = true;
+    }
+
+    private void UpdateCakeVisual(string stage)
+    {
+        GameObject currentCake = GameObject.FindGameObjectWithTag("Cake");
+        
+        if (currentCake == null)
+        {
+            Debug.LogWarning("[QTEManager] Cannot find cake!");
+            return;
+        }
+
+        Vector3 cakePos = currentCake.transform.position;
+        Quaternion cakeRot = currentCake.transform.rotation;
+
+        if (stage == "cream" && cakeCream != null)
+        {
+            Destroy(currentCake);
+
+            cakeCream.SetActive(true);
+            cakeCream.transform.position = cakePos;
+            cakeCream.transform.rotation = cakeRot;
+            
+            Debug.Log("[QTEManager] Cake visual updated to cream stage");
+        }
+        else if (stage == "final" && cakeFinal != null)
+        {
+            Destroy(currentCake);
+
+            cakeFinal.SetActive(true);
+            cakeFinal.transform.position = cakePos;
+            cakeFinal.transform.rotation = cakeRot;
+            
+            Debug.Log("[QTEManager] Cake visual updated to final stage");
+            
+            if (hintUI != null)
+            {
+                hintUI.ShowHint("Cake is complete!");
+            }
+        }
     }
 
     private void IncreaseLiquidLevel()
@@ -229,4 +372,3 @@ public class QTEManager : MonoBehaviour
         Debug.Log($"[QTEManager] Player control set to {(enabled ? "ENABLED" : "DISABLED")}");
     }
 }
-

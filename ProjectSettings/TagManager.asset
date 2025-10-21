@@ -9,6 +9,9 @@ TagManager:
   - CookingPot
   - airwalls
   - incorrect
+  - Cream
+  - Strawberry
+  - Cake
   layers:
   - Default
   - TransparentFX

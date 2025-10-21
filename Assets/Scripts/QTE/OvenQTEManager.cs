@@ -28,6 +28,11 @@ public class OvenQTEManager : MonoBehaviour
     [Header("UI Hint")]
     public HintUI hintUI;
 
+    [Header("Cake System")]
+    public GameObject potLiquid;
+    public Color cakeColor = new Color(1f, 0.8f, 0.6f);
+    private bool cakeColorChanged = false;
+
     private void Awake()
     {
         if (ovenQteCanvas != null)
@@ -44,53 +49,53 @@ public class OvenQTEManager : MonoBehaviour
     }
 
     public void StartOvenQTE()
-{
-    if (hasCompletedOvenQTE)
     {
-        Debug.LogWarning("[OvenQTE] Oven QTE already completed! Cannot start again.");
-        if (hintUI != null)
-            hintUI.ShowHint("Cake baked already.");
-        return;
-    }
-
-    if (ovenDoor != null && !ovenDoor.IsOpen())
-    {
-        Debug.LogWarning("[OvenQTE] Oven door is closed!");
-        if (hintUI != null)
-            hintUI.ShowHint("Open the oven door first!");
-        return;
-    }
-
-    if (cookingPot != null)
-    {
-        float distance = Vector3.Distance(cookingPot.transform.position, ovenTargetPosition);
-        if (distance > positionTolerance)
+        if (hasCompletedOvenQTE)
         {
-            Debug.LogWarning($"[OvenQTE] Pot is not in the oven! Distance: {distance:F2}");
+            Debug.LogWarning("[OvenQTE] Oven QTE already completed! Cannot start again.");
             if (hintUI != null)
-                hintUI.ShowHint("Put the pot in the oven first!");
+                hintUI.ShowHint("Cake baked already.");
             return;
         }
-    }
-    else
-    {
-        Debug.LogWarning("[OvenQTE] Cooking pot reference is missing!");
-        if (hintUI != null)
-            hintUI.ShowHint("Pot not found!");
-        return;
-    }
 
-    if (holdPoint != null && holdPoint.childCount > 0)
-    {
-        Transform heldItem = holdPoint.GetChild(0);
-        if (heldItem.CompareTag("CookingPot"))
+        if (ovenDoor != null && !ovenDoor.IsOpen())
         {
-            Debug.LogWarning("[OvenQTE] Cannot start QTE while holding the pot! Put it in the oven first.");
+            Debug.LogWarning("[OvenQTE] Oven door is closed!");
             if (hintUI != null)
-                hintUI.ShowHint("Put the pot in the oven first!");
+                hintUI.ShowHint("Open the oven door first!");
             return;
         }
-    }
+
+        if (cookingPot != null)
+        {
+            float distance = Vector3.Distance(cookingPot.transform.position, ovenTargetPosition);
+            if (distance > positionTolerance)
+            {
+                Debug.LogWarning($"[OvenQTE] Pot is not in the oven! Distance: {distance:F2}");
+                if (hintUI != null)
+                    hintUI.ShowHint("Put the pot in the oven first!");
+                return;
+            }
+        }
+        else
+        {
+            Debug.LogWarning("[OvenQTE] Cooking pot reference is missing!");
+            if (hintUI != null)
+                hintUI.ShowHint("Pot not found!");
+            return;
+        }
+
+        if (holdPoint != null && holdPoint.childCount > 0)
+        {
+            Transform heldItem = holdPoint.GetChild(0);
+            if (heldItem.CompareTag("CookingPot"))
+            {
+                Debug.LogWarning("[OvenQTE] Cannot start QTE while holding the pot! Put it in the oven first.");
+                if (hintUI != null)
+                    hintUI.ShowHint("Put the pot in the oven first!");
+                return;
+            }
+        }
 
         if (qteRunning)
         {
@@ -147,7 +152,7 @@ public class OvenQTEManager : MonoBehaviour
         
         if (hintUI != null)
         {
-            hintUI.ShowHint("Moving away from oven to start baking.");
+            hintUI.ShowHint("Move away from the door to start baking!");
         }
 
         SetPlayerControls(true);
@@ -168,9 +173,24 @@ public class OvenQTEManager : MonoBehaviour
         }
 
         hasCompletedOvenQTE = true;
-        Debug.Log("[OvenQTE] QTE completed! Oven QTE is now locked.");
+        
+        Debug.Log("[OvenQTE] QTE completed! Move away to close door and start baking.");
         
         qteHandled = true;
+    }
+    public void ChangeLiquidToCake()
+    {
+        if (potLiquid != null && !cakeColorChanged)
+        {
+            Renderer liquidRenderer = potLiquid.GetComponent<Renderer>();
+            if (liquidRenderer != null)
+            {
+                liquidRenderer.material.color = cakeColor;
+                potLiquid.tag = "Cake";
+                cakeColorChanged = true;
+                Debug.Log("[OvenQTE] 🍰 Liquid changed to cake color during baking!");
+            }
+        }
     }
 
     public void SetPlayerControls(bool enabled)
@@ -187,4 +207,10 @@ public class OvenQTEManager : MonoBehaviour
     {
         return hasCompletedOvenQTE;
     }
+
+    public bool IsCakeReady()
+    {
+        return cakeColorChanged;
+    }
+
 }

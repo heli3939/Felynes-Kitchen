@@ -13,6 +13,7 @@ public class DoorInteraction : MonoBehaviour
     public Animator bakingAnimator;
     public string bakingParameter = "isBaking";
     public float bakingDuration = 5f;
+    public OvenQTEManager OvenQTEManager;
 
     public GameObject cookingPot;
     public Vector3 ovenTargetPosition = new Vector3(4.22f, 0.116f, 1.173f);
@@ -94,21 +95,26 @@ public class DoorInteraction : MonoBehaviour
 
         isBaking = true;
         hasBaked = true;
-        
+
         if (bakingAnimator != null)
         {
             Debug.Log($"[Door] ✅ Setting bakingAnimator.SetBool({bakingParameter}, true)");
             bakingAnimator.SetBool(bakingParameter, true);
-            
+
             bool paramValue = bakingAnimator.GetBool(bakingParameter);
             Debug.Log($"[Door] Parameter '{bakingParameter}' value after set: {paramValue}");
-            
+
             AnimatorStateInfo stateInfo = bakingAnimator.GetCurrentAnimatorStateInfo(0);
             Debug.Log($"[Door] Current animator state: {stateInfo.shortNameHash}");
         }
         else
         {
             Debug.LogError("[Door] ❌ bakingAnimator is NULL!");
+        }
+        
+        if (OvenQTEManager != null)
+        {
+            OvenQTEManager.ChangeLiquidToCake();
         }
         
         Debug.Log($"[Door] 🔥 Baking started! Will complete in {bakingDuration} seconds");

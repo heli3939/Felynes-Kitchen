@@ -102,6 +102,17 @@ public class CameraSwitcher : MonoBehaviour
             return;
         }
 
+        if (heldItem.CompareTag("Cream"))
+        {
+            OvenQTEManager ovenQTEManager = FindFirstObjectByType<OvenQTEManager>();
+            bool ovenCompleted = (ovenQTEManager != null && ovenQTEManager.HasCompletedOvenQTE());
+
+            if (!ovenCompleted)
+            {
+                return;
+            }
+        }
+
         if (thirdPersonCam != null)
         {
             lastThirdPersonPosition = thirdPersonCam.transform.position;
@@ -118,7 +129,7 @@ public class CameraSwitcher : MonoBehaviour
         }
         if (playerMovementScript != null)
         {
-            playerMovementScript.enabled = false; 
+            playerMovementScript.enabled = false;
         }
         isInFirstPerson = true;
     }
