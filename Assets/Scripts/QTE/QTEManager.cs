@@ -104,16 +104,13 @@ public class QTEManager : MonoBehaviour
             GameObject cake = GameObject.FindGameObjectWithTag("Cake");
             if (cake != null)
             {
-                Vector3 cakeTablePosition = new Vector3(-2.632f, 6321066f, 3.007f);
-                float distanceFromTable = Vector3.Distance(cake.transform.position, cakeTablePosition);
+                Vector3 originalCakePosition = new Vector3(7.519f, 0.6071066f, 1.157f);
+                float distanceFromOriginal = Vector3.Distance(cake.transform.position, originalCakePosition);
+                float cakePositionThreshold = 0.5f;
 
-                if (distanceFromTable > 1.0f)
+                if (distanceFromOriginal > cakePositionThreshold)
                 {
-                    Debug.LogWarning("[QTEManager] Cake is not on the table yet!");
-                    if (hintUI != null)
-                    {
-                        hintUI.ShowHint("Take the cake out of the oven first! (Press R)");
-                    }
+                    Debug.LogWarning("[QTEManager] Cake is not on the table yet!" + cake.transform.position);
                     return;
                 }
             }
