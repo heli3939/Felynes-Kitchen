@@ -13364,9 +13364,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   testDialogue: {fileID: 887911145}
-  playOnStart: 1
   pauseMenu: {fileID: 0}
   checklist: {fileID: 0}
+  playOnStart: 1
+  useInputBlocker: 1
 --- !u!4 &806560618 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1943943548725329874, guid: 77772ce1c34e0504f8c113cd475a388a, type: 3}
@@ -17802,19 +17803,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eff140b25d64601aabc6ba32245d099, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TMPro.Examples.SimpleScript
-  panel: {fileID: 1056504309}
-  hiddenPos: {x: -600, y: 0}
-  shownPos: {x: 40, y: 0}
-  slideTime: 0
-  overshoot: 0.15
-  toggleButton: {fileID: 1544074481}
-  autoShowOnComplete: 1
-  autoHideAfterComplete: 1
-  autoHideDelay: 2
-  entries: []
-  sfx: {fileID: 0}
-  scribbleTick: {fileID: 0}
-  paperSlide: {fileID: 0}
+  checklist: {fileID: 1056504308}
+  startVisible: 0
+  gameStarted: 0
+  blockWhenPaused: 1
+  pauseManager: {fileID: 1748061226}
+  pausePropertyName: IsPaused
+  bringToFrontOnShow: 1
+  pauseButton: {fileID: 1934383447}
 --- !u!1001 &1066041976
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18015,9 +18011,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   testDialogue: {fileID: 887911145}
-  playOnStart: 1
   pauseMenu: {fileID: 1748061229}
   checklist: {fileID: 1056504312}
+  playOnStart: 1
+  useInputBlocker: 1
 --- !u!1001 &1089774193
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27650,7 +27647,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1056504312}
-        m_TargetAssemblyTypeName: GooseTodoList, Assembly-CSharp
+        m_TargetAssemblyTypeName: Checklist, Assembly-CSharp
         m_MethodName: Toggle
         m_Mode: 1
         m_Arguments:
