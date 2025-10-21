@@ -631,7 +631,7 @@ Transform:
   m_GameObject: {fileID: 57048162}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0, z: 37}
+  m_LocalPosition: {x: 0, y: 0, z: 28.6}
   m_LocalScale: {x: 20, y: 60, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -652,7 +652,7 @@ MonoBehaviour:
   flameSource: {fileID: 1020858888}
   fadeInTime: 0.5
   fadeOutTime: 0.8
-  maxDistortionStrength: 0.05
+  maxDistortionStrength: 0.04
   distortionSpeed: 2
   noiseScale: 4
   tintColor: {r: 0.9191374, g: 0.6769657, b: 0.43479407, a: 0.1}
@@ -1701,7 +1701,7 @@ Transform:
   m_GameObject: {fileID: 100276731}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0, z: 37}
+  m_LocalPosition: {x: 0, y: 0, z: 28.6}
   m_LocalScale: {x: 20, y: 60, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1722,7 +1722,7 @@ MonoBehaviour:
   flameSource: {fileID: 1594618487}
   fadeInTime: 0.5
   fadeOutTime: 0.8
-  maxDistortionStrength: 0.05
+  maxDistortionStrength: 0.04
   distortionSpeed: 2
   noiseScale: 4
   tintColor: {r: 0.9191374, g: 0.6769657, b: 0.43479407, a: 0.1}
@@ -5764,7 +5764,7 @@ Transform:
   m_GameObject: {fileID: 285038278}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0, z: 37}
+  m_LocalPosition: {x: 0, y: 0, z: 28.6}
   m_LocalScale: {x: 20, y: 60, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5785,7 +5785,7 @@ MonoBehaviour:
   flameSource: {fileID: 413269077}
   fadeInTime: 0.5
   fadeOutTime: 0.8
-  maxDistortionStrength: 0.05
+  maxDistortionStrength: 0.04
   distortionSpeed: 2
   noiseScale: 4
   tintColor: {r: 0.9191374, g: 0.6769657, b: 0.43479407, a: 0.1}
@@ -7980,7 +7980,7 @@ Transform:
   m_GameObject: {fileID: 404688986}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0, z: 37}
+  m_LocalPosition: {x: 0, y: 0, z: 28.6}
   m_LocalScale: {x: 20, y: 60, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8001,7 +8001,7 @@ MonoBehaviour:
   flameSource: {fileID: 682113306}
   fadeInTime: 0.5
   fadeOutTime: 0.8
-  maxDistortionStrength: 0.05
+  maxDistortionStrength: 0.04
   distortionSpeed: 2
   noiseScale: 4
   tintColor: {r: 0.9191374, g: 0.6769657, b: 0.43479407, a: 0.1}
@@ -12492,7 +12492,7 @@ Transform:
   m_GameObject: {fileID: 706800333}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0, z: 37}
+  m_LocalPosition: {x: 0, y: 0, z: 28.6}
   m_LocalScale: {x: 20, y: 60, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12513,7 +12513,7 @@ MonoBehaviour:
   flameSource: {fileID: 1962333369}
   fadeInTime: 0.5
   fadeOutTime: 0.8
-  maxDistortionStrength: 0.05
+  maxDistortionStrength: 0.04
   distortionSpeed: 2
   noiseScale: 4
   tintColor: {r: 0.9191374, g: 0.6769657, b: 0.43479407, a: 0.1}
@@ -13399,7 +13399,7 @@ Transform:
   m_GameObject: {fileID: 774416763}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0, z: 37}
+  m_LocalPosition: {x: 0, y: 0, z: 28.6}
   m_LocalScale: {x: 20, y: 60, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13420,7 +13420,7 @@ MonoBehaviour:
   flameSource: {fileID: 1838746576}
   fadeInTime: 0.5
   fadeOutTime: 0.8
-  maxDistortionStrength: 0.05
+  maxDistortionStrength: 0.04
   distortionSpeed: 2
   noiseScale: 4
   tintColor: {r: 0.9191374, g: 0.6769657, b: 0.43479407, a: 0.1}
@@ -14575,7 +14575,7 @@ Transform:
   m_GameObject: {fileID: 855142044}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0, z: 37}
+  m_LocalPosition: {x: 0, y: 0, z: 28.6}
   m_LocalScale: {x: 20, y: 60, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14596,7 +14596,7 @@ MonoBehaviour:
   flameSource: {fileID: 995609915}
   fadeInTime: 0.5
   fadeOutTime: 0.8
-  maxDistortionStrength: 0.05
+  maxDistortionStrength: 0.04
   distortionSpeed: 2
   noiseScale: 4
   tintColor: {r: 0.9191374, g: 0.6769657, b: 0.43479407, a: 0.1}
@@ -19402,7 +19402,7 @@ Transform:
   m_GameObject: {fileID: 1121823402}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0, z: 37}
+  m_LocalPosition: {x: 0, y: 0, z: 28.6}
   m_LocalScale: {x: 20, y: 60, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -19423,7 +19423,7 @@ MonoBehaviour:
   flameSource: {fileID: 1330256236}
   fadeInTime: 0.5
   fadeOutTime: 0.8
-  maxDistortionStrength: 0.05
+  maxDistortionStrength: 0.04
   distortionSpeed: 2
   noiseScale: 4
   tintColor: {r: 0.9191374, g: 0.6769657, b: 0.43479407, a: 0.1}
@@ -20424,7 +20424,7 @@ Transform:
   m_GameObject: {fileID: 1166183861}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0, z: 37}
+  m_LocalPosition: {x: 0, y: 0, z: 28.6}
   m_LocalScale: {x: 20, y: 60, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -20453,7 +20453,7 @@ MonoBehaviour:
   flameSource: {fileID: 403367998}
   fadeInTime: 0.5
   fadeOutTime: 0.8
-  maxDistortionStrength: 0.05
+  maxDistortionStrength: 0.04
   distortionSpeed: 2
   noiseScale: 4
   tintColor: {r: 0.9191374, g: 0.6769657, b: 0.43479407, a: 0.1}
@@ -23198,7 +23198,7 @@ Transform:
   m_GameObject: {fileID: 1362556561}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0, z: 37}
+  m_LocalPosition: {x: 0, y: 0, z: 28.6}
   m_LocalScale: {x: 20, y: 60, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -23219,7 +23219,7 @@ MonoBehaviour:
   flameSource: {fileID: 1761844391}
   fadeInTime: 0.5
   fadeOutTime: 0.8
-  maxDistortionStrength: 0.05
+  maxDistortionStrength: 0.04
   distortionSpeed: 2
   noiseScale: 4
   tintColor: {r: 0.9191374, g: 0.6769657, b: 0.43479407, a: 0.1}
@@ -24487,7 +24487,7 @@ Transform:
   m_GameObject: {fileID: 1423790166}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0, z: 37}
+  m_LocalPosition: {x: 0, y: 0, z: 28.6}
   m_LocalScale: {x: 20, y: 60, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -24508,7 +24508,7 @@ MonoBehaviour:
   flameSource: {fileID: 1383565373}
   fadeInTime: 0.5
   fadeOutTime: 0.8
-  maxDistortionStrength: 0.05
+  maxDistortionStrength: 0.04
   distortionSpeed: 2
   noiseScale: 4
   tintColor: {r: 0.9191374, g: 0.6769657, b: 0.43479407, a: 0.1}
@@ -24697,7 +24697,7 @@ Transform:
   m_GameObject: {fileID: 1429398301}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0, z: 37}
+  m_LocalPosition: {x: 0, y: 0, z: 28.6}
   m_LocalScale: {x: 20, y: 60, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -24718,7 +24718,7 @@ MonoBehaviour:
   flameSource: {fileID: 1473032697}
   fadeInTime: 0.5
   fadeOutTime: 0.8
-  maxDistortionStrength: 0.05
+  maxDistortionStrength: 0.04
   distortionSpeed: 2
   noiseScale: 4
   tintColor: {r: 0.9191374, g: 0.6769657, b: 0.43479407, a: 0.1}
@@ -32949,7 +32949,7 @@ Transform:
   m_GameObject: {fileID: 1768285563}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0, z: 37}
+  m_LocalPosition: {x: 0, y: 0, z: 28.6}
   m_LocalScale: {x: 20, y: 60, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -32978,7 +32978,7 @@ MonoBehaviour:
   flameSource: {fileID: 1353537619}
   fadeInTime: 0.5
   fadeOutTime: 0.8
-  maxDistortionStrength: 0.05
+  maxDistortionStrength: 0.04
   distortionSpeed: 2
   noiseScale: 4
   tintColor: {r: 0.9191374, g: 0.6769657, b: 0.43479407, a: 0.1}
@@ -35839,7 +35839,7 @@ Transform:
   m_GameObject: {fileID: 1930425599}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0, z: 37}
+  m_LocalPosition: {x: 0, y: 0, z: 28.6}
   m_LocalScale: {x: 20, y: 60, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -35860,7 +35860,7 @@ MonoBehaviour:
   flameSource: {fileID: 200190846}
   fadeInTime: 0.5
   fadeOutTime: 0.8
-  maxDistortionStrength: 0.05
+  maxDistortionStrength: 0.04
   distortionSpeed: 2
   noiseScale: 4
   tintColor: {r: 0.9191374, g: 0.6769657, b: 0.43479407, a: 0.1}
@@ -38101,7 +38101,7 @@ Transform:
   m_GameObject: {fileID: 2058464427}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0, z: 37}
+  m_LocalPosition: {x: 0, y: 0, z: 28.6}
   m_LocalScale: {x: 20, y: 60, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -38122,7 +38122,7 @@ MonoBehaviour:
   flameSource: {fileID: 1029642010}
   fadeInTime: 0.5
   fadeOutTime: 0.8
-  maxDistortionStrength: 0.05
+  maxDistortionStrength: 0.04
   distortionSpeed: 2
   noiseScale: 4
   tintColor: {r: 0.9191374, g: 0.6769657, b: 0.43479407, a: 0.1}
@@ -38524,7 +38524,7 @@ Transform:
   m_GameObject: {fileID: 2076398997}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0, z: 37}
+  m_LocalPosition: {x: 0, y: 0, z: 28.6}
   m_LocalScale: {x: 20, y: 60, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -38545,7 +38545,7 @@ MonoBehaviour:
   flameSource: {fileID: 489839317}
   fadeInTime: 0.5
   fadeOutTime: 0.8
-  maxDistortionStrength: 0.05
+  maxDistortionStrength: 0.04
   distortionSpeed: 2
   noiseScale: 4
   tintColor: {r: 0.9191374, g: 0.6769657, b: 0.43479407, a: 0.1}
