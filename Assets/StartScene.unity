@@ -4907,6 +4907,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 558363675}
     - target: {fileID: 6304029720958925692, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
+      propertyPath: checklist
+      value: 
+      objectReference: {fileID: 1056504312}
+    - target: {fileID: 6304029720958925692, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
       propertyPath: holdPoint
       value: 
       objectReference: {fileID: 1828410654}
@@ -13496,7 +13500,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &784347021
 Transform:
   m_ObjectHideFlags: 0
@@ -18310,6 +18314,7 @@ MonoBehaviour:
   pausePropertyName: IsPaused
   bringToFrontOnShow: 1
   pauseButton: {fileID: 1934383447}
+  listRoot: {fileID: 66124251}
 --- !u!1001 &1066041976
 PrefabInstance:
   m_ObjectHideFlags: 0

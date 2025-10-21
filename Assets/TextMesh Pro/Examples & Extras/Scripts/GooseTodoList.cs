@@ -26,6 +26,31 @@ public class Checklist : MonoBehaviour
 
     bool _initialized;
 
+    [Header("Checklist items parent")]
+    public Transform listRoot; // assign ChecklistPanel or a subfolder with ticks
+
+    public void MarkDone(string itemName)
+    {
+        if (listRoot == null)
+        {
+            Debug.LogWarning("[Checklist] listRoot not set!");
+            return;
+        }
+
+        foreach (Transform t in listRoot)
+        {
+            var item = t.GetComponent<ChecklistItem>();
+            if (item != null && item.itemName == itemName)
+            {
+                item.SetDone();
+                Debug.Log($"[Checklist] ✔ Marked {itemName}");
+                return;
+            }
+        }
+
+        Debug.LogWarning($"[Checklist] ❌ No checklist item named '{itemName}' found!");
+    }
+
     void Awake() => InitOnce();
     void OnEnable() => InitOnce(); // safe; guarded
 
