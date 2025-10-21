@@ -30,8 +30,6 @@ public class DialogueManager : MonoBehaviour
         Time.timeScale = 1f;
 
         pauseMenu.OnGameStarted();
-        if (pauseMenu.checklist != null)           // OR inside PauseMenu.OnGameStarted()
-            pauseMenu.checklist.OnGameStarted();   // unlock the checklist button
     }
 }
 
