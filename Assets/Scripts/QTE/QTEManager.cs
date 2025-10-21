@@ -82,6 +82,12 @@ public class QTEManager : MonoBehaviour
                     hintUI.ShowHint("Cream is for decoration after baking!");
                 }
 
+                if (holdPoint.childCount > 0)
+                {
+                    Destroy(holdPoint.GetChild(0).gameObject);
+                    Debug.Log("[QTEManager] Cream destroyed - wrong timing!");
+                }
+
                 return;
             }
 
@@ -93,6 +99,31 @@ public class QTEManager : MonoBehaviour
         }
         else
         {
+            GameObject cake = GameObject.FindGameObjectWithTag("Cake");
+            if (cake != null)
+            {
+                Vector3 cakeTablePosition = new Vector3(-2.632f, 6321066f, 3.007f);
+                float distanceFromTable = Vector3.Distance(cake.transform.position, cakeTablePosition);
+
+                if (distanceFromTable > 1.0f)
+                {
+                    Debug.LogWarning("[QTEManager] Cake is not on the table yet!");
+                    if (hintUI != null)
+                    {
+                        hintUI.ShowHint("Take the cake out of the oven first! (Press R)");
+                    }
+                    return;
+                }
+            }
+            else
+            {
+                if (hintUI != null)
+                {
+                    hintUI.ShowHint("Take the cake out of the oven first!");
+                }
+                return;
+            }
+
             if (currentItemTag != "Cream" && currentItemTag != "Strawberry")
             {
                 Debug.LogWarning("[QTEManager] This item is not for decoration!");
