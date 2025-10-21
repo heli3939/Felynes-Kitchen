@@ -793,7 +793,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2380274916805294372, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
       propertyPath: m_TagString
-      value: Item
+      value: Strawberry
       objectReference: {fileID: 0}
     - target: {fileID: 3045488606153270174, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
       propertyPath: m_LocalScale.x
@@ -870,6 +870,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2380274916805294372, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 284052455}
+    - targetCorrespondingSourceObject: {fileID: 2380274916805294372, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 284052462}
   m_SourcePrefab: {fileID: 100100000, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
 --- !u!4 &62766513 stripped
 Transform:
@@ -4092,6 +4095,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8711289776401269294, guid: 9fcdd91d4fee8f5498d6471dcc03f9f3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1622806644}
+    - targetCorrespondingSourceObject: {fileID: 8711289776401269294, guid: 9fcdd91d4fee8f5498d6471dcc03f9f3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1622806646}
   m_SourcePrefab: {fileID: 100100000, guid: 9fcdd91d4fee8f5498d6471dcc03f9f3, type: 3}
 --- !u!1 &232712776
 GameObject:
@@ -4105,9 +4111,11 @@ GameObject:
   - component: {fileID: 232712778}
   - component: {fileID: 232712777}
   - component: {fileID: 232712780}
+  - component: {fileID: 232712781}
+  - component: {fileID: 232712782}
   m_Layer: 0
   m_Name: bowl_cream
-  m_TagString: Item
+  m_TagString: Cream
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4200,9 +4208,55 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 6485606478078689342, guid: d43a6b3c487586242ac1dcb88f636abd, type: 3}
+--- !u!114 &232712781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 232712776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5149008c40e61c4fa4d7719e58cb7d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  qteManager: {fileID: 383835378}
+  holdPoint: {fileID: 1828410654}
+  bakingManager: {fileID: 1583532909}
+  hintUI: {fileID: 67242997}
+  expectedCakePosition: {x: -2.632, y: 0.6321066, z: 3.007}
+  positionTolerance: 0.3
+  isInRange: 0
+--- !u!54 &232712782
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 232712776}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &234370219 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3527889298320704520, guid: 72427da3f2db798428c3426892365b39, type: 3}
@@ -4670,13 +4724,33 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6304029720958925692, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
+      propertyPath: hintUI
+      value: 
+      objectReference: {fileID: 67242997}
+    - target: {fileID: 6304029720958925692, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
       propertyPath: tpCamera
       value: 
       objectReference: {fileID: 558363675}
     - target: {fileID: 6304029720958925692, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
+      propertyPath: cakeCream
+      value: 
+      objectReference: {fileID: 1149423553}
+    - target: {fileID: 6304029720958925692, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
+      propertyPath: cakeFinal
+      value: 
+      objectReference: {fileID: 692094160}
+    - target: {fileID: 6304029720958925692, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
       propertyPath: holdPoint
       value: 
       objectReference: {fileID: 1828410654}
+    - target: {fileID: 6304029720958925692, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
+      propertyPath: potLiquid
+      value: 
+      objectReference: {fileID: 1566457992}
+    - target: {fileID: 6304029720958925692, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
+      propertyPath: cookingPot
+      value: 
+      objectReference: {fileID: 1028387991}
     - target: {fileID: 6304029720958925692, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
       propertyPath: promptText
       value: 
@@ -4686,13 +4760,33 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 327799170}
     - target: {fileID: 6304029720958925692, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
+      propertyPath: bakingManager
+      value: 
+      objectReference: {fileID: 1583532909}
+    - target: {fileID: 6304029720958925692, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
       propertyPath: qteController
       value: 
       objectReference: {fileID: 1214151733}
     - target: {fileID: 6304029720958925692, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
+      propertyPath: cameraSwitcher
+      value: 
+      objectReference: {fileID: 1028388001}
+    - target: {fileID: 6304029720958925692, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
+      propertyPath: ovenQTEManager
+      value: 
+      objectReference: {fileID: 1240722480}
+    - target: {fileID: 6304029720958925692, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
       propertyPath: pickDropSystem
       value: 
       objectReference: {fileID: 1622806632}
+    - target: {fileID: 6304029720958925692, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
+      propertyPath: cakeCreamPrefab
+      value: 
+      objectReference: {fileID: 1149423553}
+    - target: {fileID: 6304029720958925692, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
+      propertyPath: cakeFinalPrefab
+      value: 
+      objectReference: {fileID: 692094160}
     - target: {fileID: 6304029720958925692, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
       propertyPath: pauseMenuCanvas
       value: 
@@ -4705,6 +4799,18 @@ PrefabInstance:
       propertyPath: potLiquidAnimator
       value: 
       objectReference: {fileID: 1566457996}
+    - target: {fileID: 6304029720958925692, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
+      propertyPath: potTargetPosition.x
+      value: -2.632
+      objectReference: {fileID: 0}
+    - target: {fileID: 6304029720958925692, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
+      propertyPath: potTargetPosition.y
+      value: 0.6321066
+      objectReference: {fileID: 0}
+    - target: {fileID: 6304029720958925692, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
+      propertyPath: potTargetPosition.z
+      value: 3.007
+      objectReference: {fileID: 0}
     - target: {fileID: 6304029720958925692, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
       propertyPath: playerMovementScript
       value: 
@@ -4751,15 +4857,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6798268627442062560, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.36067
+      value: -189
       objectReference: {fileID: 0}
     - target: {fileID: 6798268627442062560, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.37114
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6798268627442062560, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 148.01
+      value: 148
       objectReference: {fileID: 0}
     - target: {fileID: 8470660113400237448, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
       propertyPath: m_RenderMode
@@ -5398,6 +5504,25 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &284052462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 284052450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5149008c40e61c4fa4d7719e58cb7d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  qteManager: {fileID: 383835378}
+  holdPoint: {fileID: 1828410654}
+  bakingManager: {fileID: 1583532909}
+  hintUI: {fileID: 67242997}
+  expectedCakePosition: {x: -2.632, y: 0.6321066, z: 3.007}
+  positionTolerance: 0.3
+  isInRange: 0
 --- !u!1 &284909499 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5310111241506223875, guid: fd97ab50fe8954dbdad1b63fe7179412, type: 3}
@@ -5913,7 +6038,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2380274916805294372, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
       propertyPath: m_TagString
-      value: Item
+      value: Strawberry
       objectReference: {fileID: 0}
     - target: {fileID: 3045488606153270174, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
       propertyPath: m_LocalScale.x
@@ -5990,6 +6115,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2380274916805294372, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1247970175}
+    - targetCorrespondingSourceObject: {fileID: 2380274916805294372, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1247970182}
   m_SourcePrefab: {fileID: 100100000, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
 --- !u!4 &332832950 stripped
 Transform:
@@ -6314,7 +6442,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2380274916805294372, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
       propertyPath: m_TagString
-      value: Item
+      value: Strawberry
       objectReference: {fileID: 0}
     - target: {fileID: 3045488606153270174, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
       propertyPath: m_LocalScale.x
@@ -6391,6 +6519,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2380274916805294372, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1547560271}
+    - targetCorrespondingSourceObject: {fileID: 2380274916805294372, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1547560278}
   m_SourcePrefab: {fileID: 100100000, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
 --- !u!4 &366044432 stripped
 Transform:
@@ -11260,7 +11391,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2380274916805294372, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
       propertyPath: m_TagString
-      value: Item
+      value: Strawberry
       objectReference: {fileID: 0}
     - target: {fileID: 3045488606153270174, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
       propertyPath: m_LocalScale.x
@@ -11337,6 +11468,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2380274916805294372, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 669598767}
+    - targetCorrespondingSourceObject: {fileID: 2380274916805294372, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 669598774}
   m_SourcePrefab: {fileID: 100100000, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
 --- !u!4 &669598762 stripped
 Transform:
@@ -11391,6 +11525,25 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &669598774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 395580399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5149008c40e61c4fa4d7719e58cb7d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  qteManager: {fileID: 383835378}
+  holdPoint: {fileID: 1828410654}
+  bakingManager: {fileID: 1583532909}
+  hintUI: {fileID: 67242997}
+  expectedCakePosition: {x: -2.632, y: 0.6321066, z: 3.007}
+  positionTolerance: 0.3
+  isInRange: 0
 --- !u!1 &670331328 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3063635880056210924, guid: 97d9c7b86ea074f5a96f757062a2db98, type: 3}
@@ -11618,7 +11771,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 323aa9268390ee048920630e3337dc5a, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.4
+      value: 0.40000004
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 323aa9268390ee048920630e3337dc5a, type: 3}
       propertyPath: m_LocalScale.y
@@ -11626,7 +11779,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 323aa9268390ee048920630e3337dc5a, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.4
+      value: 0.40000004
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 323aa9268390ee048920630e3337dc5a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11638,7 +11791,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 323aa9268390ee048920630e3337dc5a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.167
+      value: 1.1670002
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 323aa9268390ee048920630e3337dc5a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -11646,7 +11799,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 323aa9268390ee048920630e3337dc5a, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 323aa9268390ee048920630e3337dc5a, type: 3}
       propertyPath: m_LocalRotation.y
@@ -11678,11 +11831,15 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 033b716bee02e0948a33265b4228d731, type: 2}
     - target: {fileID: 919132149155446097, guid: 323aa9268390ee048920630e3337dc5a, type: 3}
       propertyPath: m_Name
-      value: Bundt Cake (2)
+      value: Bundt Cake final
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 323aa9268390ee048920630e3337dc5a, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 323aa9268390ee048920630e3337dc5a, type: 3}
+      propertyPath: m_TagString
+      value: Cake
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -12960,7 +13117,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2380274916805294372, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
       propertyPath: m_TagString
-      value: Item
+      value: Strawberry
       objectReference: {fileID: 0}
     - target: {fileID: 3045488606153270174, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
       propertyPath: m_LocalScale.x
@@ -13037,6 +13194,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2380274916805294372, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2133541727}
+    - targetCorrespondingSourceObject: {fileID: 2380274916805294372, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2133541734}
   m_SourcePrefab: {fileID: 100100000, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
 --- !u!4 &779627049 stripped
 Transform:
@@ -13058,7 +13218,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &784347021
 Transform:
   m_ObjectHideFlags: 0
@@ -13110,7 +13270,7 @@ GameObject:
   - component: {fileID: 786673565}
   m_Layer: 0
   m_Name: cream
-  m_TagString: Item
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13200,7 +13360,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5235605
   m_Height: 0.17032085
@@ -13919,7 +14079,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2380274916805294372, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
       propertyPath: m_TagString
-      value: Item
+      value: Strawberry
       objectReference: {fileID: 0}
     - target: {fileID: 2779889938853091156, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
       propertyPath: m_Convex
@@ -14004,6 +14164,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2380274916805294372, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1768739820}
+    - targetCorrespondingSourceObject: {fileID: 2380274916805294372, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1768739827}
   m_SourcePrefab: {fileID: 100100000, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
 --- !u!1 &855142044
 GameObject:
@@ -14212,7 +14375,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2380274916805294372, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
       propertyPath: m_TagString
-      value: Item
+      value: Strawberry
       objectReference: {fileID: 0}
     - target: {fileID: 2779889938853091156, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
       propertyPath: m_Enabled
@@ -14293,6 +14456,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2380274916805294372, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 866429132}
+    - targetCorrespondingSourceObject: {fileID: 2380274916805294372, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 866429139}
   m_SourcePrefab: {fileID: 100100000, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
 --- !u!4 &866429127 stripped
 Transform:
@@ -14347,6 +14513,25 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &866429139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 35311392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5149008c40e61c4fa4d7719e58cb7d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  qteManager: {fileID: 383835378}
+  holdPoint: {fileID: 1828410654}
+  bakingManager: {fileID: 1583532909}
+  hintUI: {fileID: 67242997}
+  expectedCakePosition: {x: -2.632, y: 0.6321066, z: 3.007}
+  positionTolerance: 0.3
+  isInRange: 0
 --- !u!1001 &874857240
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14807,7 +14992,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2380274916805294372, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
       propertyPath: m_TagString
-      value: Item
+      value: Strawberry
       objectReference: {fileID: 0}
     - target: {fileID: 3045488606153270174, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
       propertyPath: m_LocalScale.x
@@ -14884,6 +15069,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2380274916805294372, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 898906553}
+    - targetCorrespondingSourceObject: {fileID: 2380274916805294372, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 898906560}
   m_SourcePrefab: {fileID: 100100000, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
 --- !u!4 &898906548 stripped
 Transform:
@@ -14938,6 +15126,25 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &898906560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 296781176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5149008c40e61c4fa4d7719e58cb7d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  qteManager: {fileID: 383835378}
+  holdPoint: {fileID: 1828410654}
+  bakingManager: {fileID: 1583532909}
+  hintUI: {fileID: 67242997}
+  expectedCakePosition: {x: -2.632, y: 0.6321066, z: 3.007}
+  positionTolerance: 0.3
+  isInRange: 0
 --- !u!1 &901835674 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2470006483537069392, guid: 77772ce1c34e0504f8c113cd475a388a, type: 3}
@@ -17140,6 +17347,9 @@ MonoBehaviour:
   ovenTargetPosition: {x: 4.22, y: 0.116, z: 1.173}
   insideOvenThreshold: 0.3
   hintUI: {fileID: 67242997}
+  ovenQTEManager: {fileID: 1240722480}
+  potLiquid: {fileID: 1566457992}
+  cake: {fileID: 1529439389}
 --- !u!114 &1028388000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17925,6 +18135,7 @@ MonoBehaviour:
   bakingAnimator: {fileID: 1402789590}
   bakingParameter: isBaking
   bakingDuration: 5
+  OvenQTEManager: {fileID: 1240722480}
   cookingPot: {fileID: 1028387991}
   ovenTargetPosition: {x: 4.22, y: 0.116, z: 1.173}
   positionTolerance: 0.2
@@ -17999,7 +18210,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3312198631143287708, guid: 173fd9777cd281e4b8dfc3c91d1abbd3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.43099988
+      value: -0.67
       objectReference: {fileID: 0}
     - target: {fileID: 3312198631143287708, guid: 173fd9777cd281e4b8dfc3c91d1abbd3, type: 3}
       propertyPath: m_LocalPosition.y
@@ -18993,7 +19204,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1126405025
 Transform:
   m_ObjectHideFlags: 0
@@ -20589,6 +20800,8 @@ MonoBehaviour:
   positionTolerance: 0.2
   ovenCameraSwitcher: {fileID: 1028388000}
   hintUI: {fileID: 67242997}
+  potLiquid: {fileID: 1566457992}
+  cakeColor: {r: 0.5921569, g: 0.36862746, b: 0.21176472, a: 1}
 --- !u!1001 &1243569827
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20704,6 +20917,25 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1247970182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1247970170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5149008c40e61c4fa4d7719e58cb7d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  qteManager: {fileID: 383835378}
+  holdPoint: {fileID: 1828410654}
+  bakingManager: {fileID: 1583532909}
+  hintUI: {fileID: 67242997}
+  expectedCakePosition: {x: -2.632, y: 0.6321066, z: 3.007}
+  positionTolerance: 0.3
+  isInRange: 0
 --- !u!1001 &1255446074
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20881,7 +21113,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2380274916805294372, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
       propertyPath: m_TagString
-      value: Item
+      value: Strawberry
       objectReference: {fileID: 0}
     - target: {fileID: 3045488606153270174, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
       propertyPath: m_LocalScale.x
@@ -20958,6 +21190,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2380274916805294372, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1259575014}
+    - targetCorrespondingSourceObject: {fileID: 2380274916805294372, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1259575021}
   m_SourcePrefab: {fileID: 100100000, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
 --- !u!4 &1259575009 stripped
 Transform:
@@ -21012,6 +21247,30 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1259575021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 966284584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5149008c40e61c4fa4d7719e58cb7d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  qteManager: {fileID: 383835378}
+  holdPoint: {fileID: 1828410654}
+  bakingManager: {fileID: 1583532909}
+  hintUI: {fileID: 67242997}
+  expectedCakePosition: {x: -2.632, y: 0.6321066, z: 3.007}
+  positionTolerance: 0.3
+  isInRange: 0
+--- !u!1 &1264934391 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2380274916805294372, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
+  m_PrefabInstance: {fileID: 1475938015}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1268648219 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6599734043300276412, guid: 9bedc97a18133ae4a828aff2a2117745, type: 3}
@@ -21633,6 +21892,7 @@ MonoBehaviour:
   bakingAnimator: {fileID: 0}
   bakingParameter: isBaking
   bakingDuration: 5
+  OvenQTEManager: {fileID: 0}
   cookingPot: {fileID: 0}
   ovenTargetPosition: {x: 4.22, y: 0.116, z: 1.173}
   positionTolerance: 0.2
@@ -26021,6 +26281,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Strawberry
       objectReference: {fileID: 0}
+    - target: {fileID: 2380274916805294372, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 3045488606153270174, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.175
@@ -26080,13 +26344,35 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2380274916805294372, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1475938020}
   m_SourcePrefab: {fileID: 100100000, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
 --- !u!4 &1475938016 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3045488606153270174, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
   m_PrefabInstance: {fileID: 1475938015}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1475938020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264934391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5149008c40e61c4fa4d7719e58cb7d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  qteManager: {fileID: 383835378}
+  holdPoint: {fileID: 1828410654}
+  bakingManager: {fileID: 1583532909}
+  hintUI: {fileID: 67242997}
+  expectedCakePosition: {x: 0, y: 0, z: 0}
+  positionTolerance: 0.3
+  isInRange: 0
 --- !u!1001 &1476205412
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27470,19 +27756,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 323aa9268390ee048920630e3337dc5a, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.4
+      value: 0.40000004
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 323aa9268390ee048920630e3337dc5a, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.4
+      value: 0.4000002
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 323aa9268390ee048920630e3337dc5a, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.4
+      value: 0.4000002
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 323aa9268390ee048920630e3337dc5a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.73
+      value: 6.686
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 323aa9268390ee048920630e3337dc5a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -27490,7 +27776,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 323aa9268390ee048920630e3337dc5a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.0244
+      value: 1.16
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 323aa9268390ee048920630e3337dc5a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -27502,11 +27788,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 323aa9268390ee048920630e3337dc5a, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 323aa9268390ee048920630e3337dc5a, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 323aa9268390ee048920630e3337dc5a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -27530,11 +27816,15 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 52a0344e2d916da47bafc56d59dc9137, type: 2}
     - target: {fileID: 919132149155446097, guid: 323aa9268390ee048920630e3337dc5a, type: 3}
       propertyPath: m_Name
-      value: Bundt Cake (1)
+      value: Bundt Cake
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 323aa9268390ee048920630e3337dc5a, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 323aa9268390ee048920630e3337dc5a, type: 3}
+      propertyPath: m_TagString
+      value: Cake
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -27829,6 +28119,25 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1547560278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1547560266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5149008c40e61c4fa4d7719e58cb7d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  qteManager: {fileID: 383835378}
+  holdPoint: {fileID: 1828410654}
+  bakingManager: {fileID: 1583532909}
+  hintUI: {fileID: 67242997}
+  expectedCakePosition: {x: -2.632, y: 0.6321066, z: 3.007}
+  positionTolerance: 0.3
+  isInRange: 0
 --- !u!1001 &1550628107
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28302,6 +28611,65 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1583519148}
   m_CullTransparentMesh: 1
+--- !u!1 &1583532908
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1583532910}
+  - component: {fileID: 1583532909}
+  m_Layer: 0
+  m_Name: BakingStateManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1583532909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1583532908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 786c8300a6f486a439c29c47d91541c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: 0
+  potObject: {fileID: 1028387991}
+  liquidObject: {fileID: 1566457992}
+  cakeObject: {fileID: 1529439389}
+  cakeCreamObject: {fileID: 1149423553}
+  cakeFinalObject: {fileID: 692094160}
+  liquidMaterial: {fileID: 2100000, guid: de8391673fb1d2d459beda360007cfb9, type: 2}
+  bakedCakeColor:
+    r: 0.5882353
+    g: 0.3647059
+    b: 0.20784315
+    a: 1
+  potPickDrop: {fileID: 1028387996}
+  isPotLocked: 0
+  hintUI: {fileID: 67242997}
+--- !u!4 &1583532910
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1583532908}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7.18497, y: 0.60711, z: 0.92425}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1588986161 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1029167152094360939, guid: c726bfcdf3ad842acb677a25d9f13872, type: 3}
@@ -28348,6 +28716,7 @@ MonoBehaviour:
   bakingAnimator: {fileID: 0}
   bakingParameter: isBaking
   bakingDuration: 5
+  OvenQTEManager: {fileID: 0}
   cookingPot: {fileID: 0}
   ovenTargetPosition: {x: 4.22, y: 0.116, z: 1.173}
   positionTolerance: 0.2
@@ -29224,7 +29593,7 @@ MonoBehaviour:
   acceleration: 25
   deceleration: 15
   rotateSpeed: 10
-  jumpHeight: 0.6
+  jumpHeight: 1
   zMin: -3
   zMax: 3
   Capsule: {fileID: 1938730080}
@@ -29249,6 +29618,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   qteManager: {fileID: 383835378}
   holdPoint: {fileID: 1828410654}
+  ovenQTEManager: {fileID: 1240722480}
 --- !u!114 &1622806641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29303,6 +29673,27 @@ MonoBehaviour:
   doorOutlineColor: {r: 0.98267996, g: 1, b: 0, a: 1}
   outlineWidth: 0.05
   outlineAlpha: 0.8
+--- !u!114 &1622806646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1622806629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98c606e89c54bee4197bca79aa4fdb73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  holdPoint: {fileID: 1828410654}
+  playerNearby: 0
+  pickupRange: 2
+  ovenTargetPosition: {x: 4.22, y: 0.116, z: 1.173}
+  positionTolerance: 0.3
+  cakeDropPosition: {x: -2.632, y: 0.6321066, z: 3.007}
+  hintUI: {fileID: 67242997}
+  bakingManager: {fileID: 1583532909}
+  isHoldingCake: 0
 --- !u!1 &1624765750 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6001412878548310232, guid: 3656d685bb2c1b74d8775327a58c6837, type: 3}
@@ -29634,7 +30025,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2380274916805294372, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
       propertyPath: m_TagString
-      value: Item
+      value: Strawberry
       objectReference: {fileID: 0}
     - target: {fileID: 3045488606153270174, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
       propertyPath: m_LocalScale.x
@@ -29711,6 +30102,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2380274916805294372, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1794817055}
+    - targetCorrespondingSourceObject: {fileID: 2380274916805294372, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1794817062}
   m_SourcePrefab: {fileID: 100100000, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
 --- !u!4 &1650923402 stripped
 Transform:
@@ -32177,6 +32571,25 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1768739827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1217870907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5149008c40e61c4fa4d7719e58cb7d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  qteManager: {fileID: 383835378}
+  holdPoint: {fileID: 1828410654}
+  bakingManager: {fileID: 1583532909}
+  hintUI: {fileID: 67242997}
+  expectedCakePosition: {x: -2.632, y: 0.6321066, z: 3.007}
+  positionTolerance: 0.3
+  isInRange: 0
 --- !u!1 &1771304444
 GameObject:
   m_ObjectHideFlags: 0
@@ -32701,6 +33114,25 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1794817062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1794817050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5149008c40e61c4fa4d7719e58cb7d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  qteManager: {fileID: 383835378}
+  holdPoint: {fileID: 1828410654}
+  bakingManager: {fileID: 1583532909}
+  hintUI: {fileID: 67242997}
+  expectedCakePosition: {x: -2.632, y: 0.6321066, z: 3.007}
+  positionTolerance: 0.3
+  isInRange: 0
 --- !u!4 &1799826392 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3992441233885976969, guid: ac3960763d9ed134b93e9bf2315734f3, type: 3}
@@ -32721,7 +33153,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 323aa9268390ee048920630e3337dc5a, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.4
+      value: 0.40000004
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 323aa9268390ee048920630e3337dc5a, type: 3}
       propertyPath: m_LocalScale.y
@@ -32729,7 +33161,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 323aa9268390ee048920630e3337dc5a, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.4
+      value: 0.40000004
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 323aa9268390ee048920630e3337dc5a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -32741,7 +33173,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 323aa9268390ee048920630e3337dc5a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.167
+      value: 1.1670002
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 323aa9268390ee048920630e3337dc5a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -32749,7 +33181,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 323aa9268390ee048920630e3337dc5a, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 323aa9268390ee048920630e3337dc5a, type: 3}
       propertyPath: m_LocalRotation.y
@@ -32781,11 +33213,15 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 033b716bee02e0948a33265b4228d731, type: 2}
     - target: {fileID: 919132149155446097, guid: 323aa9268390ee048920630e3337dc5a, type: 3}
       propertyPath: m_Name
-      value: Bundt Cake
+      value: Bundt Cake cream
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 323aa9268390ee048920630e3337dc5a, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 323aa9268390ee048920630e3337dc5a, type: 3}
+      propertyPath: m_TagString
+      value: Cake
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -34209,6 +34645,7 @@ MonoBehaviour:
   bakingAnimator: {fileID: 0}
   bakingParameter: isBaking
   bakingDuration: 5
+  OvenQTEManager: {fileID: 0}
   cookingPot: {fileID: 0}
   ovenTargetPosition: {x: 4.22, y: 0.116, z: 1.173}
   positionTolerance: 0.2
@@ -34362,7 +34799,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2380274916805294372, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
       propertyPath: m_TagString
-      value: Item
+      value: Strawberry
       objectReference: {fileID: 0}
     - target: {fileID: 3045488606153270174, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
       propertyPath: m_LocalScale.x
@@ -34440,6 +34877,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2380274916805294372, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1920635877}
+    - targetCorrespondingSourceObject: {fileID: 2380274916805294372, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1920635884}
   m_SourcePrefab: {fileID: 100100000, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
 --- !u!4 &1920635872 stripped
 Transform:
@@ -34494,6 +34934,25 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1920635884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503679785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5149008c40e61c4fa4d7719e58cb7d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  qteManager: {fileID: 383835378}
+  holdPoint: {fileID: 1828410654}
+  bakingManager: {fileID: 1583532909}
+  hintUI: {fileID: 67242997}
+  expectedCakePosition: {x: -2.632, y: 0.6321066, z: 3.007}
+  positionTolerance: 0.3
+  isInRange: 0
 --- !u!1001 &1920657696
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38008,7 +38467,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2380274916805294372, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
       propertyPath: m_TagString
-      value: Item
+      value: Strawberry
       objectReference: {fileID: 0}
     - target: {fileID: 3045488606153270174, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
       propertyPath: m_LocalScale.x
@@ -38085,6 +38544,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2380274916805294372, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2112409416}
+    - targetCorrespondingSourceObject: {fileID: 2380274916805294372, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2112409423}
   m_SourcePrefab: {fileID: 100100000, guid: 4cff40cefa656cd47bc206b33441b49f, type: 3}
 --- !u!4 &2112409411 stripped
 Transform:
@@ -38139,6 +38601,25 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2112409423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 682713231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5149008c40e61c4fa4d7719e58cb7d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  qteManager: {fileID: 383835378}
+  holdPoint: {fileID: 1828410654}
+  bakingManager: {fileID: 1583532909}
+  hintUI: {fileID: 67242997}
+  expectedCakePosition: {x: -2.632, y: 0.6321066, z: 3.007}
+  positionTolerance: 0.3
+  isInRange: 0
 --- !u!1 &2112773590 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2023332108257950763, guid: 0c073c823aec9444baa8489a44179a20, type: 3}
@@ -38426,6 +38907,25 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2133541734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2133541722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5149008c40e61c4fa4d7719e58cb7d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  qteManager: {fileID: 383835378}
+  holdPoint: {fileID: 1828410654}
+  bakingManager: {fileID: 1583532909}
+  hintUI: {fileID: 67242997}
+  expectedCakePosition: {x: -2.632, y: 0.6321066, z: 3.007}
+  positionTolerance: 0.3
+  isInRange: 0
 --- !u!1001 &2136361063
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38966,11 +39466,12 @@ SceneRoots:
   - {fileID: 261826460}
   - {fileID: 1527007076}
   - {fileID: 403368001}
+  - {fileID: 1812303785}
+  - {fileID: 692094159}
+  - {fileID: 1529439388}
   - {fileID: 185278233}
   - {fileID: 1126405025}
   - {fileID: 567718490}
   - {fileID: 287579485}
   - {fileID: 450626692}
-  - {fileID: 1812303785}
-  - {fileID: 692094159}
-  - {fileID: 1529439388}
+  - {fileID: 1583532910}

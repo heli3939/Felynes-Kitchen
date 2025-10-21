@@ -53,7 +53,11 @@ public class PickDrop_Ingredients : MonoBehaviour
 
         foreach (RaycastHit hit in hits)
         {
-            if (hit.collider.gameObject == gameObject || hit.collider.CompareTag("Item") || hit.collider.CompareTag("incorrect"))
+            if (hit.collider.gameObject == gameObject || 
+                hit.collider.CompareTag("Item") || 
+                hit.collider.CompareTag("incorrect") ||
+                hit.collider.CompareTag("Strawberry") ||
+                hit.collider.CompareTag("Cream"))
             {
                 continue;
             }
@@ -165,7 +169,11 @@ public class PickDrop_Ingredients : MonoBehaviour
 
         foreach (Collider col in colliders)
         {
-            if ((col.CompareTag("Item") || col.CompareTag("incorrect")) && col.gameObject != heldItem)
+            if ((col.CompareTag("Item") || 
+                col.CompareTag("incorrect") || 
+                col.CompareTag("Strawberry") || 
+                col.CompareTag("Cream")) && 
+                col.gameObject != heldItem)
             {
                 if (!IsItemAccessible(col.transform.position))
                 {
@@ -189,7 +197,11 @@ public class PickDrop_Ingredients : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if ((other.CompareTag("Item") || other.CompareTag("incorrect")) && other.gameObject != heldItem)
+        if ((other.CompareTag("Item") || 
+            other.CompareTag("incorrect") || 
+            other.CompareTag("Strawberry") || 
+            other.CompareTag("Cream")) && 
+            other.gameObject != heldItem)
         {
             UpdateNearbyItem();
         }
@@ -197,7 +209,11 @@ public class PickDrop_Ingredients : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-        if ((other.CompareTag("Item") || other.CompareTag("incorrect")) && other.gameObject != heldItem)
+        if ((other.CompareTag("Item") || 
+            other.CompareTag("incorrect") || 
+            other.CompareTag("Strawberry") || 
+            other.CompareTag("Cream")) && 
+            other.gameObject != heldItem)
         {
             UpdateNearbyItem();
         }
@@ -205,7 +221,10 @@ public class PickDrop_Ingredients : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if ((other.CompareTag("Item") || other.CompareTag("incorrect")))
+        if ((other.CompareTag("Item") || 
+            other.CompareTag("incorrect") || 
+            other.CompareTag("Strawberry") || 
+            other.CompareTag("Cream")))
         {
             UpdateNearbyItem();
         }
@@ -242,6 +261,8 @@ public class PickDrop_Ingredients : MonoBehaviour
                 col.gameObject == gameObject ||
                 col.CompareTag("Item") ||
                 col.CompareTag("incorrect") ||
+                col.CompareTag("Strawberry") ||
+                col.CompareTag("Cream") ||
                 col.CompareTag("airwalls") ||
                 col.CompareTag("Player"))
             {
@@ -324,6 +345,8 @@ public class ItemCollisionDetector : MonoBehaviour
         if (!other.CompareTag("Player") && 
             !other.CompareTag("Item") &&
             !other.CompareTag("incorrect") &&
+            !other.CompareTag("Strawberry") &&
+            !other.CompareTag("Cream") &&
             !other.CompareTag("airwalls") &&
             pickDropScript != null)
         {

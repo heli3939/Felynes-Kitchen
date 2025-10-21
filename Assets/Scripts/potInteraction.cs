@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEditor.PackageManager;
 
 public class PotPickDrop : MonoBehaviour
 {
@@ -20,6 +21,11 @@ public class PotPickDrop : MonoBehaviour
     [Header("UI Hint")]
     public HintUI hintUI;
 
+    [Header("Cake System")]
+    public OvenQTEManager ovenQTEManager;
+    public GameObject potLiquid;
+    public GameObject cake;
+
     private Vector3 originalPosition;
     private Quaternion originalRotation;
 
@@ -27,6 +33,8 @@ public class PotPickDrop : MonoBehaviour
     private Collider col;
 
     private PotCollisionDetector collisionDetector;
+
+    private bool potLockedInOven = false;
 
     private void Start()
     {
@@ -39,9 +47,40 @@ public class PotPickDrop : MonoBehaviour
 
     private void Update()
     {
+        if (ovenQTEManager != null && ovenQTEManager.HasCompletedOvenQTE())
+        {
+            potLockedInOven = true;
+        }
         if (Input.GetKeyDown(KeyCode.R))
         {
-            if (!isHeld && nearbyPlayer != null)
+            Debug.Log("is pot in oven:" + potLockedInOven);
+            if (potLockedInOven && nearbyPlayer != null)
+            {
+                if (ovenDoor != null && ovenDoor.IsBaking())
+                {
+                    Debug.Log("❌ Cake is still baking!");
+                    if (hintUI != null)
+                    {
+                        hintUI.ShowHint("Wait for baking to finish!");
+                    }
+                    return;
+                }
+
+                if (potLiquid.CompareTag("Cake") && !isHeld)
+                {
+                    PickUpCake();
+                }
+            }
+            else if (isHeld && potLockedInOven)
+            {
+                DropCake();
+            }
+            else if (!isHeld && nearbyPlayer == null)
+            {
+                Debug.Log("Too far from cake to pick up!");
+            }
+            
+            if (!potLockedInOven && !isHeld && nearbyPlayer != null)
             {
                 if (IsPotLockedInOven())
                 {
@@ -52,10 +91,10 @@ public class PotPickDrop : MonoBehaviour
                     }
                     return;
                 }
-                
+
                 Pickup();
             }
-            else if (isHeld)
+            else if (isHeld && !potLockedInOven)
             {
                 if (ovenDoor != null && ovenDoor.IsOpen())
                 {
@@ -73,6 +112,43 @@ public class PotPickDrop : MonoBehaviour
             {
                 Debug.Log("Too far from pot to pick up!");
             }
+        }
+    }
+
+    private void PickUpCake()
+    {
+        isHeld = true;
+
+        if (potLiquid == null)
+        {
+            Debug.LogWarning("[PotPickDrop] Cake (liquid) reference is missing!");
+            return;
+        }
+
+        potLiquid.SetActive(false);
+        cake.transform.SetParent(holdPoint);
+        cake.SetActive(true);
+        cake.transform.localPosition = Vector3.zero;
+        cake.transform.localRotation = Quaternion.identity;
+
+        Rigidbody cakeRb = cake.GetComponent<Rigidbody>();
+        if (cakeRb != null)
+        {
+            cakeRb.isKinematic = true;
+            cakeRb.useGravity = false;
+        }
+
+        Collider cakeCol = cake.GetComponent<Collider>();
+        if (cakeCol != null)
+        {
+            cakeCol.isTrigger = true;
+        }
+
+        Debug.Log("[PotPickDrop] ✅ Picked up cake! Liquid hidden.");
+        
+        if (hintUI != null)
+        {
+            hintUI.ShowHint("Back to the table and press R to place the cake for decoration!");
         }
     }
 
@@ -177,6 +253,39 @@ public class PotPickDrop : MonoBehaviour
             col.isTrigger = false;
 
         Debug.Log("Pot returned to original position");
+    }
+
+    private void DropCake()
+    {
+        isHeld = false;
+
+        var cakeCollisionDetector = cake.GetComponent<ItemCollisionDetector>();
+        if (cakeCollisionDetector != null)
+        {
+            Destroy(cakeCollisionDetector);
+        }
+
+        cake.transform.SetParent(null);
+
+        cake.transform.position = originalPosition;
+        cake.transform.rotation = originalRotation;
+
+        Rigidbody cakeRb = cake.GetComponent<Rigidbody>();
+        if (cakeRb != null)
+        {
+            cakeRb.isKinematic = false;
+            cakeRb.useGravity = true;
+            cakeRb.linearVelocity = Vector3.zero;
+            cakeRb.angularVelocity = Vector3.zero;
+        }
+
+        Collider cakeCol = cake.GetComponent<Collider>();
+        if (cakeCol != null)
+        {
+            cakeCol.isTrigger = false;
+        }
+
+        Debug.Log("Cake returned to original position");
     }
 
     private void PlaceInOven()
