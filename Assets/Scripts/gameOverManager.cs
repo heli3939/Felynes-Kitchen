@@ -20,6 +20,8 @@ public class GameOverManager : MonoBehaviour
     [Header("Other References")]
     public AudioSource deathSFX;
 
+    private bool isShowingGameOver = false;
+
     void Start()
     {
         if (gameOverPanel != null) gameOverPanel.SetActive(false);
@@ -30,6 +32,15 @@ public class GameOverManager : MonoBehaviour
 
     public void ShowGameOver()
     {
+        if (isShowingGameOver)
+        {
+            Debug.LogWarning("[GameOver] Already showing game over, ignoring duplicate call");
+            return;
+        }
+        
+        isShowingGameOver = true;
+        Debug.Log("[GameOver] Starting death sequence");
+
         if (BGMManager.Instance != null)
             BGMManager.Instance.MuteBGM();
 
@@ -59,8 +70,12 @@ public class GameOverManager : MonoBehaviour
         }
 
         yield return new WaitForSecondsRealtime(textAppearDelay);
+        
+        Debug.Log($"[GameOver] Showing text. youDiedText is null? {youDiedText == null}");
+        
         if (youDiedText != null)
         {
+            Debug.Log("[GameOver] Setting youDiedText alpha");
             youDiedText.alpha = 0f;
             Vector3 startScale = Vector3.one * 1.3f;
             Vector3 endScale = Vector3.one;
@@ -75,6 +90,7 @@ public class GameOverManager : MonoBehaviour
                 youDiedText.transform.localScale = Vector3.Lerp(startScale, endScale, t / duration);
                 yield return null;
             }
+            Debug.Log($"[GameOver] Text should be visible now. Alpha = {youDiedText.alpha}");
         }
 
         yield return new WaitForSecondsRealtime(blackScreenDelay);

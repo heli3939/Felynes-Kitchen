@@ -22,9 +22,16 @@ public class PlayerHealth : MonoBehaviour
 
         if (myCollider == null)
             myCollider = GetComponent<Collider>() ?? GetComponentInChildren<Collider>();
+            
+        Debug.Log($"[PlayerHealth] Initialized. Health: {currentHealth}");
     }
 
-    private void OnTriggerEnter(Collider other) => TryBurn(other);
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log($"[PlayerHealth] OnTriggerEnter with: {other.gameObject.name}");
+        TryBurn(other);
+    }
+    
     private void OnTriggerStay(Collider other) => TryBurn(other);
 
     private void TryBurn(Collider other)
@@ -34,26 +41,39 @@ public class PlayerHealth : MonoBehaviour
 
         if (!isDead && !isFalling && flame.IsDamagingNow(myCollider))
         {
+            Debug.Log($"[PlayerHealth] Taking fire damage!");
             TakeDamage(100, flame.DamageDirection(transform.position)); 
         }
     }
 
     public void TakeDamage(int amount, Vector3? hitDirection = null)
     {
-        if (isDead) return;
+        if (isDead)
+        {
+            Debug.Log("[PlayerHealth] Already dead, ignoring damage");
+            return;
+        }
 
         currentHealth -= amount;
+        Debug.Log($"[PlayerHealth] Took {amount} damage. Current health: {currentHealth}");
+        
         if (currentHealth <= 0)
         {
             currentHealth = 0;
+            Debug.Log("[PlayerHealth] Health reached 0, calling Die()");
             Die(hitDirection ?? -transform.forward);
         }
     }
 
     public void Die(Vector3 hitDirection)
     {
-        if (isDead || isFalling) return;
+        if (isDead || isFalling)
+        {
+            Debug.Log($"[PlayerHealth] Die() blocked - isDead: {isDead}, isFalling: {isFalling}");
+            return;
+        }
 
+        Debug.Log("[PlayerHealth] Die() called - starting death sequence");
         isFalling = true;
         StopAllMice();
         DisablePlayerControls();
@@ -63,6 +83,8 @@ public class PlayerHealth : MonoBehaviour
 
     IEnumerator FallAndDie(Vector3 hitDirection)
     {
+        Debug.Log("[PlayerHealth] FallAndDie coroutine started");
+        
         Vector3 playerForward = transform.forward;
         float dotProduct = Vector3.Dot(playerForward, hitDirection.normalized);
         float targetRotationX = dotProduct > 0 ? 90f : -90f;
@@ -82,33 +104,39 @@ public class PlayerHealth : MonoBehaviour
         transform.rotation = targetRotation;
 
         isDead = true;
-        Debug.Log("Player died");
+        Debug.Log("[PlayerHealth] Player died - calling GameOverManager");
 
         if (gameOverManager != null)
         {
+            Debug.Log("[PlayerHealth] Calling ShowGameOver()");
             gameOverManager.ShowGameOver();
         }
         else
         {
-            Debug.LogWarning("⚠️ GameOverManager not assigned!");
+            Debug.LogError("[PlayerHealth] ⚠️ GameOverManager not assigned in Inspector!");
         }
     }
 
     public void DisablePlayerControls()
     {
+        Debug.Log("[PlayerHealth] Disabling player controls");
+
         AudioSource[] playerAudios = GetComponentsInChildren<AudioSource>();
         foreach (AudioSource audio in playerAudios)
         {
-            if (audio.isPlaying)
+            if (audio != null && audio.isPlaying)
             {
                 audio.Stop();
             }
         }
-        // disable all other behaviours on the player
+
         MonoBehaviour[] scripts = GetComponents<MonoBehaviour>();
         foreach (MonoBehaviour script in scripts)
         {
-            if (script != this) script.enabled = false;
+            if (script != null && script != this && script.GetType() != typeof(PlayerHealth))
+            {
+                script.enabled = false;
+            }
         }
 
         Rigidbody rb = GetComponent<Rigidbody>();
@@ -125,13 +153,14 @@ public class PlayerHealth : MonoBehaviour
         CharacterController cc = GetComponent<CharacterController>();
         if (cc != null) cc.enabled = false;
     }
-
+    
     public void StopAllMice()
     {
         MouseMovement[] allMice = FindObjectsByType<MouseMovement>(FindObjectsSortMode.None);
+        Debug.Log($"[PlayerHealth] Stopping {allMice.Length} mice");
+        
         foreach (MouseMovement mouse in allMice)
         {
-
             mouse.StopMoving();
 
             if (mouse.audioSource != null && mouse.audioSource.isPlaying)
@@ -145,5 +174,6 @@ public class PlayerHealth : MonoBehaviour
             }
         }
     }
+    
     public bool IsDead() => isDead;
 }
