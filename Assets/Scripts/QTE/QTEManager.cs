@@ -128,7 +128,7 @@ public class QTEManager : MonoBehaviour
         var camSwitcher = FindFirstObjectByType<CameraSwitcher>();
         if (camSwitcher != null)
         {
-            camSwitcher.StartCoroutine(camSwitcher.SwitchBackToThirdPersonDelayed(3f));
+            camSwitcher.StartCoroutine(camSwitcher.SwitchBackToThirdPersonDelayed(1f));
         }
 
         if (holdPoint != null && holdPoint.childCount > 0)
@@ -186,6 +186,7 @@ public class QTEManager : MonoBehaviour
                 {
                     checklist.MarkDone(itemName);
                     Debug.Log($"[QTE] ✅ Checklist ticked for ingredient: '{itemName}'");
+                    StartCoroutine(ShowChecklistBriefly(1.5f));
                 }
                 else
                 {
@@ -235,6 +236,14 @@ public class QTEManager : MonoBehaviour
                 script.enabled = enabled;
         }
         Debug.Log($"[QTEManager] Player control set to {(enabled ? "ENABLED" : "DISABLED")}");
+    }
+
+    private IEnumerator ShowChecklistBriefly(float delay)
+    {
+
+        checklist.Toggle();
+        yield return new WaitForSecondsRealtime(delay);
+        checklist.Hide();
     }
 }
 

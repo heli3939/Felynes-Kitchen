@@ -98,7 +98,7 @@ public class Checklist : MonoBehaviour
     public void SetGameStarted(bool started) => gameStarted = started;
 
     // ---------------- core ----------------
-    void ApplyVisibility(bool visible)
+    public void ApplyVisibility(bool visible)
     {
         if (visible) ActivateParents(checklist);
 
