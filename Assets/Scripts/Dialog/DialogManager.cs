@@ -5,8 +5,8 @@ public class DialogueManager : MonoBehaviour
 {
     [Header("Refs")]
     public TestDialogue testDialogue;
-    public PauseMenu pauseMenu;   
-    public Checklist checklist;   
+    public PauseMenu pauseMenu;
+    public Checklist checklist;
 
     [Header("Behaviour")]
     public bool playOnStart = true;
@@ -65,21 +65,11 @@ public class DialogueManager : MonoBehaviour
         {
             Debug.LogError($"[DialogueManager] Exception starting dialogue: {e.Message}\n{e.StackTrace}");
             // Restore state and bail
-            if (useInputBlocker) { try { InputBlocker.Lock(false); } catch {} }
+            if (useInputBlocker) { try { InputBlocker.Lock(false); } catch { } }
             Time.timeScale = prevTimeScale;
             yield break;
         }
 
-        InputBlocker.Lock(false);
-        Time.timeScale = 1f;
-
-        if (BGMManager.Instance != null)
-            BGMManager.Instance.UnmuteBGM();
-
-        foreach (MouseMovement mouse in FindObjectsOfType<MouseMovement>())
-        {
-            mouse.UnmuteMouseAudio();
-        }
         // Wait until dialogue finishes (guard against destroyed/disabled refs)
         yield return new WaitUntil(() =>
         {
@@ -92,8 +82,11 @@ public class DialogueManager : MonoBehaviour
         });
 
         // Unblock and resume time
-        if (useInputBlocker) { try { InputBlocker.Lock(false); } catch {} }
+        if (useInputBlocker) { try { InputBlocker.Lock(false); } catch { } }
         Time.timeScale = 1f; // resume gameplay regardless of previous (assumes opening always starts from gameplay)
+
+        if (BGMManager.Instance != null) BGMManager.Instance.UnmuteBGM();
+        foreach (MouseMovement mouse in FindObjectsOfType<MouseMovement>()) mouse.UnmuteMouseAudio();
 
         FinalizeStart();
     }
