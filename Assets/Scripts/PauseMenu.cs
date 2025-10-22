@@ -19,6 +19,9 @@ public class PauseMenu : MonoBehaviour
     public AudioClip hoverClip;
     public AudioClip clickClip;
 
+    [Header("Scene Settings")]
+    public string startSceneName = "StartScene";
+
     private bool isPaused = false;
     private bool gameStarted = false; // ADD THIS
 
@@ -119,11 +122,7 @@ public class PauseMenu : MonoBehaviour
     public void QuitGame()
     {
         Time.timeScale = 1f;
-        #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-        #else
-        Application.Quit();
-        #endif
+        SceneManager.LoadScene(startSceneName);
     }
 
     // ADD THIS METHOD
