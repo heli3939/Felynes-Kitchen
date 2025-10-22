@@ -15,6 +15,14 @@ public class DialogueManager : MonoBehaviour
 
     void Start()
     {
+        if (PlayerPrefs.GetInt("SkipOpeningDialogue", 0) == 1)
+        {
+            Debug.Log("[DialogueManager] SkipOpeningDialogue detected — starting game immediately.");
+            PlayerPrefs.DeleteKey("SkipOpeningDialogue"); 
+            FinalizeStart(); 
+            return;
+        }
+
         if (!playOnStart) return;
 
         // Validate before starting to avoid NREs
@@ -120,6 +128,10 @@ public class DialogueManager : MonoBehaviour
         {
             Debug.Log("[DialogueManager] checklist not assigned (optional) — skipped SetGameStarted(true).");
         }
+
+        if (testDialogue != null && testDialogue.dialoguePanel != null)
+            testDialogue.dialoguePanel.SetActive(false);
+
     }
 
     // Call this if you need to trigger the opening dialogue manually instead of playOnStart.

@@ -107,11 +107,12 @@ public class PauseMenu : MonoBehaviour
 
     public void RestartGame()
     {
-        if (uiAudioSource && clickClip) uiAudioSource.PlayOneShot(clickClip);
-
         PlayerPrefs.SetInt("SkipOpeningDialogue", 1);
         PlayerPrefs.Save();
-
+        if (ScoreSystem.Instance != null)
+        {
+            ScoreSystem.Instance.ResetGameScore();
+        }
         Time.timeScale = 1f;
         SceneManager.LoadScene(mainSceneName);
     }
