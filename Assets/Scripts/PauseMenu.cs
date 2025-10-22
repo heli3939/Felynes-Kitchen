@@ -21,6 +21,7 @@ public class PauseMenu : MonoBehaviour
 
     [Header("Scene Settings")]
     public string startSceneName = "StartScene";
+    public string mainSceneName = "MainScene";
 
     private bool isPaused = false;
     private bool gameStarted = false; // ADD THIS
@@ -106,12 +107,13 @@ public class PauseMenu : MonoBehaviour
 
     public void RestartGame()
     {
+        if (uiAudioSource && clickClip) uiAudioSource.PlayOneShot(clickClip);
+
+        PlayerPrefs.SetInt("SkipOpeningDialogue", 1);
+        PlayerPrefs.Save();
+
         Time.timeScale = 1f;
-        if (ScoreSystem.Instance != null)
-        {
-            ScoreSystem.Instance.ResetGameScore();
-        }
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(mainSceneName);
     }
 
     public void OpenTutorial()
