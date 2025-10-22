@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -13,8 +14,11 @@ public class PlayerHealth : MonoBehaviour
     [Header("Fall Settings")]
     public float fallDuration = 1f;
 
+    [SerializeField] private GameObject checklistButton;
+    [SerializeField] private GameObject pauseButton;
+
     [SerializeField] private Collider myCollider;
-    [SerializeField] private GameOverManager gameOverManager; 
+    [SerializeField] private GameOverManager gameOverManager;
 
     void Awake()
     {
@@ -22,7 +26,7 @@ public class PlayerHealth : MonoBehaviour
 
         if (myCollider == null)
             myCollider = GetComponent<Collider>() ?? GetComponentInChildren<Collider>();
-            
+
         Debug.Log($"[PlayerHealth] Initialized. Health: {currentHealth}");
     }
 
@@ -31,7 +35,7 @@ public class PlayerHealth : MonoBehaviour
         Debug.Log($"[PlayerHealth] OnTriggerEnter with: {other.gameObject.name}");
         TryBurn(other);
     }
-    
+
     private void OnTriggerStay(Collider other) => TryBurn(other);
 
     private void TryBurn(Collider other)
@@ -42,7 +46,7 @@ public class PlayerHealth : MonoBehaviour
         if (!isDead && !isFalling && flame.IsDamagingNow(myCollider))
         {
             Debug.Log($"[PlayerHealth] Taking fire damage!");
-            TakeDamage(100, flame.DamageDirection(transform.position)); 
+            TakeDamage(100, flame.DamageDirection(transform.position));
         }
     }
 
@@ -56,7 +60,7 @@ public class PlayerHealth : MonoBehaviour
 
         currentHealth -= amount;
         Debug.Log($"[PlayerHealth] Took {amount} damage. Current health: {currentHealth}");
-        
+
         if (currentHealth <= 0)
         {
             currentHealth = 0;
@@ -77,6 +81,8 @@ public class PlayerHealth : MonoBehaviour
         isFalling = true;
         StopAllMice();
         DisablePlayerControls();
+        checklistButton.SetActive(false);
+        pauseButton.SetActive(false);
 
         StartCoroutine(FallAndDie(hitDirection));
     }
@@ -84,7 +90,7 @@ public class PlayerHealth : MonoBehaviour
     IEnumerator FallAndDie(Vector3 hitDirection)
     {
         Debug.Log("[PlayerHealth] FallAndDie coroutine started");
-        
+
         Vector3 playerForward = transform.forward;
         float dotProduct = Vector3.Dot(playerForward, hitDirection.normalized);
         float targetRotationX = dotProduct > 0 ? 90f : -90f;
@@ -153,12 +159,12 @@ public class PlayerHealth : MonoBehaviour
         CharacterController cc = GetComponent<CharacterController>();
         if (cc != null) cc.enabled = false;
     }
-    
+
     public void StopAllMice()
     {
         MouseMovement[] allMice = FindObjectsByType<MouseMovement>(FindObjectsSortMode.None);
         Debug.Log($"[PlayerHealth] Stopping {allMice.Length} mice");
-        
+
         foreach (MouseMovement mouse in allMice)
         {
             mouse.StopMoving();
@@ -174,6 +180,6 @@ public class PlayerHealth : MonoBehaviour
             }
         }
     }
-    
+
     public bool IsDead() => isDead;
 }
