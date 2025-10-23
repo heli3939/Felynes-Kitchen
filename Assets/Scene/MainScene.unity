@@ -5060,15 +5060,15 @@ PrefabInstance:
       objectReference: {fileID: 1622806632}
     - target: {fileID: 6798268627442062560, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.3359
+      value: 0.6079989
       objectReference: {fileID: 0}
     - target: {fileID: 6798268627442062560, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.3359
+      value: 0.6079989
       objectReference: {fileID: 0}
     - target: {fileID: 6798268627442062560, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.3359
+      value: 0.6079989
       objectReference: {fileID: 0}
     - target: {fileID: 6798268627442062560, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -13376,8 +13376,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
-  m_fontSizeBase: 60
+  m_fontSize: 55
+  m_fontSizeBase: 55
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -28089,6 +28089,18 @@ PrefabInstance:
       propertyPath: perfectSound
       value: 
       objectReference: {fileID: 8300000, guid: 3dab9723110bff34e9d4c07dda5445b8, type: 3}
+    - target: {fileID: 2798521392705781572, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
+      propertyPath: normalColor.b
+      value: 0.34509805
+      objectReference: {fileID: 0}
+    - target: {fileID: 2798521392705781572, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
+      propertyPath: normalColor.g
+      value: 0.6784314
+      objectReference: {fileID: 0}
+    - target: {fileID: 2798521392705781572, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
+      propertyPath: normalColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3740851329061898361, guid: 491675f99bc43ee4583efa84afbdc38d, type: 3}
       propertyPath: m_Name
       value: Oven_position
@@ -29008,8 +29020,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: YOU DIED
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 13332a115cd29024a910dec5edce806a, type: 2}
+  m_sharedMaterial: {fileID: -7896690983343761364, guid: 13332a115cd29024a910dec5edce806a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
