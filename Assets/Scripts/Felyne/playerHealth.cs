@@ -21,7 +21,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private Collider myCollider;
     [SerializeField] private GameOverManager gameOverManager;
 
-    private float lastDamageTime = -999f; // 🔥 用来记录上次扣血时间
+    private float lastDamageTime = -999f;
     public float damageCooldown = 1f; 
     void Update()
     {
