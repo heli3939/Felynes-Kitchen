@@ -32463,6 +32463,7 @@ MonoBehaviour:
   clickClip: {fileID: 8300000, guid: 4de9160341b8376419f965a437138e22, type: 3}
   startSceneName: StartScene
   mainSceneName: MainScene
+  hintUI: {fileID: 67242997}
 --- !u!1 &1751930886
 GameObject:
   m_ObjectHideFlags: 0
