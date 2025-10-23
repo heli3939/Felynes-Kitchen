@@ -12,7 +12,11 @@ public class PauseMenu : MonoBehaviour
     public Button restartButton;
     public Button tutorialButton;
     public Button exitButton;
-    public Button checklistButton; // ADD THIS
+    public Button checklistButton;
+
+    [Header("Tutorial Panel")]
+    public GameObject tutorialPanel;
+    public Button closeTutorialButton;
 
     [Header("Audio")]
     public AudioSource uiAudioSource;
@@ -23,8 +27,11 @@ public class PauseMenu : MonoBehaviour
     public string startSceneName = "StartScene";
     public string mainSceneName = "MainScene";
 
+    [Header("UI Hint")]
+    public HintUI hintUI;
+
     private bool isPaused = false;
-    private bool gameStarted = false; // ADD THIS
+    private bool gameStarted = false;
 
     void Start()
     {
@@ -63,19 +70,38 @@ public class PauseMenu : MonoBehaviour
             AddHoverSound(exitButton);
         }
 
+        if (closeTutorialButton != null)
+        {
+            closeTutorialButton.onClick.RemoveAllListeners();
+            closeTutorialButton.onClick.AddListener(() => { PlayClickSound(); CloseTutorial(); });
+            AddHoverSound(closeTutorialButton);
+        }
+
         if (pausePanel != null)
         {
             pausePanel.SetActive(false);
         }
 
-        UpdateButtonStates(); // ADD THIS
+        if (tutorialPanel != null)
+        {
+            tutorialPanel.SetActive(false);
+        }
+
+        UpdateButtonStates();
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (!isPaused && gameStarted) OpenPause(); // MODIFIED
+            if (tutorialPanel != null && tutorialPanel.activeSelf)
+            {
+                CloseTutorial();
+            }
+            else if (!isPaused && gameStarted)
+            {
+                OpenPause();
+            }
         }
     }
 
@@ -83,7 +109,7 @@ public class PauseMenu : MonoBehaviour
     {
         isPaused = true;
         if (pausePanel != null) pausePanel.SetActive(true);
-        if (checklistButton != null) checklistButton.interactable = false; // ADD THIS
+        if (checklistButton != null) checklistButton.interactable = false;
         Time.timeScale = 0f;
 
         foreach (MouseMovement mouse in FindObjectsOfType<MouseMovement>())
@@ -96,7 +122,7 @@ public class PauseMenu : MonoBehaviour
     {
         isPaused = false;
         if (pausePanel != null) pausePanel.SetActive(false);
-        UpdateButtonStates(); // ADD THIS
+        UpdateButtonStates();
         Time.timeScale = 1f;
 
         foreach (MouseMovement mouse in FindObjectsOfType<MouseMovement>())
@@ -119,7 +145,32 @@ public class PauseMenu : MonoBehaviour
 
     public void OpenTutorial()
     {
-        Time.timeScale = 1f;
+        if (tutorialPanel != null)
+        {
+            tutorialPanel.SetActive(true);
+        }
+        if (hintUI != null)
+        {
+            hintUI.ShowHint("press ESC to close tutorial");
+        }
+    }
+
+    public void CloseTutorial()
+    {
+        if (tutorialPanel != null)
+        {
+            tutorialPanel.SetActive(false);
+        }
+
+        if (pausePanel != null)
+        {
+            pausePanel.SetActive(true);
+        }
+        
+        if (hintUI != null)
+        {
+            hintUI.ShowHint("");
+        }
     }
 
     public void QuitGame()
@@ -128,26 +179,22 @@ public class PauseMenu : MonoBehaviour
         SceneManager.LoadScene(startSceneName);
     }
 
-    // ADD THIS METHOD
     public void OnChecklistOpened()
     {
         if (pauseButton != null) pauseButton.interactable = false;
     }
 
-    // ADD THIS METHOD
     public void OnChecklistClosed()
     {
         UpdateButtonStates();
     }
 
-    // ADD THIS METHOD
     public void OnGameStarted()
     {
         gameStarted = true;
         UpdateButtonStates();
     }
 
-    // ADD THIS METHOD
     private void UpdateButtonStates()
     {
         if (pauseButton != null) pauseButton.interactable = gameStarted && !isPaused;
