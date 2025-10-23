@@ -7,7 +7,7 @@ public class MouseMovement : MonoBehaviour
     public float leftBoundary = -9.27f;
     public float rightBoundary = 4.489f;
     public bool startFromLeft = true;
-    
+
     [Header("variation")]
     public bool useSineCurve = true;
     public float amplitude = 1f;
@@ -15,16 +15,16 @@ public class MouseMovement : MonoBehaviour
     public float phaseOffset = 0f;
 
     [Header("Footstep Sound Settings")]
-    public AudioSource audioSource;       
-    public Transform player;              
-    public float maxHearingDistance = 15f; 
+    public AudioSource audioSource;
+    public Transform player;
+    public float maxHearingDistance = 15f;
     public float minVolume = 0.05f;
 
     [Header("Squeak Sound Settings")]
-    public AudioSource squeakSource;           
-    public AudioClip[] squeakClips;            
-    public float minSqueakInterval = 1f;      
-    public float maxSqueakInterval = 3f;       
+    public AudioSource squeakSource;
+    public AudioClip[] squeakClips;
+    public float minSqueakInterval = 1f;
+    public float maxSqueakInterval = 3f;
     public float squeakDistanceThreshold = 5f;
 
     [Tooltip("Maximum mouse sound volume")]
@@ -38,6 +38,9 @@ public class MouseMovement : MonoBehaviour
     private float initialZ;
     private bool isActive = true;
     private float currentX;
+
+    public float damageCooldown = 1f;
+    private float lastDamageTime = -999f;
 
     void Start()
     {
@@ -54,7 +57,7 @@ public class MouseMovement : MonoBehaviour
             currentX = rightBoundary;
             direction = -1f;
         }
-        
+
         transform.position = new Vector3(currentX, initialY, initialZ);
 
         if (player == null)
@@ -110,7 +113,7 @@ public class MouseMovement : MonoBehaviour
         {
             float distance = Vector3.Distance(transform.position, player.position);
             float t = Mathf.Clamp01(1f - distance / maxHearingDistance);
-            audioSource.volume = Mathf.Lerp(minVolume, 1f, t); 
+            audioSource.volume = Mathf.Lerp(minVolume, 1f, t);
         }
 
         HandleSqueak();
@@ -140,30 +143,15 @@ public class MouseMovement : MonoBehaviour
     {
         squeakTimer = Random.Range(minSqueakInterval, maxSqueakInterval);
     }
+
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
-        {
-            PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
-            if (playerHealth != null)
-            {
-                Vector3 hitDirection = (other.transform.position - transform.position).normalized;
-                playerHealth.Die(hitDirection);
-            }
-        }
+        TryDamagePlayer(other);
     }
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
-            if (playerHealth != null)
-            {
-                Vector3 hitDirection = (collision.transform.position - transform.position).normalized;
-                playerHealth.Die(hitDirection);
-            }
-        }
+        TryDamagePlayer(collision.collider);
     }
 
     public void StopMoving()
@@ -193,4 +181,17 @@ public class MouseMovement : MonoBehaviour
         Debug.Log("[Mouse] Audio unmuted.");
     }
 
+    private void TryDamagePlayer(Collider playerCollider)
+    {
+        if (!playerCollider.CompareTag("Player")) return;
+
+        PlayerHealth playerHealth = playerCollider.GetComponent<PlayerHealth>();
+        if (playerHealth == null) return;
+
+        if (Time.time - lastDamageTime < damageCooldown) return;
+
+        lastDamageTime = Time.time;
+
+        playerHealth.TakeDamage(playerHealth.maxHealth / 3);
+    }
 }

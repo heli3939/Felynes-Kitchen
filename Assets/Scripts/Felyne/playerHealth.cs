@@ -1,15 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.UI;
+using TMPro;
 
 public class PlayerHealth : MonoBehaviour
 {
     [Header("Health Settings")]
-    public int maxHealth = 100;
+    public int maxHealth = 120;
     private int currentHealth;
 
     private bool isDead = false;
     private bool isFalling = false;
+    public TextMeshProUGUI healthText;
 
     [Header("Fall Settings")]
     public float fallDuration = 1f;
@@ -20,6 +21,13 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private Collider myCollider;
     [SerializeField] private GameOverManager gameOverManager;
 
+    private float lastDamageTime = -999f; // 🔥 用来记录上次扣血时间
+    public float damageCooldown = 1f; 
+    void Update()
+    {
+        UpdateHealthUI();
+    }
+    
     void Awake()
     {
         currentHealth = maxHealth;
@@ -43,10 +51,13 @@ public class PlayerHealth : MonoBehaviour
         RandomFlame flame = other.GetComponent<RandomFlame>() ?? other.GetComponentInParent<RandomFlame>();
         if (flame == null || myCollider == null) return;
 
+        if (Time.time - lastDamageTime < damageCooldown) return;
+
         if (!isDead && !isFalling && flame.IsDamagingNow(myCollider))
         {
+            lastDamageTime = Time.time; 
             Debug.Log($"[PlayerHealth] Taking fire damage!");
-            TakeDamage(100, flame.DamageDirection(transform.position));
+            TakeDamage(maxHealth / 3, flame.DamageDirection(transform.position));
         }
     }
 
@@ -178,6 +189,13 @@ public class PlayerHealth : MonoBehaviour
             {
                 mouse.squeakSource.Stop();
             }
+        }
+    }
+        private void UpdateHealthUI()
+    {
+        if (healthText != null)
+        {
+            healthText.text = $"Player Health: {currentHealth}/{maxHealth}";
         }
     }
 

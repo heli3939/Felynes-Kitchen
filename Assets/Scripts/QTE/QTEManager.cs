@@ -84,12 +84,6 @@ public class QTEManager : MonoBehaviour
                     hintUI.ShowHint("Cream is for decoration after baking!");
                 }
 
-                if (holdPoint.childCount > 0)
-                {
-                    Destroy(holdPoint.GetChild(0).gameObject);
-                    Debug.Log("[QTEManager] Cream destroyed - wrong timing!");
-                }
-
                 return;
             }
 
@@ -268,51 +262,55 @@ public class QTEManager : MonoBehaviour
     private void HandleFinished(QTEResult[] results)
     {
         if (qteHandled) return;
+        bool ovenCompleted = (ovenQTEManager != null && ovenQTEManager.HasCompletedOvenQTE());
+        Debug.Log($"[QTEManager] Oven completed? {ovenCompleted}");
 
         // ✅ Score logic as before
         foreach (var r in results)
             ScoreSystem.Instance.AddScore(r);
 
-        // ✅ Ingredient handling
-        if (holdPoint != null && holdPoint.childCount > 0)
+        if (!ovenCompleted)
         {
-            Transform child = holdPoint.GetChild(0);
-
-            // Only tick if it's an ingredient
-            if (child.CompareTag("Item"))
+            // ✅ Ingredient handling
+            if (holdPoint != null && holdPoint.childCount > 0)
             {
-                string rawName = child.name;
+                Transform child = holdPoint.GetChild(0);
 
-                // Clean up name: remove "(Clone)" and any "(number)" suffix
-                int parenIndex = rawName.IndexOf('(');
-                if (parenIndex >= 0)
-                    rawName = rawName.Substring(0, parenIndex);
-
-                string itemName = rawName.Trim();
-
-                if (checklist != null)
+                // Only tick if it's an ingredient
+                if (child.CompareTag("Item"))
                 {
-                    checklist.MarkDone(itemName);
-                    Debug.Log($"[QTE] ✅ Checklist ticked for ingredient: '{itemName}'");
-                    StartCoroutine(ShowChecklistBriefly(1.5f));
+                    string rawName = child.name;
+
+                    // Clean up name: remove "(Clone)" and any "(number)" suffix
+                    int parenIndex = rawName.IndexOf('(');
+                    if (parenIndex >= 0)
+                        rawName = rawName.Substring(0, parenIndex);
+
+                    string itemName = rawName.Trim();
+
+                    if (checklist != null)
+                    {
+                        checklist.MarkDone(itemName);
+                        Debug.Log($"[QTE] ✅ Checklist ticked for ingredient: '{itemName}'");
+                        StartCoroutine(ShowChecklistBriefly(1.5f));
+                    }
+                    else
+                    {
+                        Debug.LogWarning("[QTE] ⚠ Checklist reference not set in Inspector.");
+                    }
                 }
                 else
                 {
-                    Debug.LogWarning("[QTE] ⚠ Checklist reference not set in Inspector.");
+                    Debug.Log($"[QTE] ⚠ Object '{child.name}' ignored (tag != 'item').");
+                }
+
+                if (!child.CompareTag("Cream"))
+                {
+                    Destroy(child.gameObject);
+                    Debug.Log($"[QTE] 🗑 Destroyed poured ingredient: '{child.name}'");
                 }
             }
-            else
-            {
-                Debug.Log($"[QTE] ⚠ Object '{child.name}' ignored (tag != 'item').");
-            }
-
-            // Always destroy ingredient after use
-            Destroy(child.gameObject);
-            Debug.Log($"[QTE] 🗑 Destroyed poured ingredient: '{child.name}'");
         }
-
-        bool ovenCompleted = (ovenQTEManager != null && ovenQTEManager.HasCompletedOvenQTE());
-        Debug.Log($"[QTEManager] Oven completed? {ovenCompleted}");
 
         if (ovenCompleted)
         {
