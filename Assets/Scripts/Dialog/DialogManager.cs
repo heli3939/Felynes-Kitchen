@@ -7,6 +7,7 @@ public class DialogueManager : MonoBehaviour
     public TestDialogue testDialogue;
     public PauseMenu pauseMenu;
     public Checklist checklist;
+    public GameObject cat;
 
     [Header("Behaviour")]
     public bool playOnStart = true;
@@ -132,6 +133,36 @@ public class DialogueManager : MonoBehaviour
         if (testDialogue != null && testDialogue.dialoguePanel != null)
             testDialogue.dialoguePanel.SetActive(false);
 
+        StartCoroutine(PlayCatShrinkAnimation());
+    }
+
+    private IEnumerator PlayCatShrinkAnimation()
+    {
+        Transform catTransform = cat.transform;
+        Vector3 startScale = new Vector3(2f, 2f, 2f);
+        Vector3 endScale = new Vector3(0.4f, 0.4f, 0.4f);
+        float duration = 1.0f;
+        float elapsed = 0f;
+
+        Debug.Log("[DialogueManager] Starting cat shrink animation (scale: 2 → 0.4)");
+
+        catTransform.localScale = startScale;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            float t = elapsed / duration;
+
+            float smoothT = Mathf.SmoothStep(0f, 1f, t);
+
+            catTransform.localScale = Vector3.Lerp(startScale, endScale, smoothT);
+
+            yield return null;
+        }
+
+        catTransform.localScale = endScale;
+
+        Debug.Log("[DialogueManager] Cat shrink animation completed.");
     }
 
     // Call this if you need to trigger the opening dialogue manually instead of playOnStart.
