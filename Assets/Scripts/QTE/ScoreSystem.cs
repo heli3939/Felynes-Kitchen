@@ -8,8 +8,8 @@ public class ScoreSystem : MonoBehaviour
     public int goodScore = 5;
 
     [Header("Ending Thresholds")]
-    public int heThreshold = 60;  // 60 for Happy Ending
-    public int beThreshold = 30;  // <= 30 for Bad Ending
+    public int heThreshold = 192;  // for Happy Ending
+    public int beThreshold = 192;  // for Bad Ending
 
     public static ScoreSystem Instance { get; private set; }
 
@@ -71,7 +71,7 @@ public class ScoreSystem : MonoBehaviour
     {
         if (score >= heThreshold)
             return "HE";
-        else if (score <= beThreshold)
+        else if (score < beThreshold)
             return "BE";
         else
             return "NEUTRAL"; // Optional

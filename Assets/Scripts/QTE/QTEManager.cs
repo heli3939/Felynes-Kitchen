@@ -35,8 +35,10 @@ public class QTEManager : MonoBehaviour
     [Header("Cake Decoration")]
     public GameObject cakeCream;
     public GameObject cakeFinal;
+    public float decorationDistanceThreshold = 2.5f;  // Distance player must be from cake to decorate
     private bool hasCream = false;
     private bool hasFinal = false;
+    private bool isGameEnding = false; // Flag to prevent EndQTE during game ending
 
     public int CurrentFillLevel => currentFillLevel;
 
@@ -106,6 +108,26 @@ public class QTEManager : MonoBehaviour
                 {
                     Debug.LogWarning("[QTEManager] Cake is not on the table yet!" + cake.transform.position);
                     return;
+                }
+
+                // Check if player is close enough to decorate the cake
+                if (holdPoint != null)
+                {
+                    float playerToCakeDistance = Vector3.Distance(holdPoint.position, cake.transform.position);
+                    
+                    if (playerToCakeDistance > decorationDistanceThreshold)
+                    {
+                        Debug.LogWarning($"[QTEManager] Too far from cake to decorate! Distance: {playerToCakeDistance:F2}m (need < {decorationDistanceThreshold}m)");
+                        
+                        if (hintUI != null)
+                        {
+                            hintUI.ShowHint("Get closer to the cake to decorate!");
+                        }
+                        
+                        return;
+                    }
+                    
+                    Debug.Log($"[QTEManager] ✅ Player close enough to cake: {playerToCakeDistance:F2}m");
                 }
             }
             else
@@ -206,6 +228,13 @@ public class QTEManager : MonoBehaviour
 
     public void EndQTE()
     {
+        // If game is ending (strawberry decoration complete), skip normal EndQTE process
+        if (isGameEnding)
+        {
+            Debug.Log("[QTEManager] EndQTE skipped - game ending in progress");
+            return;
+        }
+
         qteRunning = false;
 
         if (qteController != null)
@@ -315,6 +344,8 @@ public class QTEManager : MonoBehaviour
         if (ovenCompleted)
         {
             Debug.Log($"[QTEManager] Processing decoration - currentItemTag: {currentItemTag}");
+            Debug.Log($"[QTEManager] hasCream: {hasCream}, hasFinal: {hasFinal}");
+            
             if (currentItemTag == "Cream" && !hasCream)
             {
                 hasCream = true;
@@ -323,9 +354,17 @@ public class QTEManager : MonoBehaviour
             }
             else if (currentItemTag == "Strawberry" && hasCream && !hasFinal)
             {
+                Debug.Log("[QTEManager] 🍓 All conditions met for strawberry! Updating to final stage...");
                 hasFinal = true;
+                isGameEnding = true; // Set flag to prevent EndQTE
+                qteHandled = true; // Mark as handled before returning
                 UpdateCakeVisual("final");
                 Debug.Log("[QTEManager] ✅ Strawberry added! Cake is complete!");
+                return; // Return early to skip normal EndQTE process
+            }
+            else if (currentItemTag == "Strawberry")
+            {
+                Debug.LogWarning($"[QTEManager] ⚠️ Strawberry conditions not met! hasCream={hasCream}, hasFinal={hasFinal}");
             }
         }
         else
@@ -339,6 +378,8 @@ public class QTEManager : MonoBehaviour
 
     private void UpdateCakeVisual(string stage)
     {
+        Debug.Log($"[QTEManager] UpdateCakeVisual called with stage: {stage}");
+        
         GameObject currentCake = GameObject.FindGameObjectWithTag("Cake");
         
         if (currentCake == null)
@@ -360,8 +401,15 @@ public class QTEManager : MonoBehaviour
             
             Debug.Log("[QTEManager] Cake visual updated to cream stage");
         }
-        else if (stage == "final" && cakeFinal != null)
+        else if (stage == "final")
         {
+            if (cakeFinal == null)
+            {
+                Debug.LogError("[QTEManager] ❌ cakeFinal is NULL! Cannot update to final stage!");
+                return;
+            }
+            
+            Debug.Log("[QTEManager] Destroying current cake and activating cakeFinal...");
             Destroy(currentCake);
 
             cakeFinal.SetActive(true);
@@ -369,11 +417,10 @@ public class QTEManager : MonoBehaviour
             cakeFinal.transform.rotation = cakeRot;
             
             Debug.Log("[QTEManager] Cake visual updated to final stage");
+            Debug.Log("[QTEManager] 🚀 Starting TriggerGameEnding coroutine...");
             
-            if (hintUI != null)
-            {
-                hintUI.ShowHint("Cake is complete!");
-            }
+            // Trigger game ending after final cake model is activated
+            StartCoroutine(TriggerGameEnding(2f));
         }
     }
 
@@ -413,5 +460,91 @@ public class QTEManager : MonoBehaviour
         checklist.Toggle();
         yield return new WaitForSecondsRealtime(delay);
         checklist.Hide();
+    }
+
+    private IEnumerator TriggerGameEnding(float delay)
+    {
+        Debug.Log("[QTEManager] 🎮 TriggerGameEnding started!");
+        
+        yield return new WaitForSeconds(delay);
+
+        Debug.Log("[QTEManager] 📷 Cleaning up QTE UI...");
+        
+        // Stop and clean up QTE first
+        qteRunning = false;
+        
+        if (qteController != null)
+            qteController.StopQTE();
+
+        if (qteRaycaster != null)
+            qteRaycaster.enabled = false;
+
+        if (qteCanvas != null)
+        {
+            qteCanvas.SetActive(false);
+        }
+
+        // Destroy the strawberry item
+        if (holdPoint != null && holdPoint.childCount > 0)
+        {
+            Transform child = holdPoint.GetChild(0);
+            Debug.Log($"[QTEManager] Destroying ingredient: {child.name}");
+            Destroy(child.gameObject);
+        }
+
+        Debug.Log("[QTEManager] 📷 Switching camera back...");
+        
+        // Switch back to third person camera
+        if (fpCamera != null)
+        {
+            fpCamera.SetActive(false);
+        }
+        
+        if (tpCamera != null)
+        {
+            tpCamera.SetActive(true);
+        }
+
+        // IMMEDIATELY freeze the game (don't wait)
+        Debug.Log("[QTEManager] ⏸️ Freezing game NOW...");
+        
+        Time.timeScale = 0f;
+
+        // Disable all player controls
+        SetPlayerControls(false);
+
+        Debug.Log("[QTEManager] 🎯 Getting ending type...");
+        
+        // Determine ending type based on score
+        string endingType = ScoreSystem.Instance.GetEndingType();
+        
+        Debug.Log($"[QTEManager] 🎯 Ending type: {endingType}, Score: {ScoreSystem.Instance.score}");
+        
+        if (hintUI != null)
+        {
+            Debug.Log("[QTEManager] 💬 Showing hint...");
+            
+            if (endingType == "BE")
+            {
+                hintUI.ShowHint("Sorry Felyne, you failed...");
+                Debug.Log("[QTEManager] 😿 Bad Ending displayed");
+            }
+            else if (endingType == "HE")
+            {
+                hintUI.ShowHint("Congrats Felyne, enjoy your cake!");
+                Debug.Log("[QTEManager] 🎉 Happy Ending displayed");
+            }
+            else
+            {
+                hintUI.ShowHint("Cake complete! Score: " + ScoreSystem.Instance.score);
+                Debug.Log("[QTEManager] 🍰 Neutral Ending displayed");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("[QTEManager] ⚠️ HintUI is null!");
+        }
+
+        Debug.Log($"[QTEManager] 🎮 Game Ended! Final Score: {ScoreSystem.Instance.score} | Ending: {endingType}");
     }
 }
