@@ -133,6 +133,18 @@ public class DialogueManager : MonoBehaviour
         if (testDialogue != null && testDialogue.dialoguePanel != null)
             testDialogue.dialoguePanel.SetActive(false);
 
+        if (PlayerPrefs.GetInt("SkipOpeningDialogue", 0) == 1)
+        {
+            Debug.Log("[DialogueManager] Skipping cat shrink animation (restart detected).");
+
+            PlayerPrefs.DeleteKey("SkipOpeningDialogue");
+
+            if (cat != null)
+                cat.transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
+
+            return; 
+        }
+
         StartCoroutine(PlayCatShrinkAnimation());
     }
 

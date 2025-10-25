@@ -21,7 +21,7 @@ public class GameOverManager : MonoBehaviour
     public AudioSource deathSFX;
 
     [Header("Scene Settings")]
-    public string startSceneName = "StartScene";
+    public string mainSceneName = "MainScene";
 
     private bool isShowingGameOver = false;
 
@@ -71,7 +71,7 @@ public class GameOverManager : MonoBehaviour
         }
 
         yield return new WaitForSecondsRealtime(textAppearDelay);
-        
+
         if (youDiedText != null)
         {
             youDiedText.alpha = 0f;
@@ -98,20 +98,24 @@ public class GameOverManager : MonoBehaviour
         float blackT = 0f;
         while (blackT < 1f)
         {
-            blackT += Time.unscaledDeltaTime / 1.0f; 
+            blackT += Time.unscaledDeltaTime / 1.0f;
             backgroundFade.color = new Color(0, 0, 0, Mathf.Lerp(0.85f, 1f, blackT));
-            youDiedText.alpha = Mathf.Lerp(1f, 0f, blackT); 
+            youDiedText.alpha = Mathf.Lerp(1f, 0f, blackT);
             yield return null;
         }
 
         yield return new WaitForSecondsRealtime(restartDelay);
 
+        PlayerPrefs.SetInt("SkipOpeningDialogue", 1);
+        PlayerPrefs.Save();
+
         if (ScoreSystem.Instance != null)
         {
             ScoreSystem.Instance.ResetGameScore();
         }
+
         Time.timeScale = 1f;
 
-        SceneManager.LoadScene(startSceneName);
+        SceneManager.LoadScene(mainSceneName);
     }
 }
