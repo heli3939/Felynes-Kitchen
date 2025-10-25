@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections;
-using UnityEditor.PackageManager;
+//using UnityEditor.PackageManager;
 
 public class PotPickDrop : MonoBehaviour
 {
