@@ -49,6 +49,12 @@ public class DialogueManager : MonoBehaviour
         if (BGMManager.Instance != null)
             BGMManager.Instance.MuteBGM();
 
+        foreach (RandomFlame flame in FindObjectsOfType<RandomFlame>())
+        {
+            if (flame.flameAudioSource != null)
+                flame.flameAudioSource.mute = true;
+        }
+
         foreach (MouseMovement mouse in FindObjectsOfType<MouseMovement>())
         {
             mouse.MuteMouseAudio();
@@ -72,7 +78,6 @@ public class DialogueManager : MonoBehaviour
         }
         catch (System.Exception e)
         {
-            Debug.LogError($"[DialogueManager] Exception starting dialogue: {e.Message}\n{e.StackTrace}");
             // Restore state and bail
             if (useInputBlocker) { try { InputBlocker.Lock(false); } catch { } }
             Time.timeScale = prevTimeScale;
@@ -96,6 +101,12 @@ public class DialogueManager : MonoBehaviour
 
         if (BGMManager.Instance != null) BGMManager.Instance.UnmuteBGM();
         foreach (MouseMovement mouse in FindObjectsOfType<MouseMovement>()) mouse.UnmuteMouseAudio();
+        yield return new WaitForSeconds(0.5f);
+        foreach (RandomFlame flame in FindObjectsOfType<RandomFlame>())
+        {
+            if (flame.flameAudioSource != null)
+                flame.flameAudioSource.mute = false;
+        }
 
         FinalizeStart();
     }
@@ -184,12 +195,10 @@ public class DialogueManager : MonoBehaviour
 
         if (testDialogue == null)
         {
-            Debug.LogError("[DialogueManager] Missing TestDialogue reference.");
             return;
         }
         if (testDialogue.lines == null || testDialogue.lines.Length == 0)
         {
-            Debug.LogWarning("[DialogueManager] testDialogue.lines is empty. Skipping.");
             FinalizeStart();
             return;
         }

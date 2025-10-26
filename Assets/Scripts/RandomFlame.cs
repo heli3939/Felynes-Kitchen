@@ -329,4 +329,68 @@ public class RandomFlame : MonoBehaviour
 
         return true;
     }
+
+    // === Flame Sound Addon ===
+    [Header("Sound Settings")]
+    public AudioClip flameSound;
+    public AudioSource flameAudioSource;
+    public float playerDetectRadius = 6f;
+    public float maxVolume = 1f;
+    public float fadeSpeed = 2f;
+
+    private static float globalVolumeTarget = 0f; 
+    private static int activeFlameCount = 0;      
+    private static RandomFlame[] allFlames;      
+
+    private void LateUpdate()
+    {
+        HandleFlameSound();
+    }
+
+    private void HandleFlameSound()
+    {
+        if (flameSound == null) return;
+
+        if (flameAudioSource == null)
+        {
+            flameAudioSource = GetComponent<AudioSource>();
+            if (flameAudioSource == null)
+                flameAudioSource = gameObject.AddComponent<AudioSource>();
+
+            flameAudioSource.playOnAwake = false;
+            flameAudioSource.loop = true;
+            flameAudioSource.spatialBlend = 0f; 
+            flameAudioSource.clip = flameSound;
+            flameAudioSource.volume = 0f;
+        }
+
+        if (allFlames == null || allFlames.Length == 0)
+            allFlames = FindObjectsOfType<RandomFlame>();
+
+        activeFlameCount = 0;
+        foreach (var f in allFlames)
+            if (f != null && f.isOn) activeFlameCount++;
+
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        bool playerNearby = false;
+        if (player != null)
+        {
+            float dist = Vector3.Distance(transform.position, player.transform.position);
+            playerNearby = dist <= playerDetectRadius;
+        }
+
+        if (playerNearby && activeFlameCount > 0)
+            globalVolumeTarget = Mathf.Clamp01(activeFlameCount / 5f) * maxVolume; 
+        else
+            globalVolumeTarget = 0f;
+
+        float targetVol = globalVolumeTarget;
+        flameAudioSource.volume = Mathf.MoveTowards(flameAudioSource.volume, targetVol, fadeSpeed * Time.deltaTime);
+
+        if (flameAudioSource.volume > 0.01f && !flameAudioSource.isPlaying)
+            flameAudioSource.Play();
+        else if (flameAudioSource.volume <= 0.01f && flameAudioSource.isPlaying)
+            flameAudioSource.Stop();
+    }
+
 }
