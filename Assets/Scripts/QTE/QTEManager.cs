@@ -350,7 +350,10 @@ public class QTEManager : MonoBehaviour
             {
                 hasCream = true;
                 UpdateCakeVisual("cream");
+                checklist.MarkDone("bowl_cream");
                 Debug.Log("[QTEManager] ✅ Cream added to cake!");
+                StartCoroutine(ShowChecklistBriefly(1.5f));
+
             }
             else if (currentItemTag == "Strawberry" && hasCream && !hasFinal)
             {
@@ -359,7 +362,9 @@ public class QTEManager : MonoBehaviour
                 isGameEnding = true; // Set flag to prevent EndQTE
                 qteHandled = true; // Mark as handled before returning
                 UpdateCakeVisual("final");
+                checklist.MarkDone("Strawberry");
                 Debug.Log("[QTEManager] ✅ Strawberry added! Cake is complete!");
+                StartCoroutine(ShowChecklistBriefly(1.5f));
                 return; // Return early to skip normal EndQTE process
             }
             else if (currentItemTag == "Strawberry")
