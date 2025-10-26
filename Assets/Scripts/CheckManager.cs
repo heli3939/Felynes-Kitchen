@@ -52,7 +52,12 @@ public class ChecklistManager : MonoBehaviour
         if (checklistPanel != null)
             checklistPanel.SetActive(true);
 
-        Time.timeScale = 0f; 
+        Time.timeScale = 0f;
+
+        foreach (MouseMovement mouse in FindObjectsOfType<MouseMovement>())
+        {
+            mouse.MuteMouseAudio();
+        }
     }
 
     public void CloseChecklist()
@@ -63,7 +68,13 @@ public class ChecklistManager : MonoBehaviour
         if (checklistPanel != null)
             checklistPanel.SetActive(false);
 
-        Time.timeScale = 1f; 
+        Time.timeScale = 1f;
+
+        foreach (MouseMovement mouse in FindObjectsOfType<MouseMovement>())
+        {
+            mouse.UnmuteMouseAudio();
+        }
+
     }
 
 
