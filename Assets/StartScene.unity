@@ -760,7 +760,6 @@ MonoBehaviour:
   cgLines:
   - Long times ago...
   - There's a cat called Felyne
-  - His biggest hoppy was trying to make a wonderful cake
   fadeDuration: 1
   textDisplayTime: 1.5
   mainSceneName: MainScene
