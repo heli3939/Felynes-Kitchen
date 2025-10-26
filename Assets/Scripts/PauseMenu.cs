@@ -18,6 +18,9 @@ public class PauseMenu : MonoBehaviour
     public GameObject tutorialPanel;
     public Button closeTutorialButton;
 
+    [Header("Tutorial Reference")]
+    public TutorialManager tutorialManager;
+
     [Header("Audio")]
     public AudioSource uiAudioSource;
     public AudioClip hoverClip;
@@ -145,35 +148,26 @@ public class PauseMenu : MonoBehaviour
 
     public void OpenTutorial()
     {
-        if (tutorialPanel != null)
+        if (tutorialManager != null)
         {
-            tutorialPanel.SetActive(true);
-        }
-        if (hintUI != null)
-        {
-            hintUI.ShowHint("press ESC to close tutorial");
+            tutorialManager.OpenTutorial();
         }
     }
 
     public void CloseTutorial()
     {
-        if (tutorialPanel != null)
+        if (tutorialManager != null)
         {
-            tutorialPanel.SetActive(false);
+            tutorialManager.CloseTutorial(); 
         }
 
-        if (pausePanel != null)
-        {
-            pausePanel.SetActive(true);
-        }
-        
         if (hintUI != null)
         {
             hintUI.ShowHint("");
         }
     }
 
-    public void QuitGame()
+public void QuitGame()
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(startSceneName);
