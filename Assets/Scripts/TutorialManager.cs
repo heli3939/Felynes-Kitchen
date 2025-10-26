@@ -73,7 +73,6 @@ public class TutorialManager : MonoBehaviour
     public void CloseTutorial()
     {
         gameObject.SetActive(false);
-        Time.timeScale = 1f; 
     }
 
     private void AddHoverSound(Button button)

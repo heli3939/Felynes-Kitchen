@@ -119,6 +119,12 @@ public class PauseMenu : MonoBehaviour
         {
             mouse.MuteMouseAudio();
         }
+
+        foreach (RandomFlame flame in FindObjectsOfType<RandomFlame>())
+        {
+            if (flame.flameAudioSource != null)
+                flame.flameAudioSource.mute = true;
+        }
     }
 
     public void ResumeGame()
@@ -131,6 +137,12 @@ public class PauseMenu : MonoBehaviour
         foreach (MouseMovement mouse in FindObjectsOfType<MouseMovement>())
         {
             mouse.UnmuteMouseAudio();
+        }
+
+        foreach (RandomFlame flame in FindObjectsOfType<RandomFlame>())
+        {
+            if (flame.flameAudioSource != null)
+                flame.flameAudioSource.mute = false;
         }
     }
 
