@@ -30184,6 +30184,10 @@ MonoBehaviour:
   myCollider: {fileID: 1938730080}
   gameOverManager: {fileID: 385627527}
   damageCooldown: 1
+  playerRenderer: {fileID: 0}
+  damageColor: {r: 0.6792453, g: 0.08009967, b: 0.08009967, a: 1}
+  flashDuration: 0.15
+  hitSound: {fileID: 8300000, guid: eb67da97af9904d96879e52b23de6b8a, type: 3}
 --- !u!114 &1622806643
 MonoBehaviour:
   m_ObjectHideFlags: 0

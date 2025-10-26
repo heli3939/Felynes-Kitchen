@@ -22,18 +22,43 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private GameOverManager gameOverManager;
 
     private float lastDamageTime = -999f;
-    public float damageCooldown = 1f; 
+    public float damageCooldown = 1f;
+
+    [Header("Damage Flash")]
+    [Tooltip("Renderer whose material will flash red on hit.")]
+    public Renderer playerRenderer; // assign in Inspector (e.g. the cat mesh)
+    public Color damageColor = Color.red;
+    public float flashDuration = 0.15f;
+    private Color originalColor;
+    private bool isFlashing = false;
+
+    [Tooltip("Sound played when the player takes damage.")]
+    public AudioClip hitSound;
+    private AudioSource audioSource;
+
     void Update()
     {
         UpdateHealthUI();
     }
-    
+
     void Awake()
     {
         currentHealth = maxHealth;
 
         if (myCollider == null)
             myCollider = GetComponent<Collider>() ?? GetComponentInChildren<Collider>();
+
+        if (playerRenderer == null)
+            playerRenderer = GetComponentInChildren<Renderer>();
+
+        if (playerRenderer != null)
+            originalColor = playerRenderer.material.color;
+        else
+            Debug.LogWarning("[PlayerHealth] No playerRenderer assigned for flash!");
+
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+            audioSource = gameObject.AddComponent<AudioSource>();
 
         Debug.Log($"[PlayerHealth] Initialized. Health: {currentHealth}");
     }
@@ -55,7 +80,7 @@ public class PlayerHealth : MonoBehaviour
 
         if (!isDead && !isFalling && flame.IsDamagingNow(myCollider))
         {
-            lastDamageTime = Time.time; 
+            lastDamageTime = Time.time;
             Debug.Log($"[PlayerHealth] Taking fire damage!");
             TakeDamage(maxHealth / 3, flame.DamageDirection(transform.position));
         }
@@ -63,6 +88,9 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(int amount, Vector3? hitDirection = null)
     {
+        if (hitSound != null && audioSource != null)
+            audioSource.PlayOneShot(hitSound);
+
         if (isDead)
         {
             Debug.Log("[PlayerHealth] Already dead, ignoring damage");
@@ -72,12 +100,41 @@ public class PlayerHealth : MonoBehaviour
         currentHealth -= amount;
         Debug.Log($"[PlayerHealth] Took {amount} damage. Current health: {currentHealth}");
 
+        if (!isFlashing)
+            StartCoroutine(FlashRedThenRecover());
+
         if (currentHealth <= 0)
         {
             currentHealth = 0;
             Debug.Log("[PlayerHealth] Health reached 0, calling Die()");
             Die(hitDirection ?? -transform.forward);
         }
+    }
+
+    private IEnumerator FlashRedThenRecover()
+    {
+        if (playerRenderer == null) yield break;
+
+        isFlashing = true;
+
+        playerRenderer.material.color = damageColor;
+
+        yield return new WaitForSeconds(flashDuration);
+
+        float t = 0f;
+        const float lerpTime = 0.15f;
+        Color startColor = playerRenderer.material.color;
+
+        while (t < lerpTime)
+        {
+            t += Time.deltaTime;
+            float a = t / lerpTime;
+            playerRenderer.material.color = Color.Lerp(startColor, originalColor, a);
+            yield return null;
+        }
+
+        playerRenderer.material.color = originalColor;
+        isFlashing = false;
     }
 
     public void Die(Vector3 hitDirection)
@@ -119,7 +176,9 @@ public class PlayerHealth : MonoBehaviour
         }
 
         transform.rotation = targetRotation;
-
+        if (hitSound != null && audioSource != null)
+            audioSource.PlayOneShot(hitSound);
+            
         isDead = true;
         Debug.Log("[PlayerHealth] Player died - calling GameOverManager");
 
@@ -191,7 +250,8 @@ public class PlayerHealth : MonoBehaviour
             }
         }
     }
-        private void UpdateHealthUI()
+
+    private void UpdateHealthUI()
     {
         if (healthText != null)
         {
