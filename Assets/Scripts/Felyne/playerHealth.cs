@@ -24,7 +24,6 @@ public class PlayerHealth : MonoBehaviour
     private float lastDamageTime = -999f;
     public float damageCooldown = 1f;
 
-    // DAMAGE FLASH >>> add these <<<
     [Header("Damage Flash")]
     [Tooltip("Renderer whose material will flash red on hit.")]
     public Renderer playerRenderer; // assign in Inspector (e.g. the cat mesh)
@@ -32,7 +31,10 @@ public class PlayerHealth : MonoBehaviour
     public float flashDuration = 0.15f;
     private Color originalColor;
     private bool isFlashing = false;
-    // DAMAGE FLASH <<<
+
+    [Tooltip("Sound played when the player takes damage.")]
+    public AudioClip hitSound;
+    private AudioSource audioSource;
 
     void Update()
     {
@@ -53,6 +55,10 @@ public class PlayerHealth : MonoBehaviour
             originalColor = playerRenderer.material.color;
         else
             Debug.LogWarning("[PlayerHealth] No playerRenderer assigned for flash!");
+
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+            audioSource = gameObject.AddComponent<AudioSource>();
 
         Debug.Log($"[PlayerHealth] Initialized. Health: {currentHealth}");
     }
@@ -82,6 +88,9 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(int amount, Vector3? hitDirection = null)
     {
+        if (hitSound != null && audioSource != null)
+            audioSource.PlayOneShot(hitSound);
+
         if (isDead)
         {
             Debug.Log("[PlayerHealth] Already dead, ignoring damage");
@@ -167,7 +176,9 @@ public class PlayerHealth : MonoBehaviour
         }
 
         transform.rotation = targetRotation;
-
+        if (hitSound != null && audioSource != null)
+            audioSource.PlayOneShot(hitSound);
+            
         isDead = true;
         Debug.Log("[PlayerHealth] Player died - calling GameOverManager");
 
