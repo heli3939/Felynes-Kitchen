@@ -42,8 +42,8 @@ public class Checklist : MonoBehaviour
             var item = t.GetComponent<ChecklistItem>();
             if (item != null && item.itemName == itemName)
             {
-                item.SetDone();
                 Debug.Log($"[Checklist] ✔ Marked {itemName}");
+                item.SetDone();
                 return;
             }
         }
