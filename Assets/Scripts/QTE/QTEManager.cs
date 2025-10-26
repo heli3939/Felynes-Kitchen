@@ -22,7 +22,7 @@ public class QTEManager : MonoBehaviour
     public Transform holdPoint;
 
     [Header("Liquid Control")]
-    public Animator potLiquidAnimator;  
+    public Animator potLiquidAnimator;
     private int currentFillLevel = 0;
     private int maxFillLevel = 5;
 
@@ -31,7 +31,7 @@ public class QTEManager : MonoBehaviour
 
     [Header("UI Hint")]
     public HintUI hintUI;
-    
+
     [Header("Cake Decoration")]
     public GameObject cakeCream;
     public GameObject cakeFinal;
@@ -114,19 +114,19 @@ public class QTEManager : MonoBehaviour
                 if (holdPoint != null)
                 {
                     float playerToCakeDistance = Vector3.Distance(holdPoint.position, cake.transform.position);
-                    
+
                     if (playerToCakeDistance > decorationDistanceThreshold)
                     {
                         Debug.LogWarning($"[QTEManager] Too far from cake to decorate! Distance: {playerToCakeDistance:F2}m (need < {decorationDistanceThreshold}m)");
-                        
+
                         if (hintUI != null)
                         {
                             hintUI.ShowHint("Get closer to the cake to decorate!");
                         }
-                        
+
                         return;
                     }
-                    
+
                     Debug.Log($"[QTEManager] ✅ Player close enough to cake: {playerToCakeDistance:F2}m");
                 }
             }
@@ -317,16 +317,16 @@ public class QTEManager : MonoBehaviour
 
                     string itemName = rawName.Trim();
 
-                    if (checklist != null)
-                    {
-                        checklist.MarkDone(itemName);
-                        Debug.Log($"[QTE] ✅ Checklist ticked for ingredient: '{itemName}'");
-                        StartCoroutine(ShowChecklistBriefly(1.5f));
-                    }
-                    else
-                    {
-                        Debug.LogWarning("[QTE] ⚠ Checklist reference not set in Inspector.");
-                    }
+                    // if (checklist != null)
+                    // {
+                    checklist.MarkDone(itemName);
+                    Debug.Log($"[QTE] ✅ Checklist ticked for ingredient: '{itemName}'");
+                    StartCoroutine(ShowChecklistBriefly(1.5f));
+                    // }
+                    // else
+                    // {
+                    //     Debug.LogWarning("[QTE] ⚠ Checklist reference not set in Inspector.");
+                    // }
                 }
                 else
                 {
@@ -345,12 +345,15 @@ public class QTEManager : MonoBehaviour
         {
             Debug.Log($"[QTEManager] Processing decoration - currentItemTag: {currentItemTag}");
             Debug.Log($"[QTEManager] hasCream: {hasCream}, hasFinal: {hasFinal}");
-            
+
             if (currentItemTag == "Cream" && !hasCream)
             {
                 hasCream = true;
                 UpdateCakeVisual("cream");
+                checklist.MarkDone("bowl_cream");
                 Debug.Log("[QTEManager] ✅ Cream added to cake!");
+                StartCoroutine(ShowChecklistBriefly(1.5f));
+
             }
             else if (currentItemTag == "Strawberry" && hasCream && !hasFinal)
             {
@@ -359,7 +362,9 @@ public class QTEManager : MonoBehaviour
                 isGameEnding = true; // Set flag to prevent EndQTE
                 qteHandled = true; // Mark as handled before returning
                 UpdateCakeVisual("final");
+                checklist.MarkDone("Strawberry");
                 Debug.Log("[QTEManager] ✅ Strawberry added! Cake is complete!");
+                StartCoroutine(ShowChecklistBriefly(1.5f));
                 return; // Return early to skip normal EndQTE process
             }
             else if (currentItemTag == "Strawberry")
@@ -379,9 +384,9 @@ public class QTEManager : MonoBehaviour
     private void UpdateCakeVisual(string stage)
     {
         Debug.Log($"[QTEManager] UpdateCakeVisual called with stage: {stage}");
-        
+
         GameObject currentCake = GameObject.FindGameObjectWithTag("Cake");
-        
+
         if (currentCake == null)
         {
             Debug.LogWarning("[QTEManager] Cannot find cake!");
@@ -398,7 +403,7 @@ public class QTEManager : MonoBehaviour
             cakeCream.SetActive(true);
             cakeCream.transform.position = cakePos;
             cakeCream.transform.rotation = cakeRot;
-            
+
             Debug.Log("[QTEManager] Cake visual updated to cream stage");
         }
         else if (stage == "final")
@@ -408,17 +413,17 @@ public class QTEManager : MonoBehaviour
                 Debug.LogError("[QTEManager] ❌ cakeFinal is NULL! Cannot update to final stage!");
                 return;
             }
-            
+
             Debug.Log("[QTEManager] Destroying current cake and activating cakeFinal...");
             Destroy(currentCake);
 
             cakeFinal.SetActive(true);
             cakeFinal.transform.position = cakePos;
             cakeFinal.transform.rotation = cakeRot;
-            
+
             Debug.Log("[QTEManager] Cake visual updated to final stage");
             Debug.Log("[QTEManager] 🚀 Starting TriggerGameEnding coroutine...");
-            
+
             // Trigger game ending after final cake model is activated
             StartCoroutine(TriggerGameEnding(2f));
         }
@@ -465,14 +470,14 @@ public class QTEManager : MonoBehaviour
     private IEnumerator TriggerGameEnding(float delay)
     {
         Debug.Log("[QTEManager] 🎮 TriggerGameEnding started!");
-        
+
         yield return new WaitForSeconds(delay);
 
         Debug.Log("[QTEManager] 📷 Cleaning up QTE UI...");
-        
+
         // Stop and clean up QTE first
         qteRunning = false;
-        
+
         if (qteController != null)
             qteController.StopQTE();
 
@@ -493,13 +498,13 @@ public class QTEManager : MonoBehaviour
         }
 
         Debug.Log("[QTEManager] 📷 Switching camera back...");
-        
+
         // Switch back to third person camera
         if (fpCamera != null)
         {
             fpCamera.SetActive(false);
         }
-        
+
         if (tpCamera != null)
         {
             tpCamera.SetActive(true);
@@ -507,23 +512,23 @@ public class QTEManager : MonoBehaviour
 
         // IMMEDIATELY freeze the game (don't wait)
         Debug.Log("[QTEManager] ⏸️ Freezing game NOW...");
-        
+
         Time.timeScale = 0f;
 
         // Disable all player controls
         SetPlayerControls(false);
 
         Debug.Log("[QTEManager] 🎯 Getting ending type...");
-        
+
         // Determine ending type based on score
         string endingType = ScoreSystem.Instance.GetEndingType();
-        
+
         Debug.Log($"[QTEManager] 🎯 Ending type: {endingType}, Score: {ScoreSystem.Instance.score}");
-        
+
         if (hintUI != null)
         {
             Debug.Log("[QTEManager] 💬 Showing hint...");
-            
+
             if (endingType == "BE")
             {
                 hintUI.ShowHint("Sorry Felyne, you failed...");
