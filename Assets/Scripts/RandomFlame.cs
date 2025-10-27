@@ -6,7 +6,7 @@ using UnityEngine;
 public class RandomFlame : MonoBehaviour
 {
     [Header("Timing & Chance")]
-    [SerializeField] float popChance = 0.25f;
+    [SerializeField] float popChance = 0.139f;
     [SerializeField] float checkInterval = 3.0f;
     [SerializeField] float activeDuration = 3.0f;
 
@@ -338,9 +338,9 @@ public class RandomFlame : MonoBehaviour
     public float maxVolume = 1f;
     public float fadeSpeed = 2f;
 
-    private static float globalVolumeTarget = 0f; 
-    private static int activeFlameCount = 0;      
-    private static RandomFlame[] allFlames;      
+    private static float globalVolumeTarget = 0f;
+    private static int activeFlameCount = 0;
+    private static RandomFlame[] allFlames;
 
     private void LateUpdate()
     {
@@ -359,7 +359,7 @@ public class RandomFlame : MonoBehaviour
 
             flameAudioSource.playOnAwake = false;
             flameAudioSource.loop = true;
-            flameAudioSource.spatialBlend = 0f; 
+            flameAudioSource.spatialBlend = 0f;
             flameAudioSource.clip = flameSound;
             flameAudioSource.volume = 0f;
         }
@@ -380,7 +380,7 @@ public class RandomFlame : MonoBehaviour
         }
 
         if (playerNearby && activeFlameCount > 0)
-            globalVolumeTarget = Mathf.Clamp01(activeFlameCount / 5f) * maxVolume; 
+            globalVolumeTarget = Mathf.Clamp01(activeFlameCount / 5f) * maxVolume;
         else
             globalVolumeTarget = 0f;
 
