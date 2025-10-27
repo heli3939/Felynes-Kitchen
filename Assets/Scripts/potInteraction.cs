@@ -66,9 +66,17 @@ public class PotPickDrop : MonoBehaviour
                     return;
                 }
 
-                if (potLiquid.CompareTag("Cake") && !isHeld)
+                if (potLiquid.CompareTag("Cake") && !isHeld && ovenDoor.IsOpen())
                 {
                     PickUpCake();
+                }
+                else if (potLiquid.CompareTag("Cake") && !isHeld && !ovenDoor.IsOpen())
+                {
+                    if (hintUI != null)
+                    {
+                        hintUI.ShowHint("Open the door first to take out the cake.");
+                    }
+                    return;
                 }
             }
             else if (isHeld && potLockedInOven)
