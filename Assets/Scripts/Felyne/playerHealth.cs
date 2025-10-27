@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using TMPro;
+using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -10,7 +11,6 @@ public class PlayerHealth : MonoBehaviour
 
     private bool isDead = false;
     private bool isFalling = false;
-    public TextMeshProUGUI healthText;
 
     [Header("Fall Settings")]
     public float fallDuration = 1f;
@@ -23,6 +23,11 @@ public class PlayerHealth : MonoBehaviour
 
     private float lastDamageTime = -999f;
     public float damageCooldown = 1f;
+
+    [Header("Heart UI")]
+    public Image[] heartImages;        
+    public Sprite fullHeartSprite;
+    public Sprite emptyHeartSprite;
 
     [Header("Damage Flash")]
     [Tooltip("Renderer whose material will flash red on hit.")]
@@ -253,9 +258,17 @@ public class PlayerHealth : MonoBehaviour
 
     private void UpdateHealthUI()
     {
-        if (healthText != null)
+        if (heartImages == null || heartImages.Length == 0)
+            return;
+
+        int heartsToShow = Mathf.CeilToInt((float)currentHealth / (maxHealth / heartImages.Length));
+
+        for (int i = 0; i < heartImages.Length; i++)
         {
-            healthText.text = $"Player Health: {currentHealth}/{maxHealth}";
+            if (i < heartsToShow)
+                heartImages[i].sprite = fullHeartSprite;
+            else
+                heartImages[i].sprite = emptyHeartSprite;
         }
     }
 
