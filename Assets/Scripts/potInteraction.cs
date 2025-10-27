@@ -259,7 +259,7 @@ public class PotPickDrop : MonoBehaviour
     {
         isHeld = false;
 
-        var cakeCollisionDetector = cake.GetComponent<ItemCollisionDetector>();
+        var cakeCollisionDetector = cake.GetComponent<PickDrop_Ingredients.ItemCollisionDetector>();
         if (cakeCollisionDetector != null)
         {
             Destroy(cakeCollisionDetector);
@@ -407,7 +407,7 @@ public class PotCollisionDetector : MonoBehaviour
                 Vector3 directionToCollision = (closestPoint - transform.position).normalized;
                 float upwardDot = Vector3.Dot(directionToCollision, Vector3.up);
                 
-                if (upwardDot > 0.9f)
+                if (upwardDot > 0.55f)
                 {
                     Debug.Log($"Pot hit from above by: {other.gameObject.name}");
                     potScript.DropBackward();

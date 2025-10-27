@@ -5,7 +5,7 @@ public class PickDrop_Ingredients : MonoBehaviour
     public Transform holdPoint;
     private GameObject heldItem;
     private GameObject nearbyItem;
-    
+
     public GameObject GetHeldItem()
     {
         return heldItem;
@@ -27,9 +27,9 @@ public class PickDrop_Ingredients : MonoBehaviour
         {
             CheckItemCollision();
         }
-        
+
         UpdateNearbyItem();
-        
+
         if (Input.GetKeyDown(KeyCode.E))
         {
             if (heldItem == null && nearbyItem != null)
@@ -53,8 +53,8 @@ public class PickDrop_Ingredients : MonoBehaviour
 
         foreach (RaycastHit hit in hits)
         {
-            if (hit.collider.gameObject == gameObject || 
-                hit.collider.CompareTag("Item") || 
+            if (hit.collider.gameObject == gameObject ||
+                hit.collider.CompareTag("Item") ||
                 hit.collider.CompareTag("incorrect") ||
                 hit.collider.CompareTag("Strawberry") ||
                 hit.collider.CompareTag("Cream"))
@@ -143,17 +143,20 @@ public class PickDrop_Ingredients : MonoBehaviour
             col.isTrigger = false;
         }
 
-        Vector3 forwardOffset = transform.forward * 0.4f;
-        Vector3 dropStart = transform.position + Vector3.up * 1.0f + forwardOffset;
+        // Vector3 forwardOffset = transform.forward * 0.4f;
+        Vector3 dropStart = holdPoint.transform.position;
         Vector3 finalDropPosition = dropStart;
 
         if (Physics.Raycast(dropStart, Vector3.down, out RaycastHit hit, 5f))
-            finalDropPosition = hit.point + Vector3.up * 0.1f;
+            finalDropPosition = hit.point;
 
         heldItem.transform.position = finalDropPosition;
 
         if (rb != null)
-            rb.AddForce(transform.forward * 1.0f, ForceMode.Impulse);
+        {
+            rb.linearVelocity = Vector3.zero;
+            rb.useGravity = true;
+        }
 
         Debug.Log("Dropped: " + heldItem.name);
 
@@ -169,10 +172,10 @@ public class PickDrop_Ingredients : MonoBehaviour
 
         foreach (Collider col in colliders)
         {
-            if ((col.CompareTag("Item") || 
-                col.CompareTag("incorrect") || 
-                col.CompareTag("Strawberry") || 
-                col.CompareTag("Cream")) && 
+            if ((col.CompareTag("Item") ||
+                col.CompareTag("incorrect") ||
+                col.CompareTag("Strawberry") ||
+                col.CompareTag("Cream")) &&
                 col.gameObject != heldItem)
             {
                 if (!IsItemAccessible(col.transform.position))
@@ -188,19 +191,19 @@ public class PickDrop_Ingredients : MonoBehaviour
             }
         }
 
-        if (nearbyItem != null)
-        {
-            Rigidbody rb = nearbyItem.GetComponent<Rigidbody>();
-            if (rb != null) rb.isKinematic = true;
-        }
+        // if (nearbyItem != null)
+        // {
+        //     Rigidbody rb = nearbyItem.GetComponent<Rigidbody>();
+        //     if (rb != null) rb.isKinematic = true;
+        // }
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if ((other.CompareTag("Item") || 
-            other.CompareTag("incorrect") || 
-            other.CompareTag("Strawberry") || 
-            other.CompareTag("Cream")) && 
+        if ((other.CompareTag("Item") ||
+            other.CompareTag("incorrect") ||
+            other.CompareTag("Strawberry") ||
+            other.CompareTag("Cream")) &&
             other.gameObject != heldItem)
         {
             UpdateNearbyItem();
@@ -209,10 +212,10 @@ public class PickDrop_Ingredients : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-        if ((other.CompareTag("Item") || 
-            other.CompareTag("incorrect") || 
-            other.CompareTag("Strawberry") || 
-            other.CompareTag("Cream")) && 
+        if ((other.CompareTag("Item") ||
+            other.CompareTag("incorrect") ||
+            other.CompareTag("Strawberry") ||
+            other.CompareTag("Cream")) &&
             other.gameObject != heldItem)
         {
             UpdateNearbyItem();
@@ -221,9 +224,9 @@ public class PickDrop_Ingredients : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if ((other.CompareTag("Item") || 
-            other.CompareTag("incorrect") || 
-            other.CompareTag("Strawberry") || 
+        if ((other.CompareTag("Item") ||
+            other.CompareTag("incorrect") ||
+            other.CompareTag("Strawberry") ||
             other.CompareTag("Cream")))
         {
             UpdateNearbyItem();
@@ -269,99 +272,100 @@ public class PickDrop_Ingredients : MonoBehaviour
                 continue;
             }
 
-            Debug.Log($"Item collided with: {col.gameObject.name}, dropping backward");
-            DropItemBackward();
+            Debug.Log($"Item collided with: {col.gameObject.name}");
+            // DropItemBackward();
             return;
         }
     }
 
-    public void DropItemBackward()
+    //     public void DropItemBackward()
+    //     {
+    //         if (heldItem == null) return;
+
+    //         ItemCollisionDetector detector = heldItem.GetComponent<ItemCollisionDetector>();
+    //         if (detector != null)
+    //         {
+    //             Destroy(detector);
+    //         }
+
+    //         heldItem.transform.SetParent(null);
+    //         Rigidbody rb = heldItem.GetComponent<Rigidbody>();
+    //         Collider col = heldItem.GetComponent<Collider>();
+
+    //         if (rb != null)
+    //         {
+    //             rb.isKinematic = false;
+    //             rb.useGravity = true;
+    //             rb.linearVelocity = Vector3.zero;
+    //             rb.angularVelocity = Vector3.zero;
+    //         }
+
+    //         if (col != null)
+    //         {
+    //             col.isTrigger = false;
+    //         }
+
+    //         Vector3 backwardOffset = -transform.forward * 0.5f;
+    //         Vector3 dropStart = transform.position + Vector3.up * 0.8f + backwardOffset;
+    //         Vector3 finalDropPosition = dropStart;
+
+    //         if (Physics.Raycast(dropStart, Vector3.down, out RaycastHit hit, 5f))
+    //         {
+    //             finalDropPosition = hit.point + Vector3.up * 0.1f;
+    //         }
+
+    //         heldItem.transform.position = finalDropPosition;
+
+    //         if (rb != null)
+    //         {
+    //             rb.AddForce(-transform.forward * 0.5f, ForceMode.Impulse);
+    //         }
+
+    //         Debug.Log("Dropped backward: " + heldItem.name);
+
+    //         heldItem = null;
+    //     }
+    // }
+
+    public class ItemCollisionDetector : MonoBehaviour
     {
-        if (heldItem == null) return;
+        public PickDrop_Ingredients pickDropScript;
+        private float collisionCooldown = 0.8f;
+        private float lastPickupTime;
 
-        ItemCollisionDetector detector = heldItem.GetComponent<ItemCollisionDetector>();
-        if (detector != null)
+        void Start()
         {
-            Destroy(detector);
+            lastPickupTime = Time.time;
         }
 
-        heldItem.transform.SetParent(null);
-        Rigidbody rb = heldItem.GetComponent<Rigidbody>();
-        Collider col = heldItem.GetComponent<Collider>();
-
-        if (rb != null)
+        void OnTriggerStay(Collider other)
         {
-            rb.isKinematic = false;
-            rb.useGravity = true;
-            rb.linearVelocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
-        }
-
-        if (col != null)
-        {
-            col.isTrigger = false;
-        }
-
-        Vector3 backwardOffset = -transform.forward * 0.5f;
-        Vector3 dropStart = transform.position + Vector3.up * 0.8f + backwardOffset;
-        Vector3 finalDropPosition = dropStart;
-
-        if (Physics.Raycast(dropStart, Vector3.down, out RaycastHit hit, 5f))
-        {
-            finalDropPosition = hit.point + Vector3.up * 0.1f;
-        }
-
-        heldItem.transform.position = finalDropPosition;
-
-        if (rb != null)
-        {
-            rb.AddForce(-transform.forward * 0.5f, ForceMode.Impulse);
-        }
-
-        Debug.Log("Dropped backward: " + heldItem.name);
-
-        heldItem = null;
-    }
-}
-
-public class ItemCollisionDetector : MonoBehaviour
-{
-    public PickDrop_Ingredients pickDropScript;
-    private float collisionCooldown = 0.8f;
-    private float lastPickupTime;
-
-    void Start()
-    {
-        lastPickupTime = Time.time;
-    }
-
-    void OnTriggerStay(Collider other)
-    {
-        if (Time.time - lastPickupTime < collisionCooldown)
-        {
-            return;
-        }
-
-        if (!other.CompareTag("Player") && 
-            !other.CompareTag("Item") &&
-            !other.CompareTag("incorrect") &&
-            !other.CompareTag("Strawberry") &&
-            !other.CompareTag("Cream") &&
-            !other.CompareTag("airwalls") &&
-            pickDropScript != null)
-        {
-            Vector3 itemTop = transform.position + Vector3.up * GetComponent<Collider>().bounds.extents.y;
-            Vector3 closestPoint = other.ClosestPoint(itemTop);
-            
-            if (closestPoint.y > transform.position.y)
+            if (Time.time - lastPickupTime < collisionCooldown)
             {
-                Vector3 directionToCollision = (closestPoint - transform.position).normalized;
-                float upwardDot = Vector3.Dot(directionToCollision, Vector3.up);
-                
-                if (upwardDot > 0.9f)
+                return;
+            }
+
+            if (!other.CompareTag("Player") &&
+                !other.CompareTag("Item") &&
+                !other.CompareTag("incorrect") &&
+                !other.CompareTag("Strawberry") &&
+                !other.CompareTag("Cream") &&
+                !other.CompareTag("airwalls") &&
+                pickDropScript != null)
+            {
+                Vector3 itemTop = transform.position + Vector3.up * GetComponent<Collider>().bounds.extents.y;
+                Vector3 closestPoint = other.ClosestPoint(itemTop);
+
+                if (closestPoint.y > transform.position.y)
                 {
-                    Debug.Log($"Item hit from above by: {other.gameObject.name}");
-                    pickDropScript.DropItemBackward();
+                    Vector3 directionToCollision = (closestPoint - transform.position).normalized;
+                    float upwardDot = Vector3.Dot(directionToCollision, Vector3.up);
+
+                    if (upwardDot > 0.9f)
+                    {
+                        Debug.Log($"Item hit from above by: {other.gameObject.name}");
+                        // pickDropScript.DropItemBackward();
+                    }
                 }
             }
         }
