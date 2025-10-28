@@ -8,7 +8,7 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
     public float acceleration = 5f;
     public float deceleration = 10f;
     public float rotateSpeed = 10f;
-    public float jumpHeight = 1f;
+    public float jumpHeight = 0.39f;
 
     [Header("Depth Limits (Z axis)")]
     public float zMin = -3f;
@@ -20,9 +20,10 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
     [Header("Footstep Sound")]
     public AudioSource footstepSource;
     public AudioClip[] footstepClips;
-    public float stepInterval = 0.5f; 
+    public float stepInterval = 0.5f;
     private float stepTimer = 0f;
 
+    [Header("Ground Check")]
     public LayerMask groundMask = ~0;
     float supportRayDepth = 0.18f;
     int supportSamplesX = 3;
@@ -32,8 +33,15 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
     float maxSupportHeightDelta = 0.08f;
     float maxGroundSlope = 55f;
 
+    [Header("Better Jump Feel")]
     float fallGravityMultiplier = 2f;
-    float lowJumpGravityMultiplier = 4.0f;
+
+    [Header("Jump & Land Sound")]
+    public AudioClip jumpClip;
+
+    // NOTE: we are REMOVING lowJumpGravityMultiplier logic because we always
+    // want fixed jump height no matter how long Space is held.
+    // float lowJumpGravityMultiplier = 4.0f;
 
     Rigidbody rb;
     Vector3 input;
@@ -41,6 +49,9 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
     Vector3 lastLookDir;
 
     private Animator animator;
+
+    public int maxJumps = 1;     // 1 = normal jump only, 2 = double jump
+    private int jumpCount = 0;   // how many jumps we've done since last grounded
 
     void Awake()
     {
@@ -69,34 +80,33 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
         // Update grounded state before handle jump
         RefreshGrounded();
 
+        // if we JUST landed, reset jumpCount
+        if (onGround && jumpCount != 0)
+        {
+            jumpCount = 0;
+        }
+
         if (animator != null)
         {
             animator.SetBool("isRun", input.sqrMagnitude > 0.01f);
         }
 
-        // Jump (Space)
-        if (Input.GetKeyDown(KeyCode.Space) && onGround)
+        // --- JUMP INPUT ---
+        // Press Space = attempt jump, regardless of held time. Always same height.
+        // We allow jumping if jumpCount < maxJumps.
+        if (Input.GetKeyDown(KeyCode.Space) && jumpCount < maxJumps)
         {
-            float g = Mathf.Abs(Physics.gravity.y);
-            Vector3 v = rb.linearVelocity;
-            v.y = Mathf.Sqrt(2f * g * jumpHeight);
-            rb.linearVelocity = v;
-
-            onGround = false;
-
-            if (animator != null)
-            {
-                animator.SetBool("isJump", true);
-            }
+            DoJump();
         }
 
-        if (onGround && animator != null)
+        // sync jump anim flag
+        if (animator != null)
         {
-            animator.SetBool("isJump", false);
+            animator.SetBool("isJump", !onGround);
         }
 
-        // Logic of footstep sound
-        if (onGround && input.sqrMagnitude > 0.01f && animator.GetBool("isRun"))
+        // Footstep sound logic
+        if (onGround && input.sqrMagnitude > 0.01f && animator != null && animator.GetBool("isRun"))
         {
             stepTimer -= Time.deltaTime;
             if (stepTimer <= 0f)
@@ -108,6 +118,32 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
         else
         {
             stepTimer = 0f;
+        }
+    }
+
+    // Actually perform the jump
+    void DoJump()
+    {
+        if (footstepSource && jumpClip)
+            footstepSource.PlayOneShot(jumpClip, 0.139f);
+        float g = Mathf.Abs(Physics.gravity.y);
+
+        // set vertical velocity to the exact jump speed needed for chosen jumpHeight
+        Vector3 v = rb.linearVelocity;
+        v.y = Mathf.Sqrt(2f * g * jumpHeight);
+        rb.linearVelocity = v;
+
+        // we're now airborne
+        onGround = false;
+
+        // count this jump
+        jumpCount++;
+
+        if (animator != null)
+        {
+            animator.SetBool("isJump", true);
+            // OPTIONAL: trigger a separate double-jump anim on 2nd jump:
+            // if (jumpCount == 2) animator.SetTrigger("DoubleJump");
         }
     }
 
@@ -154,10 +190,16 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
         // Better gravity feel
         if (!onGround)
         {
+            // falling faster feels nicer
             if (rb.linearVelocity.y < 0f)
+            {
                 rb.AddForce(Physics.gravity * (fallGravityMultiplier - 1f), ForceMode.Acceleration);
-            else if (rb.linearVelocity.y > 0f && !Input.GetKey(KeyCode.Space))
-                rb.AddForce(Physics.gravity * (lowJumpGravityMultiplier - 1f), ForceMode.Acceleration);
+            }
+
+            // IMPORTANT:
+            // we REMOVED the "low jump" gravity boost when Space is released.
+            // That was causing short hops. Now every jump uses same velocity and
+            // same gravity curve, so jump height is consistent.
         }
     }
 
@@ -173,7 +215,6 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
         Bounds b = Capsule.bounds;
 
         Vector3 rayPlaneCenter = b.center + Vector3.up * 0.05f;
-
         float rayLen = b.extents.y + supportRayDepth + 0.1f;
 
         int hits = 0;
@@ -189,7 +230,6 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
                 float tx = (supportSamplesX == 0) ? 0f : (float)ix / (float)supportSamplesX;
                 float tz = (supportSamplesZ == 0) ? 0f : (float)iz / (float)supportSamplesZ;
 
-                // spread across capsule footprint
                 Vector3 offset = new Vector3(tx * b.extents.x * 0.95f, 0f, tz * b.extents.z * 0.95f);
                 Vector3 origin = rayPlaneCenter + offset;
 
@@ -210,7 +250,10 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
         float supportFrac = (total > 0) ? (float)hits / (float)total : 0f;
         bool heightOk = (maxHitY - minHitY) <= maxSupportHeightDelta;
 
-        bool gridGrounded = (supportFrac >= minSupportFraction) && heightOk && (!requireCenterSupport || centerSupported);
+        bool gridGrounded =
+            (supportFrac >= minSupportFraction) &&
+            heightOk &&
+            (!requireCenterSupport || centerSupported);
 
         Vector3 feetStart = b.center + Vector3.up * 0.1f;
         float feetRadius = Mathf.Max(0.05f, Mathf.Min(b.extents.x, b.extents.z) * 0.45f);
@@ -222,7 +265,7 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
             float slope = Vector3.Angle(footHit.normal, Vector3.up);
             if (slope <= maxGroundSlope) feetGrounded = true;
         }
+
         onGround = gridGrounded || feetGrounded;
     }
-
 }
