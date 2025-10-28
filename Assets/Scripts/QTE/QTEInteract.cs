@@ -43,7 +43,7 @@ public class QTEInteract : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         bool ovenCompleted = (ovenQTEManager != null && ovenQTEManager.HasCompletedOvenQTE());
-        
+
         if (ovenCompleted)
         {
             if (other.CompareTag("Cake"))
@@ -60,6 +60,11 @@ public class QTEInteract : MonoBehaviour
                 Debug.Log("✅ In range (CookingPot detected - ingredient mode)");
             }
         }
+    }
+    
+    public bool inRange()
+    {
+        return isInRange;
     }
 
     private void OnTriggerExit(Collider other)

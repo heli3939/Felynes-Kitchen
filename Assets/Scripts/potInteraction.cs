@@ -70,7 +70,7 @@ public class PotPickDrop : MonoBehaviour
                 {
                     PickUpCake();
                 }
-                else if (potLiquid.CompareTag("Cake") && !isHeld && !ovenDoor.IsOpen())
+                else if (potLiquid.CompareTag("Cake") && !isHeld && !ovenDoor.IsOpen() && ovenQTEManager.HasCompletedOvenQTE())
                 {
                     if (hintUI != null)
                     {
@@ -415,7 +415,7 @@ public class PotCollisionDetector : MonoBehaviour
                 Vector3 directionToCollision = (closestPoint - transform.position).normalized;
                 float upwardDot = Vector3.Dot(directionToCollision, Vector3.up);
                 
-                if (upwardDot > 0.55f)
+                if (upwardDot > 0.6f)
                 {
                     Debug.Log($"Pot hit from above by: {other.gameObject.name}");
                     potScript.DropBackward();

@@ -90,8 +90,6 @@ public class CameraSwitcher : MonoBehaviour
             }
 
             Debug.LogWarning("[CameraSwitcher] Cannot switch — not holding item.");
-            if (hintUI != null)
-                hintUI.ShowHint("You need to pick up an ingredient first!");
             return;
         }
 
