@@ -11,11 +11,22 @@ public class DialogueManager : MonoBehaviour
 
     [Header("Behaviour")]
     public bool playOnStart = true;
+
+    [Header("Tutorial After Dialogue")]
+    public IntroTutorialManager introTutorialManager;  
+
     [Tooltip("Block input via InputBlocker.Lock(true/false). If your project doesn't use InputBlocker, untick this.")]
     public bool useInputBlocker = true;
+    public TutorialManager tutorialManager;   
 
     void Start()
     {
+
+        if (introTutorialManager != null && introTutorialManager.gameObject.activeSelf)
+        {
+            introTutorialManager.gameObject.SetActive(false);
+        }
+
         if (PlayerPrefs.GetInt("SkipOpeningDialogue", 0) == 1)
         {
             Debug.Log("[DialogueManager] SkipOpeningDialogue detected — starting game immediately.");
@@ -156,7 +167,7 @@ public class DialogueManager : MonoBehaviour
             return; 
         }
 
-        StartCoroutine(PlayCatShrinkAnimation());
+        StartCoroutine(PlayCatShrinkAndOpenIntroTutorial());
     }
 
     private IEnumerator PlayCatShrinkAnimation()
@@ -186,6 +197,38 @@ public class DialogueManager : MonoBehaviour
         catTransform.localScale = endScale;
 
         Debug.Log("[DialogueManager] Cat shrink animation completed.");
+    }
+
+    private IEnumerator PlayCatShrinkAndOpenIntroTutorial()
+    {
+        Transform catTransform = cat.transform;
+        Vector3 startScale = new Vector3(2f, 2f, 2f);
+        Vector3 endScale = new Vector3(0.4f, 0.4f, 0.4f);
+        float duration = 1.0f;
+        float elapsed = 0f;
+
+        catTransform.localScale = startScale;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            float t = Mathf.SmoothStep(0f, 1f, elapsed / duration);
+            catTransform.localScale = Vector3.Lerp(startScale, endScale, t);
+            yield return null;
+        }
+        catTransform.localScale = endScale;
+
+        yield return new WaitForSecondsRealtime(0.1f);
+
+        if (introTutorialManager != null)
+        {
+            introTutorialManager.gameObject.SetActive(true);   
+            introTutorialManager.OpenTutorial();               
+        }
+        else
+        {
+            Debug.LogWarning("[DialogueManager] introTutorialManager not assigned!");
+        }
     }
 
     // Call this if you need to trigger the opening dialogue manually instead of playOnStart.
