@@ -13,11 +13,11 @@ public class DialogueManager : MonoBehaviour
     public bool playOnStart = true;
 
     [Header("Tutorial After Dialogue")]
-    public IntroTutorialManager introTutorialManager;  
+    public IntroTutorialManager introTutorialManager;
 
     [Tooltip("Block input via InputBlocker.Lock(true/false). If your project doesn't use InputBlocker, untick this.")]
     public bool useInputBlocker = true;
-    public TutorialManager tutorialManager;   
+    public TutorialManager tutorialManager;
 
     void Start()
     {
@@ -30,8 +30,8 @@ public class DialogueManager : MonoBehaviour
         if (PlayerPrefs.GetInt("SkipOpeningDialogue", 0) == 1)
         {
             Debug.Log("[DialogueManager] SkipOpeningDialogue detected — starting game immediately.");
-            PlayerPrefs.DeleteKey("SkipOpeningDialogue"); 
-            FinalizeStart(); 
+            PlayerPrefs.DeleteKey("SkipOpeningDialogue");
+            FinalizeStart();
             return;
         }
 
@@ -138,19 +138,19 @@ public class DialogueManager : MonoBehaviour
             Debug.Log("[DialogueManager] pauseMenu not assigned (optional) — skipped OnGameStarted().");
         }
 
-        // Enable checklist interactions after game start (optional)
-        if (checklist != null)
-        {
-            try { checklist.SetGameStarted(true); }
-            catch (System.Exception e)
-            {
-                Debug.LogWarning($"[DialogueManager] checklist.SetGameStarted(true) threw: {e.Message}");
-            }
-        }
-        else
-        {
-            Debug.Log("[DialogueManager] checklist not assigned (optional) — skipped SetGameStarted(true).");
-        }
+        // // Enable checklist interactions after game start (optional)
+        // if (checklist != null)
+        // {
+        //     try { checklist.SetGameStarted(true); }
+        //     catch (System.Exception e)
+        //     {
+        //         Debug.LogWarning($"[DialogueManager] checklist.SetGameStarted(true) threw: {e.Message}");
+        //     }
+        // }
+        // else
+        // {
+        //     Debug.Log("[DialogueManager] checklist not assigned (optional) — skipped SetGameStarted(true).");
+        // }
 
         if (testDialogue != null && testDialogue.dialoguePanel != null)
             testDialogue.dialoguePanel.SetActive(false);
@@ -164,7 +164,7 @@ public class DialogueManager : MonoBehaviour
             if (cat != null)
                 cat.transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
 
-            return; 
+            return;
         }
 
         StartCoroutine(PlayCatShrinkAndOpenIntroTutorial());
@@ -222,8 +222,8 @@ public class DialogueManager : MonoBehaviour
 
         if (introTutorialManager != null)
         {
-            introTutorialManager.gameObject.SetActive(true);   
-            introTutorialManager.OpenTutorial();               
+            introTutorialManager.gameObject.SetActive(true);
+            introTutorialManager.OpenTutorial();
         }
         else
         {

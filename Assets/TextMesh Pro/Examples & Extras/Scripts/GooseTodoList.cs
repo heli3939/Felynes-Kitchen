@@ -1,163 +1,101 @@
 ﻿using UnityEngine;
-using UnityEngine.UI; // for Selectable/Button
 
 public class Checklist : MonoBehaviour
 {
-    [Header("Target to show/hide")]
-    public GameObject checklist;
-    [Tooltip("Applied once at init only.")]
-    public bool startVisible = false;
+    [Header("Hook these up in Inspector. Each is the row that should tick.")]
+    public ChecklistItem flourItem;
+    public ChecklistItem sugarItem;
+    public ChecklistItem milkItem;
+    public ChecklistItem eggItem;
+    public ChecklistItem butterItem;
 
-    [Header("Game flow")]
-    [Tooltip("Require gameStarted before first open.")]
-    public bool gameStarted = false;
-    [Tooltip("When checklist is visible, pause the game (Time.timeScale=0).")]
-    public bool pauseGameWhileOpen = true;
+    [Header("Decoration rows")]
+    public ChecklistItem creamItem;
+    public ChecklistItem strawberryItem;
 
-    [Header("Pause integration (optional)")]
-    public MonoBehaviour pauseManager;      // if you have your own PauseManager with bool IsPaused {get;}
-    public string pausePropertyName = "IsPaused";
-
-    [Header("UI behaviour")]
-    [Tooltip("Bring checklist above siblings when showing.")]
-    public bool bringToFrontOnShow = true;
-    [Tooltip("Disable (grey) the pause button while checklist is open (do NOT hide).")]
-    public Selectable pauseButton;          // drag your PauseButton here (Button/Selectable)
-
-    bool _initialized;
-
-    [Header("Checklist items parent")]
-    public Transform listRoot; // assign ChecklistPanel or a subfolder with ticks
-
-    public void MarkDone(string itemName)
+    // called by QTEManager after QTE finishes an ingredient
+    public void MarkDone(string keyFromQTE)
     {
-        if (listRoot == null)
+        ChecklistItem target = ResolveTarget(keyFromQTE);
+
+        if (target != null)
         {
-            Debug.LogWarning("[Checklist] listRoot not set!");
-            return;
+            target.SetDone();
+            Debug.Log($"[Checklist] ✓ Marked {keyFromQTE}");
+        }
+        else
+        {
+            Debug.LogWarning($"[Checklist] ❌ Couldn't map '{keyFromQTE}' to any checklist slot");
+        }
+    }
+
+    private ChecklistItem ResolveTarget(string k)
+    {
+        // normalize input
+        string key = k.Trim();
+
+        // map multiple possible names for same row
+        switch (key)
+        {
+            // Flour sometimes comes back as mesh name or prefab name.
+            // put ALL flour aliases here:
+            case "Flour":
+                return flourItem;
+
+            // Sugar
+            case "FreeSugarShaker":
+                return sugarItem;
+
+            // Milk
+            case "milk":
+                return milkItem;
+
+            // Egg
+            case "egg":
+            case "egg (1)":
+            case "egg (2)":
+            case "egg (3)":
+            case "egg (4)":
+            case "egg (5)":
+            case "egg (6)":
+            case "egg (7)":
+            case "egg (8)":
+                return eggItem;
+
+            // Butter
+            case "butter":
+                return butterItem;
+
+            // Cream (decoration)
+            case "bowl_cream":
+                return creamItem;
+
+            // Strawberry (decoration)
+            case "Strawberry (4)":
+            case "Strawberry (8)":
+            case "Strawberry (5)":
+            case "Strawberry (9)":
+            case "Strawberry (2)":
+            case "Strawberry (6)":
+            case "Strawberry (10)":
+            case "Strawberry (3)":
+            case "Strawberry (7)":
+            case "Strawberry (11)":
+                return strawberryItem;
         }
 
-        foreach (Transform t in listRoot)
-        {
-            var item = t.GetComponent<ChecklistItem>();
-            if (item != null && item.itemName == itemName)
-            {
-                Debug.Log($"[Checklist] ✔ Marked {itemName}");
-                item.SetDone();
-                return;
-            }
-        }
-
-        Debug.LogWarning($"[Checklist] ❌ No checklist item named '{itemName}' found!");
+        // didn't match anything
+        return null;
     }
 
-    void Awake() => InitOnce();
-    void OnEnable() => InitOnce(); // safe; guarded
-
-    void InitOnce()
-    {
-        if (_initialized) return;
-        _initialized = true;
-
-        if (checklist != null)
-            checklist.SetActive(startVisible);
-
-        // reflect initial state on pause button + timescale
-        ApplyPauseEffects(startVisible);
-    }
-
-    // If this is a world-space sprite with a Collider
-    void OnMouseDown()
-    {
-        // IMPORTANT: allow toggling even while paused so you can close it to resume
-        if (!gameStarted) return;
-        Toggle();
-    }
-
-    // Wire this to a UI Button OnClick if it's a UI button
+    // you already call these from QTE to flash the checklist
     public void Toggle()
     {
-        if (!gameStarted || checklist == null) return;
-
-        bool next = !checklist.activeSelf;   // open if closed, close if open
-        ApplyVisibility(next);
-    }
-
-    public void Show()
-    {
-        if (!gameStarted || checklist == null) return;
-        ApplyVisibility(true);
+        gameObject.SetActive(!gameObject.activeSelf);
     }
 
     public void Hide()
     {
-        if (checklist == null) return;
-        ApplyVisibility(false);
-    }
-
-    public void SetGameStarted(bool started) => gameStarted = started;
-
-    // ---------------- core ----------------
-    public void ApplyVisibility(bool visible)
-    {
-        if (visible) ActivateParents(checklist);
-
-        checklist.SetActive(visible);
-
-        if (visible && bringToFrontOnShow)
-            checklist.transform.SetAsLastSibling();
-
-        ApplyPauseEffects(visible);
-    }
-
-    void ApplyPauseEffects(bool checklistVisible)
-    {
-        // Grey out (but keep visible) the Pause button
-        if (pauseButton != null)
-            pauseButton.interactable = !checklistVisible;
-
-        // Pause / Resume game
-        if (pauseGameWhileOpen)
-        {
-            if (checklistVisible)
-                PauseGame();
-            else
-                ResumeGame();
-        }
-    }
-
-    void PauseGame()
-    {
-        // If you have your own pause system, you can call it here.
-        // Otherwise default to Time.timeScale = 0.
-        Time.timeScale = 0f;
-    }
-
-    void ResumeGame()
-    {
-        Time.timeScale = 1f;
-    }
-
-    // ---------------- helpers ----------------
-    bool IsPausedExternal()
-    {
-        if (pauseManager != null)
-        {
-            var t = pauseManager.GetType();
-            var prop = t.GetProperty(pausePropertyName);
-            if (prop != null && prop.PropertyType == typeof(bool))
-                return (bool)prop.GetValue(pauseManager);
-        }
-        return Time.timeScale == 0f;
-    }
-
-    void ActivateParents(GameObject go)
-    {
-        var t = go.transform.parent;
-        while (t != null)
-        {
-            if (!t.gameObject.activeSelf) t.gameObject.SetActive(true);
-            t = t.parent;
-        }
+        gameObject.SetActive(false);
     }
 }
