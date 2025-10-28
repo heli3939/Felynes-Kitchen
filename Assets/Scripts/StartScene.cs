@@ -8,17 +8,16 @@ using UnityEngine.EventSystems;
 public class StartMenuController : MonoBehaviour
 {
     [Header("CanvasGroups")]
-    public CanvasGroup startGroup;
-    public CanvasGroup cgGroup;
+    public CanvasGroup startGroup;   
+    public CanvasGroup cgGroup;      
 
     [Header("UI References")]
     public Button startButton;
     public Button skipButton;
-    public Image cgImage1;
     public TMP_Text cgText;
 
-    [TextArea] public string[] cgLines; 
-    public float fadeDuration = 0.2f;
+    [TextArea] public string[] cgLines;
+    public float fadeDuration = 0.5f;
     public float textDisplayTime = 3f;
 
     [Header("Scene Settings")]
@@ -33,8 +32,6 @@ public class StartMenuController : MonoBehaviour
 
     void Start()
     {
-        cgImage1.gameObject.SetActive(false);
-
         SetGroup(startGroup, 1, true, true);
         SetGroup(cgGroup, 0, false, false);
 
@@ -42,7 +39,11 @@ public class StartMenuController : MonoBehaviour
             cgText.text = "";
 
         startButton.onClick.RemoveAllListeners();
-        startButton.onClick.AddListener(OnStartClicked);
+        startButton.onClick.AddListener(() =>
+        {
+            PlayClickSound();
+            OnStartClicked();
+        });
         AddHoverSound(startButton);
 
         skipButton.onClick.RemoveAllListeners();
@@ -57,7 +58,6 @@ public class StartMenuController : MonoBehaviour
 
     IEnumerator TransitionToCG()
     {
-        // start → cg 
         float t = 0f;
         while (t < fadeDuration)
         {
@@ -67,40 +67,30 @@ public class StartMenuController : MonoBehaviour
             cgGroup.alpha = a;
             yield return null;
         }
+
         SetGroup(startGroup, 0, false, false);
         SetGroup(cgGroup, 1, true, true);
 
-        cgImage1.gameObject.SetActive(true);
         for (int i = 0; i < cgLines.Length; i++)
         {
             if (isSkipping) yield break;
-            yield return StartCoroutine(PlaySingleLine(cgImage1, cgLines[i]));
+            yield return StartCoroutine(PlaySingleLine(cgLines[i]));
         }
+
         SceneManager.LoadScene(mainSceneName);
     }
 
-    IEnumerator PlaySingleLine(Image img, string text)
+    IEnumerator PlaySingleLine(string text)
     {
-        cgText.text = "";
-
-        if (img.color.a < 1f)
-        {
-            float t = 0f;
-            while (t < fadeDuration)
-            {
-                if (isSkipping) yield break;
-                t += Time.deltaTime;
-                img.color = new Color(1, 1, 1, Mathf.Lerp(0, 1, t / fadeDuration));
-                yield return null;
-            }
-        }
+        if (cgText == null) yield break;
 
         cgText.text = "";
+
         foreach (char c in text)
         {
             if (isSkipping) yield break;
             cgText.text += c;
-            yield return new WaitForSeconds(0.03f); 
+            yield return new WaitForSeconds(0.03f);
         }
 
         float stay = 0f;
@@ -121,6 +111,7 @@ public class StartMenuController : MonoBehaviour
 
     void SetGroup(CanvasGroup g, float alpha, bool interact, bool block)
     {
+        if (g == null) return;
         g.alpha = alpha;
         g.interactable = interact;
         g.blocksRaycasts = block;
