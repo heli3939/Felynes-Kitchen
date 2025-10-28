@@ -398,8 +398,8 @@ MonoBehaviour:
   - "Felyne: (I tried to scream, but my head was already in the oven\u2019s heat.)"
   - "Felyne: W-why... am I in hell now? Am I burning alive? And please\u2014don\u2019t
     laugh at my cake, I tri\u2014"
-  - "Spirit: Because... I love strawberries. But I love how you taste even more.
-    Felyne\u2014last night, good night."
+  - 'Spirit: Because... I love strawberries. But I love how you taste even more. '
+  - "Spirit: Felyne\u2014last night, good night..."
   charDelay: 0.05
   lineStayTime: 2
   fadeOutDuration: 2
@@ -1174,7 +1174,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 533, y: 328}
+  m_AnchoredPosition: {x: 539, y: 328}
   m_SizeDelta: {x: 2360.309, y: 1640}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1966065199
