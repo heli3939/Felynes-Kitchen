@@ -29,9 +29,11 @@ public class PlayerHealth : MonoBehaviour
     public Sprite fullHeartSprite;
     public Sprite emptyHeartSprite;
 
+    [Header("Oven QTE Protection")]
+    public OvenQTEManager ovenQTEManager;
     [Header("Damage Flash")]
     [Tooltip("Renderer whose material will flash red on hit.")]
-    public Renderer playerRenderer; // assign in Inspector (e.g. the cat mesh)
+    public Renderer playerRenderer;
     public Color damageColor = Color.red;
     public float flashDuration = 0.15f;
     private Color originalColor;
@@ -93,6 +95,12 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(int amount, Vector3? hitDirection = null)
     {
+        if (ovenQTEManager != null && ovenQTEManager.IsQTERunning())
+        {
+            Debug.Log("[PlayerHealth] In Oven QTE - damage blocked!");
+            return;
+        }
+
         if (hitSound != null && audioSource != null)
             audioSource.PlayOneShot(hitSound);
 
@@ -115,6 +123,7 @@ public class PlayerHealth : MonoBehaviour
             Die(hitDirection ?? -transform.forward);
         }
     }
+
 
     private IEnumerator FlashRedThenRecover()
     {

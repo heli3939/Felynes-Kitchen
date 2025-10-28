@@ -213,4 +213,8 @@ public class OvenQTEManager : MonoBehaviour
         return cakeColorChanged;
     }
 
+    public bool IsQTERunning()
+    {
+        return qteRunning;
+    }
 }

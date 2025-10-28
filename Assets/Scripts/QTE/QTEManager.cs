@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using Unity.Burst.CompilerServices;
 
 public class QTEManager : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class QTEManager : MonoBehaviour
 
     [Header("Pickup Check")]
     public Transform holdPoint;
+    public QTEInteract qteInteract;
 
     [Header("Liquid Control")]
     public Animator potLiquidAnimator;
@@ -35,17 +37,20 @@ public class QTEManager : MonoBehaviour
     [Header("Cake Decoration")]
     public GameObject cakeCream;
     public GameObject cakeFinal;
+    public GameObject pot;
     public float decorationDistanceThreshold = 2.5f;  // Distance player must be from cake to decorate
     private bool hasCream = false;
     private bool hasFinal = false;
     private bool isGameEnding = false; // Flag to prevent EndQTE during game ending
 
+    private Vector3 originalPosition;
     public int CurrentFillLevel => currentFillLevel;
 
     public Checklist checklist;
 
     private void Awake()
     {
+        originalPosition = pot.transform.position;
         if (qteCanvas != null)
             qteRaycaster = qteCanvas.GetComponent<GraphicRaycaster>();
 
@@ -63,37 +68,48 @@ public class QTEManager : MonoBehaviour
 
     public void StartQTE()
     {
-        if (holdPoint == null || holdPoint.childCount == 0 ||
-            (holdPoint.childCount > 0 && (holdPoint.GetChild(0).tag == "CookingPot" || holdPoint.GetChild(0).tag == "Cake")))
-        {
-            Debug.LogWarning("[QTEManager] QTE cannot start — player is not holding any item or holding pot/cake.");
-            return;
-        }
-
         currentItemTag = holdPoint.GetChild(0).tag;
-        Debug.Log("[QTEManager] Current QTE item tag: " + currentItemTag);
-
-        bool ovenCompleted = (ovenQTEManager != null && ovenQTEManager.HasCompletedOvenQTE());
-
-        if (!ovenCompleted)
+        if (pot.transform.position == originalPosition)
         {
-            if (currentItemTag == "Cream")
+            Debug.Log("");
+            if (holdPoint == null || holdPoint.childCount == 0 ||
+            (holdPoint.childCount > 0 && (holdPoint.GetChild(0).tag == "CookingPot" || holdPoint.GetChild(0).tag == "Cake")))
             {
-                Debug.LogWarning("[QTEManager] Cream cannot be used before baking!");
-
-                if (hintUI != null)
-                {
-                    hintUI.ShowHint("Cream is for decoration after baking!");
-                }
-
+                Debug.LogWarning("[QTEManager] QTE cannot start — player is not holding any item or holding pot/cake.");
                 return;
             }
+            Debug.Log("[QTEManager] Current QTE item tag: " + currentItemTag);
 
-            if (currentItemTag == "Strawberry")
+            bool ovenCompleted = (ovenQTEManager != null && ovenQTEManager.HasCompletedOvenQTE());
+
+            if (!ovenCompleted)
             {
-                Debug.LogWarning("[QTEManager] ⚠️ Using Strawberry before baking! Score will be permanently locked!");
-                ScoreSystem.Instance.TriggerPermanentZero();
+                if (currentItemTag == "Cream")
+                {
+                    Debug.LogWarning("[QTEManager] Cream cannot be used before baking!");
+
+                    if (hintUI != null)
+                    {
+                        hintUI.ShowHint("Cream is for decoration after baking!");
+                    }
+
+                    return;
+                }
+
+                if (currentItemTag == "Strawberry")
+                {
+                    Debug.LogWarning("[QTEManager] ⚠️ Using Strawberry before baking! Score will be permanently locked!");
+                    ScoreSystem.Instance.TriggerPermanentZero();
+                }
             }
+        }
+        else if (pot.transform.position != originalPosition && !ovenQTEManager.HasCompletedOvenQTE() && qteInteract.inRange())
+        {
+            if (hintUI != null)
+            {
+                hintUI.ShowHint("Put pot back for QTE.");
+            }
+            return;
         }
         else
         {
@@ -121,7 +137,7 @@ public class QTEManager : MonoBehaviour
 
                         if (hintUI != null)
                         {
-                            hintUI.ShowHint("Get closer to the cake to decorate!");
+                            hintUI.ShowHint("Get closer to the cake to decorate.");
                         }
 
                         return;
@@ -132,16 +148,19 @@ public class QTEManager : MonoBehaviour
             }
             else
             {
-                if (hintUI != null)
+                if (ovenQTEManager.HasCompletedOvenQTE())
                 {
-                    hintUI.ShowHint("Take the cake out of the oven first!");
+                    if (hintUI != null)
+                    {
+                        hintUI.ShowHint("Take the cake out of the oven first!");
+                    }
                 }
                 return;
             }
 
             if (currentItemTag != "Cream" && currentItemTag != "Strawberry")
             {
-                Debug.LogWarning("[QTEManager] This item is not for decoration!");
+                Debug.LogWarning("[QTEManager] This item is not for decoration" + "a" + currentItemTag + ".");
 
                 if (hintUI != null)
                 {
@@ -186,7 +205,7 @@ public class QTEManager : MonoBehaviour
         {
             ScoreSystem.Instance.TriggerPermanentZero();
         }
-
+        
         qteRunning = true;
         SetPlayerControls(false);
 
