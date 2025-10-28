@@ -7,26 +7,31 @@ using System.Collections;
 public class EndSceneController : MonoBehaviour
 {
     [Header("UI References")]
-    public CanvasGroup cgCanvas;         
-    public TMP_Text endText;             
-    public CanvasGroup blackCanvas;      
+    public CanvasGroup cgCanvas;
+    public TMP_Text endText;
+    public CanvasGroup blackCanvas;
 
     [Header("Text Settings")]
-    [TextArea] public string[] lines;   
-    public float charDelay = 0.03f;      
-    public float lineStayTime = 3f;      
+    [TextArea] public string[] lines;
+    public float charDelay = 0.03f;
+    public float lineStayTime = 3f;
     public float fadeOutDuration = 2f;
 
     [Header("Typing Audio")]
-    public AudioSource audioSource;     
-    public AudioClip typeSound;         
-    public int charsPerSound = 2;        
+    public AudioSource audioSource;
+    public AudioClip typeSound;
+    public int charsPerSound = 2;
 
     [Header("Scene Settings")]
     public string startSceneName = "StartScene";
 
     void Start()
     {
+        // ensure ending scene is "alive"
+        Time.timeScale = 1f;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
         if (cgCanvas != null)
             cgCanvas.alpha = 1f;
         if (blackCanvas != null)
@@ -42,7 +47,7 @@ public class EndSceneController : MonoBehaviour
         foreach (string line in lines)
         {
             yield return StartCoroutine(TypeText(line));
-            yield return new WaitForSeconds(lineStayTime);
+            yield return WaitForSecondsUnscaled(lineStayTime);
         }
 
         yield return StartCoroutine(FadeToBlack());
@@ -65,7 +70,10 @@ public class EndSceneController : MonoBehaviour
             if (audioSource && typeSound && charCount % charsPerSound == 0)
                 audioSource.PlayOneShot(typeSound);
 
-            yield return new WaitForSeconds(charDelay);
+            // unscaled wait
+            float start = Time.realtimeSinceStartup;
+            while (Time.realtimeSinceStartup - start < charDelay)
+                yield return null;
         }
     }
 
@@ -76,11 +84,18 @@ public class EndSceneController : MonoBehaviour
         float t = 0f;
         while (t < fadeOutDuration)
         {
-            t += Time.deltaTime;
+            t += Time.unscaledDeltaTime;
             blackCanvas.alpha = Mathf.Lerp(0f, 1f, t / fadeOutDuration);
             yield return null;
         }
 
         blackCanvas.alpha = 1f;
+    }
+
+    private IEnumerator WaitForSecondsUnscaled(float seconds)
+    {
+        float start = Time.realtimeSinceStartup;
+        while (Time.realtimeSinceStartup - start < seconds)
+            yield return null;
     }
 }
