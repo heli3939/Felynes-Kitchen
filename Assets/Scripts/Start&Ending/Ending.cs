@@ -15,7 +15,12 @@ public class EndSceneController : MonoBehaviour
     [TextArea] public string[] lines;   
     public float charDelay = 0.03f;      
     public float lineStayTime = 3f;      
-    public float fadeOutDuration = 2f;   
+    public float fadeOutDuration = 2f;
+
+    [Header("Typing Audio")]
+    public AudioSource audioSource;     
+    public AudioClip typeSound;         
+    public int charsPerSound = 2;        
 
     [Header("Scene Settings")]
     public string startSceneName = "StartScene";
@@ -50,10 +55,16 @@ public class EndSceneController : MonoBehaviour
         if (endText == null) yield break;
 
         endText.text = "";
+        int charCount = 0;
 
         foreach (char c in text)
         {
             endText.text += c;
+            charCount++;
+
+            if (audioSource && typeSound && charCount % charsPerSound == 0)
+                audioSource.PlayOneShot(typeSound);
+
             yield return new WaitForSeconds(charDelay);
         }
     }
