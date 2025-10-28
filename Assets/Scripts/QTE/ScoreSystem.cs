@@ -71,10 +71,8 @@ public class ScoreSystem : MonoBehaviour
     {
         if (score >= heThreshold)
             return "HE";
-        else if (score < beThreshold)
-            return "BE";
         else
-            return "NEUTRAL"; // Optional
+            return "BE";
     }
 }
 
