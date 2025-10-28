@@ -31099,10 +31099,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 2
-  acceleration: 25
-  deceleration: 15
+  acceleration: 15
+  deceleration: 10
   rotateSpeed: 10
-  jumpHeight: 0.6
+  jumpHeight: 0.39
   zMin: -3
   zMax: 3
   Capsule: {fileID: 1938730080}
@@ -31113,6 +31113,7 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 4294967295
+  maxJumps: 1
 --- !u!114 &1622806639
 MonoBehaviour:
   m_ObjectHideFlags: 0
