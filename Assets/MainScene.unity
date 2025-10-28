@@ -31113,6 +31113,7 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 4294967295
+  jumpClip: {fileID: 8300000, guid: 10091c6c24f4d4db8ac1afbd1d7e550c, type: 3}
   maxJumps: 1
 --- !u!114 &1622806639
 MonoBehaviour:

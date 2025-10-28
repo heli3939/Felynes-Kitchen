@@ -36,6 +36,9 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
     [Header("Better Jump Feel")]
     float fallGravityMultiplier = 2f;
 
+    [Header("Jump & Land Sound")]
+    public AudioClip jumpClip;
+
     // NOTE: we are REMOVING lowJumpGravityMultiplier logic because we always
     // want fixed jump height no matter how long Space is held.
     // float lowJumpGravityMultiplier = 4.0f;
@@ -121,6 +124,8 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
     // Actually perform the jump
     void DoJump()
     {
+        if (footstepSource && jumpClip)
+            footstepSource.PlayOneShot(jumpClip, 0.139f);
         float g = Mathf.Abs(Physics.gravity.y);
 
         // set vertical velocity to the exact jump speed needed for chosen jumpHeight
