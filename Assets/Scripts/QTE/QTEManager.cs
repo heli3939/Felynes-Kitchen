@@ -67,9 +67,36 @@ public class QTEManager : MonoBehaviour
 
     private string currentItemTag = "";
 
+    // >>> helper: turn "Egg (Clone)" into "Egg"
+    private string ResolveIngredientKey(Transform t)
+    {
+        if (t == null) return "";
+
+        string rawName = t.name;
+        int parenIndex = rawName.IndexOf('(');
+        if (parenIndex >= 0)
+            rawName = rawName.Substring(0, parenIndex);
+
+        string cleaned = rawName.Trim();
+
+        if (!string.IsNullOrEmpty(cleaned))
+            return cleaned;
+
+        // fallback: use tag if somehow empty
+        return t.tag;
+    }
+
     public void StartQTE()
     {
+        // >>> safety: make sure we actually have something in hand
+        if (holdPoint == null || holdPoint.childCount == 0)
+        {
+            Debug.LogWarning("[QTEManager] QTE cannot start — nothing in holdPoint.");
+            return;
+        }
+
         currentItemTag = holdPoint.GetChild(0).tag;
+
         if (pot.transform.position == originalPosition)
         {
             Debug.Log("");
@@ -206,7 +233,7 @@ public class QTEManager : MonoBehaviour
         {
             ScoreSystem.Instance.TriggerPermanentZero();
         }
-        
+
         qteRunning = true;
         SetPlayerControls(false);
 
@@ -328,29 +355,16 @@ public class QTEManager : MonoBehaviour
                 // Only tick if it's an ingredient
                 if (child.CompareTag("Item"))
                 {
-                    string rawName = child.name;
+                    // >>> NEW: use prefab-ish base name as checklist key
+                    string itemName = ResolveIngredientKey(child);
 
-                    // Clean up name: remove "(Clone)" and any "(number)" suffix
-                    int parenIndex = rawName.IndexOf('(');
-                    if (parenIndex >= 0)
-                        rawName = rawName.Substring(0, parenIndex);
-
-                    string itemName = rawName.Trim();
-
-                    // if (checklist != null)
-                    // {
                     checklist.MarkDone(itemName);
-                    Debug.Log($"[QTE] ✅ Checklist ticked for ingredient: '{itemName}'");
+                    Debug.Log($"[QTE] ✅ Checklist ticked for ingredient key: '{itemName}'");
                     StartCoroutine(ShowChecklistBriefly(1.5f));
-                    // }
-                    // else
-                    // {
-                    //     Debug.LogWarning("[QTE] ⚠ Checklist reference not set in Inspector.");
-                    // }
                 }
                 else
                 {
-                    Debug.Log($"[QTE] ⚠ Object '{child.name}' ignored (tag != 'item').");
+                    Debug.Log($"[QTE] ⚠ Object '{child.name}' ignored (tag != 'Item').");
                 }
 
                 if (!child.CompareTag("Cream"))
@@ -366,11 +380,19 @@ public class QTEManager : MonoBehaviour
             Debug.Log($"[QTEManager] Processing decoration - currentItemTag: {currentItemTag}");
             Debug.Log($"[QTEManager] hasCream: {hasCream}, hasFinal: {hasFinal}");
 
+            // >>> figure out key for decoration items too
+            Transform decoChild = null;
+            if (holdPoint != null && holdPoint.childCount > 0)
+                decoChild = holdPoint.GetChild(0);
+
+            string decoKey = decoChild != null ? ResolveIngredientKey(decoChild) : currentItemTag;
+
             if (currentItemTag == "Cream" && !hasCream)
             {
                 hasCream = true;
                 UpdateCakeVisual("cream");
-                checklist.MarkDone("bowl_cream");
+
+                checklist.MarkDone(decoKey);
                 Debug.Log("[QTEManager] ✅ Cream added to cake!");
                 StartCoroutine(ShowChecklistBriefly(1.5f));
 
@@ -380,11 +402,8 @@ public class QTEManager : MonoBehaviour
                 Debug.Log("[QTEManager] 🍓 All conditions met for strawberry! Updating to final stage...");
                 hasFinal = true;
                 isGameEnding = true; // Set flag to prevent EndQTE
-                qteHandled = true; // Mark as handled before returning
+                qteHandled = true;   // Mark as handled before returning
                 UpdateCakeVisual("final");
-                checklist.MarkDone("Strawberry");
-                Debug.Log("[QTEManager] ✅ Strawberry added! Cake is complete!");
-                StartCoroutine(ShowChecklistBriefly(1.5f));
                 return; // Return early to skip normal EndQTE process
             }
             else if (currentItemTag == "Strawberry")
@@ -436,6 +455,9 @@ public class QTEManager : MonoBehaviour
 
             Debug.Log("[QTEManager] Destroying current cake and activating cakeFinal...");
             Destroy(currentCake);
+            checklist.MarkDone("Strawberry (3)");
+            Debug.Log("[QTEManager] ✅ Strawberry added! Cake is complete!");
+            StartCoroutine(ShowChecklistBriefly(1.5f));
 
             cakeFinal.SetActive(true);
             cakeFinal.transform.position = cakePos;
