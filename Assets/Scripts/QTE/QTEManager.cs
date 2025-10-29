@@ -573,14 +573,12 @@ public class QTEManager : MonoBehaviour
 
             if (endingType == "BE")
             {
-                hintUI.ShowHint("Sorry Felyne, you failed...");
                 Debug.Log("[QTEManager] 😿 Bad Ending displayed");
                 SceneManager.LoadScene("BadEnding");
 
             }
             else if (endingType == "HE")
             {
-                hintUI.ShowHint("Congrats Felyne, enjoy your cake!");
                 Debug.Log("[QTEManager] 🎉 Happy Ending displayed");
                 SceneManager.LoadScene("HappyEnding");
             }

@@ -15,6 +15,9 @@ public class DialogueManager : MonoBehaviour
     [Header("Tutorial After Dialogue")]
     public IntroTutorialManager introTutorialManager;
 
+    [Header("UI References")]
+    public SubmitCakeUI submitCakeUI;
+
     [Tooltip("Block input via InputBlocker.Lock(true/false). If your project doesn't use InputBlocker, untick this.")]
     public bool useInputBlocker = true;
     public TutorialManager tutorialManager;
@@ -27,7 +30,12 @@ public class DialogueManager : MonoBehaviour
             introTutorialManager.gameObject.SetActive(false);
         }
 
-        if (PlayerPrefs.GetInt("SkipOpeningDialogue", 0) == 1)
+        if (submitCakeUI != null && submitCakeUI.gameObject.activeSelf)
+        {
+            submitCakeUI.gameObject.SetActive(false);
+        }
+
+            if (PlayerPrefs.GetInt("SkipOpeningDialogue", 0) == 1)
         {
             Debug.Log("[DialogueManager] SkipOpeningDialogue detected — starting game immediately.");
             PlayerPrefs.DeleteKey("SkipOpeningDialogue");
@@ -167,7 +175,7 @@ public class DialogueManager : MonoBehaviour
             return;
         }
 
-        StartCoroutine(PlayCatShrinkAndOpenIntroTutorial());
+        StartCoroutine(PlayIntroTutorialThenShrink());
     }
 
     private IEnumerator PlayCatShrinkAnimation()
@@ -199,37 +207,30 @@ public class DialogueManager : MonoBehaviour
         Debug.Log("[DialogueManager] Cat shrink animation completed.");
     }
 
-    private IEnumerator PlayCatShrinkAndOpenIntroTutorial()
+    private IEnumerator PlayIntroTutorialThenShrink()
     {
-        Transform catTransform = cat.transform;
-        Vector3 startScale = new Vector3(2f, 2f, 2f);
-        Vector3 endScale = new Vector3(0.4f, 0.4f, 0.4f);
-        float duration = 1.0f;
-        float elapsed = 0f;
-
-        catTransform.localScale = startScale;
-
-        while (elapsed < duration)
-        {
-            elapsed += Time.unscaledDeltaTime;
-            float t = Mathf.SmoothStep(0f, 1f, elapsed / duration);
-            catTransform.localScale = Vector3.Lerp(startScale, endScale, t);
-            yield return null;
-        }
-        catTransform.localScale = endScale;
-
-        yield return new WaitForSecondsRealtime(0.1f);
-
+        // Open Tutorial first
         if (introTutorialManager != null)
         {
+            Debug.Log("[DialogueManager] Activating IntroTutorial before cat shrink...");
             introTutorialManager.gameObject.SetActive(true);
             introTutorialManager.OpenTutorial();
         }
-        else
+
+        yield return new WaitUntil(() =>
         {
-            Debug.LogWarning("[DialogueManager] introTutorialManager not assigned!");
+            return introTutorialManager == null || !introTutorialManager.gameObject.activeSelf;
+        });
+
+        if (submitCakeUI != null)
+        {
+            submitCakeUI.gameObject.SetActive(true);
         }
+
+            // play shrink animation
+            yield return StartCoroutine(PlayCatShrinkAnimation());
     }
+
 
     // Call this if you need to trigger the opening dialogue manually instead of playOnStart.
     public void StartOpeningDialogueSafe()

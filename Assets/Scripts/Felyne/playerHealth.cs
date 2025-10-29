@@ -43,6 +43,9 @@ public class PlayerHealth : MonoBehaviour
     public AudioClip hitSound;
     private AudioSource audioSource;
 
+    [Header("UI References")]
+    public SubmitCakeUI submitCakeUI;
+
     void Update()
     {
         UpdateHealthUI();
@@ -165,8 +168,11 @@ public class PlayerHealth : MonoBehaviour
         DisablePlayerControls();
         checklistButton.SetActive(false);
         pauseButton.SetActive(false);
-
-        StartCoroutine(FallAndDie(hitDirection));
+        if (submitCakeUI != null)
+        {
+            submitCakeUI.gameObject.SetActive(false);
+        }
+            StartCoroutine(FallAndDie(hitDirection));
     }
 
     IEnumerator FallAndDie(Vector3 hitDirection)

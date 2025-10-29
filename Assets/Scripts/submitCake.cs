@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using TMPro;
+using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class SubmitCakeUI : MonoBehaviour
 {
@@ -23,6 +25,11 @@ public class SubmitCakeUI : MonoBehaviour
     [Header("Player Control Scripts")]
     public MonoBehaviour[] playerControlScripts;
 
+    [Header("Audio Settings")]
+    public AudioSource uiAudioSource;
+    public AudioClip hoverClip;
+    public AudioClip clickClip;
+
     private void Start()
     {
         if (submitButtonPanel != null)
@@ -34,21 +41,31 @@ public class SubmitCakeUI : MonoBehaviour
         if (submitPromptText != null)
             submitPromptText.text = "Can't find more and want to score your play?";
         
-        if (confirmationText != null)
-            confirmationText.text = "Are you sure you want to quit?";
-        
+        //if (confirmationText != null)
+        //    confirmationText.text = "Are you sure you want to quit?";
+
         if (submitButton != null)
+        {
             submitButton.onClick.AddListener(OnSubmitClicked);
-            
+            AddHoverSound(submitButton);
+        }
+
         if (yesButton != null)
+        {
             yesButton.onClick.AddListener(OnYesClicked);
-            
+            AddHoverSound(yesButton);
+        }
+
         if (noButton != null)
+        {
             noButton.onClick.AddListener(OnNoClicked);
+            AddHoverSound(noButton);
+        }
     }
 
     private void OnSubmitClicked()
     {
+        PlayClickSound();
         Debug.Log("[SubmitCakeUI] Submit button clicked - showing confirmation");
         
         if (confirmationPanel != null)
@@ -57,6 +74,7 @@ public class SubmitCakeUI : MonoBehaviour
 
     private void OnYesClicked()
     {
+        PlayClickSound();
         Debug.Log("[SubmitCakeUI] Yes clicked - triggering game ending");
         
         if (confirmationPanel != null)
@@ -70,6 +88,7 @@ public class SubmitCakeUI : MonoBehaviour
 
     private void OnNoClicked()
     {
+        PlayClickSound();
         Debug.Log("[SubmitCakeUI] No clicked - returning to game");
         
         if (confirmationPanel != null)
@@ -105,11 +124,13 @@ public class SubmitCakeUI : MonoBehaviour
             {
                 hintUI.ShowHint("Sorry Felyne, you failed...");
                 Debug.Log("[SubmitCakeUI] Bad Ending displayed");
+                StartCoroutine(LoadEndingScene("BadEnding"));
             }
             else if (endingType == "HE")
             {
                 hintUI.ShowHint("Congrats Felyne, enjoy your cake!");
                 Debug.Log("[SubmitCakeUI] Happy Ending displayed");
+                StartCoroutine(LoadEndingScene("HappyEnding"));
             }
             else
             {
@@ -143,5 +164,41 @@ public class SubmitCakeUI : MonoBehaviour
             
         if (noButton != null)
             noButton.onClick.RemoveListener(OnNoClicked);
+    }
+
+    private IEnumerator LoadEndingScene(string sceneName)
+    {
+        yield return new WaitForSecondsRealtime(1f);
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(sceneName);
+    }
+
+    private void AddHoverSound(Button button)
+    {
+        if (button == null) return;
+        EventTrigger trigger = button.gameObject.GetComponent<EventTrigger>();
+        if (trigger == null) trigger = button.gameObject.AddComponent<EventTrigger>();
+
+        EventTrigger.Entry entry = new EventTrigger.Entry { eventID = EventTriggerType.PointerEnter };
+        entry.callback.AddListener((eventData) => { PlayHoverSound(); });
+        trigger.triggers.Add(entry);
+    }
+
+    private void PlayHoverSound()
+    {
+        if (uiAudioSource != null && hoverClip != null)
+        {
+            uiAudioSource.pitch = 1f;
+            uiAudioSource.PlayOneShot(hoverClip);
+        }
+    }
+
+    private void PlayClickSound()
+    {
+        if (uiAudioSource != null && clickClip != null)
+        {
+            uiAudioSource.pitch = 1f;
+            uiAudioSource.PlayOneShot(clickClip);
+        }
     }
 }
