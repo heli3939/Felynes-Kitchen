@@ -122,19 +122,16 @@ public class SubmitCakeUI : MonoBehaviour
         {
             if (endingType == "BE")
             {
-                hintUI.ShowHint("Sorry Felyne, you failed...");
                 Debug.Log("[SubmitCakeUI] Bad Ending displayed");
                 StartCoroutine(LoadEndingScene("BadEnding"));
             }
             else if (endingType == "HE")
             {
-                hintUI.ShowHint("Congrats Felyne, enjoy your cake!");
                 Debug.Log("[SubmitCakeUI] Happy Ending displayed");
                 StartCoroutine(LoadEndingScene("HappyEnding"));
             }
             else
             {
-                hintUI.ShowHint("Cake complete! Score: " + finalScore);
                 Debug.Log("[SubmitCakeUI] Neutral Ending displayed");
             }
         }
