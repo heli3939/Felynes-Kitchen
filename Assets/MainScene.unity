@@ -20630,7 +20630,7 @@ MonoBehaviour:
   OvenQTEManager: {fileID: 1240722480}
   cookingPot: {fileID: 1028387991}
   ovenTargetPosition: {x: 4.22, y: 0.116, z: 1.173}
-  positionTolerance: 0.2
+  positionTolerance: 1
 --- !u!1 &1078648059
 GameObject:
   m_ObjectHideFlags: 0
@@ -33003,7 +33003,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaac830a37966c145ae7e17b8b0c79af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  autoCloseDistance: 1.5
+  autoCloseDistance: 2.5
   maxOpenDistance: 0.7
   hintUI: {fileID: 67242997}
   ovenQTEManager: {fileID: 1240722480}
@@ -34552,7 +34552,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8435440963665084209, guid: 1316452647a73184cba85ad0f097c3fa, type: 3}
       propertyPath: m_TagString
-      value: incorrect
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -43015,7 +43015,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 839233260410868668, guid: d6846055e97b9ac42a6e11a3ea4f1237, type: 3}
       propertyPath: m_TagString
-      value: incorrect
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
