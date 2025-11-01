@@ -14,6 +14,9 @@ public class PauseMenu : MonoBehaviour
     public Button exitButton;
     public Button checklistButton;
 
+    [Header("Submit Button Reference")]
+    public GameObject submitButton;
+
     [Header("Tutorial Panel")]
     public GameObject tutorialPanel;
     public Button closeTutorialButton;
@@ -115,6 +118,9 @@ public class PauseMenu : MonoBehaviour
         if (checklistButton != null) checklistButton.interactable = false;
         Time.timeScale = 0f;
 
+        if (submitButton != null)
+            submitButton.SetActive(false);
+
         foreach (MouseMovement mouse in FindObjectsOfType<MouseMovement>())
         {
             mouse.MuteMouseAudio();
@@ -133,6 +139,9 @@ public class PauseMenu : MonoBehaviour
         if (pausePanel != null) pausePanel.SetActive(false);
         UpdateButtonStates();
         Time.timeScale = 1f;
+
+        if (submitButton != null)
+            submitButton.SetActive(true);
 
         foreach (MouseMovement mouse in FindObjectsOfType<MouseMovement>())
         {

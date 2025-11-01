@@ -54,7 +54,8 @@ public class RandomFlame : MonoBehaviour
     private Collider triggerCol;
     private Material instancedMat;
 
-    private bool isOn;
+    [HideInInspector] public bool isOn = true;
+
     private float timer;
     private float damageArmTimer = 0f, rampT = 0f, visualRampT = 0f, brightnessT = 0f, baseRateOverTime = 0f;
     private float baseStartSizeMul = 1f;

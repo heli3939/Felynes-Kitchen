@@ -7,7 +7,11 @@ public class ChecklistManager : MonoBehaviour
     [Header("UI References")]
     public GameObject checklistPanel;   
     public Button checklistButton;     
-    public Button quitChecklistButton;  
+    public Button quitChecklistButton;
+
+    [Header("Game UI References")]
+    public GameObject pauseMenu;           
+    public GameObject submitButton;
 
     [Header("Audio (Optional)")]
     public AudioSource uiAudioSource;
@@ -54,6 +58,12 @@ public class ChecklistManager : MonoBehaviour
 
         Time.timeScale = 0f;
 
+        if (pauseMenu != null)
+            pauseMenu.SetActive(false);
+
+        if (submitButton != null)
+            submitButton.SetActive(false);
+
         foreach (MouseMovement mouse in FindObjectsOfType<MouseMovement>())
         {
             mouse.MuteMouseAudio();
@@ -70,13 +80,18 @@ public class ChecklistManager : MonoBehaviour
 
         Time.timeScale = 1f;
 
+        if (pauseMenu != null)
+            pauseMenu.SetActive(true);
+
+        if (submitButton != null)
+            submitButton.SetActive(true);
+
         foreach (MouseMovement mouse in FindObjectsOfType<MouseMovement>())
         {
             mouse.UnmuteMouseAudio();
         }
 
     }
-
 
     private void AddHoverSound(Button button)
     {

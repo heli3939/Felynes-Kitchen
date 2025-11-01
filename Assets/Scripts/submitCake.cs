@@ -25,6 +25,10 @@ public class SubmitCakeUI : MonoBehaviour
     [Header("Player Control Scripts")]
     public MonoBehaviour[] playerControlScripts;
 
+    [Header("Other UI")]
+    public GameObject pauseMenu;   
+    public GameObject checklist;
+
     [Header("Audio Settings")]
     public AudioSource uiAudioSource;
     public AudioClip hoverClip;
@@ -70,6 +74,11 @@ public class SubmitCakeUI : MonoBehaviour
         
         if (confirmationPanel != null)
             confirmationPanel.SetActive(true);
+
+        if (pauseMenu != null)
+            pauseMenu.SetActive(false);
+        if (checklist != null)
+            checklist.SetActive(false);
     }
 
     private void OnYesClicked()
@@ -90,7 +99,12 @@ public class SubmitCakeUI : MonoBehaviour
     {
         PlayClickSound();
         Debug.Log("[SubmitCakeUI] No clicked - returning to game");
-        
+
+        if (pauseMenu != null)
+            pauseMenu.SetActive(true);
+        if (checklist != null)
+            checklist.SetActive(true);
+
         if (confirmationPanel != null)
             confirmationPanel.SetActive(false);
     }

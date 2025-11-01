@@ -17,6 +17,9 @@ public class IntroTutorialManager    : MonoBehaviour
     public AudioClip hoverClip;
     public AudioClip clickClip;
 
+    [Header("Checklist Reference")]
+    public GameObject checklistPanel;
+
     private int currentPage = 0;
 
     void Start()
@@ -68,13 +71,39 @@ public class IntroTutorialManager    : MonoBehaviour
         gameObject.SetActive(true);
         ShowPage(0);
         Time.timeScale = 0f;
+
+        if (checklistPanel != null)
+            checklistPanel.SetActive(false);
     }
 
     public void CloseTutorial()
     {
         gameObject.SetActive(false);
         Time.timeScale = 1f;
+
+        if (checklistPanel != null)
+            checklistPanel.SetActive(false);
     }
+
+    private void ToggleFlameScripts(bool enable)
+    {
+        RandomFlame[] flames = FindObjectsOfType<RandomFlame>(true); 
+        foreach (RandomFlame flame in flames)
+        {
+            flame.enabled = enable;
+
+            if (flame.flameAudioSource != null)
+            {
+                if (!enable)
+                    flame.flameAudioSource.Stop();
+                else if (flame.isOn)
+                    flame.flameAudioSource.Play();
+            }
+        }
+
+        Debug.Log($"[IntroTutorialManager] RandomFlame scripts {(enable ? "enabled" : "disabled")}");
+    }
+
 
     private void AddHoverSound(Button button)
     {
