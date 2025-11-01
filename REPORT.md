@@ -126,7 +126,7 @@ Without systematic evaluation, we risk submitting a game that works for develope
 | -------------------------- | ------------------------------------------------------------------------ |
 | **Completion Rate**        | ≥ 80% of players complete the game with the help of the tutorial.        |
 | **Confusion Reduction**    | Observed confusion incidents reduced by ≥ 80% after redesign iterations. |
-| **Performance Indicators** | ≥ 70% average QTE success（perfect/good) rate among players.             |
+| **Performance Indicators** | ≥ 70% average QTE success (perfect/good) rate among players.             |
 | **Engagement**             | ≥ 80% of participants report positive enjoyment (rating ≥ 4 / 5).        |
 
 ---
@@ -314,10 +314,49 @@ Due to technical and time limitation, we were unable to implement a step-by-step
 - images/gifs
 - showwing how the shader effects fit into the rendering pipeline/Unity engine (link to theory)
 
+### *HeatWave Distortion Shader*
+Exact path: ['Assets\Shaders for marking\HeatWave.shader'](Assets/Shaders%20for%20marking/HeatWave.shader)
+
+The HeatWave shader creates a realistic heat distortion effect that simulates the visual phenomenon of hot air rising and distorting the view behind it.
+
+In our project, we used this shader to enhance the visual experience. It creates a shimmering, wavy distortion that makes objects behind it appear to ripple, similar to the visual effect you see when looking through hot air. Since the player needs to pass through an area with flames, this shader helps create a more immersive and realistic atmosphere.
+
+The HeatWave shader uses GrabPass technology within Unity's rendering pipeline, working as follows:
+Unity first renders all opaque objects (Render Queue 2000) and the skybox (Queue 2500), then during the transparent rendering phase (Queue 2500+), it executes GrabPass to capture the current screen buffer into the *_GrabTexture* texture. The shader's fragment shader then uses procedurally-generated Fractal Brownian Motion (FBM) noise to calculate distortion offsets, which are applied to the GrabPass UV coordinates to sample warped background pixels. Finally, alpha blending (SrcAlpha OneMinusSrcAlpha) composites the distorted result over the scene, creating the heat wave visual effect. This screen-space technique's advantage is that it's independent of scene complexity and only depends on screen resolution, making it relatively performance-efficient for creating realistic atmospheric distortion effects that simulate light refraction through turbulent heated air.
+
+![HeatWaveGIF](heatWaveGIF.gif)
+
 ## Summary of Contributions
 
 code contribution on each .cs/.shader
 
-## References and External Resources
+*KEXIN LIANG:*
+- OpenDoor.cs
+- playerHealth.cs
+- PauseMenu.cs
+- OvenQTEManager.cs
+- OvenSwitchCamera.cs
+- StoveSystem.cs
+- StoveQTE.cs
+- Camera.cs
+- mouseMovement.cs
+- potInteraction.cs
+- submitCake.cs
+- DoorInteraction.cs
+- highlighter.cs
+- heatWave.cs
+- HeatWave.shader
+- QTEInteraction.cs
+- QTEManager.cs
+- Switch_Camera.cs
+- PickDrop_Ingredients.cs
 
+## References and External Resources
 TODO - see specification for details
+
+- Gonzalez Vivo, P., & Lowe, J. (n.d.). Noise. The Book of Shaders. https://thebookofshaders.com/11/
+- NVIDIA Corporation. (n.d.). GPU Gems. NVIDIA Developer. https://developer.nvidia.com/gpugems
+- Quilez, I. (n.d.). Fractal Brownian Motion. Inigo Quilez - Computer Graphics, Mathematics, Shaders, Fractals, Demoscene and More. https://iquilezles.org/articles/fbm/
+- Unity Technologies. (n.d.-a). Blending. Unity Documentation. https://docs.unity3d.com/Manual/SL-Blend.html
+- Unity Technologies. (n.d.-b). GrabPass. Unity Documentation. https://docs.unity3d.com/Manual/SL-GrabPass.html
+- Unity Technologies. (n.d.-c). SubShader tags. Unity Documentation. https://docs.unity3d.com/Manual/SL-SubShaderTags.html

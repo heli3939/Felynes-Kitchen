@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+
 public class PickDrop_Ingredients : MonoBehaviour
 {
     public Transform holdPoint;
@@ -127,6 +128,7 @@ public class PickDrop_Ingredients : MonoBehaviour
         }
 
         heldItem.transform.SetParent(null);
+
         Rigidbody rb = heldItem.GetComponent<Rigidbody>();
         Collider col = heldItem.GetComponent<Collider>();
 
@@ -143,20 +145,16 @@ public class PickDrop_Ingredients : MonoBehaviour
             col.isTrigger = false;
         }
 
-        // Vector3 forwardOffset = transform.forward * 0.4f;
         Vector3 dropStart = holdPoint.transform.position;
         Vector3 finalDropPosition = dropStart;
 
         if (Physics.Raycast(dropStart, Vector3.down, out RaycastHit hit, 5f))
-            finalDropPosition = hit.point;
+        {
+            float itemHeight = col.bounds.extents.y;
+            finalDropPosition = hit.point + Vector3.up * itemHeight;
+        }
 
         heldItem.transform.position = finalDropPosition;
-
-        if (rb != null)
-        {
-            rb.linearVelocity = Vector3.zero;
-            rb.useGravity = true;
-        }
 
         Debug.Log("Dropped: " + heldItem.name);
 
