@@ -129,7 +129,7 @@ Without systematic evaluation, we risk submitting a game that works for develope
 | -------------------------- | ------------------------------------------------------------------------ |
 | **Completion Rate**        | ≥ 80% of players complete the game with the help of the tutorial.        |
 | **Confusion Reduction**    | Observed confusion incidents reduced by ≥ 80% after redesign iterations. |
-| **Performance Indicators** | ≥ 70% average QTE success（perfect/good) rate among players.             |
+| **Performance Indicators** | ≥ 70% average QTE success (perfect/good) rate among players.             |
 | **Engagement**             | ≥ 80% of participants report positive enjoyment (rating ≥ 4 / 5).        |
 
 ---
