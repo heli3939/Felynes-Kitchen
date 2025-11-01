@@ -37,9 +37,6 @@ This evaluation aims to systematically assess both _usability_ and _player_ expe
 
 \***\*Why This Matters\*\***:
 Without systematic evaluation, we risk submitting a game that works for developers but confuses players. This evaluation directly demonstrates our ability to iterate based on real user feedback.
-
----
-
 ---
 
 ### 2. Evaluation Techniques
@@ -144,60 +141,170 @@ All participants will be informed that:
 
 No personal data will be shared or stored beyond project submission.
 
+
+
+# Evaluation Report
+
+## Summary
+
+More than 10 participants took part in our game testing:  
+- Five were evaluated through observation, and
+- Ten were invited to complete a questionnaire, from which eight valid responses were collected.  
+
+Both evaluation methods revealed common issues related to game difficulty and players getting stuck during movement.
+
+
+
+## Adjustments
+
+### First Round
+
+#### 1. Smooth Control
+Initially, the character’s jump height depended on how long players held the space bar — the longer they pressed, the higher the jump. Most players did not realize this mechanic and tended to tap the space bar briefly, resulting in very short jumps. Consequently, they often failed to reach furniture or platforms.   
+The jumping system was redesigned to include a double jump mechanic (press space twice for a second jump). Additionally, pressing the space bar now always triggers a consistent jump height, making the controls more intuitive.
+
 ---
 
-## Evaluation Report
+#### 2. Reduce Game Difficulty
 
-### summarise your evaluation:
+In the original version, players only had one life, so being attacked by a mouse or touching fire caused an immediate restart.  During testing, many players reached the final baking stage but lost progress due to small mistakes.   
+To balance the difficulty, serval changes were made:
 
-() people tested by () method
-both method at the same time, iteratively changing
-changes you made (briefly mention feedback and effect):
-first round of changes:
+- **Increased player health**  
+  Players now have three lives. Each attack costs one life, improving fault tolerance and allowing more recovery opportunities.
 
-### changes we made:
+- **Lower fire chance**  
+  The probability of fire appearing was reduced from 25% → 20%.  
+  Even this small change significantly reduced difficulty, as multiple fires often appeared simultaneously.
 
-First Round:
-(most important)
+- **No HP loss during oven QTE**  
+  Players often stood near the oven (also along the mice’s patrol path) and got attacked during QTEs.  
+  To avoid accidental damage due to unclear guidance, players are now invulnerable during oven QTEs.
 
-- long press high jump -> allow double jump (smooth control)
-- finish cake at any time (early quit)
-- 3 Hp + lower fire chance (difficulty balance)
-  (less importnat)
-- adjust model for smoothier ...
-- cat starting point
-- cat won't -hp when performing oven QTE
-- force first-time player to read tutorial
-- if pot is not at original position, can't perform QTE
-- add a sign for pot direction
-- adjust main camera angle and height
+---
 
-Second round of changes: (more coming...)
+#### 3. Immediate Access to the Ending
+Originally, the ending scene was only unlocked after players decorated the cake, which required finding all decoration ingredients and completing a QTE.    
+However, some high-scoring players couldn’t find all ingredients, preventing them from reaching the happy ending. To fix this, a submit button was added, becoming available after mandatory dialogues. This allows players to view the ending anytime, even without finding every ingredient.
 
-- don't get stuck in oven
-- fridge only milk can pick up
-- cardboard fix
-- clearer instruction for using oven
-- ban other button when one is using
+---
 
-### Findings:
+#### 4. Adjust Models to Prevent Stuck Issues
+Several testers reported the character frequently getting stuck in various spots. These issues were fixed by repositioning models and modifying collider components in the inspector. 
+- For example, plants originally used mesh colliders, which caused the character to get stuck in the leaves.  Replacing them with capsule colliders significantly reduced this issue.
 
-Both:
-Player demographic: (most player are ..., link back to target audience in evaluation plan / GDD)
+---
 
-- play platformer
-- game development
-  Playing time (pie chart for all testers): explain result
+#### 5. Adjusted Character Starting Position
+The original starting point was placed on the mice’s patrol path, causing immediate HP loss if players didn’t move quickly.The starting point was relocated to ensure players have time to react before encountering enemies.
 
-Observational:
+---
 
-- first ingredient they found
-- before we change controls and model position, hard to control and got stuck ...
+#### 6. Mandatory Intro Tutorial
+The tutorial was initially accessible only through the pause menu, meaning many players were unlikely to open it without explicit direction.   
+Therefore, a mandatory intro tutorial now appears automatically after the opening dialogue. This ensures players read the mission guide and clearly understand their objectives before beginning play.
 
-Query:
+---
 
-- talk about some result of "Evaluate our game for following criteria"
-- top 3 (?) LIKE and IMPROVED in query
+#### 7. Restricted QTE Activation Area
+Originally, players could trigger QTEs even when the pot was moved to unintended locations, sometimes making gameplay easier.  
+QTEs can now only be triggered when the pot is placed at its original position. This prevents players from carrying the pot to unintended locations that could make the game easier.
+
+---
+
+#### 8. Added Pot Direction Indicator
+Although pot direction was mentioned in the tutorial, some players skipped or skimmed the instructions.  
+To provide clearer guidance, a visual indicator was added on the screen to show the correct pot orientation during gameplay.
+
+---
+
+#### 9. Adjust Main Camera
+Some players found forward and backward movements visually unclear.  
+To improve depth perception and movement clarity, the main camera’s rotation was adjusted to provide a readable perspective of the scene.
+
+---
+
+### Second Round
+
+#### 1.	Character No Longer Gets Stuck in the Oven  
+During the baking stage, the character could easily become stuck inside oven when the door automatically closed. To fix this, we adjust the oven door’s automatically close distance, ensuring that it no longer shuts unexpectedly when the character is nearby.
+
+---
+
+#### 2. Only milk can be picked up from the refrigerator  
+Originally, all items inside the refrigerator could be picked up as potential ingredients regardless whether they were correct or not. However, testing revealed that when players picked up and dropped incorrect items, those items often blocked the narrow refrigerator area, causing the character to get stuck.   
+
+---
+
+#### 3.	Disable other buttons when one menu is active  
+There were three on-screen buttons: Pause Menu, Checklist, and Submit buttons. Initially, these buttons could all be activated simultaneously, allowing multiple menus to overlap and clutter the screen.
+To resolve this, we adjusted the code of these menus that temporarily disables all other buttons when one menu is open.
+
+
+
+## Findings
+
+
+### Player demographic
+The game testing participants were primarily friends or schoolmates of the developers, most of whom are young adults. Base on the Q&A during observation and the questionnaire results (Fig 1.), almost all participants had prior experience with platform games, regardless of whether they were beginners or advanced players. However, only a small portion had any experience in game development. Overall, the participant group aligned well with our target audience defined in the evaluation plan: casual gamers who enjoy platformer games but lack game development experience.  
+![alt text](image-1.png)  
+Figure 1.  
+
+---
+
+### Game completion  
+As shown in Figure2, half of the players completed the game within 15-30 minutes, while a quarter took more than 30 minutes, which was significantly longer than the 10 minutes we initially expected.  However, this time included the period spent learning objectives, understanding movement and interaction control, location hidden ingredients, and repeating attempts after game overs.  Considering these factors, a completion of 15-30 minutes can be regarded as a reasonable duration for new players.  
+![alt text](image-2.png)  
+Figure2.  
+
+---
+
+### Findings from observation  
+The observational tests were conducted at an early stage, when the game was still under development. Because the developers had already played the game numerous times, we had become overly familiar with the controls, mechanics and level design, and thus overlooked the potential challenges for new players.   
+The first three observational tests revealed serval critical issues such – most notably, difficult character control and the challenge of having only one life. In addition to these findings, some interesting behavioral patterns were also recorded:  
+
+#### 1. All players found the same first ingredient  
+  Every player’s first discovered ingredient was flour. This occurred because the character’s starting point was close to the flour was visually prominent in the scene. Moreover, flour is an intuitive ingredient associated with baking, so players naturally picked it up first. This design worked as intended, helping players get familiar with the controls early in the game.
+
+---
+
+#### 2.	Jumped cross flames when they were extinguished  
+  Due to the unclear flame visuals and non-intuitive damage calculation, players often failed at this obstacle.  Many attempted to jumped across when the flames were temporarily extinguished, which contradicted our original intention: players were supposed to avoid active flame while crossing the area. To fix this, we reduced the fire spawn rate and improved the fire visual clarity and damage feedback, making the mechanic easier to understand.
+
+---
+
+#### 3.	Difficulty controlling the character
+  Observations showed that players spent an average of about five minutes just reaching the first ingredient, even thought it was quite close to the starting point. This indicated that players need some time to adapt the character’s controlling because it was not smooth, and players often got stuck on environmental models. These issues highlighted the need for smoother movement controls and models rearrangements.
+
+---
+
+### Findings from questionnarie  
+The questionnaire phase took place after many of earlier issues had been resolved, so the overall feedback was significantly positive compared to the observational phase. Fewer bugs were reported, allowing us to focus on further gameplay optimization rather than fundamental fixes.  
+The questionnaire, created using Google Forms, consisted of several multiple-choice questions aimed at evaluating game difficulty, control responsiveness, and enjoyment. The results helped us identify remaining areas for improvement in player experience and game balance.
+
+---
+
+#### Evaluation of the game based on key criteria
+As show in Fig 3., most evaluation categories received positive feedback from players. However, areas such as goal clarity, control, performance and theme related showed some disagreement, indicating that serval aspects still require improvement.   
+Interestingly, while players appreciated the concept and story of the game, some felt that the gameplay itself did not fully convey the intended “miniature” theme. To address this gap, a character shrinking animation was added after the opening dialogue, making the miniature concept more visually.  
+![alt text](image-3.png)  
+Figure 3.
+
+---
+
+#### Top two most popular features  
+Players showed the strongest appreciation for the game’s art style and storyline.  
+ A great deal of effort went into maintaining a consistent, charming visual design and developing a cohesive narrative. We also created custom character portraits and CG illustrations for both the opening and ending scenes. The story follows a complete and satisfying arc: the character shrinks, explores a dangerous kitchen, and eventually returns to normal size after overcoming obstacles and baking a wonder cake. While the gameplay representation of the miniature theme was initially subtle, the story concept itself was similar to It Takes Two, which won the favors of players. Overall, players were most impressed by the art direction and game concept.
+
+![alt text](image-4.png)  
+
+#### Top two features needing improvement
+The two areas that required the most improvement were the user interface (UI) and the tutorial.   
+In an effort to maintain a consistent and visually appealing art style, some UI elements were designed to blend seamlessly with the environment. Additionally, the fonts used in the UI were selected to match the cat-themed design, which enhanced the decorative aesthetic but inadvertently reduced readability. As a result, certain buttons and text became less noticeable, causing some players to overlook important interface elements during gameplay.  
+Regarding the tutorial, although an introductory tutorial was added and played automatically after the opening dialogue, serval players mentioned that they did not carefully read through all the pages due to the large amount of text. Nevertheless, given the complexity of the controls and gameplay flow, it remains important to clearly explain the full mission and mechanics.   
+Due to technical and time limitation, we were unable to implement a step-by-step interactive tutorial that guides players dynamically during gameplay. This feature would help players learn through action rather than reading, which provided a key direction for out future improvement.  
+
+![alt text](image-5.png)  
 
 ## Shaders and Special Effects
 
