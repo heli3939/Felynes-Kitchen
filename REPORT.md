@@ -208,7 +208,7 @@ Query:
 - showwing how the shader effects fit into the rendering pipeline/Unity engine (link to theory)
 
 ### *HeatWave Distortion Shader*
-Exact path: Assets\Shaders for marking\HeatWave.shader
+Exact path: ['Assets\Shaders for marking\HeatWave.shader'](Assets/Shaders%20for%20marking/HeatWave.shader)
 
 The HeatWave shader creates a realistic heat distortion effect that simulates the visual phenomenon of hot air rising and distorting the view behind it.
 
@@ -216,6 +216,8 @@ In our project, we used this shader to enhance the visual experience. It creates
 
 The HeatWave shader uses GrabPass technology within Unity's rendering pipeline, working as follows:
 Unity first renders all opaque objects (Render Queue 2000) and the skybox (Queue 2500), then during the transparent rendering phase (Queue 2500+), it executes GrabPass to capture the current screen buffer into the *_GrabTexture* texture. The shader's fragment shader then uses procedurally-generated Fractal Brownian Motion (FBM) noise to calculate distortion offsets, which are applied to the GrabPass UV coordinates to sample warped background pixels. Finally, alpha blending (SrcAlpha OneMinusSrcAlpha) composites the distorted result over the scene, creating the heat wave visual effect. This screen-space technique's advantage is that it's independent of scene complexity and only depends on screen resolution, making it relatively performance-efficient for creating realistic atmospheric distortion effects that simulate light refraction through turbulent heated air.
+
+![HeatWaveGIF](heatWaveGIF.gif)
 
 ## Summary of Contributions
 
