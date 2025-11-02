@@ -681,9 +681,20 @@ MonoBehaviour:
   skipButton: {fileID: 55873916}
   cgText: {fileID: 1969400522}
   cgLines:
-  - Long times ago...
-  - There's a cat called Felyne
-  - Test
+  - ' In a cozy kitchen filled with the scent of sugar and fresh strawberries'
+  - a cat named Felyne stood on his stool
+  - his fur was dusted with flour, whisk in paw and hope in heart
+  - For as long as he could remember
+  - Felyne had been dreaming of baking a perfect cake
+  - but every try turned into a disaster
+  - Tonight, unfortunately, as usual, things didn't go as planned
+  - As the smoke from the last sponge curled from the oven
+  - Felyne's whiskers drooped, a long and tired sigh escaped him
+  - ' "Perhaps I just couldn''t..." he murmured'
+  - Slowly, Felyne curled up beside the oven, his eyes grew heavy
+  - As he drifted into sleep, the air around him seemed to shimmer faintly
+  - 'the scent of strawberries grew, sweet and soft '
+  - "as though the dream he'd longed for was finally beginning to rise... \r\n"
   fadeDuration: 1
   textDisplayTime: 1.5
   mainSceneName: MainScene
@@ -1766,7 +1777,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -213}
+  m_AnchoredPosition: {x: 0, y: -209.1}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1969400522
@@ -1816,8 +1827,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
