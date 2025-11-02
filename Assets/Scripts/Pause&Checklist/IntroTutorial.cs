@@ -82,7 +82,7 @@ public class IntroTutorialManager    : MonoBehaviour
         Time.timeScale = 1f;
 
         if (checklistPanel != null)
-            checklistPanel.SetActive(false);
+            checklistPanel.SetActive(true);
     }
 
     private void ToggleFlameScripts(bool enable)
