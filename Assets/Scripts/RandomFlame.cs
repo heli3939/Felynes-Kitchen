@@ -31,13 +31,12 @@ public class RandomFlame : MonoBehaviour
     [Range(0f, 1f)] public float minAlphaMul = 0.0f;
     [Range(0f, 1f)] public float minEmissionMul = 0.1f;
 
-    // Hard caps: keeps the flame small & dim even at full ramp
     [Header("Caps (limit final size/brightness)")]
-    [Range(0.1f, 1f)] public float maxScaleMul = 0.6f;     // 60% of fullScale
-    [Range(0.1f, 1f)] public float maxSizeMul = 0.6f;      // 60% of startSize
-    [Range(0.05f, 1f)] public float maxEmissionMul = 0.4f; // 40% of emission color
-    [Range(0.05f, 1f)] public float maxTintAlphaMul = 0.7f;// 70% of _Color alpha
-    [Range(0.05f, 1f)] public float maxRateMul = 0.5f;     // 50% of emission rate
+    [Range(0.1f, 1f)] public float maxScaleMul = 0.6f;
+    [Range(0.1f, 1f)] public float maxSizeMul = 0.6f;
+    [Range(0.05f, 1f)] public float maxEmissionMul = 0.4f;
+    [Range(0.05f, 1f)] public float maxTintAlphaMul = 0.7f;
+    [Range(0.05f, 1f)] public float maxRateMul = 0.5f;
 
     [Header("Extras to hide when OFF (optional)")]
     public GameObject[] extraVisualRoots;
@@ -63,7 +62,6 @@ public class RandomFlame : MonoBehaviour
     private bool hasColorProp, hasEmissionProp;
     private System.Random rng;
 
-    // capped targets computed in Awake
     private Vector3 cappedFullScale;
     private float cappedStartSizeMul;
     private Color cappedTintColor;
@@ -281,8 +279,6 @@ public class RandomFlame : MonoBehaviour
         curve.constant = Mathf.Max(0f, r);
         em.rateOverTime = curve;
     }
-
-    // ---------- Public API used by PlayerHealth ----------
     public bool IsDamagingNow(Collider playerCollider)
     {
         return isOn && triggerCol.enabled && PassedHeightGate(playerCollider);
@@ -292,7 +288,6 @@ public class RandomFlame : MonoBehaviour
     {
         return (playerPosition - transform.position).normalized;
     }
-    // ----------------------------------------------------
 
     private bool PassedHeightGate(Collider player)
     {

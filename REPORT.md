@@ -37,6 +37,7 @@ This evaluation aims to systematically assess both _usability_ and _player_ expe
 
 \***\*Why This Matters\*\***:
 Without systematic evaluation, we risk submitting a game that works for developers but confuses players. This evaluation directly demonstrates our ability to iterate based on real user feedback.
+
 ---
 
 ### 2. Evaluation Techniques
@@ -141,33 +142,31 @@ All participants will be informed that:
 
 No personal data will be shared or stored beyond project submission.
 
-
-
 # Evaluation Report
 
 ## Summary
 
-More than 10 participants took part in our game testing:  
+More than 10 participants took part in our game testing:
+
 - Five were evaluated through observation, and
-- Ten were invited to complete a questionnaire, from which eight valid responses were collected.  
+- Ten were invited to complete a questionnaire, from which eight valid responses were collected.
 
 Both evaluation methods revealed common issues related to game difficulty and players getting stuck during movement.
-
-
 
 ## Adjustments
 
 ### First Round
 
 #### 1. Smooth Control
-Initially, the character’s jump height depended on how long players held the space bar — the longer they pressed, the higher the jump. Most players did not realize this mechanic and tended to tap the space bar briefly, resulting in very short jumps. Consequently, they often failed to reach furniture or platforms.   
+
+Initially, the character’s jump height depended on how long players held the space bar — the longer they pressed, the higher the jump. Most players did not realize this mechanic and tended to tap the space bar briefly, resulting in very short jumps. Consequently, they often failed to reach furniture or platforms.  
 The jumping system was redesigned to include a double jump mechanic (press space twice for a second jump). Additionally, pressing the space bar now always triggers a consistent jump height, making the controls more intuitive.
 
 ---
 
 #### 2. Reduce Game Difficulty
 
-In the original version, players only had one life, so being attacked by a mouse or touching fire caused an immediate restart.  During testing, many players reached the final baking stage but lost progress due to small mistakes.   
+In the original version, players only had one life, so being attacked by a mouse or touching fire caused an immediate restart. During testing, many players reached the final baking stage but lost progress due to small mistakes.  
 To balance the difficulty, serval changes were made:
 
 - **Increased player health**  
@@ -184,41 +183,49 @@ To balance the difficulty, serval changes were made:
 ---
 
 #### 3. Immediate Access to the Ending
-Originally, the ending scene was only unlocked after players decorated the cake, which required finding all decoration ingredients and completing a QTE.    
+
+Originally, the ending scene was only unlocked after players decorated the cake, which required finding all decoration ingredients and completing a QTE.  
 However, some high-scoring players couldn’t find all ingredients, preventing them from reaching the happy ending. To fix this, a submit button was added, becoming available after mandatory dialogues. This allows players to view the ending anytime, even without finding every ingredient.
 
 ---
 
 #### 4. Adjust Models to Prevent Stuck Issues
-Several testers reported the character frequently getting stuck in various spots. These issues were fixed by repositioning models and modifying collider components in the inspector. 
-- For example, plants originally used mesh colliders, which caused the character to get stuck in the leaves.  Replacing them with capsule colliders significantly reduced this issue.
+
+Several testers reported the character frequently getting stuck in various spots. These issues were fixed by repositioning models and modifying collider components in the inspector.
+
+- For example, plants originally used mesh colliders, which caused the character to get stuck in the leaves. Replacing them with capsule colliders significantly reduced this issue.
 
 ---
 
 #### 5. Adjusted Character Starting Position
+
 The original starting point was placed on the mice’s patrol path, causing immediate HP loss if players didn’t move quickly.The starting point was relocated to ensure players have time to react before encountering enemies.
 
 ---
 
 #### 6. Mandatory Intro Tutorial
-The tutorial was initially accessible only through the pause menu, meaning many players were unlikely to open it without explicit direction.   
+
+The tutorial was initially accessible only through the pause menu, meaning many players were unlikely to open it without explicit direction.  
 Therefore, a mandatory intro tutorial now appears automatically after the opening dialogue. This ensures players read the mission guide and clearly understand their objectives before beginning play.
 
 ---
 
 #### 7. Restricted QTE Activation Area
+
 Originally, players could trigger QTEs even when the pot was moved to unintended locations, sometimes making gameplay easier.  
 QTEs can now only be triggered when the pot is placed at its original position. This prevents players from carrying the pot to unintended locations that could make the game easier.
 
 ---
 
 #### 8. Added Pot Direction Indicator
+
 Although pot direction was mentioned in the tutorial, some players skipped or skimmed the instructions.  
 To provide clearer guidance, a visual indicator was added on the screen to show the correct pot orientation during gameplay.
 
 ---
 
 #### 9. Adjust Main Camera
+
 Some players found forward and backward movements visually unclear.  
 To improve depth perception and movement clarity, the main camera’s rotation was adjusted to provide a readable perspective of the scene.
 
@@ -226,95 +233,100 @@ To improve depth perception and movement clarity, the main camera’s rotation w
 
 ### Second Round
 
-#### 1.	Character No Longer Gets Stuck in the Oven  
+#### 1. Character No Longer Gets Stuck in the Oven
+
 During the baking stage, the character could easily become stuck inside oven when the door automatically closed. To fix this, we adjust the oven door’s automatically close distance, ensuring that it no longer shuts unexpectedly when the character is nearby.
 
 ---
 
-#### 2. Only milk can be picked up from the refrigerator  
-Originally, all items inside the refrigerator could be picked up as potential ingredients regardless whether they were correct or not. However, testing revealed that when players picked up and dropped incorrect items, those items often blocked the narrow refrigerator area, causing the character to get stuck.   
+#### 2. Only milk can be picked up from the refrigerator
+
+Originally, all items inside the refrigerator could be picked up as potential ingredients regardless whether they were correct or not. However, testing revealed that when players picked up and dropped incorrect items, those items often blocked the narrow refrigerator area, causing the character to get stuck.
 
 ---
 
-#### 3.	Disable other buttons when one menu is active  
+#### 3. Disable other buttons when one menu is active
+
 There were three on-screen buttons: Pause Menu, Checklist, and Submit buttons. Initially, these buttons could all be activated simultaneously, allowing multiple menus to overlap and clutter the screen.
 To resolve this, we adjusted the code of these menus that temporarily disables all other buttons when one menu is open.
 
-
-
 ## Findings
 
-
 ### Player demographic
+
 The game testing participants were primarily friends or schoolmates of the developers, most of whom are young adults. Base on the Q&A during observation and the questionnaire results (Fig 1.), almost all participants had prior experience with platform games, regardless of whether they were beginners or advanced players. However, only a small portion had any experience in game development. Overall, the participant group aligned well with our target audience defined in the evaluation plan: casual gamers who enjoy platformer games but lack game development experience.  
 ![alt text](image-1.png)  
-Figure 1.  
+Figure 1.
 
 ---
 
-### Game completion  
-As shown in Figure2, half of the players completed the game within 15-30 minutes, while a quarter took more than 30 minutes, which was significantly longer than the 10 minutes we initially expected.  However, this time included the period spent learning objectives, understanding movement and interaction control, location hidden ingredients, and repeating attempts after game overs.  Considering these factors, a completion of 15-30 minutes can be regarded as a reasonable duration for new players.  
+### Game completion
+
+As shown in Figure2, half of the players completed the game within 15-30 minutes, while a quarter took more than 30 minutes, which was significantly longer than the 10 minutes we initially expected. However, this time included the period spent learning objectives, understanding movement and interaction control, location hidden ingredients, and repeating attempts after game overs. Considering these factors, a completion of 15-30 minutes can be regarded as a reasonable duration for new players.  
 ![alt text](image-2.png)  
-Figure2.  
+Figure2.
 
 ---
 
-### Findings from observation  
-The observational tests were conducted at an early stage, when the game was still under development. Because the developers had already played the game numerous times, we had become overly familiar with the controls, mechanics and level design, and thus overlooked the potential challenges for new players.   
-The first three observational tests revealed serval critical issues such – most notably, difficult character control and the challenge of having only one life. In addition to these findings, some interesting behavioral patterns were also recorded:  
+### Findings from observation
 
-#### 1. All players found the same first ingredient  
-  Every player’s first discovered ingredient was flour. This occurred because the character’s starting point was close to the flour was visually prominent in the scene. Moreover, flour is an intuitive ingredient associated with baking, so players naturally picked it up first. This design worked as intended, helping players get familiar with the controls early in the game.
+The observational tests were conducted at an early stage, when the game was still under development. Because the developers had already played the game numerous times, we had become overly familiar with the controls, mechanics and level design, and thus overlooked the potential challenges for new players.  
+The first three observational tests revealed serval critical issues such – most notably, difficult character control and the challenge of having only one life. In addition to these findings, some interesting behavioral patterns were also recorded:
 
----
+#### 1. All players found the same first ingredient
 
-#### 2.	Jumped cross flames when they were extinguished  
-  Due to the unclear flame visuals and non-intuitive damage calculation, players often failed at this obstacle.  Many attempted to jumped across when the flames were temporarily extinguished, which contradicted our original intention: players were supposed to avoid active flame while crossing the area. To fix this, we reduced the fire spawn rate and improved the fire visual clarity and damage feedback, making the mechanic easier to understand.
+Every player’s first discovered ingredient was flour. This occurred because the character’s starting point was close to the flour was visually prominent in the scene. Moreover, flour is an intuitive ingredient associated with baking, so players naturally picked it up first. This design worked as intended, helping players get familiar with the controls early in the game.
 
 ---
 
-#### 3.	Difficulty controlling the character
-  Observations showed that players spent an average of about five minutes just reaching the first ingredient, even thought it was quite close to the starting point. This indicated that players need some time to adapt the character’s controlling because it was not smooth, and players often got stuck on environmental models. These issues highlighted the need for smoother movement controls and models rearrangements.
+#### 2. Jumped cross flames when they were extinguished
+
+Due to the unclear flame visuals and non-intuitive damage calculation, players often failed at this obstacle. Many attempted to jumped across when the flames were temporarily extinguished, which contradicted our original intention: players were supposed to avoid active flame while crossing the area. To fix this, we reduced the fire spawn rate and improved the fire visual clarity and damage feedback, making the mechanic easier to understand.
 
 ---
 
-### Findings from questionnarie  
+#### 3. Difficulty controlling the character
+
+Observations showed that players spent an average of about five minutes just reaching the first ingredient, even thought it was quite close to the starting point. This indicated that players need some time to adapt the character’s controlling because it was not smooth, and players often got stuck on environmental models. These issues highlighted the need for smoother movement controls and models rearrangements.
+
+---
+
+### Findings from questionnarie
+
 The questionnaire phase took place after many of earlier issues had been resolved, so the overall feedback was significantly positive compared to the observational phase. Fewer bugs were reported, allowing us to focus on further gameplay optimization rather than fundamental fixes.  
 The questionnaire, created using Google Forms, consisted of several multiple-choice questions aimed at evaluating game difficulty, control responsiveness, and enjoyment. The results helped us identify remaining areas for improvement in player experience and game balance.
 
 ---
 
 #### Evaluation of the game based on key criteria
-As show in Fig 3., most evaluation categories received positive feedback from players. However, areas such as goal clarity, control, performance and theme related showed some disagreement, indicating that serval aspects still require improvement.   
+
+As show in Fig 3., most evaluation categories received positive feedback from players. However, areas such as goal clarity, control, performance and theme related showed some disagreement, indicating that serval aspects still require improvement.  
 Interestingly, while players appreciated the concept and story of the game, some felt that the gameplay itself did not fully convey the intended “miniature” theme. To address this gap, a character shrinking animation was added after the opening dialogue, making the miniature concept more visually.  
 ![alt text](image-3.png)  
 Figure 3.
 
 ---
 
-#### Top two most popular features  
+#### Top two most popular features
+
 Players showed the strongest appreciation for the game’s art style and storyline.  
  A great deal of effort went into maintaining a consistent, charming visual design and developing a cohesive narrative. We also created custom character portraits and CG illustrations for both the opening and ending scenes. The story follows a complete and satisfying arc: the character shrinks, explores a dangerous kitchen, and eventually returns to normal size after overcoming obstacles and baking a wonder cake. While the gameplay representation of the miniature theme was initially subtle, the story concept itself was similar to It Takes Two, which won the favors of players. Overall, players were most impressed by the art direction and game concept.
 
-![alt text](image-4.png)  
+![alt text](image-4.png)
 
 #### Top two features needing improvement
-The two areas that required the most improvement were the user interface (UI) and the tutorial.   
-In an effort to maintain a consistent and visually appealing art style, some UI elements were designed to blend seamlessly with the environment. Additionally, the fonts used in the UI were selected to match the cat-themed design, which enhanced the decorative aesthetic but inadvertently reduced readability. As a result, certain buttons and text became less noticeable, causing some players to overlook important interface elements during gameplay.  
-Regarding the tutorial, although an introductory tutorial was added and played automatically after the opening dialogue, serval players mentioned that they did not carefully read through all the pages due to the large amount of text. Nevertheless, given the complexity of the controls and gameplay flow, it remains important to clearly explain the full mission and mechanics.   
-Due to technical and time limitation, we were unable to implement a step-by-step interactive tutorial that guides players dynamically during gameplay. This feature would help players learn through action rather than reading, which provided a key direction for out future improvement.  
 
-![alt text](image-5.png)  
+The two areas that required the most improvement were the user interface (UI) and the tutorial.  
+In an effort to maintain a consistent and visually appealing art style, some UI elements were designed to blend seamlessly with the environment. Additionally, the fonts used in the UI were selected to match the cat-themed design, which enhanced the decorative aesthetic but inadvertently reduced readability. As a result, certain buttons and text became less noticeable, causing some players to overlook important interface elements during gameplay.  
+Regarding the tutorial, although an introductory tutorial was added and played automatically after the opening dialogue, serval players mentioned that they did not carefully read through all the pages due to the large amount of text. Nevertheless, given the complexity of the controls and gameplay flow, it remains important to clearly explain the full mission and mechanics.  
+Due to technical and time limitation, we were unable to implement a step-by-step interactive tutorial that guides players dynamically during gameplay. This feature would help players learn through action rather than reading, which provided a key direction for out future improvement.
+
+![alt text](image-5.png)
 
 ## Shaders and Special Effects
 
-- descriptions: what? what does the shader do (effect)?
-- rationales: why we use the shader in the game (enhance/ improve...)
-- exact path (with link)
-- images/gifs
-- showwing how the shader effects fit into the rendering pipeline/Unity engine (link to theory)
+### _HeatWave Distortion Shader_
 
-### *HeatWave Distortion Shader*
 Exact path: ['Assets\Shaders for marking\HeatWave.shader'](Assets/Shaders%20for%20marking/HeatWave.shader)
 
 The HeatWave shader creates a realistic heat distortion effect that simulates the visual phenomenon of hot air rising and distorting the view behind it.
@@ -322,7 +334,41 @@ The HeatWave shader creates a realistic heat distortion effect that simulates th
 In our project, we used this shader to enhance the visual experience. It creates a shimmering, wavy distortion that makes objects behind it appear to ripple, similar to the visual effect you see when looking through hot air. Since the player needs to pass through an area with flames, this shader helps create a more immersive and realistic atmosphere.
 
 The HeatWave shader uses GrabPass technology within Unity's rendering pipeline, working as follows:
-Unity first renders all opaque objects (Render Queue 2000) and the skybox (Queue 2500), then during the transparent rendering phase (Queue 2500+), it executes GrabPass to capture the current screen buffer into the *_GrabTexture* texture. The shader's fragment shader then uses procedurally-generated Fractal Brownian Motion (FBM) noise to calculate distortion offsets, which are applied to the GrabPass UV coordinates to sample warped background pixels. Finally, alpha blending (SrcAlpha OneMinusSrcAlpha) composites the distorted result over the scene, creating the heat wave visual effect. This screen-space technique's advantage is that it's independent of scene complexity and only depends on screen resolution, making it relatively performance-efficient for creating realistic atmospheric distortion effects that simulate light refraction through turbulent heated air.
+Unity first renders all opaque objects (Render Queue 2000) and the skybox (Queue 2500), then during the transparent rendering phase (Queue 2500+), it executes GrabPass to capture the current screen buffer into the _\_GrabTexture_ texture. The shader's fragment shader then uses procedurally-generated Fractal Brownian Motion (FBM) noise to calculate distortion offsets, which are applied to the GrabPass UV coordinates to sample warped background pixels. Finally, alpha blending (SrcAlpha OneMinusSrcAlpha) composites the distorted result over the scene, creating the heat wave visual effect. This screen-space technique's advantage is that it's independent of scene complexity and only depends on screen resolution, making it relatively performance-efficient for creating realistic atmospheric distortion effects that simulate light refraction through turbulent heated air.
+
+![HeatWaveGIF](heatWaveGIF.gif)
+
+### _Cel-shading Shader_
+
+Exact path: ['Assets/Shaders for marking/CelShading.shader'](Assets/Shaders%20for%20marking/CelShading.shader)
+
+To align with the game’s cute and cozy art style, we use a custom vertex/fragment cel shader that transforms smooth lighting into clear, toon-style bands. This creates a simplified and visually consistent look across all game objects.
+
+In the vertex stage, object vertices are transformed into clip space while world-space normals, positions, view vectors, and shadow coordinates are passed to the fragment stage. In the fragment stage, the shader computes standard lighting terms—diffuse using N⋅L and specular using a Blinn–Phong half-vector—and then quantises both into discrete steps to achieve the cartoon appearance.
+
+A subtle ambient term is added for base illumination, and Unity’s shadow attenuation is applied to ensure the lighting bands remain consistent in shadowed areas. The shader runs in two passes:
+
+- ForwardBase: main light and shadows
+
+- ForwardAdd: accumulate additional lights, maintaining stable highlights as the player moves through illuminated regions
+
+Adjustable parameters such as \_Steps, \_SpecSteps, and \_SpecStrength control the number and intensity of the lighting bands, while \_Color and \_MainTex define the surface colour.
+
+Within Unity’s forward rendering pipeline, this shader executes during the opaque geometry stage, after vertex transformations and before transparent passes. Each pass contributes to Unity’s lighting model through multi_compile_fwdbase and multi_compile_fwdadd directives, which connect the shader to the engine’s built-in light and shadow data structures. This ensures the toon lighting integrates seamlessly with Unity’s standard light handling and remains efficient on screen.
+
+Overall, this shader delivers clean, stylised shading with strong contrast that improves visual readability and complements the game’s warm and inviting tone.
+
+![alt text](image-6.png)
+
+### _Fire Flame Particle System_
+
+Exact path: ['Assets/ParticleSystem/FireFlame/Prefabs/FlamesParticleEffect.prefab'](Assets/ParticleSystem/FireFlame/Prefabs/FlamesParticleEffect.prefab)
+
+This particle system produces the fire flame over gas cylinders to meet our art style and performance requirements, to add difficulty and dynamics to our game. It continuously emits rising particles that use animated flame textures, colour gradients, and procedural noise to simulate the motion of real fire. Each particle has a short lifetime wtih bright yellow and orange then fades.
+
+A flame sprite texture sheet animation provides smooth, looping fire movement. Other core attributes (e.g. emission rate, lifetime, shape, noise, and colour behaviour) were customised to create a cohesive, stylised look that matches the game’s warm lighting. The system renders in Billboard mode using FlameRoundYellowParticle, ensuring consistent appearance from any angle.
+
+Integrated within Unity’s forward rendering pipeline, this effect draws during the transparent pass with additive blending, overlaying glowing flames on opaque geometry. Together with the HeatWave distortion shader, it enhances atmosphere, visual depth, and realism around heat-emitting areas.
 
 ![HeatWaveGIF](heatWaveGIF.gif)
 
@@ -330,7 +376,8 @@ Unity first renders all opaque objects (Render Queue 2000) and the skybox (Queue
 
 code contribution on each .cs/.shader
 
-*KEXIN LIANG:*
+_KEXIN LIANG:_
+
 - OpenDoor.cs
 - playerHealth.cs
 - PauseMenu.cs
@@ -351,7 +398,10 @@ code contribution on each .cs/.shader
 - Switch_Camera.cs
 - PickDrop_Ingredients.cs
 
+_Cassie Luo:_
+
 ## References and External Resources
+
 TODO - see specification for details
 
 - Gonzalez Vivo, P., & Lowe, J. (n.d.). Noise. The Book of Shaders. https://thebookofshaders.com/11/

@@ -8,8 +8,6 @@ Shader "Project/CelShading"
         _SpecSteps    ("Spec Steps (>=1)", Range(1,6)) = 1
         _SpecStrength ("Spec Strength", Range(0,2)) = 0.7
         _RampTex      ("(Optional) Diffuse Ramp", 2D) = "gray" {}
-        _OutlineColor ("Outline Color", Color) = (0,0,0,1)
-        _OutlineWidth ("Outline Width (0=off)", Range(0,0.05)) = 0
     }
 
     SubShader
@@ -20,7 +18,6 @@ Shader "Project/CelShading"
         ZWrite On
         ZTest LEqual
 
-        // ---------- CEL SHADING (FORWARD BASE) ----------
         Pass
         {
             Name "FORWARD_BASE"
@@ -54,7 +51,7 @@ Shader "Project/CelShading"
                 float2 uv    : TEXCOORD0;
                 float3 nWS   : TEXCOORD1;
                 float3 vWS   : TEXCOORD2;
-                float3 wPos  : TEXCOORD3;   // ADDED: world position for light dir helper
+                float3 wPos  : TEXCOORD3;  
                 SHADOW_COORDS(4)
             };
 
@@ -72,7 +69,7 @@ Shader "Project/CelShading"
                 OUT.pos  = UnityObjectToClipPos(IN.vertex);
                 OUT.uv   = TRANSFORM_TEX(IN.uv, _MainTex);
                 OUT.nWS  = normalize(UnityObjectToWorldNormal(IN.normal));
-                OUT.wPos = mul(unity_ObjectToWorld, IN.vertex).xyz; // ADDED
+                OUT.wPos = mul(unity_ObjectToWorld, IN.vertex).xyz;
                 OUT.vWS  = _WorldSpaceCameraPos - OUT.wPos;
                 TRANSFER_SHADOW(OUT);
                 return OUT;
@@ -84,7 +81,6 @@ Shader "Project/CelShading"
                 float3 N = normalize(IN.nWS);
                 float3 V = normalize(IN.vWS);
 
-                // FIX: backend-safe light dir
                 float3 L = normalize(UnityWorldSpaceLightDir(IN.wPos));
 
                 fixed shadow   = SHADOW_ATTENUATION(IN);
@@ -101,7 +97,6 @@ Shader "Project/CelShading"
             ENDCG
         }
 
-        // ---------- ADDITIONAL LIGHTS (FORWARD ADD) ----------
         Pass
         {
             Tags { "LightMode"="ForwardAdd" }
@@ -159,7 +154,6 @@ Shader "Project/CelShading"
             {
                 UNITY_LIGHT_ATTENUATION(atten, i, i.worldPos);
 
-                // FIX: backend-safe light dir for additional lights
                 float3 L = normalize(UnityWorldSpaceLightDir(i.worldPos));
 
                 float3 N   = normalize(i.worldNorm);
@@ -167,13 +161,11 @@ Shader "Project/CelShading"
                 half   band= (_Steps >= 2.0h) ? ToonStep(ndl, (half)_Steps) : (ndl > 0.5h ? 1.0h : 0.0h);
 
                 fixed3 albedo = tex2D(_MainTex, i.uv).rgb * _Color.rgb;
-                fixed3 lit    = albedo * _LightColor0.rgb * band * atten; // additive
+                fixed3 lit    = albedo * _LightColor0.rgb * band * atten; 
 
                 return fixed4(lit, 0);
             }
             ENDCG
         }
-
-        // (Optional OUTLINE pass left commented in your original)
     }
 }
