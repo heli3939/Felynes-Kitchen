@@ -5,50 +5,23 @@
 ### 1. Game Overview
 
 - **Core Concept**  
-  Players control **Felyne**, a clumsy but determined cat who dreams of baking the perfect cake. Set in a whimsical miniature kitchen, the player explores, collects ingredients, avoids hazards, and completes Quick Time Events (QTEs) to bake correctly. The game blends platforming, adventure, and light cooking simulation.
-
+  Players control Felyne, a clumsy but determined cat who dreams of baking the perfect cake. After being mysteriously shrunk to miniature size in his dream, Felyne must navigate an ordinary kitchen that now feels enormous. His mission is exploring, collecting ingredients, avoiding hazards, and completing Quick Time Events (QTEs) to bake cake correctly. The game blends platformer, adventure, and light cooking simulation.
 - **Related Genres**
 
-  - **Genres:** 3D Platformer / Adventure / Cooking Simulation with camera sliding left and right following the PC model
+  - **Genres:** 3D Platformer / Adventure / Cooking Simulation
   - **Inspirations:**
     - _Overcooked!_ (kitchen interaction and cooking tasks)
     - _Ori and the Blind Forest_ (platforming style)
-    - _Untitled Goose Game_ (simple, brightly colored art direction)
+    - _Untitled Goose Game_ (simple, brightly colored art direction and checklist style)
+    - _Dead By Daylight_ (QTE)
 
 - **Target Audience**  
-  Casual to mid-core players, especially teens and young adults who enjoy cozy, lighthearted platformers, coo
-    void ShowLine()
-    {
-        if (typingCoroutine != null)
-            StopCoroutine(typingCoroutine);;
-
-        DialogueLine line = lines[index];
-        currentSpeaker = line.speakerName;
-        currentLine = line.text;
-
-        nameText.text = currentSpeaker;
-
-        Felyne.color = new Color(1f, 1f, 1f, 0f);
-        Spirit.color = new Color(1f, 1f, 1f, 0f);
-        if (currentSpeaker == "Player")
-        {
-            Felyne.sprite = line.portrait;
-            Felyne.gameObject.SetActive(true);   
-        }
-        else
-        {
-            Spirit.sprite = line.portrait;
-            Spirit.gameObject.SetActive(true); 
-        }
-
-        typingCoroutine = StartCoroutine(TypeLine(currentLine));
-    }
-king games, and animal-themed characters. Accessible enough for casual play but with replayability for more engaged players.
+  Teens and young adults who love cozy platformers, cute animal characters, and cooking-themed adventures, but also crave moments of challenge. Designed to be easy to pick up yet challenging to win within short time (reach HE), the game appeals to both casual players and those who enjoy refining their skills through replay.
 
 - **Unique Selling Points (USPs)**
   - **Miniature Perspective:** Contrast between "enlarged" everyday kitchen objects and ingredients and shrunk Felyne’s model.
   - **Platforming + Cooking Fusion:** Jumping challenges (with obstacles and hazard) and ingredient collection and interactive cooking QTEs.
-  - **Multiple Endings:** Success or failure in baking leads to a Happy End or Bad End, increasing replay value.
+  - **Multiple Endings:** Besides die during gameplay, players' performance in QTE and finiding ingredients lead to a light-hearted Happy End or nightmare-like Bad End, increasing replay value.
 
 ---
 
@@ -57,66 +30,64 @@ king games, and animal-themed characters. Accessible enough for casual play but 
 - **Backstory** 📖
   _(What is the setting, conflict, and plot progression?)_
 
-  Felyne is a lovely yet sometimes clumsy cat 🐱 who has always dreamed of baking a perfect cake ever. Unfortunately, his every attempt in the kitchen ends in failure — burnt edges, collapsed batter, too much sugar, and so so on.
+  Felyne is a lovely yet sometimes clumsy cat 🐱 who has always dreamed of baking a perfect cake ever. Unfortunately, all of his attempts in the kitchen ended up in failure — burnt edges, collapsed batter, mistook salt as sugar, and so on.
 
-  One night, after yet another failed attempt, Felyne fall asleep in disappointment. In the dream, a mysterious strawberry spirit 🍓 appears and whispers, “Maybe if you could become part of the ingredients, and you could finally make it work…” “Become an ingredient? No, I just want to make the cake!”Suddenly, Felyne finds himself shrunk down, "This is your chance now, ready to make the cake? Success.. or become an ingredient.. Good luck, Felyne..."😈
+  One night, after another failed attempt, Felyne fall asleep in disappointment as usual. But in his dream, a mysterious strawberry spirit 🍓 appears and whispers, “Maybe if you could become part of the ingredients, and you could finally make it work…” “Become an ingredient? No, I just want to make the cake!”Suddenly, Felyne finds himself shrunk down, "This is your chance now, ready to make the cake? Success.. or become an ingredient.. Good luck, Felyne..."😈
 
   **Settings**
 
-  The story takes place in the Felyne's kitchen in his dream. Felyne becomes tiny, hence everyday objects become towering obstacles. The kitchen is colorful and welcoming, filled with both charm and hidden danger, including the sneaky mice and the risk of falling off.
+  The story takes place in the Felyne's kitchen in his dream. Felyne becomes tiny, hence everyday objects become towering obstacles. The kitchen is colorful and welcoming, filled with both charm and hidden danger, including the sneaky mice and the risk of burnt by fire flame on gas cylinders. (What a dangerous kitchen!)
 
   **Conflict**
 
-  To bake the perfect cake 🍰, Felyne must gather all ingredients needed scattered around the kitchen. However, his tiny size makes this tasks difficult. Challenges are both physical and strategic: Felyne (PC) must
+  Felyne’s dream of baking the perfect strawberry cake becomes a challenge, when he’s mysteriously shrunk and trapped in his own kitchen. To return to normal and prove his worth as a baking lover, he must overcome his clumsiness and face the dangers of an "oversized" world. Things in the kitchen from harmless to life-threatening, such as mischievous mice, scorching flames, and tricky baking tasks...
 
   - adventure to find the ingredients (somes are hidden)
   - avoid mischievous mice disrupt his adventure on the floor
   - avoid "randomly" lighting up gas cylindars (with flames)
   - adventure through various obstacles
-  - perform proper QTE to put proper amount of ingredients into mixture pot to succeed
+  - perform proper QTE to put proper amount of correct ingredients into mixture pot and for decoration to succeed
 
-  ## **Plot progression**
+## **Plot progression**
 
-  **Beginning**:
+**Beginning**:
 
-  This is the umpteenth attempt Felyne tried to bake a cake, but he still failed. He fall asleep in deep frustration. In his dream, there is a strawberry spirit talking to him, suggesting that he will success if he becomes a part of cake 😈. Felyne refused the spirit, and suddenly shrink down. Only making out a perfect cake would escape the fate of becoming an ingredient.. Ready to start the adventure?
+This is the umpteenth attempt Felyne tried to bake a cake, but he still failed. He fall asleep in deep frustration. In his dream, there is a strawberry spirit talking to him, suggesting that he will success if he becomes a part of cake 😈. Felyne refused the spirit, and suddenly shrink down. Only making out a perfect cake would escape the fate of becoming an ingredient.. Ready to start the adventure?
 
-  **Middle**:
+**Middle**:
 
-  Felyne investigates the BIG kitchen, spots and collects ingredients in kitchen, and put the ingredients together correctedly to make the cake. The journey will be full of whimsical and potential dangers.
+Felyne investigates the BIG kitchen, spots and collects ingredients in kitchen, and put the ingredients together correctedly to make the cake. The journey will be full of whimsical and potential dangers.
 
-  **End**:
+**End**:
 
-  - HE: Felyne successfully make the cake, he has a nice time enjoying the cake he made, and returns to his normal size. "Congrats, Felyne.." he heard the strawberry spirit's voice, looking around, but couldn't find her anymore. In the morning, Felyne woke up, and tries to make a cake in reality like how he did in the dream, he eventually succeed... 🎉
-  - BE: Felyne fails to make the cake, "I'm sorry Felyne.." the strawberry spirit says. Felyne becomes an strawberry, and couldn't do anything. The stawberry spirit makes a cake, and put Felyneberry on the cake as her last step. The spirit takes a piece of cake with Felyne on it, and starts to eat.. As Felyne is almost swallowed by the spirit, he woke up with startle. （P.S.: the strawberry was also a cat bad at baking)
+- HE: Felyne successfully make the cake, he has a nice time enjoying the cake he made, and returns to his normal size. "Congrats, Felyne..." he heard the strawberry spirit's voice, looking around, but couldn't find her anymore. In the morning, Felyne woke up, and tries to make a cake in reality like how he did in the dream, he eventually succeed, just like in his dream. 🎉
+- BE: Felyne fails to make the cake, "Heh heh heh..." the strawberry spirit smirked. Felyne is trapped into the cake module, and couldn't do anything anymore. The stawberry spirit proudly look at poor Felyne and send him into heating oven.
 
 - **Characters**  
   _(Who are the main characters, their motivations, relationships, and appearances?)_
 
   - **Felyne**
-    The character player controls, it is a cat who loves baking, his goal is to successfully bake a cake, which brings satisfaction and joy, completing the emotional arc from disappointment to delight.
-    <p align="left">
-    <img src="Images/Felyne.png" width="300">
-    </p>
-
+    The character player controls, it is a cat who loves baking, his goal is to successfully bake a cake.
+    ![alt text](image-12.png)
   - **Strawberry spirit**
     The character appeared in Felyne's dream, motivating Felyne to bake the cake. She is not bad by nature, but if you cannot do what she asks, you will still be punished in some way...
+    ![alt text](image-11.png)
 
 ---
 
 ### 3. Gameplay and Mechanics
 
 - **Player Perspective**  
-  This is a 3D platformer game, emphasising on exploring/adventure, collecting items and QTE. The game has a third-person perspective during adventure. Camera is automatically following PC model along left and right. The player character is a shrunken cat walking in a normal (cat-size) "dangerous" kitchen, making everyday objects feel giant and dangerous.
+  This is a 3D platformer game, emphasising on exploring/adventure, collecting items and QTE. The game has a third-person perspective during adventure. Camera is automatically following PC model along left and right. The player character is a shrunken cat walking in a normal (cat-size) "dangerous" kitchen, making everyday objects feel giant and dangerous. And during QTE events, the camera switches to first-person perspective towards target (i.e. cake, mixture and oven).
 
 - **Controls** 🎮
 
   - A/D - Move left/right (x-axis)
   - W/S - Move into/out of wall/screen (z-axis)
-  - Space - Jump (y-axis) and used in Quick Time Event when prompted.
+  - Space - Jump (y-axis), press twice for double jump and used in Quick Time Event when prompted.
   - E - picking up and dropping the item
-  - Q - opening door of appliance, entering QTE part (when holding item and close to module)
-  - Esc - Direct player to Pause Menu.
+  - Q - opening door of appliance, entering QTE part
+  - R - picking up and sending pot to the oven or its fixed location
 
     There is no special control or combo in this game because we want the controls be minimal to keep the player focus on exploration. Player will control the character via these buttons to explore the kitchen, finding the ingredients they need, mixing them together and finally get the cake baked.
 
@@ -124,41 +95,48 @@ king games, and animal-themed characters. Accessible enough for casual play but 
   The game has a variety of obstacles and challenges, which increase in difficulty as the game progresses.
   Types of obstacles:
 
-  - Static Obstacles (Can pass through jumping at appropriate point): decorations (e.g. plants, unused food ingredients ...), furniture and pots...
+  - Static Obstacles (Can pass through jumping at appropriate point): plants, furniture ...
   - Dynamic Obstacles (Increase difficulties): gas cylinder which spews fire periodically, must choose the optimally to jump over it; mice as enemies on the ground, they patrol along a fixed route, colliding with them results in failure;
-    (Alt: Steam comes out of the kettle, which will make the screen very blurred.)
-  - Quick Time Event: Before sending the cake to the oven, player will first mixture each ingredient in a proper proportion. We introduce a QTE (refer to Dead by Daylight) to control the proportion of cake batter and the temperature. QTE is triggered when
-  - PC is close to cake module and hold ANY ingredient -> putting ingredients into module to make mixture
-  - All QTEs for mixtures are completed -> set oven temperature for baking the cake
-    ![alt text](Images/QTE_bar.png)
+  - Quick Time Event (QTE): QTEs are introduced to make the baking process interactive and skill-based. When Felyne adds ingredients to the mixture, decorates the cake, or sets the oven temperature, a QTE sequence is triggered to determine accuracy and success. These events control the proportion of ingredients and baking temperature, directly affecting the final result of the cake.
 
-    Over time, hazards become faster and more frequent, punishing players who has no movement for a long time.
-    There are several types of **Bad End**:
+    - Ingredient Mixing: Triggered when the player character approaches the cake module while holding any ingredient. Successful QTE input ensures proper mixing ratios.
 
-    1. Collide with mouse: The character shouldn’t work anymore since it becomes dirty.
-    2. Fail to make an expected cake: Due to failure of QTE, the ingredients for cake are not in a right proportion, or oven's temeperature set incorrectedly. The "dream" cake is failed to made in the end.
+    - Baking Preparation: Once all ingredient-mixing QTEs are completed, a final QTE appears to set the correct oven temperature for baking.
+      ![alt text](Images/QTE_bar.png)
+
+    Considering the introduction of Quick Time Event, we develop a scoring system (Perfect: +10; Good: +5; Miss: 0; If ingredient is not in the list: score locks into 0) to record the scores that player get. The cumulative score determined by result form QTE will lead to BE or He.
+
+    **Bad End**:
+    The player fails to collect all ingredients or makes mistakes during QTEs, such as incorrect ingredient choice, wrong proportions, or unsuitable oven temperature. If the final score is lower than 80% of full score, it will end up with a ruined cake and Felyne’s dream collapsing once again, leaving him disappointed.
 
     **Happy End**:
     The player successfully collects all ingredients, overcomes hazards, and bakes a perfect cake with correct ingredient choice, amount and oven temperature. The reward is a delicious-looking cake and the mastery of cooking skills.
-    Considering the introduction of Quick Time Event, we develop a scoring system (Perfect: +50; Good: +20; Miss: 0; If ingredient is not in the list: -10) to record the scores that player get. The cumulative score determined by result form QTE will lead to BE or He.
 
 - **Gameplay Mechanics**  
   This game includes adventure, items collection, Quick Time Event leads to multiple endings. The whole adventure process is:
 
-  1. Explore the kitchen + Collect ingredients
-  2. Perform QTE to put holding ingredient into module for mixture
-  3. Repeat Step 1-2 until done
-  4. Bake the cake by choosing oven temperature (QTE).
+  1. Explore the kitchen + Collect ingredients for **mixture**
+  2. Perform QTE to put holding ingredient into module for **mixture**
+     Repeat Step 1-2 until done
+  3. Bake the cake by choosing oven temperature (QTE).
+  4. Explore the kitchen + Collect ingredients for **decoration**
+  5. Perform QTE to put holding ingredient on the baked cake for **decoration**
+     Repeat Step 4-5 until done
+  6. Go to ending
+
+  - at any time, player may:
+    - choose to early finish, go to the ending
+    - die during adventure (loss 3 Hp due to fire or mice)
 
   **Rules & Actions**:
 
   - The player can carry and drop items and perform jumps to different levels, move left, right, into, out of the screen
-  - Hazards and/or obstacles must be avoided through movement.
-  - Results of QTEs determine whether the player achieves success or failure.
+  - Hazards and/or obstacles must be avoided through movement, otherwise -1 Hp (3 in total)
+  - Results of QTEs and correctness of ingredients used for making cake determine whether the player achieves success or failure.
 
   **Fun fact**:
 
-  This game aims to make a good cake. The combination of familiar platformer, normal obstacles, and the payoff of creating a cake makes the game both challenging and rewarding. The mini cat adds a layer of fantasy, making the kitchen environment like a fantastic yet dangerous world.
+  As Felyne, you can put almost anything into the cake—experiment freely, but don’t be surprised if your masterpiece turns into a disaster!
 
 ---
 
@@ -167,21 +145,22 @@ king games, and animal-themed characters. Accessible enough for casual play but 
 - **Game World**  
   _(Is it 2D, 2.5D, 3D? How does navigation work? Maps/minimaps?)_
 
-  The game takes place in a single, continuous kitchen setting, presented as a side-scrolling **3D platformer**. The camera follows the player character left to right. Player navigates through the kitchen by jumping across platform, climbing furniture and avoiding mice and hazards. Hint will be provided to the player what to do next; when character approaches an interactive item, a prompt will indicate which key to press.
+  The game takes place in a single, continuous kitchen setting, presented as a side-scrolling **3D platformer**. The camera follows the player character left to right. Player navigates through the kitchen by adventure across the kitchen and avoiding mice and hazards. Outline highlight will occur when character approaches an interactive item (different color for doors and ingredients).
 
-  The kitchen is designed as one large level with multiple sections: cooking table, fridge, oven and so on. Each section contains baking ingredients, obstacles and some platform challenges.
+  The kitchen is designed with multiple sections: cooking table, fridge, oven, gas cylinders and so on. Each section contains baking ingredients, obstacles and some platform challenges.
 
-  (opt) A mini-map is displayed in the upper-left corner of the screen, it highlights the character’s current position, marks the location of uncollected ingredients and provided a overview of the total layout.
+  There is no map/minimap, encouraging players to explore visually and rely on environmental cues to guide progress through the kitchen.
 
 - **Objects**  
-  \_(What interactive objects exist, and how do they interact?)
-
-  | Category                | Objects (examples)                                               | Appearance / Location                                                               | Role with Player                                                                                     | Interaction with Others                                                                                                                             |
-  | ----------------------- | ---------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-  | Ingredients for cake 🍰 | Flour, cream, sugar, straberry🍓, egg🥚, milk🥛                  | Found in storage spots (closet, table, fridge, drawer) through player's interaction | Player can pick/drop, collect for the recipe                                                         | Combined together to make cake mixture                                                                                                              |
-  | Utensils🍴              | Cup, mixing bowl🥣, spoon🥄, eggbeater, cake mould (pot w/o lid) | On counter                                                                          | Only cake module is used to put mixture in, others are obstacles/decorators                          | Cake module: Hold or process ingredients and perform a Quick Time Event (QTE) bar to put correct amount for cake mixture; cake mould goes into oven |
-  | Appliances              | Oven♨️, fridge❄️                                                 | Fixed kitchen objects                                                               | Player opens fridge to get cold items; uses oven to bake cake with QTE bar for temperature selection | Fridge stores ingredients; oven bakes mixture inside cake module once finished                                                                      |
-  | Scene Props             | Counter, tank, table, chair                                      | Environment setting                                                                 | Provides context; not directly interactive                                                           | Frames where interactions happen                                                                                                                    |
+   \_(What interactive objects exist, and how do they interact?)
+  | **Category** | **Objects (Examples)** | **Appearance / Location** | **Role with Player** | **Interaction with Others** |
+  | ------------------------- | -------------------------------------------- | -------------------------------------------------- | --------------------------------------------------------------- | ------------------------------------------------------------------- |
+  | **Correct Ingredients** | Egg 🥚, Milk 🥛, Flour, Sugar, Strawberry 🍓, Butter, Cream | Placed around the kitchen (table, shelves, fridge) | Can be picked up and used in QTEs to make mixture or decoration | Used with cake modules to increase score and progress toward **HE** |
+  | **Incorrect Ingredients** | Other Kitchen Items | Mixed among real ingredients | Can be picked up but cause **score = 0** when used in QTEs | Treated as failure input; may lead to **BE** if repeatedly used |
+  | **Modules / Stations** | Mixing Pot, Cake Base, Oven | Fixed in main kitchen zones | Trigger QTEs when interacted with while holding items | Connected to QTE and scoring system (determines HE/BE) |
+  | **Hazards** | Gas Cylinders 🔥, Open Flames | Floor and oven areas | Deal −1 HP on contact | Ignite periodically; overlap with platform paths |
+  | **Enemies** | Mice 🐭 | Patrol the floor | Colliding causes −1 HP | May chase dropped ingredients |
+  | **Utility / UI** | Appliance Doors, Checklist, QTE Bar | At appliances / on-screen | Provide prompts and track QTE timing | Update dynamically based on player actions |
 
 - **Physics**  
   _(What physics are present? Gravity, collisions, interactions?)_
@@ -189,19 +168,22 @@ king games, and animal-themed characters. Accessible enough for casual play but 
 - **Gravity**: real-world gravity
 
   **Movement Rules**:
-
-  | Category             | Movable?                    |
-  | -------------------- | --------------------------- |
-  | Ingredients for cake | ✅ Pick/drop by player      |
-  | Appliances           | ❌ Heavy objects can’t move |
-  | Scene Props          | ❌ Static, only background  |
+  | **Category** | **Movable?** |
+  | --------------------------------------------------------- | ------------------------------------------------------------------------------ |
+  | **Any Ingredients** (outlined in cyan when nearby) | ✅ Pick up / drop by player |
+  | **Incorrect Ingredients** (i.e. not on the checklist for current stage of baking) | ✅ Pick up / drop, but cause QTE failure |
+  | **Appliances** (oven, fridge, mixer) | ❌ Heavy objects – cannot move |
+  | **Mice (Enemies)** | 🚫 Player cannot move them, but they **move autonomously** along patrol routes |
+  | **Scene Props** (furniture, utensils, background objects) | ❌ Static – decorative only |
 
   **Collision Rules**:
-
-| A / B          | Player                 | Ingredient                                                |
-| -------------- | ---------------------- | --------------------------------------------------------- |
-| **Player**     | —                      | ✅ Trigger: pick/drop to collect, QTE to determine amount |
-| **Ingredient** | ✅ Triggered by Player | —                                                         |
+  | **A / B** | **Player** | **Ingredient (Correct / Incorrect)** | **Hazard (Flame / Gas Cylinder)** | **Enemy (Mouse)** | **Module (Mixing Pot / Oven / Cake Base)** |
+  | ----------------- | --------------------------------------------- | ----------------------------------------------------------------- | --------------------------------- | ------------------------------- | --------------------------------------------------------------------- |
+  | **Player** | — | ✅ **Trigger:** pick/drop item; start QTE when holding near module | ❌ **−1 HP:** damaged on contact | ❌ **−1 HP:** damaged on contact | ✅ **Trigger:** QTE when holding ingredient; can **carry pot to oven** |
+  | **Ingredient** | ✅ Picked up / dropped by player | — | - | - | ✅ Used in QTE when placed correctly |
+  | **Hazard** | ❌ Damages player on contact | — | — | — | — |
+  | **Enemy (Mouse)** | ❌ Damages player on contact | — | — | — | — |
+  | **Cake Module/Pot** | ✅ Trigger QTE or send to the oven when player interacts | ✅ Accepts ingredient input | — | — | — |
 
 Note: each cell for A/B represents collision rule between object type A and B
 
@@ -212,7 +194,7 @@ Note: each cell for A/B represents collision rule between object type A and B
 - **Art Style**  
   _(Overall aesthetic, colors, shapes, textures. Include concept art/sketches if possible.)_
 
-  Our aesthetic is cozy, cute, and calm. The world is a softly lit 2.5D kitchen where pastel pinks and creams set the mood, lightly accented with mint. Objects use rounded, chunky shapes and clean, low contrast textures (matte wood, glossy ceramic, brushed metal) so everything reads clearly at a glance.
+  Our aesthetic is cozy, cute, and calm. The world is a softly toon-styled kitchen where pastel pinks and creams set the mood, lightly accented with mint. Objects use rounded, chunky shapes and clean, low contrast textures (matte wood, glossy ceramic, brushed metal) so everything reads clearly at a glance.
 
   **Draft game screen arragnement**:
     <p align="left">
@@ -226,7 +208,7 @@ Note: each cell for A/B represents collision rule between object type A and B
 
   ![Sketch-Scene](Images/Sketch-Scene.png)
 
-  **Asset looks**:
+  **Original Kitchen Asset looks**:
     <p align="left">
     <img src="Images/draft_model.png" width="500">
     </p>
@@ -240,10 +222,24 @@ Note: each cell for A/B represents collision rule between object type A and B
 
   - **Sound and Music**  
     _(What sound effects/music are used? How do they fit the theme?)_
+    Warm, lo-fi music sets a cozy tone on the home page and continues in gameplay, subtly layering up during action while staying relaxed during calm moments. Endings switch to BGM that matches the mood—bright and uplifting for the happy ending, subdued and minor for the bad ending. Sound effects are simple, fun, and cartoon-like (soft pops, whooshes, sparkles, playful UI clicks).
 
-    - relaxed lo-fi/acoustic: refer to [Pure Imagination (from "Wonka") instrumental](https://www.youtube.com/watch?v=texdguuTAEk&list=RDtexdguuTAEk&start_radio=1)
+    - BGM:
 
-    - gentle kitchen foley (clinks, whisk swirls)
+      - start scene: [始めようよ!](https://music.youtube.com/watch?v=fJrddZxgOmU&si=0cajChgF8QdpXnGt)
+      - gameplay:[Heartbeat, Heartbreak](https://www.youtube.com/watch?v=_ADWQRk58Hk)
+      - BE: [CULT](https://music.youtube.com/watch?v=I2lhXF1OKCI&si=VdYWmLyB8sIsqOCd)
+      - HE: [はれ模様](https://music.youtube.com/watch?v=jojlvQt_SUg&si=7dN381qlWhjXUCjw)
+
+    - Sound effects:
+      - UI sound effect from Persona 4 Golden
+      - Dialogue sound effect: from Ace Attorney
+      - Others: from
+        - [pixabay](https://pixabay.com/sound-effects/)
+        - [YouTube @SoundLibrary1](https://www.youtube.com/@SoundLibrary1)
+        - [Unity AssetStore](https://assetstore.unity.com/audio/sound-fx)
+
+  ![alt text](image-13.png)
 
   - **Assets**  
     _(List artistic assets you will use or source, with references/URLs.)_
@@ -255,33 +251,64 @@ Note: each cell for A/B represents collision rule between object type A and B
     - [Toony Kitchen & Ingredients Model FREE](https://assetstore.unity.com/packages/3d/props/toony-kitchen-ingredients-model-free-301805)
     - [Match 3d Object Pack: Fruits & Vegetables](https://assetstore.unity.com/packages/3d/props/food/match-3d-object-pack-fruits-vegetables-284706)
     - [Little Friends - Cartoon Animals - Lite](https://assetstore.unity.com/packages/3d/characters/animals/little-friends-cartoon-animals-lite-262505)
+    - [Quirky Series - FREE Animals Pack | 3D Animals | Unity Asset Store](https://assetstore.unity.com/packages/3d/characters/animals/quirky-series-free-animals-pack-178235)
+    - [Stylized Potted Plants](https://assetstore.unity.com/packages/3d/vegetation/plants/stylized-potted-plants-290047?srsltid=AfmBOopTa7OHiLdhDa-i1igkPeSsVq7F1chcbyOl6DlauJphn4-JDAug)
+    - [Legacy Particle Pack](https://assetstore.unity.com/packages/vfx/particles/legacy-particle-pack-73777)
+    - [Food Pack | Free Demo | 3D Food | Unity Asset Store](https://assetstore.unity.com/packages/3d/props/food/food-pack-free-demo-225294)
 
 ---
 
 ### 6. User Interface (UI)
 
-The game's user interface design focuses on showing the warmth of the kitchen, by using soft and appetizing colors — cream, light pink, and strawberry red — with rounded corners to match the fantasy and whimsical atmosphere of Felyne’s adventure.
+The game's user interface design focuses on showing the warmth of the kitchen, by using soft and appetizing colors with mainly cute food and cat icon.
 
-**Main Menu**:
+**Start Menu**:
 
-Includes the game title and a Start Game button. Background is a 2D cg related to back story of our game.
+Includes the game title and a Start Game button. Background is a 2D cg with simple background and a Felyne in the middle.
+
+![alt text](image-8.png)
 
 **Tutorial Display**:
 
-Automatically appears at the beginning or when the player clicks on “How to Play". Shows the control keys, short descriptions of each action, with simple circular icons illustrating them.
+Automatically appears at the beginning or when the player clicks on Tutorial button in pause menu. Shows the control guide, short descriptions of each action and task.
+
+![alt text](image-9.png)
 
 **In-Game HUD**:
 
-- Ingredient Tracker (list): Small icons of sugar, flour, eggs, etc., arranged at the top left of the screen. Filled icons indicate collected ingredients.
-- Score: Popping out once the cake is baked, indicating the quality of the cake.
+- Hp: display player's current health point
+
+![alt text](image-14.png)
+
+- Hint for pot direction: guide player to find pot/cake module
+
+![alt text](image-15.png)
+
+**Buttons**
+
+- checklist button: click to show checklist of ingredients (tick if already put in during correct stage)
+
+  ![alt text](image-17.png)
+
+  ![alt text](image-18.png)
+
+- pause button: click to pause the game and pop up pause menu
+
+  ![alt text](image-19.png)
+
+- finish now: click to submit cake early (if want to terminate game play or can't find more ingredients for cake)
+
+  ![alt text](image-21.png)
 
 **Pause Menu**:
+Display when click pause button, with **Resume**, **Restart**, **Tutorial** and **Exit** buttons on it
 
-Pause button is placed at the top right corner of the screen. By left clicking it, player will be directed to pause menu. Overlays a semi-transparent panel with **Resume**, **Restart**, **View tutorial** and **Quit** buttons once click.
+- Resume: continue game play
+- Restart: restart the game
+- Tutorial: view tutorial
+- Exit: quit the game
 
-**Game Over Screen**:
-
-When the story finishes, a large wooden board drops down from the top of the screen, and the background will be blurred covering the last scene. If the player succeeds, the board says “Congrats!”, decorated with strawberries and a finished cake. If they fail, it shows “Sorry…” with splashes of flour or batter. Below the message, buttons are placed to allow the player to Retry, Return to Menu, or Quit.
+![alt text](image-20.png)
 
 ---
 
@@ -293,6 +320,8 @@ When the story finishes, a large wooden board drops down from the top of the scr
 Optional: image/audio editing, 3D modelling tools Include version numbers and links if relevant.
 
 - **Procreate**
+- **PhotoShop**
+- **CapCut**
 
 ---
 
@@ -305,8 +334,10 @@ Optional: image/audio editing, 3D modelling tools Include version numbers and li
 
   Try to finish everything 3 days before milestone due dates. 1-2 meeting every week to discuss and catchup.
 
-  **Task Assignment**: (Detail for Milestone 4)
-  ![alt text](image.png)
+  **Task Assignment**:
+  ![alt text](image-22.png)
+  ![alt text](image-23.png)
+  ![alt text](image-24.png)
 
 ---
 
