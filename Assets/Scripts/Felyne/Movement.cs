@@ -39,10 +39,6 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
     [Header("Jump & Land Sound")]
     public AudioClip jumpClip;
 
-    // NOTE: we are REMOVING lowJumpGravityMultiplier logic because we always
-    // want fixed jump height no matter how long Space is held.
-    // float lowJumpGravityMultiplier = 4.0f;
-
     Rigidbody rb;
     Vector3 input;
     bool onGround = true;
@@ -50,8 +46,8 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
 
     private Animator animator;
 
-    public int maxJumps = 1;     // 1 = normal jump only, 2 = double jump
-    private int jumpCount = 0;   // how many jumps we've done since last grounded
+    public int maxJumps = 1;
+    private int jumpCount = 0;
 
     void Awake()
     {
@@ -91,21 +87,17 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
             animator.SetBool("isRun", input.sqrMagnitude > 0.01f);
         }
 
-        // --- JUMP INPUT ---
-        // Press Space = attempt jump, regardless of held time. Always same height.
-        // We allow jumping if jumpCount < maxJumps.
+
         if (Input.GetKeyDown(KeyCode.Space) && jumpCount < maxJumps)
         {
             DoJump();
         }
 
-        // sync jump anim flag
         if (animator != null)
         {
             animator.SetBool("isJump", !onGround);
         }
 
-        // Footstep sound logic
         if (onGround && input.sqrMagnitude > 0.01f && animator != null && animator.GetBool("isRun"))
         {
             stepTimer -= Time.deltaTime;
@@ -121,29 +113,22 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
         }
     }
 
-    // Actually perform the jump
     void DoJump()
     {
         if (footstepSource && jumpClip)
             footstepSource.PlayOneShot(jumpClip, 0.139f);
         float g = Mathf.Abs(Physics.gravity.y);
 
-        // set vertical velocity to the exact jump speed needed for chosen jumpHeight
         Vector3 v = rb.linearVelocity;
         v.y = Mathf.Sqrt(2f * g * jumpHeight);
         rb.linearVelocity = v;
 
-        // we're now airborne
         onGround = false;
-
-        // count this jump
         jumpCount++;
 
         if (animator != null)
         {
             animator.SetBool("isJump", true);
-            // OPTIONAL: trigger a separate double-jump anim on 2nd jump:
-            // if (jumpCount == 2) animator.SetTrigger("DoubleJump");
         }
     }
 
@@ -159,7 +144,6 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
     {
         RefreshGrounded();
 
-        // Movement (planar accel/decel)
         Vector3 planarVel = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
         Vector3 desired = input * moveSpeed;
         Vector3 delta = desired - planarVel;
@@ -170,7 +154,6 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
         if (delta.magnitude < maxStep) force = delta / Time.fixedDeltaTime;
         rb.AddForce(force, ForceMode.Acceleration);
 
-        // Rotation
         if (input.sqrMagnitude > 0.01f)
         {
             lastLookDir = input;
@@ -182,28 +165,20 @@ public class PlayerMovePhysicsSafe : MonoBehaviour
             rb.angularVelocity = Vector3.zero;
         }
 
-        // Z-lane clamp
         Vector3 pos = rb.position;
         pos.z = Mathf.Clamp(pos.z, zMin, zMax);
         rb.position = pos;
 
-        // Better gravity feel
         if (!onGround)
         {
-            // falling faster feels nicer
             if (rb.linearVelocity.y < 0f)
             {
                 rb.AddForce(Physics.gravity * (fallGravityMultiplier - 1f), ForceMode.Acceleration);
             }
-
-            // IMPORTANT:
-            // we REMOVED the "low jump" gravity boost when Space is released.
-            // That was causing short hops. Now every jump uses same velocity and
-            // same gravity curve, so jump height is consistent.
         }
     }
 
-    // Grounding helper
+
     void RefreshGrounded()
     {
         if (!Capsule)

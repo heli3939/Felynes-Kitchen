@@ -374,9 +374,9 @@ Integrated within Unity’s forward rendering pipeline, this effect draws during
 
 ## Summary of Contributions
 
-code contribution on each .cs/.shader
+major code contribution on each .cs/.shader
 
-_KEXIN LIANG:_
+_Kexin Liang:_
 
 - OpenDoor.cs
 - playerHealth.cs
@@ -398,7 +398,8 @@ _KEXIN LIANG:_
 - Switch_Camera.cs
 - PickDrop_Ingredients.cs
 
-*Sunny(Difei) Li:*
+_Sunny (Difei) Li:_
+
 - DialogManager.cs
 - TestDialogue.cs
 - IntroTutorial.cs
@@ -414,13 +415,21 @@ _KEXIN LIANG:_
 - StartScene.cs
 - StartSceneBGM.cs
 
-## References and External Resources
+_Cassie (Xinyue) Luo:_
 
-TODO - see specification for details
+- Movement.cs
+- ChecklistItem.cs
+- Checklist.cs
+- RandomFlame.cs
+- CelShading.shader
+
+## References and External Resources
 
 - Gonzalez Vivo, P., & Lowe, J. (n.d.). Noise. The Book of Shaders. https://thebookofshaders.com/11/
 - NVIDIA Corporation. (n.d.). GPU Gems. NVIDIA Developer. https://developer.nvidia.com/gpugems
 - Quilez, I. (n.d.). Fractal Brownian Motion. Inigo Quilez - Computer Graphics, Mathematics, Shaders, Fractals, Demoscene and More. https://iquilezles.org/articles/fbm/
 - Unity Technologies. (n.d.-a). Blending. Unity Documentation. https://docs.unity3d.com/Manual/SL-Blend.html
 - Unity Technologies. (n.d.-b). GrabPass. Unity Documentation. https://docs.unity3d.com/Manual/SL-GrabPass.html
+- Unity Technologies. (n.d.-d). Legacy Particle Pack [Unity Asset Store]. https://assetstore.unity.com/packages/vfx/particles/legacy-particle-pack-73777
+- Unity Technologies. (n.d.-c). Particle effect. Unity Documentation. https://docs.unity3d.com/6000.2/Documentation/Manual/ParticleSystems.html
 - Unity Technologies. (n.d.-c). SubShader tags. Unity Documentation. https://docs.unity3d.com/Manual/SL-SubShaderTags.html
