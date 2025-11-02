@@ -398,7 +398,21 @@ _KEXIN LIANG:_
 - Switch_Camera.cs
 - PickDrop_Ingredients.cs
 
-_Cassie Luo:_
+*Sunny(Difei) Li:*
+- DialogManager.cs
+- TestDialogue.cs
+- IntroTutorial.cs
+- TutorialManager.cs
+- BGMManager.cs
+- gameOverManager.cs
+- QTEController.cs
+- QTEManager.cs
+- ScoreSystem.cs
+- Switch_Camera.cs
+- PickDrop_Ingredients.cs
+- Ending.cs
+- StartScene.cs
+- StartSceneBGM.cs
 
 ## References and External Resources
 
