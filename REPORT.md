@@ -351,6 +351,22 @@ code contribution on each .cs/.shader
 - Switch_Camera.cs
 - PickDrop_Ingredients.cs
 
+*Sunny(Difei) Li:*
+- DialogManager.cs
+- TestDialogue.cs
+- IntroTutorial.cs
+- TutorialManager.cs
+- BGMManager.cs
+- gameOverManager.cs
+- QTEController.cs
+- QTEManager.cs
+- ScoreSystem.cs
+- Switch_Camera.cs
+- PickDrop_Ingredients.cs
+- Ending.cs
+- StartScene.cs
+- StartSceneBGM.cs
+
 ## References and External Resources
 TODO - see specification for details
 
