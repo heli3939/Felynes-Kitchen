@@ -393,9 +393,6 @@ _Kexin Liang:_
 - highlighter.cs
 - heatWave.cs
 - HeatWave.shader
-- QTEInteraction.cs
-- QTEManager.cs
-- Switch_Camera.cs
 - PickDrop_Ingredients.cs
 
 _Sunny (Difei) Li:_
