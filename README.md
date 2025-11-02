@@ -68,10 +68,10 @@ Felyne investigates the BIG kitchen, spots and collects ingredients in kitchen, 
 
   - **Felyne**
     The character player controls, it is a cat who loves baking, his goal is to successfully bake a cake.
-    ![alt text](image-12.png)
+    ![alt text](./ImagesForMD/image-12.png)
   - **Strawberry spirit**
     The character appeared in Felyne's dream, motivating Felyne to bake the cake. She is not bad by nature, but if you cannot do what she asks, you will still be punished in some way...
-    ![alt text](image-11.png)
+    ![alt text](./ImagesForMD/image-11.png)
 
 ---
 
@@ -102,7 +102,7 @@ Felyne investigates the BIG kitchen, spots and collects ingredients in kitchen, 
     - Ingredient Mixing: Triggered when the player character approaches the cake module while holding any ingredient. Successful QTE input ensures proper mixing ratios.
 
     - Baking Preparation: Once all ingredient-mixing QTEs are completed, a final QTE appears to set the correct oven temperature for baking.
-      ![alt text](Images/QTE_bar.png)
+      ![alt text](./ImagesForMD/Images/QTE_bar.png)
 
     Considering the introduction of Quick Time Event, we develop a scoring system (Perfect: +10; Good: +5; Miss: 0; If ingredient is not in the list: score locks into 0) to record the scores that player get. The cumulative score determined by result form QTE will lead to BE or He.
 
@@ -206,19 +206,19 @@ Note: each cell for A/B represents collision rule between object type A and B
     ![#c3f7b3](https://placehold.co/15x15/c3f7b3/c3f7b3.png) Untensils
     ![#f7dab3](https://placehold.co/15x15/f7dab3/f7dab3.png) Scene Props as obstacles
 
-  ![Sketch-Scene](Images/Sketch-Scene.png)
+  ![Sketch-Scene](./ImagesForMD/Images/Sketch-Scene.png)
 
   **Original Kitchen Asset looks**:
     <p align="left">
-    <img src="Images/draft_model.png" width="500">
+    <img src="./ImagesForMD/draft_model.png" width="500">
     </p>
 
   **Art style references**
 
   - Cookie Run: Ovenbreak - game play screen
-    ![Cookie Run: Ovenbreak](Images/Cookie-Run.png)
+    ![Cookie Run: Ovenbreak](./ImagesForMD/Cookie-Run.png)
   - Overcooked2 - ingredient and untensils
-    ![Overcooked2](Images/Overcooked.png)
+    ![Overcooked2](./ImagesForMD/Overcooked.png)
 
   - **Sound and Music**  
     _(What sound effects/music are used? How do they fit the theme?)_
@@ -239,7 +239,7 @@ Note: each cell for A/B represents collision rule between object type A and B
         - [YouTube @SoundLibrary1](https://www.youtube.com/@SoundLibrary1)
         - [Unity AssetStore](https://assetstore.unity.com/audio/sound-fx)
 
-  ![alt text](image-13.png)
+  ![alt text](./ImagesForMD/image-13.png)
 
   - **Assets**  
     _(List artistic assets you will use or source, with references/URLs.)_
@@ -266,39 +266,39 @@ The game's user interface design focuses on showing the warmth of the kitchen, b
 
 Includes the game title and a Start Game button. Background is a 2D cg with simple background and a Felyne in the middle.
 
-![alt text](image-8.png)
+![alt text](./ImagesForMD/image-8.png)
 
 **Tutorial Display**:
 
 Automatically appears at the beginning or when the player clicks on Tutorial button in pause menu. Shows the control guide, short descriptions of each action and task.
 
-![alt text](image-9.png)
+![alt text](./ImagesForMD/image-9.png)
 
 **In-Game HUD**:
 
 - Hp: display player's current health point
 
-![alt text](image-14.png)
+![alt text](./ImagesForMD/image-14.png)
 
 - Hint for pot direction: guide player to find pot/cake module
 
-![alt text](image-15.png)
+![alt text](./ImagesForMD/image-15.png)
 
 **Buttons**
 
 - checklist button: click to show checklist of ingredients (tick if already put in during correct stage)
 
-  ![alt text](image-17.png)
+  ![alt text](./ImagesForMD/image-17.png)
 
-  ![alt text](image-18.png)
+  ![alt text](./ImagesForMD/image-18.png)
 
 - pause button: click to pause the game and pop up pause menu
 
-  ![alt text](image-19.png)
+  ![alt text](./ImagesForMD/image-19.png)
 
 - finish now: click to submit cake early (if want to terminate game play or can't find more ingredients for cake)
 
-  ![alt text](image-21.png)
+  ![alt text](./ImagesForMD/image-21.png)
 
 **Pause Menu**:
 Display when click pause button, with **Resume**, **Restart**, **Tutorial** and **Exit** buttons on it
@@ -308,7 +308,7 @@ Display when click pause button, with **Resume**, **Restart**, **Tutorial** and 
 - Tutorial: view tutorial
 - Exit: quit the game
 
-![alt text](image-20.png)
+![alt text](./ImagesForMD/image-20.png)
 
 ---
 
@@ -335,9 +335,9 @@ Optional: image/audio editing, 3D modelling tools Include version numbers and li
   Try to finish everything 3 days before milestone due dates. 1-2 meeting every week to discuss and catchup.
 
   **Task Assignment**:
-  ![alt text](image-22.png)
-  ![alt text](image-23.png)
-  ![alt text](image-24.png)
+  ![alt text](./ImagesForMD/image-22.png)
+  ![alt text](./ImagesForMD/image-23.png)
+  ![alt text](./ImagesForMD/image-24.png)
 
 ---
 
