@@ -102,7 +102,7 @@ Felyne investigates the BIG kitchen, spots and collects ingredients in kitchen, 
     - Ingredient Mixing: Triggered when the player character approaches the cake module while holding any ingredient. Successful QTE input ensures proper mixing ratios.
 
     - Baking Preparation: Once all ingredient-mixing QTEs are completed, a final QTE appears to set the correct oven temperature for baking.
-      ![alt text](./ImagesForMD/Images/QTE_bar.png)
+      ![alt text](./ImagesForMD/QTE_bar.png)
 
     Considering the introduction of Quick Time Event, we develop a scoring system (Perfect: +10; Good: +5; Miss: 0; If ingredient is not in the list: score locks into 0) to record the scores that player get. The cumulative score determined by result form QTE will lead to BE or He.
 
@@ -196,9 +196,9 @@ Note: each cell for A/B represents collision rule between object type A and B
 
   Our aesthetic is cozy, cute, and calm. The world is a softly toon-styled kitchen where pastel pinks and creams set the mood, lightly accented with mint. Objects use rounded, chunky shapes and clean, low contrast textures (matte wood, glossy ceramic, brushed metal) so everything reads clearly at a glance.
 
-  **Draft game screen arragnement**:
+  **Draft game screen arrangement**:
     <p align="left">
-    <img src="Images/kitchen_Scene_Sketch.jpg" width="500">
+    <img src="./ImagesForMD/kitchen_Scene_Sketch.jpg" width="500">
     </p>
             
     Note:![#ed7d95](https://placehold.co/15x15/ed7d95/ed7d95.png) Scene Props and  Appliances
