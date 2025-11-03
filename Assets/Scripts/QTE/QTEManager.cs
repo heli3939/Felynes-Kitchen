@@ -104,6 +104,10 @@ public class QTEManager : MonoBehaviour
             (holdPoint.childCount > 0 && (holdPoint.GetChild(0).tag == "CookingPot" || holdPoint.GetChild(0).tag == "Cake")))
             {
                 Debug.LogWarning("[QTEManager] QTE cannot start — player is not holding any item or holding pot/cake.");
+                if (hintUI != null)
+                    {
+                        hintUI.ShowHint("You should pick an ingredient first to start QTE.");
+                    }
                 return;
             }
             Debug.Log("[QTEManager] Current QTE item tag: " + currentItemTag);
