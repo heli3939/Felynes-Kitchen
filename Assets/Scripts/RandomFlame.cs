@@ -347,6 +347,9 @@ public class RandomFlame : MonoBehaviour
     {
         if (flameSound == null) return;
 
+        if (allFlames == null || allFlames.Length == 0 || allFlames[0] == null)
+            allFlames = FindObjectsOfType<RandomFlame>();
+
         if (flameAudioSource == null)
         {
             flameAudioSource = GetComponent<AudioSource>();
