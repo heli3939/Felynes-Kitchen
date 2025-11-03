@@ -92,6 +92,10 @@ public class QTEManager : MonoBehaviour
         if (holdPoint == null || holdPoint.childCount == 0)
         {
             Debug.LogWarning("[QTEManager] QTE cannot start — nothing in holdPoint.");
+            if (hintUI != null)
+                    {
+                        hintUI.ShowHint("You should pick an ingredient first to start QTE.");
+                    }
             return;
         }
 
