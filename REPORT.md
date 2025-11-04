@@ -255,7 +255,7 @@ To resolve this, we adjusted the code of these menus that temporarily disables a
 ### Player demographic
 
 The game testing participants were primarily friends or schoolmates of the developers, most of whom are young adults. Base on the Q&A during observation and the questionnaire results (Fig 1.), almost all participants had prior experience with platform games, regardless of whether they were beginners or advanced players. However, only a small portion had any experience in game development. Overall, the participant group aligned well with our target audience defined in the evaluation plan: casual gamers who enjoy platformer games but lack game development experience.  
-![alt text](image-1.png)  
+![alt text](./ImagesForMD/image-1.png)  
 Figure 1.
 
 ---
@@ -263,7 +263,7 @@ Figure 1.
 ### Game completion
 
 As shown in Figure2, half of the players completed the game within 15-30 minutes, while a quarter took more than 30 minutes, which was significantly longer than the 10 minutes we initially expected. However, this time included the period spent learning objectives, understanding movement and interaction control, location hidden ingredients, and repeating attempts after game overs. Considering these factors, a completion of 15-30 minutes can be regarded as a reasonable duration for new players.  
-![alt text](image-2.png)  
+![alt text](./ImagesForMD/image-2.png)  
 Figure2.
 
 ---
@@ -302,7 +302,7 @@ The questionnaire, created using Google Forms, consisted of several multiple-cho
 
 As show in Fig 3., most evaluation categories received positive feedback from players. However, areas such as goal clarity, control, performance and theme related showed some disagreement, indicating that serval aspects still require improvement.  
 Interestingly, while players appreciated the concept and story of the game, some felt that the gameplay itself did not fully convey the intended “miniature” theme. To address this gap, a character shrinking animation was added after the opening dialogue, making the miniature concept more visually.  
-![alt text](image-3.png)  
+![alt text](./ImagesForMD/image-3.png)  
 Figure 3.
 
 ---
@@ -312,7 +312,7 @@ Figure 3.
 Players showed the strongest appreciation for the game’s art style and storyline.  
  A great deal of effort went into maintaining a consistent, charming visual design and developing a cohesive narrative. We also created custom character portraits and CG illustrations for both the opening and ending scenes. The story follows a complete and satisfying arc: the character shrinks, explores a dangerous kitchen, and eventually returns to normal size after overcoming obstacles and baking a wonder cake. While the gameplay representation of the miniature theme was initially subtle, the story concept itself was similar to It Takes Two, which won the favors of players. Overall, players were most impressed by the art direction and game concept.
 
-![alt text](image-4.png)
+![alt text](./ImagesForMD/image-4.png)
 
 #### Top two features needing improvement
 
@@ -321,7 +321,7 @@ In an effort to maintain a consistent and visually appealing art style, some UI 
 Regarding the tutorial, although an introductory tutorial was added and played automatically after the opening dialogue, serval players mentioned that they did not carefully read through all the pages due to the large amount of text. Nevertheless, given the complexity of the controls and gameplay flow, it remains important to clearly explain the full mission and mechanics.  
 Due to technical and time limitation, we were unable to implement a step-by-step interactive tutorial that guides players dynamically during gameplay. This feature would help players learn through action rather than reading, which provided a key direction for out future improvement.
 
-![alt text](image-5.png)
+![alt text](./ImagesForMD/image-5.png)
 
 ## Shaders and Special Effects
 
@@ -336,7 +336,7 @@ In our project, we used this shader to enhance the visual experience. It creates
 The HeatWave shader uses GrabPass technology within Unity's rendering pipeline, working as follows:
 Unity first renders all opaque objects (Render Queue 2000) and the skybox (Queue 2500), then during the transparent rendering phase (Queue 2500+), it executes GrabPass to capture the current screen buffer into the _\_GrabTexture_ texture. The shader's fragment shader then uses procedurally-generated Fractal Brownian Motion (FBM) noise to calculate distortion offsets, which are applied to the GrabPass UV coordinates to sample warped background pixels. Finally, alpha blending (SrcAlpha OneMinusSrcAlpha) composites the distorted result over the scene, creating the heat wave visual effect. This screen-space technique's advantage is that it's independent of scene complexity and only depends on screen resolution, making it relatively performance-efficient for creating realistic atmospheric distortion effects that simulate light refraction through turbulent heated air.
 
-![HeatWaveGIF](heatWaveGIF.gif)
+![HeatWaveGIF](./ImagesForMD/heatWaveGIF.gif)
 
 ### _Cel-shading Shader_
 
@@ -358,7 +358,7 @@ Within Unity’s forward rendering pipeline, this shader executes during the opa
 
 Overall, this shader delivers clean, stylised shading with strong contrast that improves visual readability and complements the game’s warm and inviting tone.
 
-![alt text](image-6.png)
+![alt text](./ImagesForMD/image-6.png)
 
 ### _Fire Flame Particle System_
 
@@ -370,7 +370,7 @@ A flame sprite texture sheet animation provides smooth, looping fire movement. O
 
 Integrated within Unity’s forward rendering pipeline, this effect draws during the transparent pass with additive blending, overlaying glowing flames on opaque geometry. Together with the HeatWave distortion shader, it enhances atmosphere, visual depth, and realism around heat-emitting areas.
 
-![HeatWaveGIF](heatWaveGIF.gif)
+![HeatWaveGIF](./ImagesForMD/heatWaveGIF.gif)
 
 ## Summary of Contributions
 
